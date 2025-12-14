@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-11T01:08:19.257498+00:00",
+  "timestamp": "2025-12-14T01:13:00.314926+00:00",
   "repo": "philsbln/ipv6-app-testing",
   "labels": [
     {
@@ -1255,24 +1255,26 @@
       "id": "PR_kwDOPQtDQ864KX3Z",
       "title": "Spelling and grammar fixes",
       "url": "https://github.com/philsbln/ipv6-app-testing/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "kouellette",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-12-10T15:08:41Z",
-      "updatedAt": "2025-12-10T15:13:19Z",
+      "updatedAt": "2025-12-12T15:19:57Z",
       "baseRepository": "philsbln/ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "5f6460eeec701a165024aca28494be5f2e0503b9",
       "headRepository": "philsbln/ipv6-app-testing",
       "headRefName": "ko-typos",
       "headRefOid": "9a7e51c78d90928d50416e02cc1b1ef0203e99b3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-12T15:19:57Z",
+      "mergedAt": "2025-12-12T15:19:56Z",
+      "mergedBy": "kouellette",
+      "mergeCommit": {
+        "oid": "b4a5531d9e9b602bbfac7bc21c9439f75e302b46"
+      },
       "comments": [],
       "reviews": [
         {
