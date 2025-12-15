@@ -4,20 +4,19 @@
 
 This is the working area for the individual Internet-Draft, "Testing Applications' IPv6 Support".
 
-* [Editor's Copy](https://philsbln.github.io/ipv6-app-testing/#go.draft-tiesel-v6ops-ipv6-app-testing.html)
+* [Editor's Copy](https://ietf-wg-v6ops.github.io/draft-itef-v6ops-ipv6-app-testing/#go.draft-tiesel-v6ops-ipv6-app-testing.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-tiesel-v6ops-ipv6-app-testing)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-tiesel-v6ops-ipv6-app-testing)
-* [Compare Editor's Copy to Individual Draft](https://philsbln.github.io/ipv6-app-testing/#go.draft-tiesel-v6ops-ipv6-app-testing.diff)
+* [Compare Editor's Copy to Individual Draft](https://ietf-wg-v6ops.github.io/draft-itef-v6ops-ipv6-app-testing/#go.draft-tiesel-v6ops-ipv6-app-testing.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/philsbln/ipv6-app-testing/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/blob/main/CONTRIBUTING.md).
 
-Contributions can be made by creating pull requests.
-The GitHub interface supports creating pull requests using the Edit (✏) button.
-
+The contributing file also has tips on how to make contributions, if you
+don't already know how to do that.
 
 ## Command Line Usage
 
