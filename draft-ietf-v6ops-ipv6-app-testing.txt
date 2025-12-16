@@ -2,7 +2,7 @@
 
 
 
-IPv6 Operations                                             P. S. Tiesel
+v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
 Expires: 19 June 2026                                             Google
@@ -25,16 +25,15 @@ Abstract
    issues away and explains common regressions to avoid when deploying
    IPv6 support.
 
-Discussion Venues
+About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   Discussion of this document takes place on the IPv6 Operations
-   Working Group mailing list (v6ops@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/v6ops/.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-v6ops-ipv6-app-testing/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/philsbln/ipv6-app-testing.
+   https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing.
 
 Status of This Memo
 
@@ -247,8 +246,8 @@ Table of Contents
    The other combinations are unlikely to exhibit additional problems
    for client-server-based applications and therefore are marked as
    extended in Table 1.  For peer-to-peer applications and applications
-   with complex connection handling like using STUN [RFC5389] or TURN
-   [RFC5766], skipping these scenarios is strongly discouraged.
+   with complex connection handling like using STUN [RFC8489] or TURN
+   [RFC8656], skipping these scenarios is strongly discouraged.
 
      +======================+======================+================+
      | Client               | Server               | Classification |
@@ -776,11 +775,6 @@ Table of Contents
               <https://nvlpubs.nist.gov/nistpubs/specialpublications/
               NIST.SP.500-267Ar1.pdf>.
 
-   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
-              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
-              DOI 10.17487/RFC5389, October 2008,
-              <https://www.rfc-editor.org/rfc/rfc5389>.
-
    [RFC5766]  Mahy, R., Matthews, P., and J. Rosenberg, "Traversal Using
               Relays around NAT (TURN): Relay Extensions to Session
               Traversal Utilities for NAT (STUN)", RFC 5766,
@@ -808,9 +802,20 @@ Table of Contents
               DOI 10.17487/RFC8305, December 2017,
               <https://www.rfc-editor.org/rfc/rfc8305>.
 
+   [RFC8489]  Petit-Huguenin, M., Salgueiro, G., Rosenberg, J., Wing,
+              D., Mahy, R., and P. Matthews, "Session Traversal
+              Utilities for NAT (STUN)", RFC 8489, DOI 10.17487/RFC8489,
+              February 2020, <https://www.rfc-editor.org/rfc/rfc8489>.
+
    [RFC8504]  Chown, T., Loughney, J., and T. Winters, "IPv6 Node
               Requirements", BCP 220, RFC 8504, DOI 10.17487/RFC8504,
               January 2019, <https://www.rfc-editor.org/rfc/rfc8504>.
+
+   [RFC8656]  Reddy, T., Ed., Johnston, A., Ed., Matthews, P., and J.
+              Rosenberg, "Traversal Using Relays around NAT (TURN):
+              Relay Extensions to Session Traversal Utilities for NAT
+              (STUN)", RFC 8656, DOI 10.17487/RFC8656, February 2020,
+              <https://www.rfc-editor.org/rfc/rfc8656>.
 
    [Selenium] "Selenium WebDriver", n.d., <https://www.selenium.dev/>.
 
