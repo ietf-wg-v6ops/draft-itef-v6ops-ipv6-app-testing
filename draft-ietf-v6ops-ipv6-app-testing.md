@@ -178,7 +178,7 @@ We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{I-D.draf
 For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in {{scn_combinations}}.
 
 The other combinations are unlikely to exhibit additional problems for client-server-based applications and therefore are marked as extended in {{scn_combinations}}.
-For peer-to-peer applications and applications with complex connection handling like using STUN {{?RFC5389}} or TURN {{?RFC5766}}, skipping these scenarios is strongly discouraged.
+For peer-to-peer applications and applications with complex connection handling like using STUN {{?RFC8489}} or TURN {{?RFC8656}}, skipping these scenarios is strongly discouraged.
 
 | Client               | Server               | Classification |
 | :---                 | :---                 | :---:          |
