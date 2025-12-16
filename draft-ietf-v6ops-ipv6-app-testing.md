@@ -9,12 +9,16 @@ docname: draft-ietf-v6ops-ipv6-app-testing-latest
 submissiontype: IETF
 category: bcp
 ipr: trust200902
-area: ops
-wg: "IPv6 Operations"
+area: "Operations and Management"
+wg: v6ops
 keyword:
   - IPv6
   - Applications
   - Testing
+
+venue:
+  github: ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing
+  group: "IPv6 Operations"
 
 author:
  -
