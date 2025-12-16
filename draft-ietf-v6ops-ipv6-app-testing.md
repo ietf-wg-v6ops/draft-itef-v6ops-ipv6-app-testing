@@ -1,17 +1,20 @@
 ---
-title: "Testing Applications' IPv6 Support"
-abbrev: "ipv6-app-testing"
-docname: draft-tiesel-v6ops-ipv6-app-testing-latest
-category: bcp
-
-ipr: trust200902
-area: General
-workgroup: v6ops Working Group
-keyword: Internet-Draft
-
+v: 3
 stand_alone: yes
 smart_quotes: no
 pi: [toc, sortrefs, symrefs]
+title: "Testing Applications' IPv6 Support"
+abbrev: "ipv6-app-testing"
+docname: draft-ietf-v6ops-ipv6-app-testing-latest
+submissiontype: IETF
+category: bcp
+ipr: trust200902
+area: ops
+wg: "IPv6 Operations"
+keyword:
+  - IPv6
+  - Applications
+  - Testing
 
 author:
  -
@@ -24,8 +27,8 @@ author:
     fullname: Jen Linkova
     organization: Google
     email:
-     - furry13@gmail.com
-     - furry@google.com
+      - furry13@gmail.com
+      - furry@google.com
  -
     fullname: Kyle Ouellette
     organization: University of New Hampshire Interoperability Labs
