@@ -2,18 +2,18 @@
 
 
 
-v6ops Working Group                                         P. S. Tiesel
+IPv6 Operations                                             P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 15 June 2026                                             Google
+Expires: 19 June 2026                                             Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        12 December 2025
+                                                        16 December 2025
 
 
                    Testing Applications' IPv6 Support
-               draft-tiesel-v6ops-ipv6-app-testing-latest
+                draft-ietf-v6ops-ipv6-app-testing-latest
 
 Abstract
 
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 June 2026.
+   This Internet-Draft will expire on 19 June 2026.
 
 Copyright Notice
 
