@@ -2,12 +2,12 @@
 
 # Testing Applications' IPv6 Support
 
-This is the working area for the individual Internet-Draft, "Testing Applications' IPv6 Support".
+This is the working area for the IETF [V6OPS Working Group](https://datatracker.ietf.org/group/v6ops/documents/) Internet-Draft, "Testing Applications' IPv6 Support".
 
-* [Editor's Copy](https://ietf-wg-v6ops.github.io/draft-itef-v6ops-ipv6-app-testing/#go.draft-tiesel-v6ops-ipv6-app-testing.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-tiesel-v6ops-ipv6-app-testing)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-tiesel-v6ops-ipv6-app-testing)
-* [Compare Editor's Copy to Individual Draft](https://ietf-wg-v6ops.github.io/draft-itef-v6ops-ipv6-app-testing/#go.draft-tiesel-v6ops-ipv6-app-testing.diff)
+* [Editor's Copy](https://ietf-wg-v6ops.github.io/draft-itef-v6ops-ipv6-app-testing/#go.draft-ietf-v6ops-ipv6-app-testing.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-v6ops-ipv6-app-testing)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-app-testing)
+* [Compare Editor's Copy to Working Group Draft](https://ietf-wg-v6ops.github.io/draft-itef-v6ops-ipv6-app-testing/#go.draft-ietf-v6ops-ipv6-app-testing.diff)
 
 
 ## Contributing
