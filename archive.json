@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-16T01:28:11.047968+00:00",
+  "timestamp": "2025-12-18T01:24:07.528826+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -9,9 +9,9 @@
       "color": "d73a4a"
     },
     {
-      "name": "documentation",
-      "description": "Improvements or additions to documentation",
-      "color": "0075ca"
+      "name": "discuss",
+      "description": "Needs discussion",
+      "color": "e36f0b"
     },
     {
       "name": "duplicate",
@@ -49,6 +49,107 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOQpLumc7ej_99",
+      "title": "Discuss testing without 127.0.0.0/8 available",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/1",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/25 in repo migration \n\n@spmzt I think we should test applications to work without the 127.0.0.0/8 range available.\nThis is a real problem for us in production. For example, in FreeBSD there is an option to assign IPv4 and IPv6 stacks in a jail and when operating in an IPv6-only environment you don't want to assign the IPv4 stack. For many basic services we use (for example, BIND or Nginx) we must change the default configuration to replace 127.0.0.1 with ::1 to make them work.\n\n@tojens-ietf +1, as I have seen apps using addresses across the 127.0.0.0/8 space (not just 127.0.0.1) as a presumed constantly-available resource to achieve inter-process communication between processes of the same \"app\"",
+      "createdAt": "2025-12-16T09:36:24Z",
+      "updatedAt": "2025-12-16T09:52:07Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOQpLumc7ekD8Z",
+      "title": "Discuss testing with DNS vs. with IPv4/IPv6 literals",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/2",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/21 in repo migration \n\n@kouellette brought up whether it would be worthwhile to add a short sub-section either here or elsewhere in the document regarding the use of IP literals rather than FQDNs. \n\nWe should either add this to section 2.",
+      "createdAt": "2025-12-16T09:40:39Z",
+      "updatedAt": "2025-12-16T09:52:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOQpLumc7ekFdu",
+      "title": "Fix/broaden perspective of test scenarios",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/3",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "discuss"
+      ],
+      "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/15 in repo migration \n\nFrom Michael Richardson's early review on -00:\n> Maybe there are a few new sections needed for:\n> 1. residential IoT\n> 2. on-premise services and appliances.\n> 2b.  a subset of this would include Enterprise IoT.\n> 2c.  I think of routing/switching infrastructure as being the original IoT,\n    or, maybe, \"Things of Internet\"... because how does your XYZ vendor\n    routing platform call v4-home to validate licenses or update firmware\n    when there is no v4?\n> 3. Among the v6-only, but-not-v6-global, would include SNAC.\n  Right now, this mechanism is focused on low-speed, challenged STUB\n  Networks.   However, one interesting way to deploy a cluster of systems\n  (could even be entirely virtual) to an Enterprise would be with a v6-only\n  STUB network.\n\n@philsbln partially addressed in https://github.com/philsbln/ipv6-app-testing/pull/17 in a very abstract way.\nDo we want to address such scenarios explicitly or is it okay to just have an abstract enough definition including these scenarios?",
+      "createdAt": "2025-12-16T09:42:10Z",
+      "updatedAt": "2025-12-16T09:55:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOQpLumc7ekG35",
+      "title": "Reference RFC8520 in Section 6.2?",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/4",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "discuss"
+      ],
+      "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/13 in repo migration\n\nFrom Michael Richardson's early review on -00:\n> Section 6.2 might want to reference MUD, RFC8520.\n",
+      "createdAt": "2025-12-16T09:43:22Z",
+      "updatedAt": "2025-12-16T09:55:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOQpLumc7ekLoX",
+      "title": "Do we want to differentiate DNS64 vs local synthesis cases?",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/5",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/1 in repo migration\n\n@furry13 I think it might be useful to test with RFC8781 w/o DNS64 as a primary case and maybe have a separate case (?) for DNS64 presence?\nIt would be desirable to ensure that there are no dependencies on DNS64?\n\n@philsbln As part of a section on name resolution issues to look for, that makes very much sense.\n\u2794 @furry13 ideas who may want to contribute a section on that?\n\n@furry13 We might want to have a 'network topologies' section",
+      "createdAt": "2025-12-16T09:48:06Z",
+      "updatedAt": "2025-12-16T09:48:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOQpLumc7ekMyh",
+      "title": "Add/Mention customer support perspective",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/6",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/11 in repo migration\n\nFrom Michael Richardson's early review on -00:\n\n> I think the introduction might want to say more about how this document might\ninteract with diagnosis of end-customer problems. With the view to avoiding\nthe \"Just turn off IPv6\" that comes from many places, and which might just\nresult in confused tech-support when there winds up being no connectivity :-)",
+      "createdAt": "2025-12-16T09:49:15Z",
+      "updatedAt": "2025-12-16T09:51:32Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
