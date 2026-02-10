@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-08T02:26:27.791867+00:00",
+  "timestamp": "2026-02-10T02:13:54.846822+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -58,11 +58,13 @@
       "state": "OPEN",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "kouellette"
+      ],
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/25 in repo migration \n\n@spmzt I think we should test applications to work without the 127.0.0.0/8 range available.\nThis is a real problem for us in production. For example, in FreeBSD there is an option to assign IPv4 and IPv6 stacks in a jail and when operating in an IPv6-only environment you don't want to assign the IPv4 stack. For many basic services we use (for example, BIND or Nginx) we must change the default configuration to replace 127.0.0.1 with ::1 to make them work.\n\n@tojens-ietf +1, as I have seen apps using addresses across the 127.0.0.0/8 space (not just 127.0.0.1) as a presumed constantly-available resource to achieve inter-process communication between processes of the same \"app\"",
       "createdAt": "2025-12-16T09:36:24Z",
-      "updatedAt": "2025-12-16T09:52:07Z",
+      "updatedAt": "2026-02-09T10:51:27Z",
       "closedAt": null,
       "comments": []
     },
@@ -74,11 +76,13 @@
       "state": "OPEN",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "philsbln"
+      ],
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/21 in repo migration \n\n@kouellette brought up whether it would be worthwhile to add a short sub-section either here or elsewhere in the document regarding the use of IP literals rather than FQDNs. \n\nWe should either add this to section 2.",
       "createdAt": "2025-12-16T09:40:39Z",
-      "updatedAt": "2025-12-16T09:52:47Z",
+      "updatedAt": "2026-02-09T10:51:13Z",
       "closedAt": null,
       "comments": []
     },
@@ -108,13 +112,15 @@
       "state": "OPEN",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "kouellette"
+      ],
       "labels": [
         "discuss"
       ],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/13 in repo migration\n\nFrom Michael Richardson's early review on -00:\n> Section 6.2 might want to reference MUD, RFC8520.\n",
       "createdAt": "2025-12-16T09:43:22Z",
-      "updatedAt": "2025-12-16T09:55:49Z",
+      "updatedAt": "2026-02-09T10:50:08Z",
       "closedAt": null,
       "comments": []
     },
@@ -126,11 +132,13 @@
       "state": "OPEN",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "philsbln"
+      ],
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/1 in repo migration\n\n@furry13 I think it might be useful to test with RFC8781 w/o DNS64 as a primary case and maybe have a separate case (?) for DNS64 presence?\nIt would be desirable to ensure that there are no dependencies on DNS64?\n\n@philsbln As part of a section on name resolution issues to look for, that makes very much sense.\n\u2794 @furry13 ideas who may want to contribute a section on that?\n\n@furry13 We might want to have a 'network topologies' section",
       "createdAt": "2025-12-16T09:48:06Z",
-      "updatedAt": "2025-12-16T09:48:06Z",
+      "updatedAt": "2026-02-09T10:50:38Z",
       "closedAt": null,
       "comments": []
     },
