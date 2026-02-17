@@ -120,7 +120,7 @@ While the IETF does not define compliance tests, best current practice exists fo
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
 While many application developers assume that the network abstractions of the operating system (OS), communication libraries, and application frameworks will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists and logging.
-In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro- and macro-services, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
+In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
 Enabling these applications to communicate over IPv6 requires careful analysis of data flows within all services and proper IPv6 support in all components that may require IPv6 traffic, as well as IPv6 addresses as metadata.
 
 
@@ -446,11 +446,10 @@ This is often a recursive process.
 Sometimes IPv6 enablement requires touching components that are not actively maintained anymore.
 Be prepared for this and plan extra time or budget for updating or replacing these components.
 
-
 # Security Considerations
 
-The document itself has no specific security implications; thus, some of the issues discussed in {{failures}} have.
-
+The testing procedures described in this document do not create any new security implications.
+Some security-related issues that should be considered and ruled out by appropriate testing are discussed in {{failures}}.
 
 # IANA Considerations
 
@@ -467,4 +466,5 @@ Holger Füßler,
 Michael Richardson,
 Tommy Jensen,
 Nathan Sherrard,
+Jeremy Duncan,
 for the discussions, the input, and all contribution.
