@@ -214,14 +214,13 @@ should be considered for testing.
 | True IPv6-only       | Dual-Stack           | True IPv6-only |
 {: #scn_proxy title="Base scenario combinations including a proxy to consider for IPv6 testing"}
 
-## Testing with Partially Broken Connectivity
+## Testing Name Resolution Issues
 
-In Dual-Stack deployments, situations may arise where communication is partially broken for one or more address families:
-From the communication endpoints that are expected to be reachable using both address families,
-some may only be reachable by one address family, while others may only be reachable by the other.
-Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
-especially during a transition phase where partially broken connectivity is expected more frequently.
-This section provides a brief overview of several common scenarios.
+As most applications use name resolution to bootstrap their connectivity,
+it is necessary consider name resolution aspects when testing IPv6 readiness.
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC8305}},
+others will just map to different connectivity scenarios.
+In this section, we list name resolution issues to consider for testing.
 
 ### Missing DNS Records
 
@@ -232,6 +231,22 @@ or does not reach the client endpoint, e.g., because it got filtered out by a mi
 While deployment and integration testing should try to test for this kind of broken connectivity,
 this scenario is usually indistinguishable from an IPv4-only or an IPv6-only server endpoint,
 and therefore already addressed by testing the base scenarios above.
+
+### Wrong DNS records
+
+### Interactions with DNS64
+
+### Testing with IP literals
+
+
+## Testing with Partially Broken Connectivity
+
+In Dual-Stack deployments, situations may arise where communication is partially broken for one or more address families:
+From the communication endpoints that are expected to be reachable using both address families,
+some may only be reachable by one address family, while others may only be reachable by the other.
+Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
+especially during a transition phase where partially broken connectivity is expected more frequently.
+This section provides a brief overview of several common scenarios.
 
 ### Partial Blackholing, MTU, and Fragmentation Issues
 
@@ -247,6 +262,7 @@ As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working I
 
 It is advisable to test for partial blackholing and MTU issues during deployment and integration testing by testing with IPv4-only and True IPv6-only clients to detect such blackholes.
 In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.
+
 
 ## Testing Lifecycle Function Considerations
 
