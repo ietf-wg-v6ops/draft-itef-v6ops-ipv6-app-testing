@@ -51,7 +51,7 @@ informative:
   I-D.draft-ietf-v6ops-6mops:
   CLAT: I-D.draft-ietf-v6ops-claton
   RFC8504:
-  CAC-2023:
+  CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
     title: 2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application
     date: 2023-04-27
@@ -71,7 +71,7 @@ informative:
     target: https://konecipv4.cz/
     title: Czech Republic sets IPv4 end date
     date: 2024-01-17
-  NIST.SP.500-267Ar1:
+  US-NIST.SP.500-267Ar1:
     target: https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.500-267Ar1.pdf
     title: NIST Special Publication 500-267 Revision 1 - NIST IPv6 Profile
     date: 2020-11-23
@@ -108,7 +108,7 @@ and explains common regressions to avoid when deploying IPv6 support.
 
 For the last 20 years, enabling applications for IPv6 has focused on coexistence with IPv4 and allowing traffic to shift towards IPv6 without breaking IPv4 operation.
 This target has changed in part due to a series of national regulations mandating state entities to proceed in the migration to IPv6, e.g., in
-China [CAC-2023], the United States of America [US-OMB-M-21-07], Germany [DE-BIT-2020-14], and the Czech Republic [CZ-ENDv4].
+China [CN-CAC-2023], the United States of America [US-OMB-M-21-07], Germany [DE-BIT-2020-14], and the Czech Republic [CZ-ENDv4].
 IPv6 support today means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, today's applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-Stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.
 
@@ -120,7 +120,7 @@ While the IETF does not define compliance tests, best current practice exists fo
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
 While many application developers assume that the network abstractions of the operating system (OS), communication libraries, and application frameworks will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists and logging.
-In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro- and macro-services, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
+In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
 Enabling these applications to communicate over IPv6 requires careful analysis of data flows within all services and proper IPv6 support in all components that may require IPv6 traffic, as well as IPv6 addresses as metadata.
 
 
@@ -147,7 +147,7 @@ True IPv6-only:
 
 ## Lifecycle Functions {#lifecycle-functions}
 
-Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phases in which an application is approached during a simplified lifecycle of the application, in accordance to [NIST.SP.500-267Ar1] as follows:
+Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phases in which an application is approached during a simplified lifecycle of the application, in accordance to [US-NIST.SP.500-267Ar1] as follows:
 
 - Installation: The installation of the application including any initial configuration required for
   getting the application in a state where remote services are operational.
@@ -446,11 +446,10 @@ This is often a recursive process.
 Sometimes IPv6 enablement requires touching components that are not actively maintained anymore.
 Be prepared for this and plan extra time or budget for updating or replacing these components.
 
-
 # Security Considerations
 
-The document itself has no specific security implications; thus, some of the issues discussed in {{failures}} have.
-
+The testing procedures described in this document do not create any new security implications.
+Some security-related issues that should be considered and ruled out by appropriate testing are discussed in {{failures}}.
 
 # IANA Considerations
 
@@ -467,4 +466,5 @@ Holger Füßler,
 Michael Richardson,
 Tommy Jensen,
 Nathan Sherrard,
+Jeremy Duncan,
 for the discussions, the input, and all contribution.
