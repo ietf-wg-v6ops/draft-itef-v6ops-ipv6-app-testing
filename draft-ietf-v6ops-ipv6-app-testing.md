@@ -214,10 +214,11 @@ should be considered for testing.
 | True IPv6-only       | Dual-Stack           | True IPv6-only |
 {: #scn_proxy title="Base scenario combinations including a proxy to consider for IPv6 testing"}
 
+
 ## Testing Name Resolution Issues
 
 As most applications use name resolution to bootstrap their connectivity,
-it is necessary consider name resolution aspects when testing IPv6 readiness.
+it is necessary to consider name resolution aspects when testing IPv6 readiness.
 While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC8305}},
 others will just map to different connectivity scenarios.
 In this section, we list name resolution issues to consider for testing.
@@ -234,9 +235,29 @@ and therefore already addressed by testing the base scenarios above.
 
 ### Wrong DNS records
 
-### Interactions with DNS64
+Independent of the deployed server endpoint,
+there may be an A and AAAA record either pointing somewhere else,
+e.g., to an old or planned deployment.
+
+For either IPv4-only or True IPv6-only clients, this scenario should always fail.
+
+For Dual-Stack clients, it should be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}} or trying the next resolved address candidate after timeout.
+Especially for the latter, it is advisable to verify whether the connection delay is acceptable of the desired use-case.
+
+IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
+CLAT (should behave like Dual-Stack as discussed in Section {{scenarios}}) or
+local NAT64 address, e.g., as when implementing Happy Eyeballs v2 {{?RFC8305}}.
+IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.
+
+Testing with IPv4-Mapped IPv6 Addresses {{?RFC4291}} in AAAA records is also recommended.
+While this makes zero sense, it has been seen in the wild and should not confuse the client.
 
 ### Testing with IP literals
+
+Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
+Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
+
+If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
 
 
 ## Testing with Partially Broken Connectivity
