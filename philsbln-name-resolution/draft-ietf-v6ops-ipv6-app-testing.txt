@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 22 August 2026                                           Google
+Expires: 23 August 2026                                           Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        18 February 2026
+                                                        19 February 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2026.
+   This Internet-Draft will expire on 23 August 2026.
 
 Copyright Notice
 
@@ -79,10 +79,9 @@ Table of Contents
      3.3.  Testing Name Resolution Issues
        3.3.1.  Missing DNS Records
        3.3.2.  Wrong DNS records
-       3.3.3.  Interactions with DNS64
-       3.3.4.  Testing with IP literals
-     3.4.  Testing with Partially Broken Connectivity
-       3.4.1.  Partial Blackholing, MTU, and Fragmentation Issues
+       3.3.3.  Testing with IP literals
+     3.4.  Testing with Partially Broken Connectivity, MTU, and
+           Fragmentation Issues
      3.5.  Testing Lifecycle Function Considerations
      3.6.  Testing Complex Cloud Applications and Applying Test Cases
      3.7.  Special considerations for Web-based Applications
@@ -317,8 +316,8 @@ Table of Contents
 3.3.  Testing Name Resolution Issues
 
    As most applications use name resolution to bootstrap their
-   connectivity, it is necessary consider name resolution aspects when
-   testing IPv6 readiness.  While some name resolution issues only
+   connectivity, it is necessary to consider name resolution aspects
+   when testing IPv6 readiness.  While some name resolution issues only
    manifest in certain connectivity scenarios or can be mitigated by
    using Happy Eyeballs [RFC8305], others will just map to different
    connectivity scenarios.  In this section, we list name resolution
@@ -339,36 +338,64 @@ Table of Contents
 
 3.3.2.  Wrong DNS records
 
-3.3.3.  Interactions with DNS64
+   Independent of the deployed server endpoint, there may be an A and
+   AAAA record either pointing somewhere else, e.g., to an old or
+   planned deployment.
 
-3.3.4.  Testing with IP literals
+   For either IPv4-only or True IPv6-only clients, this scenario should
+   always fail.
 
-3.4.  Testing with Partially Broken Connectivity
+   For Dual-Stack clients, it should be tested whether they can use the
+   working IPv4-only or IPv6-only connectivity scenario, either by using
+   Happy Eyeballs [RFC6555]/[RFC8305] or trying the next resolved
+   address candidate after timeout.  Especially for the latter, it is
+   advisable to verify whether the connection delay is acceptable of the
+   desired use-case.
 
-   In Dual-Stack deployments, situations may arise where communication
-   is partially broken for one or more address families: From the
-   communication endpoints that are expected to be reachable using both
-   address families, some may only be reachable by one address family,
-   while others may only be reachable by the other.  Testing
-   applications against these scenarios can become a key enabler for
-   users' acceptance of IPv6, especially during a transition phase where
-   partially broken connectivity is expected more frequently.  This
-   section provides a brief overview of several common scenarios.
+   IPv6-only clients with NAT64 are only expected to work with broken
+   AAAA records when deployed with CLAT (should behave like Dual-Stack
+   as discussed in Section Section 3.1) or local NAT64 address, e.g., as
+   when implementing Happy Eyeballs v2 [RFC8305].  IPv6-only clients
+   with NAT64 that rely on DNS64 only are expected to fail as the
+   presence of AAAA records prevents synthesis of DNS64 records.
 
-3.4.1.  Partial Blackholing, MTU, and Fragmentation Issues
+   Testing with IPv4-Mapped IPv6 Addresses [RFC4291] in AAAA records is
+   also recommended.  While this makes zero sense, it has been seen in
+   the wild and should not confuse the client.
+
+3.3.3.  Testing with IP literals
+
+   Most name resolution libraries support IP literals, i.e., textual
+   representations of IP addresses.  Applications should be tested to
+   determine whether they work as expected with IPv4 literals and all
+   IPv6 address representations described in [RFC4291].
+
+   If there is a use-case for link-local communication using IP
+   literals, it should be tested whether the zone identifier can be
+   entered as described in [RFC9844] and work as expected.
+
+3.4.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
+      Issues
 
    When multiple address families are available, network packets may
    traverse different paths depending on the address family.  Even when
    the same path is traversed, the path can exhibit distinct behaviors,
    e.g., dropping all or particular packets, especially in the presence
-   of middle-boxes.  In some cases, connectivity issues may only become
-   apparent late in the communication process, for example, after a
-   successful TCP handshake but before a TLS handshake succeeds.  In
-   such scenarios, clients restricted to a single address family — such
-   as True IPv6-only clients — may experience complete loss of
-   connectivity in these scenarios, while dual-stack clients often mask
-   such failures by automatically falling back to another address
-   family.
+   of middle-boxes.  From the communication endpoints that are expected
+   to be reachable using both address families, some may only be
+   reachable by one address family, while others may only be reachable
+   by the other.  Testing applications against these scenarios can
+   become a key enabler for users' acceptance of IPv6, especially during
+   a transition phase where partially broken connectivity is expected
+   more frequently.
+
+   In some cases, connectivity issues may only become apparent late in
+   the communication process, for example, after a successful TCP
+   handshake but before a TLS handshake succeeds.  In such scenarios,
+   clients restricted to a single address family — such as True
+   IPv6-only clients — may experience complete loss of connectivity in
+   these scenarios, while dual-stack clients often mask such failures by
+   automatically falling back to another address family.
 
    In addition to partial blackholing, MTU issues may be limited to one
    address family or behave differently with respect to aspects like MTU
@@ -729,6 +756,10 @@ Table of Contents
               DOI 10.17487/RFC3484, February 2003,
               <https://www.rfc-editor.org/rfc/rfc3484>.
 
+   [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
+              Architecture", RFC 4291, DOI 10.17487/RFC4291, February
+              2006, <https://www.rfc-editor.org/rfc/rfc4291>.
+
    [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
               "Default Address Selection for Internet Protocol Version 6
               (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
@@ -737,6 +768,11 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
+              Identifiers in User Interfaces", RFC 9844,
+              DOI 10.17487/RFC9844, August 2025,
+              <https://www.rfc-editor.org/rfc/rfc9844>.
 
 9.2.  Informative References
 
@@ -811,6 +847,10 @@ Table of Contents
               Translation from IPv6 Clients to IPv4 Servers", RFC 6147,
               DOI 10.17487/RFC6147, April 2011,
               <https://www.rfc-editor.org/rfc/rfc6147>.
+
+   [RFC6555]  Wing, D. and A. Yourtchenko, "Happy Eyeballs: Success with
+              Dual-Stack Hosts", RFC 6555, DOI 10.17487/RFC6555, April
+              2012, <https://www.rfc-editor.org/rfc/rfc6555>.
 
    [RFC6877]  Mawatari, M., Kawashima, M., and C. Byrne, "464XLAT:
               Combination of Stateful and Stateless Translation",
