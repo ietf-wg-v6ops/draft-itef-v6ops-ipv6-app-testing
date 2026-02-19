@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-17T01:59:18.935976+00:00",
+  "timestamp": "2026-02-19T02:01:55.019419+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -157,7 +157,94 @@
       "updatedAt": "2025-12-16T09:51:32Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOQpLumc7rj9Da",
+      "title": "Broken / superficial DNS records",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/7",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "philsbln"
+      ],
+      "labels": [],
+      "body": "Feedback Jeremy Duncan \n\n> [testing] \u2026with DNS - this can add specific failure scenarios that is affecting real-world applications today: a DNS AAAA record, but no functioning IPv6. For example:\n> Client dual-stack --> Server IPv4 only (but DNS with AAAA and A records)\n> Client IPv6-only w/ CLAT --> Server IPv4 only (but DNS with AAAA and A records) * I see this problem all the time.\n> Client IPv6-only --> Server IPv4 only (but DNS with AAAA and A records) * I see this problem all the time.\n> \n> This particular test area will highlight the dual-stack masking issue we see when going to IPv6-only.\n\nWe should add this to Section 3.1",
+      "createdAt": "2026-02-17T10:38:04Z",
+      "updatedAt": "2026-02-17T10:38:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOQpLumc7rnzLP",
+      "title": "Discuss testing logging and auditing functionality",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/9",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-02-17T14:35:29Z",
+      "updatedAt": "2026-02-17T14:35:29Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 8,
+      "id": "PR_kwDOQpLumc7EX4KJ",
+      "title": "Editorial suggestions for -01",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/8",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Collection of editorial changes for the draft-itef-v6ops-ipv6-app-testing-01 for discussion and integration",
+      "createdAt": "2026-02-17T14:26:13Z",
+      "updatedAt": "2026-02-18T14:41:19Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "editorial-01",
+      "headRefOid": "523fb770f0ba17e36aee5b1f0e8364a8468e2b5d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOQpLumc7Eppxm",
+      "title": "Discuss name resolution issues",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/10",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "closes #2 \r\ncloses #7  ",
+      "createdAt": "2026-02-18T15:36:19Z",
+      "updatedAt": "2026-02-18T15:36:19Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln-name-resolution",
+      "headRefOid": "cae473c495f0cdaebff148ff3fc51770b9938c18",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
