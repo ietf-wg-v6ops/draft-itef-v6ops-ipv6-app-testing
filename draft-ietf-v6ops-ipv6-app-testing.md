@@ -260,19 +260,15 @@ Applications should be tested to determine whether they work as expected with IP
 If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
 
 
-## Testing with Partially Broken Connectivity
+## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues
 
-In Dual-Stack deployments, situations may arise where communication is partially broken for one or more address families:
+When multiple address families are available, network packets may traverse different paths depending on the address family.
+Even when the same path is traversed, the path can exhibit distinct behaviors, e.g., dropping all or particular packets, especially in the presence of middle-boxes.
 From the communication endpoints that are expected to be reachable using both address families,
 some may only be reachable by one address family, while others may only be reachable by the other.
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.
-This section provides a brief overview of several common scenarios.
 
-### Partial Blackholing, MTU, and Fragmentation Issues
-
-When multiple address families are available, network packets may traverse different paths depending on the address family.
-Even when the same path is traversed, the path can exhibit distinct behaviors, e.g., dropping all or particular packets, especially in the presence of middle-boxes.
 In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
 In such scenarios, clients restricted to a single address family — such as True IPv6-only clients — may experience complete loss of connectivity in these scenarios,
 while dual-stack clients often mask such failures by automatically falling back to another address family.
