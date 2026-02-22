@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-19T02:01:55.019419+00:00",
+  "timestamp": "2026-02-22T02:01:15.442761+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -82,7 +82,7 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/21 in repo migration \n\n@kouellette brought up whether it would be worthwhile to add a short sub-section either here or elsewhere in the document regarding the use of IP literals rather than FQDNs. \n\nWe should either add this to section 2.",
       "createdAt": "2025-12-16T09:40:39Z",
-      "updatedAt": "2026-02-09T10:51:13Z",
+      "updatedAt": "2026-02-19T14:26:37Z",
       "closedAt": null,
       "comments": []
     },
@@ -120,7 +120,7 @@
       ],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/13 in repo migration\n\nFrom Michael Richardson's early review on -00:\n> Section 6.2 might want to reference MUD, RFC8520.\n",
       "createdAt": "2025-12-16T09:43:22Z",
-      "updatedAt": "2026-02-09T10:50:08Z",
+      "updatedAt": "2026-02-19T14:26:05Z",
       "closedAt": null,
       "comments": []
     },
@@ -138,7 +138,7 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/1 in repo migration\n\n@furry13 I think it might be useful to test with RFC8781 w/o DNS64 as a primary case and maybe have a separate case (?) for DNS64 presence?\nIt would be desirable to ensure that there are no dependencies on DNS64?\n\n@philsbln As part of a section on name resolution issues to look for, that makes very much sense.\n\u2794 @furry13 ideas who may want to contribute a section on that?\n\n@furry13 We might want to have a 'network topologies' section",
       "createdAt": "2025-12-16T09:48:06Z",
-      "updatedAt": "2026-02-09T10:50:38Z",
+      "updatedAt": "2026-02-19T14:26:16Z",
       "closedAt": null,
       "comments": []
     },
@@ -172,7 +172,7 @@
       "labels": [],
       "body": "Feedback Jeremy Duncan \n\n> [testing] \u2026with DNS - this can add specific failure scenarios that is affecting real-world applications today: a DNS AAAA record, but no functioning IPv6. For example:\n> Client dual-stack --> Server IPv4 only (but DNS with AAAA and A records)\n> Client IPv6-only w/ CLAT --> Server IPv4 only (but DNS with AAAA and A records) * I see this problem all the time.\n> Client IPv6-only --> Server IPv4 only (but DNS with AAAA and A records) * I see this problem all the time.\n> \n> This particular test area will highlight the dual-stack masking issue we see when going to IPv6-only.\n\nWe should add this to Section 3.1",
       "createdAt": "2026-02-17T10:38:04Z",
-      "updatedAt": "2026-02-17T10:38:04Z",
+      "updatedAt": "2026-02-19T14:26:26Z",
       "closedAt": null,
       "comments": []
     },
@@ -206,7 +206,7 @@
       "labels": [],
       "body": "Collection of editorial changes for the draft-itef-v6ops-ipv6-app-testing-01 for discussion and integration",
       "createdAt": "2026-02-17T14:26:13Z",
-      "updatedAt": "2026-02-18T14:41:19Z",
+      "updatedAt": "2026-02-19T14:25:31Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
@@ -232,13 +232,13 @@
       "labels": [],
       "body": "closes #2 \r\ncloses #7  ",
       "createdAt": "2026-02-18T15:36:19Z",
-      "updatedAt": "2026-02-18T15:36:19Z",
+      "updatedAt": "2026-02-19T14:25:45Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-name-resolution",
-      "headRefOid": "cae473c495f0cdaebff148ff3fc51770b9938c18",
+      "headRefOid": "80e6b5608cbd4be265d4ab57686e63b408cc6cc7",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
