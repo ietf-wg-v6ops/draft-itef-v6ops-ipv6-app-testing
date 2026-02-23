@@ -228,6 +228,7 @@ In this section, we list name resolution issues to consider for testing.
 While a server endpoint is intended to support dual-stack connectivity,
 the A or AAAA DNS records for the endpoint may be missing, e.g., due to misconfiguration or broken tooling,
 or does not reach the client endpoint, e.g., because it got filtered out by a middle box or local resolver.
+The same can happen for names discovered & resolved through mDNS {{?RFC6762}}.
 
 While deployment and integration testing should try to test for this kind of broken connectivity,
 this scenario is usually indistinguishable from an IPv4-only or an IPv6-only server endpoint,
@@ -500,4 +501,5 @@ Holger Füßler,
 Michael Richardson,
 Tommy Jensen,
 Nathan Sherrard,
+Brian E Carpenter,
 for the discussions, the input, and all contribution.
