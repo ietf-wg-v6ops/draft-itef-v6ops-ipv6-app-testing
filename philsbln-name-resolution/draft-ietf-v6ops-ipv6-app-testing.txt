@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 23 August 2026                                           Google
+Expires: 27 August 2026                                           Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        19 February 2026
+                                                        23 February 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2026.
+   This Internet-Draft will expire on 27 August 2026.
 
 Copyright Notice
 
@@ -329,7 +329,8 @@ Table of Contents
    connectivity, the A or AAAA DNS records for the endpoint may be
    missing, e.g., due to misconfiguration or broken tooling, or does not
    reach the client endpoint, e.g., because it got filtered out by a
-   middle box or local resolver.
+   middle box or local resolver.  The same can happen for names
+   discovered & resolved through mDNS [RFC6762].
 
    While deployment and integration testing should try to test for this
    kind of broken connectivity, this scenario is usually
@@ -852,6 +853,10 @@ Table of Contents
               Dual-Stack Hosts", RFC 6555, DOI 10.17487/RFC6555, April
               2012, <https://www.rfc-editor.org/rfc/rfc6555>.
 
+   [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
+              DOI 10.17487/RFC6762, February 2013,
+              <https://www.rfc-editor.org/rfc/rfc6762>.
+
    [RFC6877]  Mawatari, M., Kawashima, M., and C. Byrne, "464XLAT:
               Combination of Stateful and Stateless Translation",
               RFC 6877, DOI 10.17487/RFC6877, April 2013,
@@ -894,7 +899,8 @@ Table of Contents
 Acknowledgments
 
    Thanks to Holger Füßler, Michael Richardson, Tommy Jensen, Nathan
-   Sherrard, for the discussions, the input, and all contribution.
+   Sherrard, Brian E Carpenter, for the discussions, the input, and all
+   contribution.
 
 Authors' Addresses
 
