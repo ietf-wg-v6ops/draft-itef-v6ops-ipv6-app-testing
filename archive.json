@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-22T02:01:15.442761+00:00",
+  "timestamp": "2026-02-24T01:58:49.055267+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -232,13 +232,13 @@
       "labels": [],
       "body": "closes #2 \r\ncloses #7  ",
       "createdAt": "2026-02-18T15:36:19Z",
-      "updatedAt": "2026-02-19T14:25:45Z",
+      "updatedAt": "2026-02-23T14:48:57Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-name-resolution",
-      "headRefOid": "80e6b5608cbd4be265d4ab57686e63b408cc6cc7",
+      "headRefOid": "3980e7965d0a6a22d093284b929809ed6334f052",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
