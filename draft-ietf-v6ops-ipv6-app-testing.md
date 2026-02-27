@@ -214,29 +214,62 @@ should be considered for testing.
 | True IPv6-only       | Dual-Stack           | True IPv6-only |
 {: #scn_proxy title="Base scenario combinations including a proxy to consider for IPv6 testing"}
 
-## Testing with Partially Broken Connectivity
 
-In Dual-Stack deployments, situations may arise where communication is partially broken for one or more address families:
-From the communication endpoints that are expected to be reachable using both address families,
-some may only be reachable by one address family, while others may only be reachable by the other.
-Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
-especially during a transition phase where partially broken connectivity is expected more frequently.
-This section provides a brief overview of several common scenarios.
+## Testing Name Resolution Issues
+
+As most applications use name resolution to bootstrap their connectivity,
+it is necessary to consider name resolution aspects when testing IPv6 readiness.
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}},
+others will just map to different connectivity scenarios.
+In this section, we list name resolution issues to consider for testing.
 
 ### Missing DNS Records
 
 While a server endpoint is intended to support dual-stack connectivity,
 the A or AAAA DNS records for the endpoint may be missing, e.g., due to misconfiguration or broken tooling,
 or does not reach the client endpoint, e.g., because it got filtered out by a middle box or local resolver.
+The same can happen for names discovered and resolved through mDNS {{?RFC6762}}.
 
 While deployment and integration testing should try to test for this kind of broken connectivity,
 this scenario is usually indistinguishable from an IPv4-only or an IPv6-only server endpoint,
 and therefore already addressed by testing the base scenarios above.
 
-### Partial Blackholing, MTU, and Fragmentation Issues
+### Incorrect DNS Records
+
+Independent of the deployed server endpoint,
+there may be an A and AAAA record either pointing somewhere else,
+e.g., to an old or planned deployment.
+
+For either IPv4-only or True IPv6-only clients, this scenario should always fail.
+
+For Dual-Stack clients, it should be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}} or trying the next resolved address candidate after timeout.
+Especially for the latter, it is advisable to verify whether the connection delay is acceptable of the desired use-case.
+
+IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
+CLAT (should behave like Dual-Stack as discussed in Section {{scenarios}}) or
+local NAT64 address, e.g., as when implementing Happy Eyeballs v2 {{?RFC8305}}.
+IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.
+
+Testing with IPv4-Mapped IPv6 Addresses {{?RFC4291}} in AAAA records is also recommended.
+While this makes zero sense, it has been seen in the wild and should not confuse the client.
+
+### Testing with IP literals
+
+Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
+Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
+
+If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
+
+
+## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues
 
 When multiple address families are available, network packets may traverse different paths depending on the address family.
 Even when the same path is traversed, the path can exhibit distinct behaviors, e.g., dropping all or particular packets, especially in the presence of middle-boxes.
+From the communication endpoints that are expected to be reachable using both address families,
+some may only be reachable by one address family, while others may only be reachable by the other.
+Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
+especially during a transition phase where partially broken connectivity is expected more frequently.
+
 In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
 In such scenarios, clients restricted to a single address family — such as True IPv6-only clients — may experience complete loss of connectivity in these scenarios,
 while dual-stack clients often mask such failures by automatically falling back to another address family.
@@ -477,4 +510,5 @@ Holger Füßler,
 Michael Richardson,
 Tommy Jensen,
 Nathan Sherrard,
+Brian E Carpenter,
 for the discussions, the input, and all contribution.
