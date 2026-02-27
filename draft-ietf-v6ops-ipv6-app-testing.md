@@ -284,7 +284,7 @@ In case these issues can occur outside the testers' circle of control, it is adv
 ## Testing without IPv4 Loopback Addresses (127.0.0.0/8)
 
 Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
-For example, a web server may explicitly listen on a 127.0.0.0/8 by default. 
+For example, a web server may explicitly listen on a 127.0.0.0/8 by default.
 For True IPv6-only scenarios, system administrators may choose to disable IPv4,
 including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
 due to a bind failure.
