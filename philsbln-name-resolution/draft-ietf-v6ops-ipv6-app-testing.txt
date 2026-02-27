@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 27 August 2026                                           Google
+Expires: 31 August 2026                                           Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        23 February 2026
+                                                        27 February 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 August 2026.
+   This Internet-Draft will expire on 31 August 2026.
 
 Copyright Notice
 
@@ -78,7 +78,7 @@ Table of Contents
      3.2.  Testing with Intermediaries (e.g., Proxies)
      3.3.  Testing Name Resolution Issues
        3.3.1.  Missing DNS Records
-       3.3.2.  Wrong DNS records
+       3.3.2.  Incorrect DNS Records
        3.3.3.  Testing with IP literals
      3.4.  Testing with Partially Broken Connectivity, MTU, and
            Fragmentation Issues
@@ -319,9 +319,9 @@ Table of Contents
    connectivity, it is necessary to consider name resolution aspects
    when testing IPv6 readiness.  While some name resolution issues only
    manifest in certain connectivity scenarios or can be mitigated by
-   using Happy Eyeballs [RFC8305], others will just map to different
-   connectivity scenarios.  In this section, we list name resolution
-   issues to consider for testing.
+   using Happy Eyeballs [RFC6555]/[RFC8305], others will just map to
+   different connectivity scenarios.  In this section, we list name
+   resolution issues to consider for testing.
 
 3.3.1.  Missing DNS Records
 
@@ -330,14 +330,14 @@ Table of Contents
    missing, e.g., due to misconfiguration or broken tooling, or does not
    reach the client endpoint, e.g., because it got filtered out by a
    middle box or local resolver.  The same can happen for names
-   discovered & resolved through mDNS [RFC6762].
+   discovered and resolved through mDNS [RFC6762].
 
    While deployment and integration testing should try to test for this
    kind of broken connectivity, this scenario is usually
    indistinguishable from an IPv4-only or an IPv6-only server endpoint,
    and therefore already addressed by testing the base scenarios above.
 
-3.3.2.  Wrong DNS records
+3.3.2.  Incorrect DNS Records
 
    Independent of the deployed server endpoint, there may be an A and
    AAAA record either pointing somewhere else, e.g., to an old or
