@@ -304,6 +304,8 @@ In particular, keep the following considerations in mind:
 
 - Management: Depending on the application, management functions may be provided via the user interface.
   However, the application may have additional management functions (e.g., SNMP, syslog, etc.) that should be tested.
+  As the source triggering application behavior is crucial for logging and auditing functionality,
+  addresses recorded need to be verified to be represented correctly. See Section {{addr-as-data}} about representation of addresses.
 
 - Update: Depending on the application, update functions may be exercised during installation. However, the application
   may have additional update functions (e.g., automatic updates, manual update mechanisms, etc.) that should be tested.
@@ -340,6 +342,22 @@ but it is necessary to consider all resources and parties providing them.
 As Web browsers load these resources dynamically and third-party resources may themselves may request resources from more parties, this kind of testing usually requires an instrumented Web browser,
 e.g., using {{Selenium}}.
 
+## Considerations for Addresses as Data {#addr-as-data}
+
+When applications process IP addresses as data, e.g, as part of logging or management functionality,
+this functionality needs to work for all possible address families and representations.
+
+One challenge to consider is that the textual representation of IPv4 and IPv6 addresses is not canonical.
+It allows several valid textual representations for the same address, which makes direct string comparison and arithmetic operations on addresses error-prone and slow.
+For example, the IPv6 address `2001:db8::1` can be written as `2001:db8:0:0:0:0:0:1`, `2001:0db8::0.0.0.1`, or in several other forms.
+
+While custom logic to check, parse and process addresses is often error-prone and should be validated thoroughly,
+modern environments and frameworks usually provide data structures that encapsulate the canonical binary representation and include methods for parsing the various textual representations, comparing addresses, performing subnet operations, and rendering addresses in a consistent format.
+
+For situations where textual representation of IPv6 addresses is needed — such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML — {{!RFC5952}} provides recommendations on which of the valid textual representations should be used.
+Applications should be tested whether they follow {{!RFC5952}} when rendering IPv6 addresses in textual form,
+as required by national regulations like {{NIST.SP.500-267Ar1}},
+while accepting all valid representations defined in {{!RFC4291}}.
 
 # Testing Strategies
 
