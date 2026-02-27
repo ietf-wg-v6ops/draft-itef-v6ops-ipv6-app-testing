@@ -283,13 +283,14 @@ In case these issues can occur outside the testers' circle of control, it is adv
 
 ## Testing without IPv4 Loopback Addresses (127.0.0.0/8)
 
-Some applications and services may assume the existence of 127.0.0.0/8 addresses when binding to a socket or for communicating with other services on the same host.
-For example, web servers such as NGINX or Apache may be configured to explicitly listen on a 127.0.0.0/8 address. For True IPv6-only scenarios, system administrators may choose to disable IPv4,
-including 127.0.0.0/8 addresses. In such cases, applications may fail to operate correctly. Applications expecting to bind to a 127.0.0.0/8 address may fail to start when these addresses are unavailable
+Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
+For example, a web server may explicitly listen on a 127.0.0.0/8 by default. 
+For True IPv6-only scenarios, system administrators may choose to disable IPv4,
+including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
 due to a bind failure.
 Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.
 
-Because of this, when testing applications for the True IPv6-only scenario, it is recommended to test the application in an environment where 127.0.0.0/8 addresses are unavailable.
+Because of this, when testing applications for the True IPv6-only scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.
 
 ## Testing Lifecycle Function Considerations
 
