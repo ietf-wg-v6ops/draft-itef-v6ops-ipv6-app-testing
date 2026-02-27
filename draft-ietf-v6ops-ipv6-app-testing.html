@@ -1205,13 +1205,16 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-testing-with-partially-brok" class="internal xref">Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-testing-lifecycle-function-" class="internal xref">Testing Lifecycle Function Considerations</a></p>
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-testing-without-ipv4-loopba" class="internal xref">Testing without IPv4 Loopback Addresses (127.0.0.0/8)</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-testing-complex-cloud-appli" class="internal xref">Testing Complex Cloud Applications and Applying Test Cases</a></p>
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-testing-lifecycle-function-" class="internal xref">Testing Lifecycle Function Considerations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
-                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-special-considerations-for-" class="internal xref">Special considerations for Web-based Applications</a></p>
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-testing-complex-cloud-appli" class="internal xref">Testing Complex Cloud Applications and Applying Test Cases</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
+                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-special-considerations-for-" class="internal xref">Special considerations for Web-based Applications</a></p>
 </li>
             </ul>
 </li>
@@ -1622,76 +1625,90 @@ As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working I
 In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="testing-lifecycle-function-considerations">
+<div id="testing-without-ipv4-loopback-addresses-1270008">
 <section id="section-3.5">
-        <h3 id="name-testing-lifecycle-function-">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-testing-lifecycle-function-" class="section-name selfRef">Testing Lifecycle Function Considerations</a>
+        <h3 id="name-testing-without-ipv4-loopba">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-testing-without-ipv4-loopba" class="section-name selfRef">Testing without IPv4 Loopback Addresses (127.0.0.0/8)</a>
         </h3>
-<p id="section-3.5-1">To cover the whole lifecycle of an application including installation, user interface,
-management, and update, it is recommended to test that the lifecycle functions defined in <a href="#lifecycle-functions" class="auto internal xref">Section 2.3</a> are operational within the connectivity scenarios defined in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<p id="section-3.5-2">In particular, keep the following considerations in mind:<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.5-1">Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
+For example, a web server may explicitly listen on a 127.0.0.0/8 by default.
+For True IPv6-only scenarios, system administrators may choose to disable IPv4,
+including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
+due to a bind failure.
+Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">Because of this, when testing applications for the True IPv6-only scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="testing-lifecycle-function-considerations">
+<section id="section-3.6">
+        <h3 id="name-testing-lifecycle-function-">
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-testing-lifecycle-function-" class="section-name selfRef">Testing Lifecycle Function Considerations</a>
+        </h3>
+<p id="section-3.6-1">To cover the whole lifecycle of an application including installation, user interface,
+management, and update, it is recommended to test that the lifecycle functions defined in <a href="#lifecycle-functions" class="auto internal xref">Section 2.3</a> are operational within the connectivity scenarios defined in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">In particular, keep the following considerations in mind:<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.5-3.1">
-            <p id="section-3.5-3.1.1">Installation: Installation may require communications with remote first-party services (e.g., activation/license server)
+<li class="normal" id="section-3.6-3.1">
+            <p id="section-3.6-3.1.1">Installation: Installation may require communications with remote first-party services (e.g., activation/license server)
 or remote third-party services (e.g., package repositories). In these scenarios, the installer acts as
 the client, and the remote service acts as the server. In cases of remote third-party services, testing
 all server scenarios in <a href="#scn_combinations" class="auto internal xref">Table 1</a> may not be feasible, and impact the client scenarios that
 can be supported. For example, if a third-party service is IPv4-only, then supporting a True IPv6-only
-client is not feasible.<a href="#section-3.5-3.1.1" class="pilcrow">¶</a></p>
+client is not feasible.<a href="#section-3.6-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-3.2">
-            <p id="section-3.5-3.2.1">User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
+          <li class="normal" id="section-3.6-3.2">
+            <p id="section-3.6-3.2.1">User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
 CLI commands, etc. When testing non-web-based user interfaces, it is recommended to focus on components
 of the interface that involve communications with remote services, and those that handle network configuration parameters.
 For example, a network configuration interface may only accept IPv4 address literals for certain parameters.
-For testing web-based user interfaces, see <a href="#web-app-considerations" class="auto internal xref">Section 3.7</a>.<a href="#section-3.5-3.2.1" class="pilcrow">¶</a></p>
+For testing web-based user interfaces, see <a href="#web-app-considerations" class="auto internal xref">Section 3.8</a>.<a href="#section-3.6-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-3.3">
-            <p id="section-3.5-3.3.1">Management: Depending on the application, management functions may be provided via the user interface.
-However, the application may have additional management functions (e.g., SNMP, syslog, etc.) that should be tested.<a href="#section-3.5-3.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-3.3">
+            <p id="section-3.6-3.3.1">Management: Depending on the application, management functions may be provided via the user interface.
+However, the application may have additional management functions (e.g., SNMP, syslog, etc.) that should be tested.<a href="#section-3.6-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.5-3.4">
-            <p id="section-3.5-3.4.1">Update: Depending on the application, update functions may be exercised during installation. However, the application
-may have additional update functions (e.g., automatic updates, manual update mechanisms, etc.) that should be tested.<a href="#section-3.5-3.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-3.4">
+            <p id="section-3.6-3.4.1">Update: Depending on the application, update functions may be exercised during installation. However, the application
+may have additional update functions (e.g., automatic updates, manual update mechanisms, etc.) that should be tested.<a href="#section-3.6-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="testing-complex-cloud-applications-and-applying-test-cases">
-<section id="section-3.6">
+<section id="section-3.7">
         <h3 id="name-testing-complex-cloud-appli">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-testing-complex-cloud-appli" class="section-name selfRef">Testing Complex Cloud Applications and Applying Test Cases</a>
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-testing-complex-cloud-appli" class="section-name selfRef">Testing Complex Cloud Applications and Applying Test Cases</a>
         </h3>
-<p id="section-3.6-1">When testing complex applications, especially cloud applications, they typically involve many data flows.
+<p id="section-3.7-1">When testing complex applications, especially cloud applications, they typically involve many data flows.
 An application or component may be considered as a server for some of these, while being a client in others.
-Therefore, test cases need to cover each data flow in all relevant scenarios.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">As functional and integration tests are often defined as end-to-end test cases,
+Therefore, test cases need to cover each data flow in all relevant scenarios.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-2">As functional and integration tests are often defined as end-to-end test cases,
 they often involve several components, e.g., micro-services, load-balancers, application gateways, logging, authentication, and authorization services, which use IP-based protocols between the components.
 Therefore, an end-to-end test case breaks down to a series of flows between components, and for each of these flows,
 we need to determine whether we need to apply the connectivity scenarios from <a href="#scn_combinations" class="auto internal xref">Table 1</a> to it,
-or whether the connectivity scenarios are only controlled by the deployment of the application.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
-<p id="section-3.6-3">For external flows, i.e., flows outside the developers' control, usually all base scenarios from <a href="#scenarios" class="auto internal xref">Section 3.1</a> need to be accounted for.
+or whether the connectivity scenarios are only controlled by the deployment of the application.<a href="#section-3.7-2" class="pilcrow">¶</a></p>
+<p id="section-3.7-3">For external flows, i.e., flows outside the developers' control, usually all base scenarios from <a href="#scenarios" class="auto internal xref">Section 3.1</a> need to be accounted for.
 If one side of the flow is under administrative control, the number of scenario combinations can still be limited:
 For example, a cloud software provider choosing to deploy Dual-Stack endpoints can skip all non-Dual-Stack cases on the respective side of the communication.
 For internal flows, the relevant scenarios only depend on the applications' architecture, and only scenarios planned in the deployment need to be considered.
-From a networking perspective, flows between components are typically independent. There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.<a href="#section-3.6-3" class="pilcrow">¶</a></p>
-<p id="section-3.6-4">In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
+From a networking perspective, flows between components are typically independent. There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
+<p id="section-3.7-4">In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
 While the flows towards these backend systems themselves may be safe to ignore as outlined above,
 the functional correctness of the backend systems for all kinds of IP address need to be verified as part of the test series.
-Ignoring IP addresses as data in the testing may result in malfunctions, like always denying access over IPv6, or security issues, like not logging access from IPv6 clients.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
+Ignoring IP addresses as data in the testing may result in malfunctions, like always denying access over IPv6, or security issues, like not logging access from IPv6 clients.<a href="#section-3.7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="web-app-considerations">
-<section id="section-3.7">
+<section id="section-3.8">
         <h3 id="name-special-considerations-for-">
-<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-special-considerations-for-" class="section-name selfRef">Special considerations for Web-based Applications</a>
+<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-special-considerations-for-" class="section-name selfRef">Special considerations for Web-based Applications</a>
         </h3>
-<p id="section-3.7-1">Web-based applications usually load resources from multiple parties, including CDNs and analytic tools, involving data flows to all these parties.
+<p id="section-3.8-1">Web-based applications usually load resources from multiple parties, including CDNs and analytic tools, involving data flows to all these parties.
 When facing the requirement to support True IPv6-only users, being unable to load some resources due to missing/defective IPv6 support at the respective parties can have effects from missing analytics insights or ad revenue to severe functional defects rendering the application unusable.
 When testing such applications, it is not sufficient to only focus on the initial/main interactions,
 but it is necessary to consider all resources and parties providing them.
 As Web browsers load these resources dynamically and third-party resources may themselves may request resources from more parties, this kind of testing usually requires an instrumented Web browser,
-e.g., using <span>[<a href="#Selenium" class="cite xref">Selenium</a>]</span>.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+e.g., using <span>[<a href="#Selenium" class="cite xref">Selenium</a>]</span>.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

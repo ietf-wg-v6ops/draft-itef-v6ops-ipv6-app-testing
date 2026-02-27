@@ -82,9 +82,10 @@ Table of Contents
        3.3.3.  Testing with IP literals
      3.4.  Testing with Partially Broken Connectivity, MTU, and
            Fragmentation Issues
-     3.5.  Testing Lifecycle Function Considerations
-     3.6.  Testing Complex Cloud Applications and Applying Test Cases
-     3.7.  Special considerations for Web-based Applications
+     3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+     3.6.  Testing Lifecycle Function Considerations
+     3.7.  Testing Complex Cloud Applications and Applying Test Cases
+     3.8.  Special considerations for Web-based Applications
    4.  Testing Strategies
      4.1.  True IPv6-only Clients
      4.2.  IPv6-only Servers
@@ -411,7 +412,26 @@ Table of Contents
    simulate this type of failure and ensure that the application's
    behavior supports the detection and analysis of these errors.
 
-3.5.  Testing Lifecycle Function Considerations
+3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+
+   Some applications and services may assume the existence and
+   reachability of the IPv4 loopback addresses (127.0.0.0/8) when
+   binding to a socket or for communicating with other services on the
+   same host.  For example, a web server may explicitly listen on a
+   127.0.0.0/8 by default.  For True IPv6-only scenarios, system
+   administrators may choose to disable IPv4, including loopback.  In
+   such cases, applications may fail to operate correctly.  Applications
+   expecting to bind to a IPv4 loopback address may fail to start when
+   these addresses are unavailable due to a bind failure.  Applications
+   expecting these addresses to be available for inter-service
+   communication will result in these services being unable to
+   communicate properly.
+
+   Because of this, when testing applications for the True IPv6-only
+   scenario, it is recommended to test the application in an environment
+   without IPv4 on the loopback interface.
+
+3.6.  Testing Lifecycle Function Considerations
 
    To cover the whole lifecycle of an application including
    installation, user interface, management, and update, it is
@@ -438,7 +458,7 @@ Table of Contents
       remote services, and those that handle network configuration
       parameters.  For example, a network configuration interface may
       only accept IPv4 address literals for certain parameters.  For
-      testing web-based user interfaces, see Section 3.7.
+      testing web-based user interfaces, see Section 3.8.
 
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
@@ -450,7 +470,7 @@ Table of Contents
       additional update functions (e.g., automatic updates, manual
       update mechanisms, etc.) that should be tested.
 
-3.6.  Testing Complex Cloud Applications and Applying Test Cases
+3.7.  Testing Complex Cloud Applications and Applying Test Cases
 
    When testing complex applications, especially cloud applications,
    they typically involve many data flows.  An application or component
@@ -492,7 +512,7 @@ Table of Contents
    always denying access over IPv6, or security issues, like not logging
    access from IPv6 clients.
 
-3.7.  Special considerations for Web-based Applications
+3.8.  Special considerations for Web-based Applications
 
    Web-based applications usually load resources from multiple parties,
    including CDNs and analytic tools, involving data flows to all these
