@@ -219,7 +219,7 @@ should be considered for testing.
 
 As most applications use name resolution to bootstrap their connectivity,
 it is necessary to consider name resolution aspects when testing IPv6 readiness.
-While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC8305}},
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}},
 others will just map to different connectivity scenarios.
 In this section, we list name resolution issues to consider for testing.
 
@@ -228,13 +228,13 @@ In this section, we list name resolution issues to consider for testing.
 While a server endpoint is intended to support dual-stack connectivity,
 the A or AAAA DNS records for the endpoint may be missing, e.g., due to misconfiguration or broken tooling,
 or does not reach the client endpoint, e.g., because it got filtered out by a middle box or local resolver.
-The same can happen for names discovered & resolved through mDNS {{?RFC6762}}.
+The same can happen for names discovered and resolved through mDNS {{?RFC6762}}.
 
 While deployment and integration testing should try to test for this kind of broken connectivity,
 this scenario is usually indistinguishable from an IPv4-only or an IPv6-only server endpoint,
 and therefore already addressed by testing the base scenarios above.
 
-### Wrong DNS records
+### Incorrect DNS Records
 
 Independent of the deployed server endpoint,
 there may be an A and AAAA record either pointing somewhere else,
