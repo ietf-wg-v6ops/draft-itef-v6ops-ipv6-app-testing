@@ -281,6 +281,16 @@ As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working I
 It is advisable to test for partial blackholing and MTU issues during deployment and integration testing by testing with IPv4-only and True IPv6-only clients to detect such blackholes.
 In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.
 
+## Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+
+Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
+For example, a web server may explicitly listen on a 127.0.0.0/8 by default.
+For True IPv6-only scenarios, system administrators may choose to disable IPv4,
+including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
+due to a bind failure.
+Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.
+
+Because of this, when testing applications for the True IPv6-only scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.
 
 ## Testing Lifecycle Function Considerations
 
