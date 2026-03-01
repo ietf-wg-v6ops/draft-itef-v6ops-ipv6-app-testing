@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-24T01:58:49.055267+00:00",
+  "timestamp": "2026-03-01T02:08:14.830286+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -55,7 +55,7 @@
       "id": "I_kwDOQpLumc7ej_99",
       "title": "Discuss testing without 127.0.0.0/8 available",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -64,8 +64,8 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/25 in repo migration \n\n@spmzt I think we should test applications to work without the 127.0.0.0/8 range available.\nThis is a real problem for us in production. For example, in FreeBSD there is an option to assign IPv4 and IPv6 stacks in a jail and when operating in an IPv6-only environment you don't want to assign the IPv4 stack. For many basic services we use (for example, BIND or Nginx) we must change the default configuration to replace 127.0.0.1 with ::1 to make them work.\n\n@tojens-ietf +1, as I have seen apps using addresses across the 127.0.0.0/8 space (not just 127.0.0.1) as a presumed constantly-available resource to achieve inter-process communication between processes of the same \"app\"",
       "createdAt": "2025-12-16T09:36:24Z",
-      "updatedAt": "2026-02-09T10:51:27Z",
-      "closedAt": null,
+      "updatedAt": "2026-02-27T17:42:25Z",
+      "closedAt": "2026-02-27T17:42:25Z",
       "comments": []
     },
     {
@@ -73,7 +73,7 @@
       "id": "I_kwDOQpLumc7ekD8Z",
       "title": "Discuss testing with DNS vs. with IPv4/IPv6 literals",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -82,8 +82,8 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/21 in repo migration \n\n@kouellette brought up whether it would be worthwhile to add a short sub-section either here or elsewhere in the document regarding the use of IP literals rather than FQDNs. \n\nWe should either add this to section 2.",
       "createdAt": "2025-12-16T09:40:39Z",
-      "updatedAt": "2026-02-19T14:26:37Z",
-      "closedAt": null,
+      "updatedAt": "2026-02-27T12:25:24Z",
+      "closedAt": "2026-02-27T12:25:24Z",
       "comments": []
     },
     {
@@ -138,9 +138,17 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/1 in repo migration\n\n@furry13 I think it might be useful to test with RFC8781 w/o DNS64 as a primary case and maybe have a separate case (?) for DNS64 presence?\nIt would be desirable to ensure that there are no dependencies on DNS64?\n\n@philsbln As part of a section on name resolution issues to look for, that makes very much sense.\n\u2794 @furry13 ideas who may want to contribute a section on that?\n\n@furry13 We might want to have a 'network topologies' section",
       "createdAt": "2025-12-16T09:48:06Z",
-      "updatedAt": "2026-02-19T14:26:16Z",
+      "updatedAt": "2026-02-27T12:39:25Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@furry13 please check whether #10 fixed this one \u2026 I guess the name resolution already covers it.",
+          "createdAt": "2026-02-27T12:39:25Z",
+          "updatedAt": "2026-02-27T12:39:25Z"
+        }
+      ]
     },
     {
       "number": 6,
@@ -163,7 +171,7 @@
       "id": "I_kwDOQpLumc7rj9Da",
       "title": "Broken / superficial DNS records",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/7",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -172,8 +180,8 @@
       "labels": [],
       "body": "Feedback Jeremy Duncan \n\n> [testing] \u2026with DNS - this can add specific failure scenarios that is affecting real-world applications today: a DNS AAAA record, but no functioning IPv6. For example:\n> Client dual-stack --> Server IPv4 only (but DNS with AAAA and A records)\n> Client IPv6-only w/ CLAT --> Server IPv4 only (but DNS with AAAA and A records) * I see this problem all the time.\n> Client IPv6-only --> Server IPv4 only (but DNS with AAAA and A records) * I see this problem all the time.\n> \n> This particular test area will highlight the dual-stack masking issue we see when going to IPv6-only.\n\nWe should add this to Section 3.1",
       "createdAt": "2026-02-17T10:38:04Z",
-      "updatedAt": "2026-02-19T14:26:26Z",
-      "closedAt": null,
+      "updatedAt": "2026-02-27T12:25:24Z",
+      "closedAt": "2026-02-27T12:25:24Z",
       "comments": []
     },
     {
@@ -225,20 +233,162 @@
       "id": "PR_kwDOQpLumc7Eppxm",
       "title": "Discuss name resolution issues",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/10",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "closes #2 \r\ncloses #7  ",
       "createdAt": "2026-02-18T15:36:19Z",
-      "updatedAt": "2026-02-23T14:48:57Z",
+      "updatedAt": "2026-02-27T12:25:23Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-name-resolution",
-      "headRefOid": "3980e7965d0a6a22d093284b929809ed6334f052",
+      "headRefOid": "342692af538558cb156c476762ac99d6c847b88f",
+      "closedAt": "2026-02-27T12:25:23Z",
+      "mergedAt": "2026-02-27T12:25:23Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "4b84ffda81b3ab7f4cdc2bc1941dcbfd58e4d523"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc7mQOH1",
+          "commit": {
+            "abbreviatedOid": "3980e79"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Minor suggestions. Otherwise LGTM",
+          "createdAt": "2026-02-26T19:03:32Z",
+          "updatedAt": "2026-02-26T19:11:54Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\nThe same can happen for names discovered and resolved through mDNS {{?RFC6762}}.\n```",
+              "createdAt": "2026-02-26T19:03:32Z",
+              "updatedAt": "2026-02-26T19:11:54Z"
+            },
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\nWhile some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}},\n```",
+              "createdAt": "2026-02-26T19:04:48Z",
+              "updatedAt": "2026-02-26T19:11:54Z"
+            },
+            {
+              "originalPosition": 16,
+              "body": "To match the section below",
+              "createdAt": "2026-02-26T19:05:06Z",
+              "updatedAt": "2026-02-26T19:11:54Z"
+            },
+            {
+              "originalPosition": 32,
+              "body": "```suggestion\n### Incorrect DNS Records\n```",
+              "createdAt": "2026-02-26T19:05:21Z",
+              "updatedAt": "2026-02-26T19:11:54Z"
+            },
+            {
+              "originalPosition": 32,
+              "body": "In the text you also refer to \"broken AAAA records\" so I think \"Broken DNS Records\" would be viable as well",
+              "createdAt": "2026-02-26T19:10:35Z",
+              "updatedAt": "2026-02-26T19:11:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc7meJef",
+          "commit": {
+            "abbreviatedOid": "3980e79"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-02-27T12:19:47Z",
+          "updatedAt": "2026-02-27T12:19:48Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "I prefer incorrect here as \"broken\" can also mean missing",
+              "createdAt": "2026-02-27T12:19:47Z",
+              "updatedAt": "2026-02-27T12:19:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOQpLumc7GpcgP",
+      "title": "Add section for testing without 127.0.0.0/8 addresses",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/11",
+      "state": "MERGED",
+      "author": "kouellette",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #1 ",
+      "createdAt": "2026-02-26T20:16:54Z",
+      "updatedAt": "2026-02-27T17:42:24Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "4b84ffda81b3ab7f4cdc2bc1941dcbfd58e4d523",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "ko-testing-without-127.0.0.0",
+      "headRefOid": "67b0de1a723027f2b154ceee7c9e4b1460b9b550",
+      "closedAt": "2026-02-27T17:42:24Z",
+      "mergedAt": "2026-02-27T17:42:24Z",
+      "mergedBy": "kouellette",
+      "mergeCommit": {
+        "oid": "834b964631a1e1978740d87a0823bead8631f261"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc7meYjj",
+          "commit": {
+            "abbreviatedOid": "85f1a22"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Works for me, just two things I would like to change:\n- Don't mention product names without a need\n- Let's try to reduce the number of times we write 127.0.0.0/8",
+          "createdAt": "2026-02-27T12:35:16Z",
+          "updatedAt": "2026-02-27T12:36:40Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\nSome applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.\nFor example, a web server may explicitly listen on a 127.0.0.0/8 by default. \nFor True IPv6-only scenarios, system administrators may choose to disable IPv4,\nincluding loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable\ndue to a bind failure.\nApplications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.\n\nBecause of this, when testing applications for the True IPv6-only scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.\n```",
+              "createdAt": "2026-02-27T12:35:16Z",
+              "updatedAt": "2026-02-27T12:36:40Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOQpLumc7G3nG_",
+      "title": "Add text about logging/auditing/processing addresses as data",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/12",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #9",
+      "createdAt": "2026-02-27T16:37:33Z",
+      "updatedAt": "2026-02-27T16:37:34Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "4b84ffda81b3ab7f4cdc2bc1941dcbfd58e4d523",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln-logging",
+      "headRefOid": "99fdb8c0cac37d3f229be719e0e44848713dd798",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
