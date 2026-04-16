@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-01T02:08:14.830286+00:00",
+  "timestamp": "2026-04-16T02:31:40.673713+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -196,7 +196,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2026-02-17T14:35:29Z",
-      "updatedAt": "2026-02-17T14:35:29Z",
+      "updatedAt": "2026-04-15T14:38:20Z",
       "closedAt": null,
       "comments": []
     }
