@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 31 August 2026                                           Google
+Expires: 24 October 2026                                          Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        27 February 2026
+                                                           22 April 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2026.
+   This Internet-Draft will expire on 24 October 2026.
 
 Copyright Notice
 
@@ -86,6 +86,7 @@ Table of Contents
      3.6.  Testing Lifecycle Function Considerations
      3.7.  Testing Complex Cloud Applications and Applying Test Cases
      3.8.  Special considerations for Web-based Applications
+     3.9.  Considerations for Addresses as Data
    4.  Testing Strategies
      4.1.  True IPv6-only Clients
      4.2.  IPv6-only Servers
@@ -463,7 +464,11 @@ Table of Contents
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
       have additional management functions (e.g., SNMP, syslog, etc.)
-      that should be tested.
+      that should be tested.  As the source triggering application
+      behavior is crucial for logging and auditing functionality,
+      addresses recorded need to be verified to be represented
+      correctly.  See Section Section 3.9 about representation of
+      addresses.
 
    *  Update: Depending on the application, update functions may be
       exercised during installation.  However, the application may have
@@ -527,6 +532,36 @@ Table of Contents
    party resources may themselves may request resources from more
    parties, this kind of testing usually requires an instrumented Web
    browser, e.g., using [Selenium].
+
+3.9.  Considerations for Addresses as Data
+
+   When applications process IP addresses as data, e.g., as part of
+   logging or management functionality, this functionality needs to work
+   for all possible address families and representations.
+
+   One challenge to consider is that the textual representation of IPv4
+   and IPv6 addresses are not canonical.  It allows several valid
+   textual representations for the same address, which makes direct
+   string comparison and arithmetic operations on addresses error-prone
+   and slow.  For example, the IPv6 address 2001:db8::1 can be written
+   as 2001:db8:0:0:0:0:0:1, 2001:0db8::0.0.0.1, or in several other
+   forms.
+
+   While custom logic to check, parse and process addresses is often
+   error-prone and should be validated thoroughly, modern environments
+   and frameworks usually provide data structures that encapsulate the
+   canonical binary representation and include methods for parsing the
+   various textual representations, comparing addresses, performing
+   subnet operations, and rendering addresses in a consistent format.
+
+   For situations where textual representation of IPv6 addresses is
+   needed — such as in user interfaces, logging output, and text-based
+   data formats like JSON, YAML, TOML, and XML — [RFC5952] provides
+   recommendations on which of the valid textual representations should
+   be used.  Applications should be tested whether they follow [RFC5952]
+   when rendering IPv6 addresses in textual form, as required by
+   national regulations like [NIST.SP.500-267Ar1], while accepting all
+   valid representations defined in [RFC4291].
 
 4.  Testing Strategies
 
@@ -781,6 +816,11 @@ Table of Contents
               Architecture", RFC 4291, DOI 10.17487/RFC4291, February
               2006, <https://www.rfc-editor.org/rfc/rfc4291>.
 
+   [RFC5952]  Kawamura, S. and M. Kawashima, "A Recommendation for IPv6
+              Address Text Representation", RFC 5952,
+              DOI 10.17487/RFC5952, August 2010,
+              <https://www.rfc-editor.org/rfc/rfc5952>.
+
    [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
               "Default Address Selection for Internet Protocol Version 6
               (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
@@ -807,9 +847,9 @@ Table of Contents
    [CLAT]     Colitti, L., Linkova, J., and T. Jensen, "464XLAT
               Customer-side Translator (CLAT): Node Behavior and
               Recommendations", Work in Progress, Internet-Draft, draft-
-              ietf-v6ops-claton-14, 18 December 2025,
+              ietf-v6ops-claton-16, 5 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              claton-14>.
+              claton-16>.
 
    [CZ-ENDv4] "Czech Republic sets IPv4 end date", 17 January 2024,
               <https://konecipv4.cz/>.
@@ -823,19 +863,18 @@ Table of Contents
               Beauftragte.pdf>.
 
    [I-D.draft-ietf-v6ops-6mops]
-              Buraglio, N., Caletka, O., and J. Linkova, "IPv6-Mostly
+              Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
               Networks: Deployment and Operations Considerations", Work
-              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-04, 20
-              October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-v6ops-6mops-04>.
+              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-07, 2
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-v6ops-6mops-07>.
 
    [I-D.draft-ietf-v6ops-rfc7084bis]
               Lencse, G., Martinez, J. P., Patton, B., and T. Winters,
               "Basic Requirements for IPv6 Customer Edge Routers", Work
               in Progress, Internet-Draft, draft-ietf-v6ops-rfc7084bis-
-              04, 20 October 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              rfc7084bis-04>.
+              05, 2 March 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-v6ops-rfc7084bis-05>.
 
    [iCloud-Private-Relay]
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
