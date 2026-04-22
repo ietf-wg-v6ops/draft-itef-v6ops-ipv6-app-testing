@@ -344,10 +344,10 @@ e.g., using {{Selenium}}.
 
 ## Considerations for Addresses as Data {#addr-as-data}
 
-When applications process IP addresses as data, e.g, as part of logging or management functionality,
+When applications process IP addresses as data, e.g., as part of logging or management functionality,
 this functionality needs to work for all possible address families and representations.
 
-One challenge to consider is that the textual representation of IPv4 and IPv6 addresses is not canonical.
+One challenge to consider is that the textual representation of IPv4 and IPv6 addresses are not canonical.
 It allows several valid textual representations for the same address, which makes direct string comparison and arithmetic operations on addresses error-prone and slow.
 For example, the IPv6 address `2001:db8::1` can be written as `2001:db8:0:0:0:0:0:1`, `2001:0db8::0.0.0.1`, or in several other forms.
 
