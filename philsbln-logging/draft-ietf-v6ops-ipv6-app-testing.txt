@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 31 August 2026                                           Google
+Expires: 24 October 2026                                          Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        27 February 2026
+                                                           22 April 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2026.
+   This Internet-Draft will expire on 24 October 2026.
 
 Copyright Notice
 
@@ -515,16 +515,17 @@ Table of Contents
 
 3.8.  Considerations for Addresses as Data
 
-   When applications process IP addresses as data, e.g, as part of
+   When applications process IP addresses as data, e.g., as part of
    logging or management functionality, this functionality needs to work
    for all possible address families and representations.
 
    One challenge to consider is that the textual representation of IPv4
-   and IPv6 addresses is not canonical.  It allows several valid textual
-   representations for the same address, which makes direct string
-   comparison and arithmetic operations on addresses error-prone and
-   slow.  For example, the IPv6 address 2001:db8::1 can be written as
-   2001:db8:0:0:0:0:0:1, 2001:0db8::0.0.0.1, or in several other forms.
+   and IPv6 addresses are not canonical.  It allows several valid
+   textual representations for the same address, which makes direct
+   string comparison and arithmetic operations on addresses error-prone
+   and slow.  For example, the IPv6 address 2001:db8::1 can be written
+   as 2001:db8:0:0:0:0:0:1, 2001:0db8::0.0.0.1, or in several other
+   forms.
 
    While custom logic to check, parse and process addresses is often
    error-prone and should be validated thoroughly, modern environments
@@ -826,9 +827,9 @@ Table of Contents
    [CLAT]     Colitti, L., Linkova, J., and T. Jensen, "464XLAT
               Customer-side Translator (CLAT): Node Behavior and
               Recommendations", Work in Progress, Internet-Draft, draft-
-              ietf-v6ops-claton-14, 18 December 2025,
+              ietf-v6ops-claton-16, 5 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              claton-14>.
+              claton-16>.
 
    [CZ-ENDv4] "Czech Republic sets IPv4 end date", 17 January 2024,
               <https://konecipv4.cz/>.
@@ -842,19 +843,18 @@ Table of Contents
               Beauftragte.pdf>.
 
    [I-D.draft-ietf-v6ops-6mops]
-              Buraglio, N., Caletka, O., and J. Linkova, "IPv6-Mostly
+              Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
               Networks: Deployment and Operations Considerations", Work
-              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-04, 20
-              October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-v6ops-6mops-04>.
+              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-07, 2
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-v6ops-6mops-07>.
 
    [I-D.draft-ietf-v6ops-rfc7084bis]
               Lencse, G., Martinez, J. P., Patton, B., and T. Winters,
               "Basic Requirements for IPv6 Customer Edge Routers", Work
               in Progress, Internet-Draft, draft-ietf-v6ops-rfc7084bis-
-              04, 20 October 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              rfc7084bis-04>.
+              05, 2 March 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-v6ops-rfc7084bis-05>.
 
    [iCloud-Private-Relay]
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
