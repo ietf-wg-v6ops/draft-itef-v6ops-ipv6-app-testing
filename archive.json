@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-16T02:31:40.673713+00:00",
+  "timestamp": "2026-04-23T02:30:18.257442+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -19,8 +19,8 @@
       "color": "cfd3d7"
     },
     {
-      "name": "enhancement",
-      "description": "New feature or request",
+      "name": "editorial",
+      "description": "Only editorial changes done/needed",
       "color": "a2eeef"
     },
     {
@@ -47,6 +47,11 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "pending close",
+      "description": "Issue seems done",
+      "color": "768ddc"
     }
   ],
   "issues": [
@@ -96,11 +101,12 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "discuss"
+        "discuss",
+        "pending close"
       ],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/15 in repo migration \n\nFrom Michael Richardson's early review on -00:\n> Maybe there are a few new sections needed for:\n> 1. residential IoT\n> 2. on-premise services and appliances.\n> 2b.  a subset of this would include Enterprise IoT.\n> 2c.  I think of routing/switching infrastructure as being the original IoT,\n    or, maybe, \"Things of Internet\"... because how does your XYZ vendor\n    routing platform call v4-home to validate licenses or update firmware\n    when there is no v4?\n> 3. Among the v6-only, but-not-v6-global, would include SNAC.\n  Right now, this mechanism is focused on low-speed, challenged STUB\n  Networks.   However, one interesting way to deploy a cluster of systems\n  (could even be entirely virtual) to an Enterprise would be with a v6-only\n  STUB network.\n\n@philsbln partially addressed in https://github.com/philsbln/ipv6-app-testing/pull/17 in a very abstract way.\nDo we want to address such scenarios explicitly or is it okay to just have an abstract enough definition including these scenarios?",
       "createdAt": "2025-12-16T09:42:10Z",
-      "updatedAt": "2025-12-16T09:55:37Z",
+      "updatedAt": "2026-04-22T07:40:56Z",
       "closedAt": null,
       "comments": []
     },
@@ -116,11 +122,12 @@
         "kouellette"
       ],
       "labels": [
-        "discuss"
+        "discuss",
+        "pending close"
       ],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/13 in repo migration\n\nFrom Michael Richardson's early review on -00:\n> Section 6.2 might want to reference MUD, RFC8520.\n",
       "createdAt": "2025-12-16T09:43:22Z",
-      "updatedAt": "2026-02-19T14:26:05Z",
+      "updatedAt": "2026-04-22T07:40:43Z",
       "closedAt": null,
       "comments": []
     },
@@ -189,15 +196,15 @@
       "id": "I_kwDOQpLumc7rnzLP",
       "title": "Discuss testing logging and auditing functionality",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/9",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-02-17T14:35:29Z",
-      "updatedAt": "2026-04-15T14:38:20Z",
-      "closedAt": null,
+      "updatedAt": "2026-04-22T07:33:28Z",
+      "closedAt": "2026-04-22T07:33:28Z",
       "comments": []
     }
   ],
@@ -375,26 +382,55 @@
       "id": "PR_kwDOQpLumc7G3nG_",
       "title": "Add text about logging/auditing/processing addresses as data",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #9",
       "createdAt": "2026-02-27T16:37:33Z",
-      "updatedAt": "2026-02-27T16:37:34Z",
+      "updatedAt": "2026-04-22T07:33:27Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "4b84ffda81b3ab7f4cdc2bc1941dcbfd58e4d523",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-logging",
-      "headRefOid": "99fdb8c0cac37d3f229be719e0e44848713dd798",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a573a78fadf10c255defc089ee959286e9a341fc",
+      "closedAt": "2026-04-22T07:33:27Z",
+      "mergedAt": "2026-04-22T07:33:27Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "86faf0bb6482829eba22640f68d40bb97c844e6f"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc73VgUQ",
+          "commit": {
+            "abbreviatedOid": "99fdb8c"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Two super minor nits. Other than those, LGTM. ",
+          "createdAt": "2026-04-21T17:19:12Z",
+          "updatedAt": "2026-04-21T17:22:42Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\nWhen applications process IP addresses as data, e.g., as part of logging or management functionality,\n```",
+              "createdAt": "2026-04-21T17:19:12Z",
+              "updatedAt": "2026-04-21T17:22:42Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\nOne challenge to consider is that the textual representation of IPv4 and IPv6 addresses are not canonical.\n```",
+              "createdAt": "2026-04-21T17:21:32Z",
+              "updatedAt": "2026-04-21T17:22:42Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
