@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-23T02:30:18.257442+00:00",
+  "timestamp": "2026-04-30T02:45:59.114981+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -205,6 +205,24 @@
       "createdAt": "2026-02-17T14:35:29Z",
       "updatedAt": "2026-04-22T07:33:28Z",
       "closedAt": "2026-04-22T07:33:28Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOQpLumc8AAAABA06slA",
+      "title": "Align definition of \"True IPv6-only\" with draft-palet-v6ops-ipv6-only",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/13",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "As we have a common glossary there, we should make sure our definition is consistent with it.",
+      "createdAt": "2026-04-29T12:17:06Z",
+      "updatedAt": "2026-04-29T12:18:18Z",
+      "closedAt": null,
       "comments": []
     }
   ],
