@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-30T02:45:59.114981+00:00",
+  "timestamp": "2026-05-12T02:48:33.857623+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -236,10 +236,12 @@
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "editorial"
+      ],
       "body": "Collection of editorial changes for the draft-itef-v6ops-ipv6-app-testing-01 for discussion and integration",
       "createdAt": "2026-02-17T14:26:13Z",
-      "updatedAt": "2026-02-19T14:25:31Z",
+      "updatedAt": "2026-05-11T13:50:09Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
@@ -447,6 +449,48 @@
               "updatedAt": "2026-04-21T17:22:42Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOQpLumc7aRpks",
+      "title": "Adopt \"IPv6-Only-Strict\" term from draft-palet-v6ops-ipv6-only",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/14",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "Closes #13 ",
+      "createdAt": "2026-05-11T13:49:30Z",
+      "updatedAt": "2026-05-11T17:17:47Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "86faf0bb6482829eba22640f68d40bb97c844e6f",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "ipv6-only-strict",
+      "headRefOid": "0f7c2f87f8d0e6f0c618fd13f97c07e0ada4a8d6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc7-Q7fU",
+          "commit": {
+            "abbreviatedOid": "0f7c2f8"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM \ud83d\udc4d ",
+          "createdAt": "2026-05-11T17:17:47Z",
+          "updatedAt": "2026-05-11T17:17:47Z",
+          "comments": []
         }
       ]
     }
