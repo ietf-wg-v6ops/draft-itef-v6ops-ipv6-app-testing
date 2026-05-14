@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-12T02:48:33.857623+00:00",
+  "timestamp": "2026-05-14T02:56:04.905865+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -212,7 +212,7 @@
       "id": "I_kwDOQpLumc8AAAABA06slA",
       "title": "Align definition of \"True IPv6-only\" with draft-palet-v6ops-ipv6-only",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -221,8 +221,8 @@
       ],
       "body": "As we have a common glossary there, we should make sure our definition is consistent with it.",
       "createdAt": "2026-04-29T12:17:06Z",
-      "updatedAt": "2026-04-29T12:18:18Z",
-      "closedAt": null,
+      "updatedAt": "2026-05-12T11:06:17Z",
+      "closedAt": "2026-05-12T11:06:17Z",
       "comments": []
     }
   ],
@@ -457,7 +457,7 @@
       "id": "PR_kwDOQpLumc7aRpks",
       "title": "Adopt \"IPv6-Only-Strict\" term from draft-palet-v6ops-ipv6-only",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/14",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -466,17 +466,19 @@
       ],
       "body": "Closes #13 ",
       "createdAt": "2026-05-11T13:49:30Z",
-      "updatedAt": "2026-05-11T17:17:47Z",
+      "updatedAt": "2026-05-12T11:06:16Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "86faf0bb6482829eba22640f68d40bb97c844e6f",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "ipv6-only-strict",
       "headRefOid": "0f7c2f87f8d0e6f0c618fd13f97c07e0ada4a8d6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-05-12T11:06:15Z",
+      "mergedAt": "2026-05-12T11:06:15Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "21fb59e046ef41386a225551105626481b7bd6b7"
+      },
       "comments": [],
       "reviews": [
         {
@@ -493,6 +495,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOQpLumc7bKth7",
+      "title": "Added section on DNS misconfiguration and integration testing",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/15",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-05-13T14:53:47Z",
+      "updatedAt": "2026-05-13T14:53:47Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "21fb59e046ef41386a225551105626481b7bd6b7",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philbln-dns",
+      "headRefOid": "74066380740d4d276c1a88b4b628755ba4ece09a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
