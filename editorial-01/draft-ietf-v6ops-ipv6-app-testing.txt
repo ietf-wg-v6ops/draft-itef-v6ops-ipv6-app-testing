@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 22 August 2026                                           Google
+Expires: 22 November 2026                                         Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                        18 February 2026
+                                                             21 May 2026
 
 
                    Testing Applications' IPv6 Support
@@ -19,11 +19,12 @@ Abstract
 
    This document provides guidance for application developers and
    software as a service providers on how to approach IPv6 testing in
-   Dual-Stack (IPv4+IPv6), and IPv6-only scenarios, including "true
-   IPv6-only" scenarios.  It discusses common misconceptions about the
-   degree to which operating systems and libraries can abstract IPv6
-   issues away and explains common regressions to avoid when deploying
-   IPv6 support.
+   Dual-Stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-
+   Only-Strict" scenarios without any connectivity towards any relevant
+   IPv4 endpoint.  It discusses common misconceptions about the degree
+   to which operating systems and libraries can abstract IPv6 issues
+   away and explains common regressions to avoid when deploying IPv6
+   support.
 
 About This Document
 
@@ -50,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2026.
+   This Internet-Draft will expire on 22 November 2026.
 
 Copyright Notice
 
@@ -76,14 +77,20 @@ Table of Contents
    3.  Testing Objectives
      3.1.  Connectivity Scenarios
      3.2.  Testing with Intermediaries (e.g., Proxies)
-     3.3.  Testing with Partially Broken Connectivity
+     3.3.  Testing Name Resolution Issues
        3.3.1.  Missing DNS Records
-       3.3.2.  Partial Blackholing, MTU, and Fragmentation Issues
-     3.4.  Testing Lifecycle Function Considerations
-     3.5.  Testing Complex Cloud Applications and Applying Test Cases
-     3.6.  Special considerations for Web-based Applications
+       3.3.2.  Incorrect DNS Records
+       3.3.3.  DNS delegation issues
+       3.3.4.  Testing with IP literals
+     3.4.  Testing with Partially Broken Connectivity, MTU, and
+           Fragmentation Issues
+     3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+     3.6.  Testing Lifecycle Function Considerations
+     3.7.  Testing Complex Cloud Applications and Applying Test Cases
+     3.8.  Special considerations for Web-based Applications
+     3.9.  Considerations for Addresses as Data
    4.  Testing Strategies
-     4.1.  True IPv6-only Clients
+     4.1.  IPv6-Only-Strict Clients
      4.2.  IPv6-only Servers
      4.3.  Client-based tracing
      4.4.  Server-based tracing
@@ -182,9 +189,12 @@ Table of Contents
       transition technology like NAT64, e.g., NAT64 in combination with
       CLAT, DNS64, or local address synthesis.
 
-   True IPv6-only:  A node or application that has native connectivity
+   IPv6-Only-Strict:  A node or application that has native connectivity
       towards all endpoints relevant for the test scenario using IPv6
-      and no connectivity towards any relevant IPv4 endpoints.
+      and no connectivity towards any relevant IPv4 endpoints, neither
+      encapsulated nor translated.  This definition slightly diverges
+      from the one in [I-D.draft-palet-v6ops-ipv6-only] as it ignores
+      IPv4 connectivity to anywhere outside the testing scope.
 
 2.3.  Lifecycle Functions
 
@@ -212,7 +222,7 @@ Table of Contents
    derived from functional and integration testing.  Therefore, the goal
    is to verify that the expected behavior is consistent across all
    connectivity scenarios, i.e., the application functions correctly in
-   IPv4-only, Dual-Stack, IPv6-only with NAT64 and True IPv6-only
+   IPv4-only, Dual-Stack, IPv6-only with NAT64 and IPv6-Only-Strict
    settings.  The following sections provide guidance on which
    connectivity scenarios to include in a testing campaign and how to
    approach testing complex cloud applications.
@@ -228,12 +238,12 @@ Table of Contents
 
    The first five scenarios marked as _base_ should cover all major code
    paths and fallback conditions.  These include Dual-Stack clients
-   combined with IPv4-only and a True IPv6-only server, to test whether
-   the additional address family confused the client.  We also include
-   the cases with Dual-Stack Server and Single-Stack clients, to test
-   whether a single address family at client side works as anticipated
-   and look at the transition case using NAT64.  We have no special
-   scenarios for 464XLAT [RFC6877] and IPv6-Mostly
+   combined with IPv4-only and a IPv6-Only-Strict server, to test
+   whether the additional address family confused the client.  We also
+   include the cases with Dual-Stack Server and Single-Stack clients, to
+   test whether a single address family at client side works as
+   anticipated and look at the transition case using NAT64.  We have no
+   special scenarios for 464XLAT [RFC6877] and IPv6-Mostly
    [I-D.draft-ietf-v6ops-6mops], as these architectures are from the
    client side indistinguishable from the Dual-Stack (464XLAT or
    IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without
@@ -254,13 +264,13 @@ Table of Contents
      +======================+======================+================+
      | Dual-Stack           | IPv4-only            |      base      |
      +----------------------+----------------------+----------------+
-     | Dual-Stack           | True IPv6-only       |      base      |
+     | Dual-Stack           | IPv6-Only-Strict     |      base      |
      +----------------------+----------------------+----------------+
      | IPv4-only            | Dual-Stack           |      base      |
      +----------------------+----------------------+----------------+
      | IPv6-only with NAT64 | IPv4-only            |      base      |
      +----------------------+----------------------+----------------+
-     | True IPv6-only       | Dual-Stack           |      base      |
+     | IPv6-Only-Strict     | Dual-Stack           |      base      |
      +----------------------+----------------------+----------------+
      | IPv4-only            | IPv6-only with NAT64 |  IPv6-only-DC  |
      +----------------------+----------------------+----------------+
@@ -268,9 +278,9 @@ Table of Contents
      +----------------------+----------------------+----------------+
      | IPv4-only            | IPv4-only            |    extended    |
      +----------------------+----------------------+----------------+
-     | IPv6-only with NAT64 | True IPv6-only       |    extended    |
+     | IPv6-only with NAT64 | IPv6-Only-Strict     |    extended    |
      +----------------------+----------------------+----------------+
-     | True IPv6-only       | True IPv6-only       |    extended    |
+     | IPv6-Only-Strict     | IPv6-Only-Strict     |    extended    |
      +----------------------+----------------------+----------------+
 
          Table 1: Connectivity scenario combinations to consider
@@ -289,38 +299,36 @@ Table of Contents
    proxy) the respective base scenarios from the proxy to the server,
    should be considered for testing.
 
-        +======================+================+================+
-        | Client               | Proxy          |     Server     |
-        +======================+================+================+
-        | Dual-Stack           | IPv4-only      |   Dual-Stack   |
-        +----------------------+----------------+----------------+
-        | Dual-Stack           | True IPv6-only |   Dual-Stack   |
-        +----------------------+----------------+----------------+
-        | IPv4-only            | Dual-Stack     |   IPv4-only    |
-        +----------------------+----------------+----------------+
-        | IPv4-only            | Dual-Stack     | True IPv6-only |
-        +----------------------+----------------+----------------+
-        | IPv6-only with NAT64 | IPv4-only      |   Dual-Stack   |
-        +----------------------+----------------+----------------+
-        | True IPv6-only       | Dual-Stack     |   IPv4-only    |
-        +----------------------+----------------+----------------+
-        | True IPv6-only       | Dual-Stack     | True IPv6-only |
-        +----------------------+----------------+----------------+
+      +======================+==================+==================+
+      | Client               | Proxy            | Server           |
+      +======================+==================+==================+
+      | Dual-Stack           | IPv4-only        | Dual-Stack       |
+      +----------------------+------------------+------------------+
+      | Dual-Stack           | IPv6-Only-Strict | Dual-Stack       |
+      +----------------------+------------------+------------------+
+      | IPv4-only            | Dual-Stack       | IPv4-only        |
+      +----------------------+------------------+------------------+
+      | IPv4-only            | Dual-Stack       | IPv6-Only-Strict |
+      +----------------------+------------------+------------------+
+      | IPv6-only with NAT64 | IPv4-only        | Dual-Stack       |
+      +----------------------+------------------+------------------+
+      | IPv6-Only-Strict     | Dual-Stack       | IPv4-only        |
+      +----------------------+------------------+------------------+
+      | IPv6-Only-Strict     | Dual-Stack       | IPv6-Only-Strict |
+      +----------------------+------------------+------------------+
 
-          Table 2: Base scenario combinations including a proxy
-                       to consider for IPv6 testing
+         Table 2: Base scenario combinations including a proxy to
+                        consider for IPv6 testing
 
-3.3.  Testing with Partially Broken Connectivity
+3.3.  Testing Name Resolution Issues
 
-   In Dual-Stack deployments, situations may arise where communication
-   is partially broken for one or more address families: From the
-   communication endpoints that are expected to be reachable using both
-   address families, some may only be reachable by one address family,
-   while others may only be reachable by the other.  Testing
-   applications against these scenarios can become a key enabler for
-   users' acceptance of IPv6, especially during a transition phase where
-   partially broken connectivity is expected more frequently.  This
-   section provides a brief overview of several common scenarios.
+   As most applications use name resolution to bootstrap their
+   connectivity, it is necessary to consider name resolution aspects
+   when testing IPv6 readiness.  While some name resolution issues only
+   manifest in certain connectivity scenarios or can be mitigated by
+   using Happy Eyeballs [RFC6555]/[RFC8305], others will just map to
+   different connectivity scenarios.  In this section, we list name
+   resolution issues to consider for testing.
 
 3.3.1.  Missing DNS Records
 
@@ -328,27 +336,81 @@ Table of Contents
    connectivity, the A or AAAA DNS records for the endpoint may be
    missing, e.g., due to misconfiguration or broken tooling, or does not
    reach the client endpoint, e.g., because it got filtered out by a
-   middle box or local resolver.
+   middle box or local resolver.  The same can happen for names
+   discovered and resolved through mDNS [RFC6762].
 
    While deployment and integration testing should try to test for this
    kind of broken connectivity, this scenario is usually
    indistinguishable from an IPv4-only or an IPv6-only server endpoint,
    and therefore already addressed by testing the base scenarios above.
 
-3.3.2.  Partial Blackholing, MTU, and Fragmentation Issues
+3.3.2.  Incorrect DNS Records
+
+   Independent of the deployed server endpoint, there may be an A and
+   AAAA record either pointing somewhere else, e.g., to an old or
+   planned deployment.
+
+   For either IPv4-only or IPv6-Only-Strict clients, this scenario
+   should always fail.
+
+   For Dual-Stack clients, it should be tested whether they can use the
+   working IPv4-only or IPv6-only connectivity scenario, either by using
+   Happy Eyeballs [RFC6555]/[RFC8305] or trying the next resolved
+   address candidate after timeout.  Especially for the latter, it is
+   advisable to verify whether the connection delay is acceptable of the
+   desired use-case.
+
+   IPv6-only clients with NAT64 are only expected to work with broken
+   AAAA records when deployed with CLAT (should behave like Dual-Stack
+   as discussed in Section Section 3.1) or local NAT64 address, e.g., as
+   when implementing Happy Eyeballs v2 [RFC8305].  IPv6-only clients
+   with NAT64 that rely on DNS64 only are expected to fail as the
+   presence of AAAA records prevents synthesis of DNS64 records.
+
+   Testing with IPv4-Mapped IPv6 Addresses [RFC4291] in AAAA records is
+   also recommended.  While this makes zero sense, it has been seen in
+   the wild and should not confuse the client.
+
+3.3.3.  DNS delegation issues
+
+   Integration testing for Cloud applications should verify that the
+   necessary domain names are resolvable from IPv4-only or IPv6-Only-
+   Strict DNS resolvers.  [I-D.draft-ietf-dnsop-3901] describes
+   misconfigurations that may prevent this and should be prevented.
+
+3.3.4.  Testing with IP literals
+
+   Most name resolution libraries support IP literals, i.e., textual
+   representations of IP addresses.  Applications should be tested to
+   determine whether they work as expected with IPv4 literals and all
+   IPv6 address representations described in [RFC4291].
+
+   If there is a use-case for link-local communication using IP
+   literals, it should be tested whether the zone identifier can be
+   entered as described in [RFC9844] and work as expected.
+
+3.4.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
+      Issues
 
    When multiple address families are available, network packets may
    traverse different paths depending on the address family.  Even when
    the same path is traversed, the path can exhibit distinct behaviors,
    e.g., dropping all or particular packets, especially in the presence
-   of middle-boxes.  In some cases, connectivity issues may only become
-   apparent late in the communication process, for example, after a
-   successful TCP handshake but before a TLS handshake succeeds.  In
-   such scenarios, clients restricted to a single address family — such
-   as True IPv6-only clients — may experience complete loss of
-   connectivity in these scenarios, while dual-stack clients often mask
-   such failures by automatically falling back to another address
-   family.
+   of middle-boxes.  From the communication endpoints that are expected
+   to be reachable using both address families, some may only be
+   reachable by one address family, while others may only be reachable
+   by the other.  Testing applications against these scenarios can
+   become a key enabler for users' acceptance of IPv6, especially during
+   a transition phase where partially broken connectivity is expected
+   more frequently.
+
+   In some cases, connectivity issues may only become apparent late in
+   the communication process, for example, after a successful TCP
+   handshake but before a TLS handshake succeeds.  In such scenarios,
+   clients restricted to a single address family — such as IPv6-Only-
+   Strict clients — may experience complete loss of connectivity in
+   these scenarios, while dual-stack clients often mask such failures by
+   automatically falling back to another address family.
 
    In addition to partial blackholing, MTU issues may be limited to one
    address family or behave differently with respect to aspects like MTU
@@ -357,13 +419,33 @@ Table of Contents
    dependent on working ICMP _packet too big_ reporting.
 
    It is advisable to test for partial blackholing and MTU issues during
-   deployment and integration testing by testing with IPv4-only and True
-   IPv6-only clients to detect such blackholes.  In case these issues
-   can occur outside the testers' circle of control, it is advisable to
-   simulate this type of failure and ensure that the application's
-   behavior supports the detection and analysis of these errors.
+   deployment and integration testing by testing with IPv4-only and
+   IPv6-Only-Strict clients to detect such blackholes.  In case these
+   issues can occur outside the testers' circle of control, it is
+   advisable to simulate this type of failure and ensure that the
+   application's behavior supports the detection and analysis of these
+   errors.
 
-3.4.  Testing Lifecycle Function Considerations
+3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+
+   Some applications and services may assume the existence and
+   reachability of the IPv4 loopback addresses (127.0.0.0/8) when
+   binding to a socket or for communicating with other services on the
+   same host.  For example, a web server may explicitly listen on a
+   127.0.0.0/8 by default.  For IPv6-Only-Strict scenarios, system
+   administrators may choose to disable IPv4, including loopback.  In
+   such cases, applications may fail to operate correctly.  Applications
+   expecting to bind to a IPv4 loopback address may fail to start when
+   these addresses are unavailable due to a bind failure.  Applications
+   expecting these addresses to be available for inter-service
+   communication will result in these services being unable to
+   communicate properly.
+
+   Because of this, when testing applications for the IPv6-Only-Strict
+   scenario, it is recommended to test the application in an environment
+   without IPv4 on the loopback interface.
+
+3.6.  Testing Lifecycle Function Considerations
 
    To cover the whole lifecycle of an application including
    installation, user interface, management, and update, it is
@@ -381,7 +463,7 @@ Table of Contents
       services, testing all server scenarios in Table 1 may not be
       feasible, and impact the client scenarios that can be supported.
       For example, if a third-party service is IPv4-only, then
-      supporting a True IPv6-only client is not feasible.
+      supporting a IPv6-Only-Strict client is not feasible.
 
    *  User Interface: User interfaces can be incredibly complex with
       numerous contexts, views, API endpoints, CLI commands, etc.  When
@@ -390,19 +472,23 @@ Table of Contents
       remote services, and those that handle network configuration
       parameters.  For example, a network configuration interface may
       only accept IPv4 address literals for certain parameters.  For
-      testing web-based user interfaces, see Section 3.6.
+      testing web-based user interfaces, see Section 3.8.
 
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
       have additional management functions (e.g., SNMP, syslog, etc.)
-      that should be tested.
+      that should be tested.  As the source triggering application
+      behavior is crucial for logging and auditing functionality,
+      addresses recorded need to be verified to be represented
+      correctly.  See Section Section 3.9 about representation of
+      addresses.
 
    *  Update: Depending on the application, update functions may be
       exercised during installation.  However, the application may have
       additional update functions (e.g., automatic updates, manual
       update mechanisms, etc.) that should be tested.
 
-3.5.  Testing Complex Cloud Applications and Applying Test Cases
+3.7.  Testing Complex Cloud Applications and Applying Test Cases
 
    When testing complex applications, especially cloud applications,
    they typically involve many data flows.  An application or component
@@ -444,11 +530,11 @@ Table of Contents
    always denying access over IPv6, or security issues, like not logging
    access from IPv6 clients.
 
-3.6.  Special considerations for Web-based Applications
+3.8.  Special considerations for Web-based Applications
 
    Web-based applications usually load resources from multiple parties,
    including CDNs and analytic tools, involving data flows to all these
-   parties.  When facing the requirement to support True IPv6-only
+   parties.  When facing the requirement to support IPv6-Only-Strict
    users, being unable to load some resources due to missing/defective
    IPv6 support at the respective parties can have effects from missing
    analytics insights or ad revenue to severe functional defects
@@ -459,6 +545,36 @@ Table of Contents
    party resources may themselves may request resources from more
    parties, this kind of testing usually requires an instrumented Web
    browser, e.g., using [Selenium].
+
+3.9.  Considerations for Addresses as Data
+
+   When applications process IP addresses as data, e.g., as part of
+   logging or management functionality, this functionality needs to work
+   for all possible address families and representations.
+
+   One challenge to consider is that the textual representation of IPv4
+   and IPv6 addresses are not canonical.  It allows several valid
+   textual representations for the same address, which makes direct
+   string comparison and arithmetic operations on addresses error-prone
+   and slow.  For example, the IPv6 address 2001:db8::1 can be written
+   as 2001:db8:0:0:0:0:0:1, 2001:0db8::0.0.0.1, or in several other
+   forms.
+
+   While custom logic to check, parse and process addresses is often
+   error-prone and should be validated thoroughly, modern environments
+   and frameworks usually provide data structures that encapsulate the
+   canonical binary representation and include methods for parsing the
+   various textual representations, comparing addresses, performing
+   subnet operations, and rendering addresses in a consistent format.
+
+   For situations where textual representation of IPv6 addresses is
+   needed — such as in user interfaces, logging output, and text-based
+   data formats like JSON, YAML, TOML, and XML — [RFC5952] provides
+   recommendations on which of the valid textual representations should
+   be used.  Applications should be tested whether they follow [RFC5952]
+   when rendering IPv6 addresses in textual form, as required by
+   national regulations like [US-NIST.SP.500-267Ar1], while accepting
+   all valid representations defined in [RFC4291].
 
 4.  Testing Strategies
 
@@ -475,15 +591,15 @@ Table of Contents
    conclude the results for other scenario combinations, e.g., by
    tracing whether the right address family is used.
 
-4.1.  True IPv6-only Clients
+4.1.  IPv6-Only-Strict Clients
 
-   This is the most natural way to test whether True IPv6-only clients
+   This is the most natural way to test whether IPv6-Only-Strict clients
    behave correctly.  The client device is either placed in a network
    without IPv4 connectivity or the IPv4 stack is disabled on the device
    while it is in a Dual-Stack network.  While most desktop operating
    systems allow disabling IPv4, mobile operating systems, such as
-   Android and iOS, do not.  For mobiles operating systems, a True
-   IPv6-only environment is needed.
+   Android and iOS, do not.  For mobiles operating systems, a IPv6-Only-
+   Strict environment is needed.
 
    In both cases, it has to be ensured that there is no way to access
    IPv4-only resources.  In particular, fallback to NAT64 must be
@@ -503,13 +619,13 @@ Table of Contents
 
 4.2.  IPv6-only Servers
 
-   IPv6-only servers are a good option when setting up a True IPv6-only
-   client environment is infeasible and clients are know to only contact
-   a single server or a small number of servers under the testers'
-   control.  Even if setting up a True IPv6-only server environment is
-   infeasible, most testing is also achievable by setting up a dedicated
-   DNS name only containing an AAAA record pointing to the IPv6
-   addresses of an otherwise Dual-Stack server.
+   IPv6-only servers are a good option when setting up a IPv6-Only-
+   Strict client environment is infeasible and clients are know to only
+   contact a single server or a small number of servers under the
+   testers' control.  Even if setting up a IPv6-Only-Strict server
+   environment is infeasible, most testing is also achievable by setting
+   up a dedicated DNS name only containing an AAAA record pointing to
+   the IPv6 addresses of an otherwise Dual-Stack server.
 
 4.3.  Client-based tracing
 
@@ -518,8 +634,8 @@ Table of Contents
    used.
 
    Client-based tracing is especially useful when Dual-Stack servers and
-   clients are available and a conclusion for the True IPv6-only case is
-   desired.  By using the clients' logging/tracing/debugging
+   clients are available and a conclusion for the IPv6-Only-Strict case
+   is desired.  By using the clients' logging/tracing/debugging
    functionality, the tester can verify that the actual data flows
    happen over IPv6, which is preferred by most network abstractions.
    If the client allows changing the preference between IPv6 and IPv4,
@@ -538,17 +654,17 @@ Table of Contents
    server, this approach is not feasible for Web-based applications
    where a client usually needs flows towards many servers, where client
    or network based tracing are the only feasible alternatives to
-   testing with an True IPv6-only client.
+   testing with an IPv6-Only-Strict client.
 
 4.5.  Network-based tracing
 
    If the communication pattern of an application is known well enough,
    a packet tracer as [Wireshark] allows to verify that an application
    in a Dual-Stack environment uses IPv6 for all of its flows.  If this
-   can be verified, failures in True IPv6-only environments are
+   can be verified, failures in IPv6-Only-Strict environments are
    unlikely.
 
-   While this is the least invasive method of testing True IPv6
+   While this is the least invasive method of testing IPv6-Only-Strict
    scenarios in a Dual-Stack setup, it is the most error-prone as it
    requires the tester to fully understand the network flows of the
    application and requires the skills to interpret the output of a
@@ -708,8 +824,17 @@ Table of Contents
 
    [RFC3484]  Draves, R., "Default Address Selection for Internet
               Protocol version 6 (IPv6)", RFC 3484,
-              DOI 10.17487/RFC3484, February 2003,
+              DOI 10.17487/RFC3484, March 2003,
               <https://www.rfc-editor.org/rfc/rfc3484>.
+
+   [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
+              Architecture", RFC 4291, DOI 10.17487/RFC4291, February
+              2006, <https://www.rfc-editor.org/rfc/rfc4291>.
+
+   [RFC5952]  Kawamura, S. and M. Kawashima, "A Recommendation for IPv6
+              Address Text Representation", RFC 5952,
+              DOI 10.17487/RFC5952, August 2010,
+              <https://www.rfc-editor.org/rfc/rfc5952>.
 
    [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
               "Default Address Selection for Internet Protocol Version 6
@@ -720,6 +845,11 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
+              Identifiers in User Interfaces", RFC 9844,
+              DOI 10.17487/RFC9844, August 2025,
+              <https://www.rfc-editor.org/rfc/rfc9844>.
+
 9.2.  Informative References
 
    [C-ARES]   "C-ARES - a modern DNS (stub) resolver library, written in
@@ -728,9 +858,9 @@ Table of Contents
    [CLAT]     Colitti, L., Linkova, J., and T. Jensen, "464XLAT
               Customer-side Translator (CLAT): Node Behavior and
               Recommendations", Work in Progress, Internet-Draft, draft-
-              ietf-v6ops-claton-14, 18 December 2025,
+              ietf-v6ops-claton-16, 5 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              claton-14>.
+              claton-16>.
 
    [CN-CAC-2023]
               "2023 Work Arrangement for Further Promoting Large-scale
@@ -748,20 +878,29 @@ Table of Contents
               it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-
               Beauftragte.pdf>.
 
+   [I-D.draft-ietf-dnsop-3901]
+              "*** BROKEN REFERENCE ***".
+
    [I-D.draft-ietf-v6ops-6mops]
-              Buraglio, N., Caletka, O., and J. Linkova, "IPv6-Mostly
+              Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
               Networks: Deployment and Operations Considerations", Work
-              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-04, 20
-              October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-v6ops-6mops-04>.
+              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-07, 2
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-v6ops-6mops-07>.
 
    [I-D.draft-ietf-v6ops-rfc7084bis]
               Lencse, G., Martinez, J. P., Patton, B., and T. Winters,
               "Basic Requirements for IPv6 Customer Edge Routers", Work
               in Progress, Internet-Draft, draft-ietf-v6ops-rfc7084bis-
-              04, 20 October 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              rfc7084bis-04>.
+              05, 2 March 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-v6ops-rfc7084bis-05>.
+
+   [I-D.draft-palet-v6ops-ipv6-only]
+              Martinez, J. P., "IPv6-only and IPv6-Mostly Terminology
+              Definitions", Work in Progress, Internet-Draft, draft-
+              palet-v6ops-ipv6-only-14, 7 May 2026,
+              <https://datatracker.ietf.org/doc/html/draft-palet-v6ops-
+              ipv6-only-14>.
 
    [iCloud-Private-Relay]
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
@@ -788,6 +927,14 @@ Table of Contents
               Translation from IPv6 Clients to IPv4 Servers", RFC 6147,
               DOI 10.17487/RFC6147, April 2011,
               <https://www.rfc-editor.org/rfc/rfc6147>.
+
+   [RFC6555]  Wing, D. and A. Yourtchenko, "Happy Eyeballs: Success with
+              Dual-Stack Hosts", RFC 6555, DOI 10.17487/RFC6555, April
+              2012, <https://www.rfc-editor.org/rfc/rfc6555>.
+
+   [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
+              DOI 10.17487/RFC6762, February 2013,
+              <https://www.rfc-editor.org/rfc/rfc6762>.
 
    [RFC6877]  Mawatari, M., Kawashima, M., and C. Byrne, "464XLAT:
               Combination of Stateful and Stateless Translation",
@@ -837,8 +984,8 @@ Table of Contents
 Acknowledgments
 
    Thanks to Holger Füßler, Michael Richardson, Tommy Jensen, Nathan
-   Sherrard, Jeremy Duncan, for the discussions, the input, and all
-   contribution.
+   Sherrard, Jeremy Duncan, Brian E Carpenter, for the discussions, the
+   input, and all contribution.
 
 Authors' Addresses
 
