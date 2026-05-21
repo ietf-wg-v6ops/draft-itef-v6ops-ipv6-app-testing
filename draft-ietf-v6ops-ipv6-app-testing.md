@@ -374,7 +374,7 @@ modern environments and frameworks usually provide data structures that encapsul
 
 For situations where textual representation of IPv6 addresses is needed — such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML — {{!RFC5952}} provides recommendations on which of the valid textual representations should be used.
 Applications should be tested whether they follow {{!RFC5952}} when rendering IPv6 addresses in textual form,
-as required by national regulations like {{NIST.SP.500-267Ar1}},
+as required by national regulations like {{US-NIST.SP.500-267Ar1}},
 while accepting all valid representations defined in {{!RFC4291}}.
 
 # Testing Strategies
