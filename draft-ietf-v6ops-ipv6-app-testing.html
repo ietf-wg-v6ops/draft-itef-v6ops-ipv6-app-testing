@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 13 November 2026</td>
+<td class="center">Expires 22 November 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-12" class="published">12 May 2026</time>
+<time datetime="2026-05-21" class="published">21 May 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-13">13 November 2026</time></dd>
+<dd class="expires"><time datetime="2026-11-22">22 November 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1132,7 +1132,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1197,7 +1197,10 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                     <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-incorrect-dns-records" class="internal xref">Incorrect DNS Records</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.3">
-                    <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-testing-with-ip-literals" class="internal xref">Testing with IP literals</a></p>
+                    <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-dns-delegation-issues" class="internal xref">DNS delegation issues</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.4">
+                    <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-testing-with-ip-literals" class="internal xref">Testing with IP literals</a></p>
 </li>
                 </ul>
 </li>
@@ -1596,14 +1599,23 @@ IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the
 While this makes zero sense, it has been seen in the wild and should not confuse the client.<a href="#section-3.3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="testing-with-ip-literals">
+<div id="dns-delegation-issues">
 <section id="section-3.3.3">
-          <h4 id="name-testing-with-ip-literals">
-<a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-testing-with-ip-literals" class="section-name selfRef">Testing with IP literals</a>
+          <h4 id="name-dns-delegation-issues">
+<a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-dns-delegation-issues" class="section-name selfRef">DNS delegation issues</a>
           </h4>
-<p id="section-3.3.3-1">Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
-Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3.3-2">If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in <span>[<a href="#RFC9844" class="cite xref">RFC9844</a>]</span> and work as expected.<a href="#section-3.3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3.3-1">Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-Only-Strict DNS resolvers.
+<span>[<a href="#I-D.draft-ietf-dnsop-3901" class="cite xref">I-D.draft-ietf-dnsop-3901</a>]</span> describes misconfigurations that may prevent this and should be prevented.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="testing-with-ip-literals">
+<section id="section-3.3.4">
+          <h4 id="name-testing-with-ip-literals">
+<a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-testing-with-ip-literals" class="section-name selfRef">Testing with IP literals</a>
+          </h4>
+<p id="section-3.3.4-1">Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
+Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.4-2">If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in <span>[<a href="#RFC9844" class="cite xref">RFC9844</a>]</span> and work as expected.<a href="#section-3.3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1972,7 +1984,7 @@ Be prepared for this and plan extra time or budget for updating or replacing the
 <dd class="break"></dd>
 <dt id="RFC3484">[RFC3484]</dt>
         <dd>
-<span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-02" class="refDate">February 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
+<span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-03" class="refDate">March 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4291">[RFC4291]</dt>
         <dd>
@@ -2022,6 +2034,10 @@ Be prepared for this and plan extra time or budget for updating or replacing the
 <dt id="DE-BIT-2020-14">[DE-BIT-2020-14]</dt>
         <dd>
 <span class="refTitle">"Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6"</span>, <span class="seriesInfo">IT-Steuerung Bund Beschluss 2020/14</span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>, <span>&lt;<a href="https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf">https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-ietf-dnsop-3901">[I-D.draft-ietf-dnsop-3901]</dt>
+        <dd>
+<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-6mops">[I-D.draft-ietf-v6ops-6mops]</dt>
         <dd>

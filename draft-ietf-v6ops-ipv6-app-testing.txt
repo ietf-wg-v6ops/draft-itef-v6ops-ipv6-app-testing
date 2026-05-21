@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 13 November 2026                                         Google
+Expires: 22 November 2026                                         Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                             12 May 2026
+                                                             21 May 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 November 2026.
+   This Internet-Draft will expire on 22 November 2026.
 
 Copyright Notice
 
@@ -80,7 +80,8 @@ Table of Contents
      3.3.  Testing Name Resolution Issues
        3.3.1.  Missing DNS Records
        3.3.2.  Incorrect DNS Records
-       3.3.3.  Testing with IP literals
+       3.3.3.  DNS delegation issues
+       3.3.4.  Testing with IP literals
      3.4.  Testing with Partially Broken Connectivity, MTU, and
            Fragmentation Issues
      3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
@@ -370,7 +371,14 @@ Table of Contents
    also recommended.  While this makes zero sense, it has been seen in
    the wild and should not confuse the client.
 
-3.3.3.  Testing with IP literals
+3.3.3.  DNS delegation issues
+
+   Integration testing for Cloud applications should verify that the
+   necessary domain names are resolvable from IPv4-only or IPv6-Only-
+   Strict DNS resolvers.  [I-D.draft-ietf-dnsop-3901] describes
+   misconfigurations that may prevent this and should be prevented.
+
+3.3.4.  Testing with IP literals
 
    Most name resolution libraries support IP literals, i.e., textual
    representations of IP addresses.  Applications should be tested to
@@ -814,7 +822,7 @@ Table of Contents
 
    [RFC3484]  Draves, R., "Default Address Selection for Internet
               Protocol version 6 (IPv6)", RFC 3484,
-              DOI 10.17487/RFC3484, February 2003,
+              DOI 10.17487/RFC3484, March 2003,
               <https://www.rfc-editor.org/rfc/rfc3484>.
 
    [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
@@ -866,6 +874,9 @@ Table of Contents
               <https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/
               it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-
               Beauftragte.pdf>.
+
+   [I-D.draft-ietf-dnsop-3901]
+              "*** BROKEN REFERENCE ***".
 
    [I-D.draft-ietf-v6ops-6mops]
               Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
