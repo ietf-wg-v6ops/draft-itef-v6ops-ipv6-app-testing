@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-14T02:56:04.905865+00:00",
+  "timestamp": "2026-05-21T03:31:15.911177+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -96,7 +96,7 @@
       "id": "I_kwDOQpLumc7ekFdu",
       "title": "Fix/broaden perspective of test scenarios",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -106,16 +106,24 @@
       ],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/15 in repo migration \n\nFrom Michael Richardson's early review on -00:\n> Maybe there are a few new sections needed for:\n> 1. residential IoT\n> 2. on-premise services and appliances.\n> 2b.  a subset of this would include Enterprise IoT.\n> 2c.  I think of routing/switching infrastructure as being the original IoT,\n    or, maybe, \"Things of Internet\"... because how does your XYZ vendor\n    routing platform call v4-home to validate licenses or update firmware\n    when there is no v4?\n> 3. Among the v6-only, but-not-v6-global, would include SNAC.\n  Right now, this mechanism is focused on low-speed, challenged STUB\n  Networks.   However, one interesting way to deploy a cluster of systems\n  (could even be entirely virtual) to an Enterprise would be with a v6-only\n  STUB network.\n\n@philsbln partially addressed in https://github.com/philsbln/ipv6-app-testing/pull/17 in a very abstract way.\nDo we want to address such scenarios explicitly or is it okay to just have an abstract enough definition including these scenarios?",
       "createdAt": "2025-12-16T09:42:10Z",
-      "updatedAt": "2026-04-22T07:40:56Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2026-05-20T09:24:53Z",
+      "closedAt": "2026-05-20T09:24:53Z",
+      "comments": [
+        {
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As discussed amongst the authors, we close this for now and wait for more detailed feedback.",
+          "createdAt": "2026-05-20T09:24:53Z",
+          "updatedAt": "2026-05-20T09:24:53Z"
+        }
+      ]
     },
     {
       "number": 4,
       "id": "I_kwDOQpLumc7ekG35",
       "title": "Reference RFC8520 in Section 6.2?",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -127,9 +135,17 @@
       ],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/13 in repo migration\n\nFrom Michael Richardson's early review on -00:\n> Section 6.2 might want to reference MUD, RFC8520.\n",
       "createdAt": "2025-12-16T09:43:22Z",
-      "updatedAt": "2026-04-22T07:40:43Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2026-05-20T09:20:48Z",
+      "closedAt": "2026-05-20T09:20:48Z",
+      "comments": [
+        {
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As discussed amongst the authors, MUD is related but outside the focus of this document, so we close that one.",
+          "createdAt": "2026-05-20T09:20:48Z",
+          "updatedAt": "2026-05-20T09:20:48Z"
+        }
+      ]
     },
     {
       "number": 5,
@@ -508,7 +524,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2026-05-13T14:53:47Z",
-      "updatedAt": "2026-05-13T14:53:47Z",
+      "updatedAt": "2026-05-20T13:42:31Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "21fb59e046ef41386a225551105626481b7bd6b7",
@@ -520,7 +536,28 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABAgdspQ",
+          "commit": {
+            "abbreviatedOid": "7406638"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Made a suggestion to align with the IPv6-Only-Strict terminology. Otherwise, LGTM.",
+          "createdAt": "2026-05-20T13:40:05Z",
+          "updatedAt": "2026-05-20T13:42:31Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\nIntegration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-Only-Strict DNS resolvers.\n```",
+              "createdAt": "2026-05-20T13:40:05Z",
+              "updatedAt": "2026-05-20T13:42:31Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
