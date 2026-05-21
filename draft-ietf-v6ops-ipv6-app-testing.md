@@ -50,6 +50,7 @@ informative:
   I-D.draft-ietf-v6ops-rfc7084bis:
   I-D.draft-ietf-v6ops-6mops:
   I-D.draft-palet-v6ops-ipv6-only:
+  I-D.draft-ietf-dnsop-3901:
   CLAT: I-D.draft-ietf-v6ops-claton
   RFC8504:
   CAC-2023:
@@ -254,6 +255,11 @@ IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the
 
 Testing with IPv4-Mapped IPv6 Addresses {{?RFC4291}} in AAAA records is also recommended.
 While this makes zero sense, it has been seen in the wild and should not confuse the client.
+
+### DNS delegation issues
+
+Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-Only-Strict DNS resolvers.
+{{I-D.draft-ietf-dnsop-3901}} describes misconfigurations that may prevent this and should be prevented.
 
 ### Testing with IP literals
 
