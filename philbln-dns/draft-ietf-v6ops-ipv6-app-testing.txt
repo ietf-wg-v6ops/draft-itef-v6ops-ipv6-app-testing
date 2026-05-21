@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 14 November 2026                                         Google
+Expires: 22 November 2026                                         Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                             13 May 2026
+                                                             21 May 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 November 2026.
+   This Internet-Draft will expire on 22 November 2026.
 
 Copyright Notice
 
@@ -374,8 +374,8 @@ Table of Contents
 3.3.3.  DNS delegation issues
 
    Integration testing for Cloud applications should verify that the
-   necessary domain names are resolvable from IPv4-only or strict-
-   IPv6-only DNS resolvers.  [I-D.draft-ietf-dnsop-3901] describes
+   necessary domain names are resolvable from IPv4-only or IPv6-Only-
+   Strict DNS resolvers.  [I-D.draft-ietf-dnsop-3901] describes
    misconfigurations that may prevent this and should be prevented.
 
 3.3.4.  Testing with IP literals
@@ -822,7 +822,7 @@ Table of Contents
 
    [RFC3484]  Draves, R., "Default Address Selection for Internet
               Protocol version 6 (IPv6)", RFC 3484,
-              DOI 10.17487/RFC3484, February 2003,
+              DOI 10.17487/RFC3484, March 2003,
               <https://www.rfc-editor.org/rfc/rfc3484>.
 
    [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
