@@ -258,7 +258,7 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 
 ### DNS delegation issues
 
-Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or strict-IPv6-only DNS resolvers.
+Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-Only-Strict DNS resolvers.
 {{I-D.draft-ietf-dnsop-3901}} describes misconfigurations that may prevent this and should be prevented.
 
 ### Testing with IP literals
