@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-21T03:31:15.911177+00:00",
+  "timestamp": "2026-05-24T03:27:19.410997+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -257,13 +257,13 @@
       ],
       "body": "Collection of editorial changes for the draft-itef-v6ops-ipv6-app-testing-01 for discussion and integration",
       "createdAt": "2026-02-17T14:26:13Z",
-      "updatedAt": "2026-05-11T13:50:09Z",
+      "updatedAt": "2026-05-21T06:55:34Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
-      "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
+      "baseRefOid": "db13ee7fd5efd591d6098c992244762c2f1a69ef",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "editorial-01",
-      "headRefOid": "523fb770f0ba17e36aee5b1f0e8364a8468e2b5d",
+      "headRefOid": "4a57555a86ddbc80f27e743ea0c0da2279289c27",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -283,7 +283,7 @@
       "labels": [],
       "body": "closes #2 \r\ncloses #7  ",
       "createdAt": "2026-02-18T15:36:19Z",
-      "updatedAt": "2026-02-27T12:25:23Z",
+      "updatedAt": "2026-05-21T06:47:09Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "f7890db2ebbe54e43b7889a78c39a9e0fe4c9ef8",
@@ -376,7 +376,7 @@
       "labels": [],
       "body": "Fixes #1 ",
       "createdAt": "2026-02-26T20:16:54Z",
-      "updatedAt": "2026-02-27T17:42:24Z",
+      "updatedAt": "2026-05-21T06:47:06Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "4b84ffda81b3ab7f4cdc2bc1941dcbfd58e4d523",
@@ -425,7 +425,7 @@
       "labels": [],
       "body": "Closes #9",
       "createdAt": "2026-02-27T16:37:33Z",
-      "updatedAt": "2026-04-22T07:33:27Z",
+      "updatedAt": "2026-05-21T06:47:05Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "4b84ffda81b3ab7f4cdc2bc1941dcbfd58e4d523",
@@ -482,7 +482,7 @@
       ],
       "body": "Closes #13 ",
       "createdAt": "2026-05-11T13:49:30Z",
-      "updatedAt": "2026-05-12T11:06:16Z",
+      "updatedAt": "2026-05-21T06:47:04Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "86faf0bb6482829eba22640f68d40bb97c844e6f",
@@ -517,24 +517,26 @@
       "id": "PR_kwDOQpLumc7bKth7",
       "title": "Added section on DNS misconfiguration and integration testing",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/15",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-05-13T14:53:47Z",
-      "updatedAt": "2026-05-20T13:42:31Z",
+      "updatedAt": "2026-05-21T06:47:02Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "21fb59e046ef41386a225551105626481b7bd6b7",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philbln-dns",
-      "headRefOid": "74066380740d4d276c1a88b4b628755ba4ece09a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c1d9a0c6aee1ae5c749c6faa0a949b0488fba429",
+      "closedAt": "2026-05-21T06:34:55Z",
+      "mergedAt": "2026-05-21T06:34:55Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "db13ee7fd5efd591d6098c992244762c2f1a69ef"
+      },
       "comments": [],
       "reviews": [
         {
@@ -556,6 +558,48 @@
               "updatedAt": "2026-05-20T13:42:31Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOQpLumc7d0mzx",
+      "title": "Make capitalization of scenarios consistent",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/16",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "",
+      "createdAt": "2026-05-21T06:44:10Z",
+      "updatedAt": "2026-05-22T19:59:52Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "editorial-01",
+      "baseRefOid": "28a2c0a3ec4e423c37f8a4cc82942f1eaef60e9d",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln-scenario-capitalization",
+      "headRefOid": "af17544801833162feb8af458cea8939cd265b16",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABAzFFKA",
+          "commit": {
+            "abbreviatedOid": "af17544"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-05-22T19:59:52Z",
+          "updatedAt": "2026-05-22T19:59:52Z",
+          "comments": []
         }
       ]
     }
