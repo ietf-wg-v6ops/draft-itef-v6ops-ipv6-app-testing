@@ -45,12 +45,13 @@ author:
     email: bpatton@iol.unh.edu
 
 normative:
+  ADDR-SELECT: I-D.draft-ietf-6man-rfc6724-update
 
 informative:
   I-D.draft-ietf-v6ops-rfc7084bis:
   I-D.draft-ietf-v6ops-6mops:
   I-D.draft-palet-v6ops-ipv6-only:
-  I-D.draft-ietf-dnsop-3901:
+  I-D.draft-ietf-dnsop-3901bis:
   CLAT: I-D.draft-ietf-v6ops-claton
   RFC8504:
   CN-CAC-2023:
@@ -117,7 +118,7 @@ Therefore, today's applications are expected to function regardless of whether t
 While the availability of IPv6 support in applications has a considerable impact on the success of IPv6,
 there exists no documented best current practices how to do so.
 Testing IPv6 compliance of network gear and operating systems has been documented extensively.
-While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes [RFC8504] and Customer Edge (CE) routers [I-D.draft-ietf-v6ops-rfc7084bis].
+While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{I-D.draft-ietf-v6ops-rfc7084bis}}.
 
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
@@ -259,14 +260,14 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 ### DNS delegation issues
 
 Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-only-strict DNS resolvers.
-{{I-D.draft-ietf-dnsop-3901}} describes misconfigurations that may prevent this and should be prevented.
+{{I-D.draft-ietf-dnsop-3901bis}} describes misconfigurations that may prevent this and should be prevented.
 
 ### Testing with IP literals
 
 Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
 Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
 
-If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
+If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{?RFC9844}} and work as expected.
 
 
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues
@@ -450,9 +451,9 @@ As these feature gates are often buried deeply in the documentation and are ofte
 
 ## Destination Address Selection Preference and Address Filtering
 
-The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
+The destination address selection algorithm in {{ADDR-SELECT}} filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most operating systems and some alternative resolver libraries, such as {{C-ARES}}, implement {{!RFC6724}} or its predecessor {{!RFC3484}} correctly,
+While most operating systems and some alternative resolver libraries, such as {{C-ARES}}, implement {{ADDR-SELECT}} or its predecessors {{?RFC6724}}/{{?RFC3484}} correctly,
 there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.
 
 - Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
