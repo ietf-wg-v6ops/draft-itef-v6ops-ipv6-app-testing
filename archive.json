@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-24T03:27:19.410997+00:00",
+  "timestamp": "2026-05-28T02:56:51.546326+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -161,7 +161,7 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/1 in repo migration\n\n@furry13 I think it might be useful to test with RFC8781 w/o DNS64 as a primary case and maybe have a separate case (?) for DNS64 presence?\nIt would be desirable to ensure that there are no dependencies on DNS64?\n\n@philsbln As part of a section on name resolution issues to look for, that makes very much sense.\n\u2794 @furry13 ideas who may want to contribute a section on that?\n\n@furry13 We might want to have a 'network topologies' section",
       "createdAt": "2025-12-16T09:48:06Z",
-      "updatedAt": "2026-02-27T12:39:25Z",
+      "updatedAt": "2026-05-26T09:09:47Z",
       "closedAt": null,
       "comments": [
         {
@@ -185,7 +185,7 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/11 in repo migration\n\nFrom Michael Richardson's early review on -00:\n\n> I think the introduction might want to say more about how this document might\ninteract with diagnosis of end-customer problems. With the view to avoiding\nthe \"Just turn off IPv6\" that comes from many places, and which might just\nresult in confused tech-support when there winds up being no connectivity :-)",
       "createdAt": "2025-12-16T09:49:15Z",
-      "updatedAt": "2025-12-16T09:51:32Z",
+      "updatedAt": "2026-05-26T09:10:00Z",
       "closedAt": null,
       "comments": []
     },
@@ -248,7 +248,7 @@
       "id": "PR_kwDOQpLumc7EX4KJ",
       "title": "Editorial suggestions for -01",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/8",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -257,17 +257,19 @@
       ],
       "body": "Collection of editorial changes for the draft-itef-v6ops-ipv6-app-testing-01 for discussion and integration",
       "createdAt": "2026-02-17T14:26:13Z",
-      "updatedAt": "2026-05-21T06:55:34Z",
+      "updatedAt": "2026-05-26T09:08:07Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "db13ee7fd5efd591d6098c992244762c2f1a69ef",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "editorial-01",
-      "headRefOid": "4a57555a86ddbc80f27e743ea0c0da2279289c27",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "502b0d9e0ef7a1852b9348f4a71e90b217975665",
+      "closedAt": "2026-05-26T09:08:07Z",
+      "mergedAt": "2026-05-26T09:08:07Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "9023e6e00e0e8d3408e609ef4f2fdc691a088a65"
+      },
       "comments": [],
       "reviews": []
     },
@@ -566,7 +568,7 @@
       "id": "PR_kwDOQpLumc7d0mzx",
       "title": "Make capitalization of scenarios consistent",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/16",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -575,17 +577,19 @@
       ],
       "body": "",
       "createdAt": "2026-05-21T06:44:10Z",
-      "updatedAt": "2026-05-22T19:59:52Z",
+      "updatedAt": "2026-05-26T09:03:24Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "editorial-01",
       "baseRefOid": "28a2c0a3ec4e423c37f8a4cc82942f1eaef60e9d",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-scenario-capitalization",
       "headRefOid": "af17544801833162feb8af458cea8939cd265b16",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-05-26T09:03:24Z",
+      "mergedAt": "2026-05-26T09:03:24Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "502b0d9e0ef7a1852b9348f4a71e90b217975665"
+      },
       "comments": [],
       "reviews": [
         {
