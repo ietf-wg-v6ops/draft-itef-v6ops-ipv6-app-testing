@@ -10,28 +10,31 @@
 <meta content="Kyle Ouellette" name="author">
 <meta content="Ben Patton" name="author">
 <meta content='
-       This document provides guidance for application developers and software as a service providers on how to approach IPv6 testing in Dual-Stack (IPv4+IPv6), and IPv6-only scenarios, including "true IPv6-only" scenarios.
+       This document provides guidance for application developers and software as a service providers on how to approach IPv6 testing in Dual-stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
 It discusses common misconceptions about the degree to which operating systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support. 
     ' name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
-<meta content="Internet-Draft" name="keyword">
-<meta content="draft-tiesel-v6ops-ipv6-app-testing-latest" name="ietf.draft">
+<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="IPv6" name="keyword">
+<meta content="Applications" name="keyword">
+<meta content="Testing" name="keyword">
+<meta content="draft-ietf-v6ops-ipv6-app-testing-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
-    Python 3.12.12
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.5.0
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
-    PyYAML 6.0.2
-    requests 2.32.5
-    wcwidth 0.2.14
+    PyYAML 6.0.3
+    requests 2.33.1
+    wcwidth 0.8.2
 -->
-<link href="draft-tiesel-v6ops-ipv6-app-testing.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-ietf-v6ops-ipv6-app-testing.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -170,7 +173,7 @@ and explains common regressions to avoid when deploying IPv6 support.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -178,7 +181,8 @@ and explains common regressions to avoid when deploying IPv6 support.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -295,16 +299,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -324,10 +331,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -338,59 +345,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -428,26 +435,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -463,20 +469,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -512,9 +520,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -524,17 +532,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -570,6 +580,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -583,25 +594,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -621,13 +624,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -638,18 +634,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -708,9 +702,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -800,23 +794,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -827,19 +825,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -860,54 +860,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -926,26 +926,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -961,12 +961,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1028,17 +1029,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1048,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ipv6-app-testing</td>
-<td class="right">December 2025</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 13 June 2026</td>
+<td class="center">Expires 15 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1060,17 +1063,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">v6ops Working Group</dd>
+<dd class="workgroup">v6ops</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-tiesel-v6ops-ipv6-app-testing-latest</dd>
+<dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-10" class="published">10 December 2025</time>
+<time datetime="2026-07-14" class="published">14 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-13">13 June 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-15">15 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1095,20 +1098,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Testing Applications' IPv6 Support</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document provides guidance for application developers and software as a service providers on how to approach IPv6 testing in Dual-Stack (IPv4+IPv6), and IPv6-only scenarios, including "true IPv6-only" scenarios.
+<p id="section-abstract-1">This document provides guidance for application developers and software as a service providers on how to approach IPv6 testing in Dual-stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
 It discusses common misconceptions about the degree to which operating systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
-      <h2 id="name-discussion-venues">
-<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
-<p id="section-note.1-2">Discussion of this document takes place on the
-    IPv6 Operations Working Group mailing list (v6ops@ietf.org),
-    which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/v6ops/">https://mailarchive.ietf.org/arch/browse/v6ops/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-v6ops-ipv6-app-testing/">https://datatracker.ietf.org/doc/draft-ietf-v6ops-ipv6-app-testing/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-    <span><a href="https://github.com/philsbln/ipv6-app-testing">https://github.com/philsbln/ipv6-app-testing</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        <span><a href="https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing">https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1129,7 +1131,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 15 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1138,7 +1140,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1185,24 +1187,39 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-testing-with-intermediaries" class="internal xref">Testing with Intermediaries (e.g., Proxies)</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-testing-with-partially-brok" class="internal xref">Testing with Partially Broken Connectivity</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-testing-name-resolution-iss" class="internal xref">Testing Name Resolution Issues</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
                     <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-missing-dns-records" class="internal xref">Missing DNS Records</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
-                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-partial-blackholing-mtu-and" class="internal xref">Partial Blackholing, MTU, and Fragmentation Issues</a></p>
+                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-incorrect-dns-records" class="internal xref">Incorrect DNS Records</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.3">
+                    <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-dns-delegation-issues" class="internal xref">DNS delegation issues</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.4">
+                    <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-testing-with-ip-literals" class="internal xref">Testing with IP literals</a></p>
 </li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-testing-lifecycle-function-" class="internal xref">Testing Lifecycle Function Considerations</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-testing-with-partially-brok" class="internal xref">Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-testing-complex-cloud-appli" class="internal xref">Testing Complex Cloud Applications and Applying Test Cases</a></p>
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-testing-without-ipv4-loopba" class="internal xref">Testing without IPv4 Loopback Addresses (127.0.0.0/8)</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-special-considerations-for-" class="internal xref">Special considerations for Web-based Applications</a></p>
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-testing-lifecycle-function-" class="internal xref">Testing Lifecycle Function Considerations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-testing-complex-cloud-appli" class="internal xref">Testing Complex Cloud Applications and Applying Test Cases</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
+                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="auto internal xref">3.8</a>.  <a href="#name-special-considerations-for-" class="internal xref">Special considerations for Web-based Applications</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.9">
+                <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="auto internal xref">3.9</a>.  <a href="#name-considerations-for-addresse" class="internal xref">Considerations for Addresses as Data</a></p>
 </li>
             </ul>
 </li>
@@ -1210,7 +1227,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-testing-strategies" class="internal xref">Testing Strategies</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-true-ipv6-only-clients" class="internal xref">True IPv6-only Clients</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-ipv6-only-strict-clients" class="internal xref">IPv6-only-strict Clients</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-ipv6-only-servers" class="internal xref">IPv6-only Servers</a></p>
@@ -1294,9 +1311,9 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
       </h2>
 <p id="section-1-1">For the last 20 years, enabling applications for IPv6 has focused on coexistence with IPv4 and allowing traffic to shift towards IPv6 without breaking IPv4 operation.
 This target has changed in part due to a series of national regulations mandating state entities to proceed in the migration to IPv6, e.g., in
-China <span>[<a href="#CAC-2023" class="cite xref">CAC-2023</a>]</span>, the United States of America <span>[<a href="#US-OMB-M-21-07" class="cite xref">US-OMB-M-21-07</a>]</span>, Germany <span>[<a href="#DE-BIT-2020-14" class="cite xref">DE-BIT-2020-14</a>]</span>, and the Czech Republic <span>[<a href="#CZ-ENDv4" class="cite xref">CZ-ENDv4</a>]</span>.
+China <span>[<a href="#CN-CAC-2023" class="cite xref">CN-CAC-2023</a>]</span>, the United States of America <span>[<a href="#US-OMB-M-21-07" class="cite xref">US-OMB-M-21-07</a>]</span>, Germany <span>[<a href="#DE-BIT-2020-14" class="cite xref">DE-BIT-2020-14</a>]</span>, and the Czech Republic <span>[<a href="#CZ-ENDv4" class="cite xref">CZ-ENDv4</a>]</span>.
 IPv6 support today means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
-Therefore, today's applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-Stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.<a href="#section-1-1" class="pilcrow">¶</a></p>
+Therefore, today's applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">While the availability of IPv6 support in applications has a considerable impact on the success of IPv6,
 there exists no documented best current practices how to do so.
 Testing IPv6 compliance of network gear and operating systems has been documented extensively.
@@ -1304,7 +1321,7 @@ While the IETF does not define compliance tests, best current practice exists fo
 <p id="section-1-3">To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
 While many application developers assume that the network abstractions of the operating system (OS), communication libraries, and application frameworks will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists and logging.
-In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro- and macro-services, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
+In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
 Enabling these applications to communicate over IPv6 requires careful analysis of data flows within all services and proper IPv6 support in all components that may require IPv6 traffic, as well as IPv6 addresses as metadata.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1337,7 +1354,7 @@ in which applications ought to be verified for availability and functional corre
             <p id="section-2.2-2.2.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-2.3">Dual-Stack:</dt>
+<dt id="section-2.2-2.3">Dual-stack:</dt>
           <dd style="margin-left: 1.5em" id="section-2.2-2.4">
             <p id="section-2.2-2.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
 </dd>
@@ -1347,9 +1364,10 @@ in which applications ought to be verified for availability and functional corre
             <p id="section-2.2-2.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis.<a href="#section-2.2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-2.7">True IPv6-only:</dt>
+<dt id="section-2.2-2.7">IPv6-only-strict:</dt>
           <dd style="margin-left: 1.5em" id="section-2.2-2.8">
-            <p id="section-2.2-2.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints.<a href="#section-2.2-2.8.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
+This definition slightly diverges from the one in <span>[<a href="#I-D.draft-palet-v6ops-ipv6-only" class="cite xref">I-D.draft-palet-v6ops-ipv6-only</a>]</span> as it ignores IPv4 connectivity to anywhere outside the testing scope.<a href="#section-2.2-2.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1360,7 +1378,7 @@ in which applications ought to be verified for availability and functional corre
         <h3 id="name-lifecycle-functions">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-lifecycle-functions" class="section-name selfRef">Lifecycle Functions</a>
         </h3>
-<p id="section-2.3-1">Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phases in which an application is approached during a simplified lifecycle of the application, in accordance to <span>[<a href="#NIST.SP.500-267Ar1" class="cite xref">NIST.SP.500-267Ar1</a>]</span> as follows:<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phases in which an application is approached during a simplified lifecycle of the application, in accordance to <span>[<a href="#US-NIST.SP.500-267Ar1" class="cite xref">US-NIST.SP.500-267Ar1</a>]</span> as follows:<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.3-2.1">
             <p id="section-2.3-2.1.1">Installation: The installation of the application including any initial configuration required for
@@ -1387,7 +1405,7 @@ getting the application in a state where remote services are operational.<a href
       </h2>
 <p id="section-3-1">As a basic principle, IPv6 application testing should always be derived from functional and integration testing.
 Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios,
-i.e., the application functions correctly in IPv4-only, Dual-Stack, IPv6-only with NAT64 and True IPv6-only settings.
+i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64 and IPv6-only-strict settings.
 The following sections provide guidance on which connectivity scenarios to include in a testing campaign and how to approach testing complex cloud applications.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="scenarios">
 <section id="section-3.1">
@@ -1397,12 +1415,12 @@ The following sections provide guidance on which connectivity scenarios to inclu
 <p id="section-3.1-1"><a href="#scn_combinations" class="auto internal xref">Table 1</a> lists the combinations of connectivity scenarios that application testing should generally consider.
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications – with "client" representing the initiating or first acting party.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The first five scenarios marked as <em>base</em> should cover all major code paths and fallback conditions.
-These include Dual-Stack clients combined with IPv4-only and a True IPv6-only server, to test wither the additional address family confused the client.
-We also include then cases with Dual-Stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
-We have no special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#I-D.draft-ietf-v6ops-6mops" class="cite xref">I-D.draft-ietf-v6ops-6mops</a>]</span>, as these architectures are from then client side indistinguishable from the Dual-Stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+These include Dual-stack clients combined with IPv4-only and a IPv6-only-strict server, to test whether the additional address family confused the client.
+We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
+We have no special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#I-D.draft-ietf-v6ops-6mops" class="cite xref">I-D.draft-ietf-v6ops-6mops</a>]</span>, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.1-4">The other combinations are unlikely to exhibit additional problems for client-server-based applications and therefore are marked as extended in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.
-For peer-to-peer applications and applications with complex connection handling like using STUN <span>[<a href="#RFC5389" class="cite xref">RFC5389</a>]</span> or TURN <span>[<a href="#RFC5766" class="cite xref">RFC5766</a>]</span>, skipping these scenarios is strongly discouraged.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+For peer-to-peer applications and applications with complex connection handling like using STUN <span>[<a href="#RFC8489" class="cite xref">RFC8489</a>]</span> or TURN <span>[<a href="#RFC8656" class="cite xref">RFC8656</a>]</span>, skipping these scenarios is strongly discouraged.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 <span id="name-connectivity-scenario-combi"></span><div id="scn_combinations">
 <table class="center" id="table-1">
           <caption>
@@ -1418,18 +1436,18 @@ For peer-to-peer applications and applications with complex connection handling 
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
               <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
               <td class="text-center" rowspan="1" colspan="1">base</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
               <td class="text-center" rowspan="1" colspan="1">base</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
               <td class="text-center" rowspan="1" colspan="1">base</td>
             </tr>
             <tr>
@@ -1438,8 +1456,8 @@ For peer-to-peer applications and applications with complex connection handling 
               <td class="text-center" rowspan="1" colspan="1">base</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
               <td class="text-center" rowspan="1" colspan="1">base</td>
             </tr>
             <tr>
@@ -1448,8 +1466,8 @@ For peer-to-peer applications and applications with complex connection handling 
               <td class="text-center" rowspan="1" colspan="1">IPv6-only-DC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
               <td class="text-center" rowspan="1" colspan="1">extended</td>
             </tr>
             <tr>
@@ -1459,12 +1477,12 @@ For peer-to-peer applications and applications with complex connection handling 
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">IPv6-only with NAT64</td>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
               <td class="text-center" rowspan="1" colspan="1">extended</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
               <td class="text-center" rowspan="1" colspan="1">extended</td>
             </tr>
           </tbody>
@@ -1477,9 +1495,9 @@ For peer-to-peer applications and applications with complex connection handling 
         <h3 id="name-testing-with-intermediaries">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-testing-with-intermediaries" class="section-name selfRef">Testing with Intermediaries (e.g., Proxies)</a>
         </h3>
-<p id="section-3.2-1">Many application protocols support communicating across intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQ proxies.
+<p id="section-3.2-1">Many application protocols support communicating across intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE proxies.
 Peer-to-peer applications often support TURN <span>[<a href="#RFC5766" class="cite xref">RFC5766</a>]</span> as an intermediary to traverse NAT and provide connectivity between IPv4-only and IPv6-only hosts.
-When testing connectivity scenarios for an application, additional test cases including a proxy are recommended;
+When testing connectivity scenarios for an application, additional test cases including a proxy are recommended.
 As a proxy can convert between address families, all combinations shown in <a href="#scn_proxy" class="auto internal xref">Table 2</a>,
 consisting of base scenarios towards the proxy and (assuming the same scenarios on both sides of the proxy) the respective base scenarios from the proxy to the server,
 should be considered for testing.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
@@ -1493,162 +1511,239 @@ should be considered for testing.<a href="#section-3.2-1" class="pilcrow">¶</a>
             <tr>
               <th class="text-left" rowspan="1" colspan="1">Client</th>
               <th class="text-left" rowspan="1" colspan="1">Proxy</th>
-              <th class="text-center" rowspan="1" colspan="1">Server</th>
+              <th class="text-left" rowspan="1" colspan="1">Server</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
               <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
-              <td class="text-center" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
-              <td class="text-center" rowspan="1" colspan="1">Dual-Stack</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-center" rowspan="1" colspan="1">IPv4-only</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-center" rowspan="1" colspan="1">True IPv6-only</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">IPv6-only with NAT64</td>
               <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
-              <td class="text-center" rowspan="1" colspan="1">Dual-Stack</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-center" rowspan="1" colspan="1">IPv4-only</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv4-only</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">True IPv6-only</td>
-              <td class="text-left" rowspan="1" colspan="1">Dual-Stack</td>
-              <td class="text-center" rowspan="1" colspan="1">True IPv6-only</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
+              <td class="text-left" rowspan="1" colspan="1">Dual-stack</td>
+              <td class="text-left" rowspan="1" colspan="1">IPv6-only-strict</td>
             </tr>
           </tbody>
         </table>
 </div>
 </section>
 </div>
-<div id="testing-with-partially-broken-connectivity">
+<div id="testing-name-resolution-issues">
 <section id="section-3.3">
-        <h3 id="name-testing-with-partially-brok">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-testing-with-partially-brok" class="section-name selfRef">Testing with Partially Broken Connectivity</a>
+        <h3 id="name-testing-name-resolution-iss">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-testing-name-resolution-iss" class="section-name selfRef">Testing Name Resolution Issues</a>
         </h3>
-<p id="section-3.3-1">In Dual-Stack deployments, situations may arise where communication is partially broken for one or more address families:
-From the Communication endpoints that are expected to be reachable using both address families,
-some may only be reachable by one address family, while others may only be reachable by the other.
-Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
-especially during a transition phase where partially broken connectivity is expected more frequently.
-This section provides a brief overview of several common scenarios.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">As most applications use name resolution to bootstrap their connectivity,
+it is necessary to consider name resolution aspects when testing IPv6 readiness.
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs <span>[<a href="#RFC6555" class="cite xref">RFC6555</a>]</span>/<span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span>,
+others will just map to different connectivity scenarios.
+In this section, we list name resolution issues to consider for testing.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <div id="missing-dns-records">
 <section id="section-3.3.1">
           <h4 id="name-missing-dns-records">
 <a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-missing-dns-records" class="section-name selfRef">Missing DNS Records</a>
           </h4>
 <p id="section-3.3.1-1">While a server endpoint is intended to support dual-stack connectivity,
-the A or AAAA DNS records for the endpoint may be missing, e.g, due to misconfiguration or broken tooling,
-or does not reach the client endpoint, e.g., because it got filtered out by a middle box or local resolver.<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
+the A or AAAA DNS records for the endpoint may be missing, e.g., due to misconfiguration or broken tooling,
+or does not reach the client endpoint, e.g., because it got filtered out by a middle box or local resolver.
+The same can happen for names discovered and resolved through mDNS <span>[<a href="#RFC6762" class="cite xref">RFC6762</a>]</span>.<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.3.1-2">While deployment and integration testing should try to test for this kind of broken connectivity,
 this scenario is usually indistinguishable from an IPv4-only or an IPv6-only server endpoint,
 and therefore already addressed by testing the base scenarios above.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="partial-blackholing-mtu-and-fragmentation-issues">
+<div id="incorrect-dns-records">
 <section id="section-3.3.2">
-          <h4 id="name-partial-blackholing-mtu-and">
-<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-partial-blackholing-mtu-and" class="section-name selfRef">Partial Blackholing, MTU, and Fragmentation Issues</a>
+          <h4 id="name-incorrect-dns-records">
+<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-incorrect-dns-records" class="section-name selfRef">Incorrect DNS Records</a>
           </h4>
-<p id="section-3.3.2-1">When multiple address families are available, network packets may traverse different paths depending on the address family.
-Even when the same path is traversed, the path can exhibit distinct behaviors, e.g., dropping all or particular packets, especially in the presence of middle-boxes.
-In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
-In such scenarios, clients restricted to a single address family—such as True IPv6-only clients—may experience complete loss of connectivity in these scenarios,
-while dual-stack clients often mask such failures by automatically falling back to another address family.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.3.2-2">In addition to partial blackholing, MTU issues may only arise on one address family or behave differently with respect to
-MTU available, dropping of fragmented packets, ICMP messages, and due to on-path fragmentation in IPv4.<a href="#section-3.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.3.2-3">It is advisable to test for partial blackholing and MTU issues during deployment and integration testing by testing with IPv4-only and True IPv6-only clients to detect such blackholes.
-In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-1">Independent of the deployed server endpoint,
+there may be an A and AAAA record either pointing somewhere else,
+e.g., to an old or planned deployment.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-2">For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.<a href="#section-3.3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-3">For Dual-stack clients, it should be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs <span>[<a href="#RFC6555" class="cite xref">RFC6555</a>]</span>/<span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or trying the next resolved address candidate after timeout.
+Especially for the latter, it is advisable to verify whether the connection delay is acceptable of the desired use-case.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-4">IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
+CLAT (should behave like Dual-stack as discussed in Section <a href="#scenarios" class="auto internal xref">Section 3.1</a>) or
+local NAT64 address, e.g., as when implementing Happy Eyeballs v2 <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span>.
+IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.<a href="#section-3.3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-5">Testing with IPv4-Mapped IPv6 Addresses <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span> in AAAA records is also recommended.
+While this makes zero sense, it has been seen in the wild and should not confuse the client.<a href="#section-3.3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="dns-delegation-issues">
+<section id="section-3.3.3">
+          <h4 id="name-dns-delegation-issues">
+<a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-dns-delegation-issues" class="section-name selfRef">DNS delegation issues</a>
+          </h4>
+<p id="section-3.3.3-1">Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-only-strict DNS resolvers.
+<span>[<a href="#I-D.draft-ietf-dnsop-3901bis" class="cite xref">I-D.draft-ietf-dnsop-3901bis</a>]</span> describes misconfigurations that may prevent this and should be prevented.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="testing-with-ip-literals">
+<section id="section-3.3.4">
+          <h4 id="name-testing-with-ip-literals">
+<a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-testing-with-ip-literals" class="section-name selfRef">Testing with IP literals</a>
+          </h4>
+<p id="section-3.3.4-1">Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
+Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.3.4-2">If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in <span>[<a href="#RFC9844" class="cite xref">RFC9844</a>]</span> and work as expected.<a href="#section-3.3.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="testing-with-partially-broken-connectivity-mtu-and-fragmentation-issues">
+<section id="section-3.4">
+        <h3 id="name-testing-with-partially-brok">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-testing-with-partially-brok" class="section-name selfRef">Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues</a>
+        </h3>
+<p id="section-3.4-1">When multiple address families are available, network packets may traverse different paths depending on the address family.
+Even when the same path is traversed, the path can exhibit distinct behaviors, e.g., dropping all or particular packets, especially in the presence of middle-boxes.
+From the communication endpoints that are expected to be reachable using both address families,
+some may only be reachable by one address family, while others may only be reachable by the other.
+Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
+especially during a transition phase where partially broken connectivity is expected more frequently.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
+In such scenarios, clients restricted to a single address family — such as IPv6-only-strict clients — may experience complete loss of connectivity in these scenarios,
+while dual-stack clients often mask such failures by automatically falling back to another address family.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-3">In addition to partial blackholing, MTU issues may be limited to one address family or behave differently with respect to aspects like
+MTU available, dropping of fragmented packets, and ICMP messages generated.
+As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working ICMP <em>packet too big</em> reporting.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.4-4">It is advisable to test for partial blackholing and MTU issues during deployment and integration testing by testing with IPv4-only and IPv6-only-strict clients to detect such blackholes.
+In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="testing-without-ipv4-loopback-addresses-1270008">
+<section id="section-3.5">
+        <h3 id="name-testing-without-ipv4-loopba">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-testing-without-ipv4-loopba" class="section-name selfRef">Testing without IPv4 Loopback Addresses (127.0.0.0/8)</a>
+        </h3>
+<p id="section-3.5-1">Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
+For example, a web server may explicitly listen on a 127.0.0.0/8 by default.
+For IPv6-only-strict scenarios, system administrators may choose to disable IPv4,
+including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
+due to a bind failure.
+Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">Because of this, when testing applications for the IPv6-only-strict scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="testing-lifecycle-function-considerations">
-<section id="section-3.4">
+<section id="section-3.6">
         <h3 id="name-testing-lifecycle-function-">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-testing-lifecycle-function-" class="section-name selfRef">Testing Lifecycle Function Considerations</a>
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-testing-lifecycle-function-" class="section-name selfRef">Testing Lifecycle Function Considerations</a>
         </h3>
-<p id="section-3.4-1">To cover the whole lifecycle of an application including installation, user interface,
-management, and update, it is recommended to test that the lifecycle functions defined in <a href="#lifecycle-functions" class="auto internal xref">Section 2.3</a> are operational within the connectivity scenarios defined in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">In particular, keep the following considerations in mind:<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.6-1">To cover the whole lifecycle of an application including installation, user interface,
+management, and update, it is recommended to test that the lifecycle functions defined in <a href="#lifecycle-functions" class="auto internal xref">Section 2.3</a> are operational within the connectivity scenarios defined in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">In particular, keep the following considerations in mind:<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-3.1">
-            <p id="section-3.4-3.1.1">Installation: Installation may require communications with remote first-party services (e.g., activation/license server)
+<li class="normal" id="section-3.6-3.1">
+            <p id="section-3.6-3.1.1">Installation: Installation may require communications with remote first-party services (e.g., activation/license server)
 or remote third-party services (e.g., package repositories). In these scenarios, the installer acts as
 the client, and the remote service acts as the server. In cases of remote third-party services, testing
 all server scenarios in <a href="#scn_combinations" class="auto internal xref">Table 1</a> may not be feasible, and impact the client scenarios that
-can be supported. For example, if a third-party service is IPv4-only, then supporting a True IPv6-only
-client is not feasible.<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
+can be supported. For example, if a third-party service is IPv4-only, then supporting a IPv6-only-strict
+client is not feasible.<a href="#section-3.6-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-3.2">
-            <p id="section-3.4-3.2.1">User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
+          <li class="normal" id="section-3.6-3.2">
+            <p id="section-3.6-3.2.1">User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
 CLI commands, etc. When testing non-web-based user interfaces, it is recommended to focus on components
 of the interface that involve communications with remote services, and those that handle network configuration parameters.
 For example, a network configuration interface may only accept IPv4 address literals for certain parameters.
-For testing web-based user interfaces, see <a href="#web-app-considerations" class="auto internal xref">Section 3.6</a>.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
+For testing web-based user interfaces, see <a href="#web-app-considerations" class="auto internal xref">Section 3.8</a>.<a href="#section-3.6-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-3.3">
-            <p id="section-3.4-3.3.1">Management: Depending on the application, management functions may be provided via the user interface.
-However, the application may have additional management functions (e.g., SNMP, syslog, etc.) that should be tested.<a href="#section-3.4-3.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-3.3">
+            <p id="section-3.6-3.3.1">Management: Depending on the application, management functions may be provided via the user interface.
+However, the application may have additional management functions (e.g., SNMP, syslog, etc.) that should be tested.
+As the source triggering application behavior is crucial for logging and auditing functionality,
+addresses recorded need to be verified to be represented correctly. See Section <a href="#addr-as-data" class="auto internal xref">Section 3.9</a> about representation of addresses.<a href="#section-3.6-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.4-3.4">
-            <p id="section-3.4-3.4.1">Update: Depending on the application, update functions may be exercised during installation. However, the application
-may have additional update functions (e.g., automatic updates, manual update mechanisms, etc.) that should be tested.<a href="#section-3.4-3.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.6-3.4">
+            <p id="section-3.6-3.4.1">Update: Depending on the application, update functions may be exercised during installation. However, the application
+may have additional update functions (e.g., automatic updates, manual update mechanisms, etc.) that should be tested.<a href="#section-3.6-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="testing-complex-cloud-applications-and-applying-test-cases">
-<section id="section-3.5">
+<section id="section-3.7">
         <h3 id="name-testing-complex-cloud-appli">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-testing-complex-cloud-appli" class="section-name selfRef">Testing Complex Cloud Applications and Applying Test Cases</a>
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-testing-complex-cloud-appli" class="section-name selfRef">Testing Complex Cloud Applications and Applying Test Cases</a>
         </h3>
-<p id="section-3.5-1">When testing complex applications, especially cloud applications, they typically involve countless data flows.
-For some of these, the application may be considered as server, while being a client in others.
-Therefore, test cases need to cover each data flow in all relevant scenarios.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<p id="section-3.5-2">As functional and integration tests are often defined as end-to-end test cases,
+<p id="section-3.7-1">When testing complex applications, especially cloud applications, they typically involve many data flows.
+An application or component may be considered as a server for some of these, while being a client in others.
+Therefore, test cases need to cover each data flow in all relevant scenarios.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-2">As functional and integration tests are often defined as end-to-end test cases,
 they often involve several components, e.g., micro-services, load-balancers, application gateways, logging, authentication, and authorization services, which use IP-based protocols between the components.
 Therefore, an end-to-end test case breaks down to a series of flows between components, and for each of these flows,
 we need to determine whether we need to apply the connectivity scenarios from <a href="#scn_combinations" class="auto internal xref">Table 1</a> to it,
-of whether the connectivity scenarios are only controlled by the deployment of the application.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
-<p id="section-3.5-3">For external flows, i.e., flows outside the developers' control, usually all base scenarios from <a href="#scenarios" class="auto internal xref">Section 3.1</a> need to be accounted for.
+or whether the connectivity scenarios are only controlled by the deployment of the application.<a href="#section-3.7-2" class="pilcrow">¶</a></p>
+<p id="section-3.7-3">For external flows, i.e., flows outside the developers' control, usually all base scenarios from <a href="#scenarios" class="auto internal xref">Section 3.1</a> need to be accounted for.
 If one side of the flow is under administrative control, the number of scenario combinations can still be limited:
-For example, a cloud software provider choosing to deploy Dual-Stack endpoints can skip all non-Dual-Stack cases on the respective side of the communication.
+For example, a cloud software provider choosing to deploy Dual-stack endpoints can skip all non-Dual-stack cases on the respective side of the communication.
 For internal flows, the relevant scenarios only depend on the applications' architecture, and only scenarios planned in the deployment need to be considered.
- From a networking perspective, flows between components are typically independent. There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
-<p id="section-3.5-4">In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
+From a networking perspective, flows between components are typically independent. There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
+<p id="section-3.7-4">In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
 While the flows towards these backend systems themselves may be safe to ignore as outlined above,
 the functional correctness of the backend systems for all kinds of IP address need to be verified as part of the test series.
-Ignoring IP addresses as data in the testing may result in malfunctions, like always denying access over IPv6, or security issues, like not logging access from IPv6 clients.<a href="#section-3.5-4" class="pilcrow">¶</a></p>
+Ignoring IP addresses as data in the testing may result in malfunctions, like always denying access over IPv6, or security issues, like not logging access from IPv6 clients.<a href="#section-3.7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="web-app-considerations">
-<section id="section-3.6">
+<section id="section-3.8">
         <h3 id="name-special-considerations-for-">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-special-considerations-for-" class="section-name selfRef">Special considerations for Web-based Applications</a>
+<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-special-considerations-for-" class="section-name selfRef">Special considerations for Web-based Applications</a>
         </h3>
-<p id="section-3.6-1">Web-based applications usually load resources from multiple parties, including CDNs and analytic tools, involving data flows to all these parties.
-When facing the requirement to support True IPv6-only users, being unable to load some resources due to missing/defective IPv6 support at the respective parties can have any effect from missing analytics insights or ad revenue to severe functional defects rendering the application unusable.
+<p id="section-3.8-1">Web-based applications usually load resources from multiple parties, including CDNs and analytic tools, involving data flows to all these parties.
+When facing the requirement to support IPv6-only-strict users, being unable to load some resources due to missing/defective IPv6 support at the respective parties can have effects from missing analytics insights or ad revenue to severe functional defects rendering the application unusable.
 When testing such applications, it is not sufficient to only focus on the initial/main interactions,
 but it is necessary to consider all resources and parties providing them.
 As Web browsers load these resources dynamically and third-party resources may themselves may request resources from more parties, this kind of testing usually requires an instrumented Web browser,
-e.g., using <span>[<a href="#Selenium" class="cite xref">Selenium</a>]</span>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+e.g., using <span>[<a href="#Selenium" class="cite xref">Selenium</a>]</span>.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="addr-as-data">
+<section id="section-3.9">
+        <h3 id="name-considerations-for-addresse">
+<a href="#section-3.9" class="section-number selfRef">3.9. </a><a href="#name-considerations-for-addresse" class="section-name selfRef">Considerations for Addresses as Data</a>
+        </h3>
+<p id="section-3.9-1">When applications process IP addresses as data, e.g., as part of logging or management functionality,
+this functionality needs to work for all possible address families and representations.<a href="#section-3.9-1" class="pilcrow">¶</a></p>
+<p id="section-3.9-2">One challenge to consider is that the textual representation of IPv4 and IPv6 addresses are not canonical.
+It allows several valid textual representations for the same address, which makes direct string comparison and arithmetic operations on addresses error-prone and slow.
+For example, the IPv6 address <code>2001:db8::1</code> can be written as <code>2001:db8:0:0:0:0:0:1</code>, <code>2001:0db8::0.0.0.1</code>, or in several other forms.<a href="#section-3.9-2" class="pilcrow">¶</a></p>
+<p id="section-3.9-3">While custom logic to check, parse and process addresses is often error-prone and should be validated thoroughly,
+modern environments and frameworks usually provide data structures that encapsulate the canonical binary representation and include methods for parsing the various textual representations, comparing addresses, performing subnet operations, and rendering addresses in a consistent format.<a href="#section-3.9-3" class="pilcrow">¶</a></p>
+<p id="section-3.9-4">For situations where textual representation of IPv6 addresses is needed — such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML — <span>[<a href="#RFC5952" class="cite xref">RFC5952</a>]</span> provides recommendations on which of the valid textual representations should be used.
+Applications should be tested whether they follow <span>[<a href="#RFC5952" class="cite xref">RFC5952</a>]</span> when rendering IPv6 addresses in textual form,
+as required by national regulations like <span>[<a href="#US-NIST.SP.500-267Ar1" class="cite xref">US-NIST.SP.500-267Ar1</a>]</span>,
+while accepting all valid representations defined in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.9-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1660,20 +1755,19 @@ e.g., using <span>[<a href="#Selenium" class="cite xref">Selenium</a>]</span>.<a
       </h2>
 <p id="section-4-1">Naïve IPv6 testing, based on end-to-end functional tests as outlined in <a href="#objectives" class="auto internal xref">Section 3</a>, would require running a set of functional tests in various connectivity scenarios.
 In certain environments, setting up test cases for all scenarios can become forbiddingly expensive,
-especially for complex cloud applications, application platforms, or when dealing with corporate IT environments.
-While in today's environment getting Dual-Stack connectivity is possible in most cases,<a href="#section-4-1" class="pilcrow">¶</a></p>
+especially for complex cloud applications, application platforms, or when dealing with corporate IT environments.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">In this section, we give recommendations how to set up scenarios defined in <a href="#scenarios" class="auto internal xref">Section 3.1</a> and
-present strategies to meet the relevant testing objective by modifying the client or using Dual-Stack clients and servers to conclude the results for other scenario combinations,
+present strategies to meet the relevant testing objective by modifying Dual-stack clients and servers to conclude the results for other scenario combinations,
 e.g., by tracing whether the right address family is used.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<div id="true-ipv6-only-clients">
+<div id="ipv6-only-strict-clients">
 <section id="section-4.1">
-        <h3 id="name-true-ipv6-only-clients">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-true-ipv6-only-clients" class="section-name selfRef">True IPv6-only Clients</a>
+        <h3 id="name-ipv6-only-strict-clients">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-ipv6-only-strict-clients" class="section-name selfRef">IPv6-only-strict Clients</a>
         </h3>
-<p id="section-4.1-1">This is the most natural way to test whether True IPv6-only clients behave correctly.
-The client device is either placed in a network without IPv4 connectivity or the IPv4 stack is disabled on the device while it is in a Dual-Stack network.
+<p id="section-4.1-1">This is the most natural way to test whether IPv6-only-strict clients behave correctly.
+The client device is either placed in a network without IPv4 connectivity or the IPv4 stack is disabled on the device while it is in a Dual-stack network.
 While most desktop operating systems allow disabling IPv4, mobile operating systems, such as Android and iOS, do not.
-For mobiles operating systems, a True IPv6-only environment is needed.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+For mobiles operating systems, a IPv6-only-strict environment is needed.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">In both cases, it has to be ensured that there is no way to access IPv4-only resources.
 In particular, fallback to NAT64 must be prevented by disabling CLAT <span>[<a href="#CLAT" class="cite xref">CLAT</a>]</span>,
 making sure DNS resolution does not perform DNS64 address synthesis <span>[<a href="#RFC6147" class="cite xref">RFC6147</a>]</span>
@@ -1690,10 +1784,10 @@ Some corporate environments may render the machines unusable as they require IPv
         <h3 id="name-ipv6-only-servers">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-ipv6-only-servers" class="section-name selfRef">IPv6-only Servers</a>
         </h3>
-<p id="section-4.2-1">IPv6-only servers are a good option when setting up a True IPv6-only client environment is infeasible and
+<p id="section-4.2-1">IPv6-only servers are a good option when setting up a IPv6-only-strict client environment is infeasible and
 clients are know to only contact a single server or a small number of servers under the testers' control.
-Even if setting up a True IPv6-only server environment is infeasible,
-most testing is also achievable by setting up a dedicated DNS name only containing an AAAA record pointing to the IPv6 addresses of an otherwise Dual-Stack server.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+Even if setting up a IPv6-only-strict server environment is infeasible,
+most testing is also achievable by setting up a dedicated DNS name only containing an AAAA record pointing to the IPv6 addresses of an otherwise Dual-stack server.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="client-based-tracing">
@@ -1702,7 +1796,7 @@ most testing is also achievable by setting up a dedicated DNS name only containi
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-client-based-tracing" class="section-name selfRef">Client-based tracing</a>
         </h3>
 <p id="section-4.3-1">If we can't limit the available address families, we can still trace and verify whether the address family desired for the scenario is used.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">Client-based tracing is especially useful when Dual-Stack servers and clients are available and a conclusion for the True IPv6-only case is desired.
+<p id="section-4.3-2">Client-based tracing is especially useful when Dual-stack servers and clients are available and a conclusion for the IPv6-only-strict case is desired.
 By using the clients' logging/tracing/debugging functionality, the tester can verify that the actual data flows happen over IPv6, which is preferred by most network abstractions. If the client allows changing the preference between IPv6 and IPv4, IPv4-only testing is also possible.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 <p id="section-4.3-3">The most relevant case for this strategy is testing Web applications.
 By examining the Web browsers' performance log or using a plugin like <span>[<a href="#IPvFoo" class="cite xref">IPvFoo</a>]</span> that visualizes connectivity information, the tester can determine whether all resources are available using IPv6.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
@@ -1715,7 +1809,7 @@ By examining the Web browsers' performance log or using a plugin like <span>[<a 
         </h3>
 <p id="section-4.4-1">Analogue to tracing on the client side, it is also possible to look at the protocols used on the server side.
 While this is functionally equivalent for protocols where clients only communicate to a single server,
-this approach is not feasible for Web-based applications where a client usually needs flows towards many servers, where client or network based tracing are the only feasible alternatives to testing with an True IPv6-only client.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+this approach is not feasible for Web-based applications where a client usually needs flows towards many servers, where client or network based tracing are the only feasible alternatives to testing with an IPv6-only-strict client.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="network-based-tracing">
@@ -1723,9 +1817,9 @@ this approach is not feasible for Web-based applications where a client usually 
         <h3 id="name-network-based-tracing">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-network-based-tracing" class="section-name selfRef">Network-based tracing</a>
         </h3>
-<p id="section-4.5-1">If the communication pattern of an application is known well enough, a packet tracer as <span>[<a href="#Wireshark" class="cite xref">Wireshark</a>]</span> allows to verify that an application uses IPv6 for all flows in a Dual-Stack environment.
-If this can be verified, failures in True IPv6-only environments are unlikely.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
-<p id="section-4.5-2">While this is the least invasive method of testing True IPv6 scenarios in a Dual-Stack setup, it is the most error-prone as it requires the tester to fully understand the network flows of the application and requires the skills to interpret the output of a packet tracer.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">If the communication pattern of an application is known well enough, a packet tracer as <span>[<a href="#Wireshark" class="cite xref">Wireshark</a>]</span> allows to verify that an application in a Dual-stack environment uses IPv6 for all of its flows.
+If this can be verified, failures in IPv6-only-strict environments are unlikely.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">While this is the least invasive method of testing IPv6-only-strict scenarios in a Dual-stack setup, it is the most error-prone as it requires the tester to fully understand the network flows of the application and requires the skills to interpret the output of a packet tracer.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1753,9 +1847,9 @@ As these feature gates are often buried deeply in the documentation and are ofte
         <h3 id="name-destination-address-selecti">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
         </h3>
-<p id="section-5.2-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
+<p id="section-5.2-1">The destination address selection algorithm in <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
+While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> or its predecessors <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span>/<span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
 there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-2.1">
@@ -1786,8 +1880,8 @@ This becomes cumbersome especially in split-VPN use cases, e.g. when trying to c
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-input-validation-and-output" class="section-name selfRef">Input Validation and Output Rendering</a>
         </h3>
 <p id="section-5.3-1">While most libraries and application frameworks have decent IPv6 support,
-there often is still application logic checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address,
-preventing to take advantage of the IPv6 support by the underlying components.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+there often is still application logic that prevents taking advantage of the IPv6 support by the underlying components.
+Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="misbehaving-middle-boxes">
@@ -1842,7 +1936,7 @@ To further limit the probability of service disruptions, generalizing Happy Eyeb
 The interaction contracts between the reusing parties and the service need to be checked
 whether IPv6 enablement of the services also affects the flows of these.
 Additional end-to-end tests, including the reusing parties, are recommended.
-This is often a recursive process…<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+This is often a recursive process.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ownership-of-software-components">
@@ -1861,7 +1955,8 @@ Be prepared for this and plan extra time or budget for updating or replacing the
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">The document itself has no specific security implications; thus, some of the issues discussed in <a href="#failures" class="auto internal xref">Section 5</a> have.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">The testing procedures described in this document do not create any new security implications.
+Some security-related issues that should be considered and ruled out by appropriate testing are discussed in <a href="#failures" class="auto internal xref">Section 5</a>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1883,17 +1978,21 @@ Be prepared for this and plan extra time or budget for updating or replacing the
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="ADDR-SELECT">[ADDR-SELECT]</dt>
+        <dd>
+<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Chown, T.</span>, and <span class="refAuthor">J. Duncan</span>, <span class="refTitle">"Prioritizing known-local IPv6 ULAs through address selection policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-6man-rfc6724-update-25</span>, <time datetime="2025-08-11" class="refDate">11 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25">https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC3484">[RFC3484]</dt>
+<dt id="RFC4291">[RFC4291]</dt>
         <dd>
-<span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-02" class="refDate">February 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
+<span class="refAuthor">Hinden, R.</span> and <span class="refAuthor">S. Deering</span>, <span class="refTitle">"IP Version 6 Addressing Architecture"</span>, <span class="seriesInfo">RFC 4291</span>, <span class="seriesInfo">DOI 10.17487/RFC4291</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4291">https://www.rfc-editor.org/rfc/rfc4291</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6724">[RFC6724]</dt>
+<dt id="RFC5952">[RFC5952]</dt>
         <dd>
-<span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
+<span class="refAuthor">Kawamura, S.</span> and <span class="refAuthor">M. Kawashima</span>, <span class="refTitle">"A Recommendation for IPv6 Address Text Representation"</span>, <span class="seriesInfo">RFC 5952</span>, <span class="seriesInfo">DOI 10.17487/RFC5952</span>, <time datetime="2010-08" class="refDate">August 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5952">https://www.rfc-editor.org/rfc/rfc5952</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
@@ -1912,13 +2011,13 @@ Be prepared for this and plan extra time or budget for updating or replacing the
         <dd>
 <span class="refTitle">"C-ARES - a modern DNS (stub) resolver library, written in C"</span>, <span>n.d.</span>, <span>&lt;<a href="https://c-ares.org/">https://c-ares.org/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="CAC-2023">[CAC-2023]</dt>
-        <dd>
-<span class="refTitle">"2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application"</span>, <time datetime="2023-04-27" class="refDate">27 April 2023</time>, <span>&lt;<a href="http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm">http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="CLAT">[CLAT]</dt>
         <dd>
-<span class="refAuthor">Colitti, L.</span>, <span class="refAuthor">Linkova, J.</span>, and <span class="refAuthor">T. Jensen</span>, <span class="refTitle">"464XLAT Customer-side Translator (CLAT): Node Behavior and Recommendations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-claton-13</span>, <time datetime="2025-11-25" class="refDate">25 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-claton-13">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-claton-13</a>&gt;</span>. </dd>
+<span class="refAuthor">Colitti, L.</span>, <span class="refAuthor">Linkova, J.</span>, and <span class="refAuthor">T. Jensen</span>, <span class="refTitle">"464XLAT Customer-side Translator (CLAT): Node Behavior and Recommendations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-claton-16</span>, <time datetime="2026-03-05" class="refDate">5 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-claton-16">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-claton-16</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="CN-CAC-2023">[CN-CAC-2023]</dt>
+        <dd>
+<span class="refTitle">"2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application"</span>, <time datetime="2023-04-27" class="refDate">27 April 2023</time>, <span>&lt;<a href="http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm">http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="CZ-ENDv4">[CZ-ENDv4]</dt>
         <dd>
@@ -1926,15 +2025,23 @@ Be prepared for this and plan extra time or budget for updating or replacing the
 <dd class="break"></dd>
 <dt id="DE-BIT-2020-14">[DE-BIT-2020-14]</dt>
         <dd>
-<span class="refTitle">"Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6"</span>, <span class="seriesInfo">IT-Steuerung Bund Beschluss 2020/14</span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>, <span>&lt;<a href="https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf">https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf</a>&gt;</span>. </dd>
+<span class="refTitle">"Beschluss Nr. 2020/14 - Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6"</span>, <span class="seriesInfo">Konferenz der IT-Beauftragten der Ressorts </span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-ietf-dnsop-3901bis">[I-D.draft-ietf-dnsop-3901bis]</dt>
+        <dd>
+<span class="refAuthor">Yamamoto, M.</span> and <span class="refAuthor">T. Fiebig</span>, <span class="refTitle">"Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dnsop-3901bis-17</span>, <time datetime="2026-02-12" class="refDate">12 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-3901bis-17">https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-3901bis-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-6mops">[I-D.draft-ietf-v6ops-6mops]</dt>
         <dd>
-<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Caletka, O.</span>, and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"IPv6-Mostly Networks: Deployment and Operations Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-6mops-04</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-04">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Caletka, O.</span>, and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"IPv6-mostly Networks: Deployment and Operations Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-6mops-07</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-07">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-rfc7084bis">[I-D.draft-ietf-v6ops-rfc7084bis]</dt>
         <dd>
-<span class="refAuthor">Lencse, G.</span>, <span class="refAuthor">Martinez, J. P.</span>, <span class="refAuthor">Patton, B.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"Basic Requirements for IPv6 Customer Edge Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc7084bis-04</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-04">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Lencse, G.</span>, <span class="refAuthor">Martinez, J. P.</span>, <span class="refAuthor">Patton, B.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"Basic Requirements for IPv6 Customer Edge Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc7084bis-06</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-palet-v6ops-ipv6-only">[I-D.draft-palet-v6ops-ipv6-only]</dt>
+        <dd>
+<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-palet-v6ops-ipv6-only-14</span>, <time datetime="2026-05-07" class="refDate">7 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-palet-v6ops-ipv6-only-14">https://datatracker.ietf.org/doc/html/draft-palet-v6ops-ipv6-only-14</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="iCloud-Private-Relay">[iCloud-Private-Relay]</dt>
         <dd>
@@ -1944,13 +2051,9 @@ Be prepared for this and plan extra time or budget for updating or replacing the
         <dd>
 <span class="refAuthor">Marks, P.</span>, <span class="refTitle">"IPvFoo - a Chrome/Firefox extension that adds an icon to indicate whether the current page was fetched using IPv4 or IPv6."</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/pmarks-net/ipvfoo">https://github.com/pmarks-net/ipvfoo</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="NIST.SP.500-267Ar1">[NIST.SP.500-267Ar1]</dt>
+<dt id="RFC3484">[RFC3484]</dt>
         <dd>
-<span class="refTitle">"NIST Special Publication 500-267 Revision 1 - NIST IPv6 Profile"</span>, <time datetime="2020-11-23" class="refDate">23 November 2020</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.500-267Ar1.pdf">https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.500-267Ar1.pdf</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5389">[RFC5389]</dt>
-        <dd>
-<span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Mahy, R.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">D. Wing</span>, <span class="refTitle">"Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 5389</span>, <span class="seriesInfo">DOI 10.17487/RFC5389</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5389">https://www.rfc-editor.org/rfc/rfc5389</a>&gt;</span>. </dd>
+<span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-03" class="refDate">March 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5766">[RFC5766]</dt>
         <dd>
@@ -1964,6 +2067,18 @@ Be prepared for this and plan extra time or budget for updating or replacing the
         <dd>
 <span class="refAuthor">Bagnulo, M.</span>, <span class="refAuthor">Sullivan, A.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">I. van Beijnum</span>, <span class="refTitle">"DNS64: DNS Extensions for Network Address Translation from IPv6 Clients to IPv4 Servers"</span>, <span class="seriesInfo">RFC 6147</span>, <span class="seriesInfo">DOI 10.17487/RFC6147</span>, <time datetime="2011-04" class="refDate">April 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6147">https://www.rfc-editor.org/rfc/rfc6147</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6555">[RFC6555]</dt>
+        <dd>
+<span class="refAuthor">Wing, D.</span> and <span class="refAuthor">A. Yourtchenko</span>, <span class="refTitle">"Happy Eyeballs: Success with Dual-Stack Hosts"</span>, <span class="seriesInfo">RFC 6555</span>, <span class="seriesInfo">DOI 10.17487/RFC6555</span>, <time datetime="2012-04" class="refDate">April 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6555">https://www.rfc-editor.org/rfc/rfc6555</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6724">[RFC6724]</dt>
+        <dd>
+<span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6762">[RFC6762]</dt>
+        <dd>
+<span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"Multicast DNS"</span>, <span class="seriesInfo">RFC 6762</span>, <span class="seriesInfo">DOI 10.17487/RFC6762</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6762">https://www.rfc-editor.org/rfc/rfc6762</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6877">[RFC6877]</dt>
         <dd>
 <span class="refAuthor">Mawatari, M.</span>, <span class="refAuthor">Kawashima, M.</span>, and <span class="refAuthor">C. Byrne</span>, <span class="refTitle">"464XLAT: Combination of Stateful and Stateless Translation"</span>, <span class="seriesInfo">RFC 6877</span>, <span class="seriesInfo">DOI 10.17487/RFC6877</span>, <time datetime="2013-04" class="refDate">April 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6877">https://www.rfc-editor.org/rfc/rfc6877</a>&gt;</span>. </dd>
@@ -1972,13 +2087,29 @@ Be prepared for this and plan extra time or budget for updating or replacing the
         <dd>
 <span class="refAuthor">Schinazi, D.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Happy Eyeballs Version 2: Better Connectivity Using Concurrency"</span>, <span class="seriesInfo">RFC 8305</span>, <span class="seriesInfo">DOI 10.17487/RFC8305</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8305">https://www.rfc-editor.org/rfc/rfc8305</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8489">[RFC8489]</dt>
+        <dd>
+<span class="refAuthor">Petit-Huguenin, M.</span>, <span class="refAuthor">Salgueiro, G.</span>, <span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">Mahy, R.</span>, and <span class="refAuthor">P. Matthews</span>, <span class="refTitle">"Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 8489</span>, <span class="seriesInfo">DOI 10.17487/RFC8489</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8489">https://www.rfc-editor.org/rfc/rfc8489</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8504">[RFC8504]</dt>
         <dd>
 <span class="refAuthor">Chown, T.</span>, <span class="refAuthor">Loughney, J.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"IPv6 Node Requirements"</span>, <span class="seriesInfo">BCP 220</span>, <span class="seriesInfo">RFC 8504</span>, <span class="seriesInfo">DOI 10.17487/RFC8504</span>, <time datetime="2019-01" class="refDate">January 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8504">https://www.rfc-editor.org/rfc/rfc8504</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8656">[RFC8656]</dt>
+        <dd>
+<span class="refAuthor">Reddy, T., Ed.</span>, <span class="refAuthor">Johnston, A., Ed.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. Rosenberg</span>, <span class="refTitle">"Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 8656</span>, <span class="seriesInfo">DOI 10.17487/RFC8656</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8656">https://www.rfc-editor.org/rfc/rfc8656</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9844">[RFC9844]</dt>
+        <dd>
+<span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="Selenium">[Selenium]</dt>
         <dd>
 <span class="refTitle">"Selenium WebDriver"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.selenium.dev/">https://www.selenium.dev/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="US-NIST.SP.500-267Ar1">[US-NIST.SP.500-267Ar1]</dt>
+        <dd>
+<span class="refTitle">"NIST Special Publication 500-267 Revision 1 - NIST IPv6 Profile"</span>, <time datetime="2020-11-23" class="refDate">23 November 2020</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.500-267Ar1.pdf">https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.500-267Ar1.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="US-OMB-M-21-07">[US-OMB-M-21-07]</dt>
         <dd>
@@ -2002,6 +2133,9 @@ Be prepared for this and plan extra time or budget for updating or replacing the
 Holger Füßler,
 Michael Richardson,
 Tommy Jensen,
+Nathan Sherrard,
+Jeremy Duncan,
+Brian E Carpenter,
 for the discussions, the input, and all contribution.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2015,7 +2149,7 @@ for the discussions, the input, and all contribution.<a href="#appendix-A-1" cla
 <div dir="auto" class="left"><span class="org">SAP SE</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:philipp@tiesel.net,%20philipp.tiesel@sap.com" class="email">philipp@tiesel.net, philipp.tiesel@sap.com</a>
+<a href="mailto:philipp@tiesel.net" class="email">philipp@tiesel.net</a>, <a href="mailto:philipp.tiesel@sap.com" class="email">philipp.tiesel@sap.com</a>
 </div>
 </address>
 <address class="vcard">
@@ -2023,7 +2157,7 @@ for the discussions, the input, and all contribution.<a href="#appendix-A-1" cla
 <div dir="auto" class="left"><span class="org">Google</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:furry13@gmail.com,%20furry@google.com" class="email">furry13@gmail.com, furry@google.com</a>
+<a href="mailto:furry13@gmail.com" class="email">furry13@gmail.com</a>, <a href="mailto:furry@google.com" class="email">furry@google.com</a>
 </div>
 </address>
 <address class="vcard">
