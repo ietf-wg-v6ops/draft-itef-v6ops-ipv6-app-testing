@@ -65,10 +65,9 @@ informative:
       United States of America Office of Management and Budget: Memorandum for Heads of Executive Departments and Agencies
     date: 2020-11-19
   DE-BIT-2020-14:
-    target: https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf
-    title: Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6
+    title: Beschluss Nr. 2020/14 - Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6
     seriesinfo:
-      IT-Steuerung Bund: Beschluss 2020/14
+      Konferenz der IT-Beauftragten der Ressorts
     date: 2020-11-11
   CZ-ENDv4:
     target: https://konecipv4.cz/
