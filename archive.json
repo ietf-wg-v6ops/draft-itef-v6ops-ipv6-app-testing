@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-05-28T02:56:51.546326+00:00",
+  "timestamp": "2026-07-16T02:25:23.341640+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -606,6 +606,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOQpLumc7xhUrg",
+      "title": "Fixed reference to DE-BIT-2020-14",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/17",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The URL is not reachable anymore. Asked for an official replacement and added a local copy to the repository.",
+      "createdAt": "2026-07-14T11:34:00Z",
+      "updatedAt": "2026-07-14T12:15:42Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "127d6525a51f7aef2be6f448481b7be3de467cc5",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/fix-ref-DE-BIT-2020-14",
+      "headRefOid": "f66a4769196bc4dd3d45c5078fe468bda0e9b77d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
