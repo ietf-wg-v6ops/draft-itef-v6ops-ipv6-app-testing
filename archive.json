@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-16T02:25:23.341640+00:00",
+  "timestamp": "2026-07-19T02:31:04.357385+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -619,13 +619,13 @@
       "labels": [],
       "body": "The URL is not reachable anymore. Asked for an official replacement and added a local copy to the repository.",
       "createdAt": "2026-07-14T11:34:00Z",
-      "updatedAt": "2026-07-14T12:15:42Z",
+      "updatedAt": "2026-07-17T09:43:55Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "127d6525a51f7aef2be6f448481b7be3de467cc5",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/fix-ref-DE-BIT-2020-14",
-      "headRefOid": "f66a4769196bc4dd3d45c5078fe468bda0e9b77d",
+      "headRefOid": "66d3fb27320709bcb53e642f980e1ffac12d713e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
