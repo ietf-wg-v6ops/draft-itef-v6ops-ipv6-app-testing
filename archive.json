@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-19T02:31:04.357385+00:00",
+  "timestamp": "2026-07-23T02:32:27.832223+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -239,6 +239,50 @@
       "createdAt": "2026-04-29T12:17:06Z",
       "updatedAt": "2026-05-12T11:06:17Z",
       "closedAt": "2026-05-12T11:06:17Z",
+      "comments": []
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOQpLumc8AAAABJk10sQ",
+      "title": "Consider adding \"forgot to listen on IPv6\" to Section 5",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/18",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "discuss"
+      ],
+      "body": "As @franckhlmartin suggested, we should consider adding \"forgot to listen on IPv6\" to Section 5 and suggest checking listening table that all services listening on IPv4 are also listening on IPv6.",
+      "createdAt": "2026-07-21T09:53:35Z",
+      "updatedAt": "2026-07-22T08:42:39Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Another issue to point to is behavior change due to bindv6only sysctl and socket option\u2026 interacts with v6-only loopback and can kill your dual-stack approach.",
+          "createdAt": "2026-07-22T08:42:39Z",
+          "updatedAt": "2026-07-22T08:42:39Z"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOQpLumc8AAAABJk7OaQ",
+      "title": "Consider adding RFC6724 issues with Rule 9 to deployment considerations",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/19",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "discuss"
+      ],
+      "body": "As @franckhlmartin pointed out we may consider adding some text about surprising RFC6724 behaviour.\nsee https://www.ietf.org/archive/id/draft-martin-deploying-ipv6-data-center-02.txt Sec. 13.4",
+      "createdAt": "2026-07-21T10:04:53Z",
+      "updatedAt": "2026-07-21T10:04:53Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -619,7 +663,7 @@
       "labels": [],
       "body": "The URL is not reachable anymore. Asked for an official replacement and added a local copy to the repository.",
       "createdAt": "2026-07-14T11:34:00Z",
-      "updatedAt": "2026-07-17T09:43:55Z",
+      "updatedAt": "2026-07-22T08:43:15Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "127d6525a51f7aef2be6f448481b7be3de467cc5",
