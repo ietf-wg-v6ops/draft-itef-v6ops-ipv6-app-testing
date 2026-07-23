@@ -470,6 +470,13 @@ there are a number of notable and widely used implementations that implement som
 - Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
   This becomes cumbersome especially in split-VPN use cases, e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity.
 
+## Listening on only one Address Family
+
+Many tutorials and programmer facing documentation still has not been upgraded to cover listening on multiple address families in order to take in connections from IPv6 as well as IPv4.
+Checking listening code whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting ```IPV6_V6ONLY``` socket option on Linux to zero.
+
+In deployments, always use tools like ```netstat``` or ```lsof``` to verify both address families are listened on if needed.
+
 ## Input Validation and Output Rendering
 
 While most libraries and application frameworks have decent IPv6 support,
