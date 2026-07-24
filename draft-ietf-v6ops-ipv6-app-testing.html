@@ -14,24 +14,25 @@
 It discusses common misconceptions about the degree to which operating systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support. 
     ' name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="IPv6" name="keyword">
 <meta content="Applications" name="keyword">
 <meta content="Testing" name="keyword">
 <meta content="draft-ietf-v6ops-ipv6-app-testing-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.1
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.7.0
+    wcwidth 0.8.2
 -->
 <link href="draft-ietf-v6ops-ipv6-app-testing.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1050,11 +1051,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ipv6-app-testing</td>
-<td class="right">May 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 27 November 2026</td>
+<td class="center">Expires 25 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1068,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-26" class="published">26 May 2026</time>
+<time datetime="2026-07-24" class="published">24 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-27">27 November 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-25">25 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1130,7 +1131,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1603,7 +1604,7 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 <a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-dns-delegation-issues" class="section-name selfRef">DNS delegation issues</a>
           </h4>
 <p id="section-3.3.3-1">Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-only-strict DNS resolvers.
-<span>[<a href="#I-D.draft-ietf-dnsop-3901" class="cite xref">I-D.draft-ietf-dnsop-3901</a>]</span> describes misconfigurations that may prevent this and should be prevented.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
+<span>[<a href="#I-D.draft-ietf-dnsop-3901bis" class="cite xref">I-D.draft-ietf-dnsop-3901bis</a>]</span> describes misconfigurations that may prevent this and should be prevented.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="testing-with-ip-literals">
@@ -1846,9 +1847,9 @@ As these feature gates are often buried deeply in the documentation and are ofte
         <h3 id="name-destination-address-selecti">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
         </h3>
-<p id="section-5.2-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
+<p id="section-5.2-1">The destination address selection algorithm in <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
+While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> or its predecessors <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span>/<span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
 there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-2.1">
@@ -1977,13 +1978,13 @@ Some security-related issues that should be considered and ruled out by appropri
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="ADDR-SELECT">[ADDR-SELECT]</dt>
+        <dd>
+<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Chown, T.</span>, and <span class="refAuthor">J. Duncan</span>, <span class="refTitle">"Prioritizing known-local IPv6 ULAs through address selection policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-6man-rfc6724-update-25</span>, <time datetime="2025-08-11" class="refDate">11 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25">https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC3484">[RFC3484]</dt>
-        <dd>
-<span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-03" class="refDate">March 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4291">[RFC4291]</dt>
         <dd>
@@ -1993,17 +1994,9 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Kawamura, S.</span> and <span class="refAuthor">M. Kawashima</span>, <span class="refTitle">"A Recommendation for IPv6 Address Text Representation"</span>, <span class="seriesInfo">RFC 5952</span>, <span class="seriesInfo">DOI 10.17487/RFC5952</span>, <time datetime="2010-08" class="refDate">August 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5952">https://www.rfc-editor.org/rfc/rfc5952</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6724">[RFC6724]</dt>
-        <dd>
-<span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-        <dd>
-<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9844">[RFC9844]</dt>
       <dd>
-<span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2032,11 +2025,11 @@ Some security-related issues that should be considered and ruled out by appropri
 <dd class="break"></dd>
 <dt id="DE-BIT-2020-14">[DE-BIT-2020-14]</dt>
         <dd>
-<span class="refTitle">"Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6"</span>, <span class="seriesInfo">IT-Steuerung Bund Beschluss 2020/14</span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>, <span>&lt;<a href="https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf">https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-Beauftragte.pdf</a>&gt;</span>. </dd>
+<span class="refTitle">"Beschluss Nr. 2020/14 - Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6"</span>, <span class="seriesInfo">Konferenz der IT-Beauftragten der Ressorts </span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.draft-ietf-dnsop-3901">[I-D.draft-ietf-dnsop-3901]</dt>
+<dt id="I-D.draft-ietf-dnsop-3901bis">[I-D.draft-ietf-dnsop-3901bis]</dt>
         <dd>
-<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<span class="refAuthor">Yamamoto, M.</span> and <span class="refAuthor">T. Fiebig</span>, <span class="refTitle">"Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dnsop-3901bis-17</span>, <time datetime="2026-02-12" class="refDate">12 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-3901bis-17">https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-3901bis-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-6mops">[I-D.draft-ietf-v6ops-6mops]</dt>
         <dd>
@@ -2044,7 +2037,7 @@ Some security-related issues that should be considered and ruled out by appropri
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-rfc7084bis">[I-D.draft-ietf-v6ops-rfc7084bis]</dt>
         <dd>
-<span class="refAuthor">Lencse, G.</span>, <span class="refAuthor">Martinez, J. P.</span>, <span class="refAuthor">Patton, B.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"Basic Requirements for IPv6 Customer Edge Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc7084bis-05</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-05">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Lencse, G.</span>, <span class="refAuthor">Martinez, J. P.</span>, <span class="refAuthor">Patton, B.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"Basic Requirements for IPv6 Customer Edge Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc7084bis-06</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-palet-v6ops-ipv6-only">[I-D.draft-palet-v6ops-ipv6-only]</dt>
         <dd>
@@ -2057,6 +2050,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="IPvFoo">[IPvFoo]</dt>
         <dd>
 <span class="refAuthor">Marks, P.</span>, <span class="refTitle">"IPvFoo - a Chrome/Firefox extension that adds an icon to indicate whether the current page was fetched using IPv4 or IPv6."</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/pmarks-net/ipvfoo">https://github.com/pmarks-net/ipvfoo</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3484">[RFC3484]</dt>
+        <dd>
+<span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-03" class="refDate">March 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5766">[RFC5766]</dt>
         <dd>
@@ -2073,6 +2070,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC6555">[RFC6555]</dt>
         <dd>
 <span class="refAuthor">Wing, D.</span> and <span class="refAuthor">A. Yourtchenko</span>, <span class="refTitle">"Happy Eyeballs: Success with Dual-Stack Hosts"</span>, <span class="seriesInfo">RFC 6555</span>, <span class="seriesInfo">DOI 10.17487/RFC6555</span>, <time datetime="2012-04" class="refDate">April 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6555">https://www.rfc-editor.org/rfc/rfc6555</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6724">[RFC6724]</dt>
+        <dd>
+<span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6762">[RFC6762]</dt>
         <dd>
@@ -2097,6 +2098,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC8656">[RFC8656]</dt>
         <dd>
 <span class="refAuthor">Reddy, T., Ed.</span>, <span class="refAuthor">Johnston, A., Ed.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. Rosenberg</span>, <span class="refTitle">"Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 8656</span>, <span class="seriesInfo">DOI 10.17487/RFC8656</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8656">https://www.rfc-editor.org/rfc/rfc8656</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9844">[RFC9844]</dt>
+        <dd>
+<span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="Selenium">[Selenium]</dt>
         <dd>
@@ -2131,6 +2136,7 @@ Tommy Jensen,
 Nathan Sherrard,
 Jeremy Duncan,
 Brian E Carpenter,
+Axel Schemberg,
 for the discussions, the input, and all contribution.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>

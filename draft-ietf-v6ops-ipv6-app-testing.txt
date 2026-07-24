@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 27 November 2026                                         Google
+Expires: 25 January 2027                                          Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                             26 May 2026
+                                                            24 July 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 November 2026.
+   This Internet-Draft will expire on 25 January 2027.
 
 Copyright Notice
 
@@ -375,7 +375,7 @@ Table of Contents
 
    Integration testing for Cloud applications should verify that the
    necessary domain names are resolvable from IPv4-only or IPv6-only-
-   strict DNS resolvers.  [I-D.draft-ietf-dnsop-3901] describes
+   strict DNS resolvers.  [I-D.draft-ietf-dnsop-3901bis] describes
    misconfigurations that may prevent this and should be prevented.
 
 3.3.4.  Testing with IP literals
@@ -692,14 +692,15 @@ Table of Contents
 
 5.2.  Destination Address Selection Preference and Address Filtering
 
-   The destination address selection algorithm in [RFC6724] filters
+   The destination address selection algorithm in [ADDR-SELECT] filters
    unavailable address families (Rule 1) and de-prioritizes non-matching
    address families (Rule 2) and clearly prioritizes IPv6 GUA addresses
    over IPv4 addresses.  While most operating systems and some
-   alternative resolver libraries, such as [C-ARES], implement [RFC6724]
-   or its predecessor [RFC3484] correctly, there are a number of notable
-   and widely used implementations that implement something else,
-   causing anything from unexpected behavior to hard-to-debug errors.
+   alternative resolver libraries, such as [C-ARES], implement
+   [ADDR-SELECT] or its predecessors [RFC6724]/[RFC3484] correctly,
+   there are a number of notable and widely used implementations that
+   implement something else, causing anything from unexpected behavior
+   to hard-to-debug errors.
 
    *  Most JAVA runtimes do the opposite and prefer IPv4 destinations
       over IPv6.  To prefer IPv6 addresses over IPv4, one needs to set
@@ -817,15 +818,18 @@ Table of Contents
 
 9.1.  Normative References
 
+   [ADDR-SELECT]
+              Buraglio, N., Chown, T., and J. Duncan, "Prioritizing
+              known-local IPv6 ULAs through address selection policy",
+              Work in Progress, Internet-Draft, draft-ietf-6man-rfc6724-
+              update-25, 11 August 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-6man-
+              rfc6724-update-25>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
-
-   [RFC3484]  Draves, R., "Default Address Selection for Internet
-              Protocol version 6 (IPv6)", RFC 3484,
-              DOI 10.17487/RFC3484, March 2003,
-              <https://www.rfc-editor.org/rfc/rfc3484>.
 
    [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
               Architecture", RFC 4291, DOI 10.17487/RFC4291, February
@@ -836,19 +840,9 @@ Table of Contents
               DOI 10.17487/RFC5952, August 2010,
               <https://www.rfc-editor.org/rfc/rfc5952>.
 
-   [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
-              "Default Address Selection for Internet Protocol Version 6
-              (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
-              <https://www.rfc-editor.org/rfc/rfc6724>.
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-   [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
-              Identifiers in User Interfaces", RFC 9844,
-              DOI 10.17487/RFC9844, August 2025,
-              <https://www.rfc-editor.org/rfc/rfc9844>.
 
 9.2.  Informative References
 
@@ -871,15 +865,17 @@ Table of Contents
               <https://konecipv4.cz/>.
 
    [DE-BIT-2020-14]
-              "Zukunftsfähige Netzinfrastrukturen auf Basis von
-              funktionsfähigem IPv6", IT-Steuerung Bund Beschluss
-              2020/14, 11 November 2020,
-              <https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/
-              it-beirat/beschluesse/2020_14_Beschluss_Konferenz_IT-
-              Beauftragte.pdf>.
+              "Beschluss Nr. 2020/14 - Zukunftsfähige
+              Netzinfrastrukturen auf Basis von funktionsfähigem IPv6",
+              Konferenz der IT-Beauftragten der Ressorts , 11 November
+              2020.
 
-   [I-D.draft-ietf-dnsop-3901]
-              "*** BROKEN REFERENCE ***".
+   [I-D.draft-ietf-dnsop-3901bis]
+              Yamamoto, M. and T. Fiebig, "Operational Guidelines for
+              DNS Transport in Mixed IPv4/IPv6 Environments", Work in
+              Progress, Internet-Draft, draft-ietf-dnsop-3901bis-17, 12
+              February 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-dnsop-3901bis-17>.
 
    [I-D.draft-ietf-v6ops-6mops]
               Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
@@ -892,8 +888,8 @@ Table of Contents
               Lencse, G., Martinez, J. P., Patton, B., and T. Winters,
               "Basic Requirements for IPv6 Customer Edge Routers", Work
               in Progress, Internet-Draft, draft-ietf-v6ops-rfc7084bis-
-              05, 2 March 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-v6ops-rfc7084bis-05>.
+              06, 6 July 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-v6ops-rfc7084bis-06>.
 
    [I-D.draft-palet-v6ops-ipv6-only]
               Martinez, J. P., "IPv6-only and IPv6-Mostly Terminology
@@ -910,6 +906,11 @@ Table of Contents
               an icon to indicate whether the current page was fetched
               using IPv4 or IPv6.", n.d.,
               <https://github.com/pmarks-net/ipvfoo>.
+
+   [RFC3484]  Draves, R., "Default Address Selection for Internet
+              Protocol version 6 (IPv6)", RFC 3484,
+              DOI 10.17487/RFC3484, March 2003,
+              <https://www.rfc-editor.org/rfc/rfc3484>.
 
    [RFC5766]  Mahy, R., Matthews, P., and J. Rosenberg, "Traversal Using
               Relays around NAT (TURN): Relay Extensions to Session
@@ -931,6 +932,11 @@ Table of Contents
    [RFC6555]  Wing, D. and A. Yourtchenko, "Happy Eyeballs: Success with
               Dual-Stack Hosts", RFC 6555, DOI 10.17487/RFC6555, April
               2012, <https://www.rfc-editor.org/rfc/rfc6555>.
+
+   [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
+              "Default Address Selection for Internet Protocol Version 6
+              (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
+              <https://www.rfc-editor.org/rfc/rfc6724>.
 
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,
@@ -961,6 +967,11 @@ Table of Contents
               (STUN)", RFC 8656, DOI 10.17487/RFC8656, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8656>.
 
+   [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
+              Identifiers in User Interfaces", RFC 9844,
+              DOI 10.17487/RFC9844, August 2025,
+              <https://www.rfc-editor.org/rfc/rfc9844>.
+
    [Selenium] "Selenium WebDriver", n.d., <https://www.selenium.dev/>.
 
    [US-NIST.SP.500-267Ar1]
@@ -984,8 +995,8 @@ Table of Contents
 Acknowledgments
 
    Thanks to Holger Füßler, Michael Richardson, Tommy Jensen, Nathan
-   Sherrard, Jeremy Duncan, Brian E Carpenter, for the discussions, the
-   input, and all contribution.
+   Sherrard, Jeremy Duncan, Brian E Carpenter, Axel Schemberg, for the
+   discussions, the input, and all contribution.
 
 Authors' Addresses
 
