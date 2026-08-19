@@ -311,8 +311,7 @@ In particular, keep the following considerations in mind:
   or remote third-party services (e.g., package repositories). In these scenarios, the installer acts as
   the client, and the remote service acts as the server. In cases of remote third-party services, testing
   all server scenarios in {{scn_combinations}} may not be feasible, and impact the client scenarios that
-  can be supported. For example, if a third-party service is IPv4-only, then supporting an IPv6-only-strict
-  client is not feasible.
+  can be supported. For example, if a third-party service is IPv4-only, testing an IPv6-only-strict scenario will fail.
 
 - User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
   CLI commands, etc. When testing non-web-based user interfaces, it is recommended to focus on components
