@@ -174,7 +174,7 @@ The following sections provide guidance on which connectivity scenarios to inclu
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications – with "client" representing the initiating or first acting party.
 
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions.
-These include Dual-stack clients combined with IPv4-only and a IPv6-only-strict server, to test whether the additional address family confused the client.
+These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
 We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{I-D.draft-ietf-v6ops-6mops}}, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
 
@@ -294,7 +294,7 @@ In case these issues can occur outside the testers' circle of control, it is adv
 Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
 For example, a web server may explicitly listen on a 127.0.0.0/8 by default.
 For IPv6-only-strict scenarios, system administrators may choose to disable IPv4,
-including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
+including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to an IPv4 loopback address may fail to start when these addresses are unavailable
 due to a bind failure.
 Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.
 
@@ -311,7 +311,7 @@ In particular, keep the following considerations in mind:
   or remote third-party services (e.g., package repositories). In these scenarios, the installer acts as
   the client, and the remote service acts as the server. In cases of remote third-party services, testing
   all server scenarios in {{scn_combinations}} may not be feasible, and impact the client scenarios that
-  can be supported. For example, if a third-party service is IPv4-only, then supporting a IPv6-only-strict
+  can be supported. For example, if a third-party service is IPv4-only, then supporting an IPv6-only-strict
   client is not feasible.
 
 - User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
@@ -392,7 +392,7 @@ e.g., by tracing whether the right address family is used.
 This is the most natural way to test whether IPv6-only-strict clients behave correctly.
 The client device is either placed in a network without IPv4 connectivity or the IPv4 stack is disabled on the device while it is in a Dual-stack network.
 While most desktop operating systems allow disabling IPv4, mobile operating systems, such as Android and iOS, do not.
-For mobiles operating systems, a IPv6-only-strict environment is needed.
+For mobiles operating systems, an IPv6-only-strict environment is needed.
 
 In both cases, it has to be ensured that there is no way to access IPv4-only resources.
 In particular, fallback to NAT64 must be prevented by disabling CLAT {{CLAT}},
@@ -407,9 +407,9 @@ Some corporate environments may render the machines unusable as they require IPv
 
 ## IPv6-only Servers
 
-IPv6-only servers are a good option when setting up a IPv6-only-strict client environment is infeasible and
+IPv6-only servers are a good option when setting up an IPv6-only-strict client environment is infeasible and
 clients are know to only contact a single server or a small number of servers under the testers' control.
-Even if setting up a IPv6-only-strict server environment is infeasible,
+Even if setting up an IPv6-only-strict server environment is infeasible,
 most testing is also achievable by setting up a dedicated DNS name only containing an AAAA record pointing to the IPv6 addresses of an otherwise Dual-stack server.
 
 ## Client-based tracing
