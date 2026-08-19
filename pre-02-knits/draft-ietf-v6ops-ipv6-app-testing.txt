@@ -462,8 +462,8 @@ Table of Contents
       service acts as the server.  In cases of remote third-party
       services, testing all server scenarios in Table 1 may not be
       feasible, and impact the client scenarios that can be supported.
-      For example, if a third-party service is IPv4-only, then
-      supporting an IPv6-only-strict client is not feasible.
+      For example, if a third-party service is IPv4-only, testing an
+      IPv6-only-strict scenario will fail.
 
    *  User Interface: User interfaces can be incredibly complex with
       numerous contexts, views, API endpoints, CLI commands, etc.  When
