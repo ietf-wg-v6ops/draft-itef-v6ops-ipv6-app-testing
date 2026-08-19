@@ -21,14 +21,14 @@ and explains common regressions to avoid when deploying IPv6 support.
 <meta content="draft-ietf-v6ops-ipv6-app-testing-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.34.0
-    Python 3.14.5
+    Python 3.14.7
     ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.10.0
+    platformdirs 4.11.3
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
@@ -68,7 +68,6 @@ and explains common regressions to avoid when deploying IPv6 support.
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -117,7 +116,6 @@ and explains common regressions to avoid when deploying IPv6 support.
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -182,7 +180,6 @@ and explains common regressions to avoid when deploying IPv6 support.
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -1051,11 +1048,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ipv6-app-testing</td>
-<td class="right">July 2026</td>
+<td class="right">August 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 18 January 2027</td>
+<td class="center">Expires 20 February 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-07-17" class="published">17 July 2026</time>
+<time datetime="2026-08-19" class="published">19 August 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-01-18">18 January 2027</time></dd>
+<dd class="expires"><time datetime="2027-02-20">20 February 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1128,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1415,7 +1412,7 @@ The following sections provide guidance on which connectivity scenarios to inclu
 <p id="section-3.1-1"><a href="#scn_combinations" class="auto internal xref">Table 1</a> lists the combinations of connectivity scenarios that application testing should generally consider.
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications – with "client" representing the initiating or first acting party.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The first five scenarios marked as <em>base</em> should cover all major code paths and fallback conditions.
-These include Dual-stack clients combined with IPv4-only and a IPv6-only-strict server, to test whether the additional address family confused the client.
+These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
 We have no special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#I-D.draft-ietf-v6ops-6mops" class="cite xref">I-D.draft-ietf-v6ops-6mops</a>]</span>, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
@@ -1648,7 +1645,7 @@ In case these issues can occur outside the testers' circle of control, it is adv
 <p id="section-3.5-1">Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
 For example, a web server may explicitly listen on a 127.0.0.0/8 by default.
 For IPv6-only-strict scenarios, system administrators may choose to disable IPv4,
-including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to a IPv4 loopback address may fail to start when these addresses are unavailable
+including loopback. In such cases, applications may fail to operate correctly. Applications expecting to bind to an IPv4 loopback address may fail to start when these addresses are unavailable
 due to a bind failure.
 Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
 <p id="section-3.5-2">Because of this, when testing applications for the IPv6-only-strict scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
@@ -1668,7 +1665,7 @@ management, and update, it is recommended to test that the lifecycle functions d
 or remote third-party services (e.g., package repositories). In these scenarios, the installer acts as
 the client, and the remote service acts as the server. In cases of remote third-party services, testing
 all server scenarios in <a href="#scn_combinations" class="auto internal xref">Table 1</a> may not be feasible, and impact the client scenarios that
-can be supported. For example, if a third-party service is IPv4-only, then supporting a IPv6-only-strict
+can be supported. For example, if a third-party service is IPv4-only, then supporting an IPv6-only-strict
 client is not feasible.<a href="#section-3.6-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.6-3.2">
@@ -1767,7 +1764,7 @@ e.g., by tracing whether the right address family is used.<a href="#section-4-2"
 <p id="section-4.1-1">This is the most natural way to test whether IPv6-only-strict clients behave correctly.
 The client device is either placed in a network without IPv4 connectivity or the IPv4 stack is disabled on the device while it is in a Dual-stack network.
 While most desktop operating systems allow disabling IPv4, mobile operating systems, such as Android and iOS, do not.
-For mobiles operating systems, a IPv6-only-strict environment is needed.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+For mobiles operating systems, an IPv6-only-strict environment is needed.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">In both cases, it has to be ensured that there is no way to access IPv4-only resources.
 In particular, fallback to NAT64 must be prevented by disabling CLAT <span>[<a href="#CLAT" class="cite xref">CLAT</a>]</span>,
 making sure DNS resolution does not perform DNS64 address synthesis <span>[<a href="#RFC6147" class="cite xref">RFC6147</a>]</span>
@@ -1784,9 +1781,9 @@ Some corporate environments may render the machines unusable as they require IPv
         <h3 id="name-ipv6-only-servers">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-ipv6-only-servers" class="section-name selfRef">IPv6-only Servers</a>
         </h3>
-<p id="section-4.2-1">IPv6-only servers are a good option when setting up a IPv6-only-strict client environment is infeasible and
+<p id="section-4.2-1">IPv6-only servers are a good option when setting up an IPv6-only-strict client environment is infeasible and
 clients are know to only contact a single server or a small number of servers under the testers' control.
-Even if setting up a IPv6-only-strict server environment is infeasible,
+Even if setting up an IPv6-only-strict server environment is infeasible,
 most testing is also achievable by setting up a dedicated DNS name only containing an AAAA record pointing to the IPv6 addresses of an otherwise Dual-stack server.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2033,7 +2030,7 @@ Some security-related issues that should be considered and ruled out by appropri
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-6mops">[I-D.draft-ietf-v6ops-6mops]</dt>
         <dd>
-<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Caletka, O.</span>, and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"IPv6-mostly Networks: Deployment and Operations Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-6mops-07</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-07">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Caletka, O.</span>, and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"IPv6-mostly Networks: Deployment and Operations Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-6mops-09</span>, <time datetime="2026-08-12" class="refDate">12 August 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-09">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-v6ops-rfc7084bis">[I-D.draft-ietf-v6ops-rfc7084bis]</dt>
         <dd>
