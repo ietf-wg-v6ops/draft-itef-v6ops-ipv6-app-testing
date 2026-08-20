@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-26T02:34:44.848836+00:00",
+  "timestamp": "2026-08-20T01:05:19.028683+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -306,6 +306,25 @@
       "body": "",
       "createdAt": "2026-07-24T10:39:44Z",
       "updatedAt": "2026-07-24T10:39:44Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOQpLumc8AAAABNZ07hA",
+      "title": "Add discussion about misguided connectivity checks to Section 5",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/24",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "discuss",
+        "help wanted"
+      ],
+      "body": "When using an endpoint to test for connectivity independently of the communication flows later on, this likely has undesired side effects.\n\nDisabling IPv4/IPv6 when some connectivity test fails is generally not a good idea as the actual endpoint may behave totally different due to VPNs / polices / \u2026\n\nDo we want to add it before WGLC?",
+      "createdAt": "2026-08-19T15:42:19Z",
+      "updatedAt": "2026-08-19T15:42:19Z",
       "closedAt": null,
       "comments": []
     }
@@ -748,6 +767,34 @@
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-failues-management",
       "headRefOid": "604a77a6230760c180926a291f378386314ed51b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOQpLumc8AAAABAS4phA",
+      "title": "Collection of editorial nits ",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/23",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "",
+      "createdAt": "2026-08-19T14:38:34Z",
+      "updatedAt": "2026-08-19T15:38:21Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "6f29bcd2e888ca2141b50975bf329b225bcfceaf",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "pre-02-knits",
+      "headRefOid": "6045dd7387e200b36f9d6ee7318371fd647d5bc6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
