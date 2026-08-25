@@ -300,7 +300,7 @@ Applications expecting these addresses to be available for inter-service communi
 
 Because of this, when testing applications for the IPv6-only-strict scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.
 
-## Testing Lifecycle Function Considerations
+## Testing Lifecycle Function Considerations {#lifecycle-considerations}
 
 To cover the whole lifecycle of an application including installation, user interface,
 management, and update, it is recommended to test that the lifecycle functions defined in {{lifecycle-functions}} are operational within the connectivity scenarios defined in {{scn_combinations}}.
@@ -447,6 +447,11 @@ In cases that developers choose not to mitigate erroneous application behavior, 
 Some applications completely ignore IPv6 unless explicitly configured to enable IPv6.
 This adds another class of user or configuration errors, like deploying an application without enabled IPv6 support in an IPv6-only environment.
 As these feature gates are often buried deeply in the documentation and are often vendor, product, or component specific, every component needs to be checked to determine whether IPv6 support needs extra configuration.
+
+## Ignore Management and Control Interfaces
+
+Ignoring management and control interface when enabling and testing applications for IPv6-only operation turns out to be a common pattern.
+As already discussed in {{lifecycle-considerations}}, special care should be taken to cover all of these flows and avoid setups that require dual-stack deployment.
 
 ## Destination Address Selection Preference and Address Filtering
 
