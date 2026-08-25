@@ -487,6 +487,13 @@ While most libraries and application frameworks have decent IPv6 support,
 there often is still application logic that prevents taking advantage of the IPv6 support by the underlying components.
 Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.
 
+## Connectivity Checks
+
+Some applications perform connectivity checks to determine whether Internet access is available by trying to connect to one or more well-known endpoints.
+If the connectivity check endpoints differ from the actual endpoints used by the application, this approach can lead to incorrect conclusions -
+especially in IPv6-only environments when connectivity checks are IPv4-only or in environments with strict network polices or split-tunnel VPNs.
+Applications should prefer implementing appropriate error handling for connectivity issues than relying on connectivity pre-checks.
+
 ## Misbehaving Middle-Boxes
 
 In practice, many IPv6-related regressions uncovered during testing turn out to be caused by hidden components outside of the application developers' control.
