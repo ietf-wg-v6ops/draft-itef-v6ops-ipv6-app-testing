@@ -1247,16 +1247,22 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-enable-ipv6-feature-gates" class="internal xref">Enable IPv6 Feature Gates</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-destination-address-selecti" class="internal xref">Destination Address Selection Preference and Address Filtering</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-ignore-management-and-contr" class="internal xref">Ignore Management and Control Interfaces</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-listening-on-only-one-addre" class="internal xref">Listening on only one Address Family</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-destination-address-selecti" class="internal xref">Destination Address Selection Preference and Address Filtering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-input-validation-and-output" class="internal xref">Input Validation and Output Rendering</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-listening-on-only-one-addre" class="internal xref">Listening on only one Address Family</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
-                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-misbehaving-middle-boxes" class="internal xref">Misbehaving Middle-Boxes</a></p>
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-input-validation-and-output" class="internal xref">Input Validation and Output Rendering</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-connectivity-checks" class="internal xref">Connectivity Checks</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7">
+                <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="auto internal xref">5.7</a>.  <a href="#name-misbehaving-middle-boxes" class="internal xref">Misbehaving Middle-Boxes</a></p>
 </li>
             </ul>
 </li>
@@ -1654,7 +1660,7 @@ Applications expecting these addresses to be available for inter-service communi
 <p id="section-3.5-2">Because of this, when testing applications for the IPv6-only-strict scenario, it is recommended to test the application in an environment without IPv4 on the loopback interface.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="testing-lifecycle-function-considerations">
+<div id="lifecycle-considerations">
 <section id="section-3.6">
         <h3 id="name-testing-lifecycle-function-">
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-testing-lifecycle-function-" class="section-name selfRef">Testing Lifecycle Function Considerations</a>
@@ -1842,65 +1848,85 @@ This adds another class of user or configuration errors, like deploying an appli
 As these feature gates are often buried deeply in the documentation and are often vendor, product, or component specific, every component needs to be checked to determine whether IPv6 support needs extra configuration.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="destination-address-selection-preference-and-address-filtering">
+<div id="ignore-management-and-control-interfaces">
 <section id="section-5.2">
-        <h3 id="name-destination-address-selecti">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
+        <h3 id="name-ignore-management-and-contr">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-ignore-management-and-contr" class="section-name selfRef">Ignore Management and Control Interfaces</a>
         </h3>
-<p id="section-5.2-1">The destination address selection algorithm in <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
+<p id="section-5.2-1">Ignoring management and control interface when enabling and testing applications for IPv6-only operation turns out to be a common pattern.
+As already discussed in <a href="#lifecycle-considerations" class="auto internal xref">Section 3.6</a>, special care should be taken to cover all of these flows and avoid setups that require dual-stack deployment.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="destination-address-selection-preference-and-address-filtering">
+<section id="section-5.3">
+        <h3 id="name-destination-address-selecti">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
+        </h3>
+<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
 While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> or its predecessors <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span>/<span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
-there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-2.1">
-            <p id="section-5.2-2.1.1">Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
-To prefer IPv6 addresses over IPv4, one needs to set the system property <code>java.net.preferIPv6Addresses=true</code>.<a href="#section-5.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3-2.1">
+            <p id="section-5.3-2.1.1">Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
+To prefer IPv6 addresses over IPv4, one needs to set the system property <code>java.net.preferIPv6Addresses=true</code>.<a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-2.2">
-            <p id="section-5.2-2.2.1">Some applications only use the first address candidate from the <code>getaddrinfo()</code> and fail if the connection attempt to that one fails.<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-2.2">
+            <p id="section-5.3-2.2.1">Some applications only use the first address candidate from the <code>getaddrinfo()</code> and fail if the connection attempt to that one fails.<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-2.3">
-            <p id="section-5.2-2.3.1">Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.<a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-2.3">
+            <p id="section-5.3-2.3.1">Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.<a href="#section-5.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-2.4">
-            <p id="section-5.2-2.4.1">NGINX has its own user DNS resolver without address filtering; thus, adding a <em>AAAA</em> record to a backend can render that backend unusable.
+          <li class="normal" id="section-5.3-2.4">
+            <p id="section-5.3-2.4.1">NGINX has its own user DNS resolver without address filtering; thus, adding a <em>AAAA</em> record to a backend can render that backend unusable.
 After having resolved a <em>AAAA</em> record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
-As socket creation failure is not expected, an internal server error is sent back to the client.<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
+As socket creation failure is not expected, an internal server error is sent back to the client.<a href="#section-5.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-2.5">
-            <p id="section-5.2-2.5.1">Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
-This becomes cumbersome especially in split-VPN use cases, e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity.<a href="#section-5.2-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-2.5">
+            <p id="section-5.3-2.5.1">Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
+This becomes cumbersome especially in split-VPN use cases, e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity.<a href="#section-5.3-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="listening-on-only-one-address-family">
-<section id="section-5.3">
+<section id="section-5.4">
         <h3 id="name-listening-on-only-one-addre">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-listening-on-only-one-addre" class="section-name selfRef">Listening on only one Address Family</a>
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-listening-on-only-one-addre" class="section-name selfRef">Listening on only one Address Family</a>
         </h3>
-<p id="section-5.3-1">Many tutorials and programmer facing documentation still has not been upgraded to cover listening on multiple address families in order to take in connections from IPv6 as well as IPv4.
-Checking listening code whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting <code>IPV6_V6ONLY</code> socket option on Linux to zero.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">In deployments, always use tools like <code>netstat</code> or <code>lsof</code> to verify both address families are listened on if needed.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">Many tutorials and programmer facing documentation still has not been upgraded to cover listening on multiple address families in order to take in connections from IPv6 as well as IPv4.
+Checking listening code whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting <code>IPV6_V6ONLY</code> socket option on Linux to zero.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">In deployments, always use tools like <code>netstat</code> or <code>lsof</code> to verify both address families are listened on if needed.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="input-validation-and-output-rendering">
-<section id="section-5.4">
+<section id="section-5.5">
         <h3 id="name-input-validation-and-output">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-input-validation-and-output" class="section-name selfRef">Input Validation and Output Rendering</a>
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-input-validation-and-output" class="section-name selfRef">Input Validation and Output Rendering</a>
         </h3>
-<p id="section-5.4-1">While most libraries and application frameworks have decent IPv6 support,
+<p id="section-5.5-1">While most libraries and application frameworks have decent IPv6 support,
 there often is still application logic that prevents taking advantage of the IPv6 support by the underlying components.
-Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="connectivity-checks">
+<section id="section-5.6">
+        <h3 id="name-connectivity-checks">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-connectivity-checks" class="section-name selfRef">Connectivity Checks</a>
+        </h3>
+<p id="section-5.6-1">Some applications perform connectivity checks to determine whether Internet access is available by trying to connect to one or more well-known endpoints.
+If the connectivity check endpoints differ from the actual endpoints used by the application, this approach can lead to incorrect conclusions -
+especially in IPv6-only environments when connectivity checks are IPv4-only or in environments with strict network polices or split-tunnel VPNs.
+Applications should prefer implementing appropriate error handling for connectivity issues than relying on connectivity pre-checks.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="misbehaving-middle-boxes">
-<section id="section-5.5">
+<section id="section-5.7">
         <h3 id="name-misbehaving-middle-boxes">
-<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-misbehaving-middle-boxes" class="section-name selfRef">Misbehaving Middle-Boxes</a>
+<a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-misbehaving-middle-boxes" class="section-name selfRef">Misbehaving Middle-Boxes</a>
         </h3>
-<p id="section-5.5-1">In practice, many IPv6-related regressions uncovered during testing turn out to be caused by hidden components outside of the application developers' control.
-Middle-Boxes, e.g., firewalls, virus scanners, and intrusion detection systems, can break end-to-end tests in surprising ways, like terminating TLS sessions over IPv6 with certain extensions in the <em>TLS client hello</em> while correctly passing the same flow over IPv4.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.7-1">In practice, many IPv6-related regressions uncovered during testing turn out to be caused by hidden components outside of the application developers' control.
+Middle-Boxes, e.g., firewalls, virus scanners, and intrusion detection systems, can break end-to-end tests in surprising ways, like terminating TLS sessions over IPv6 with certain extensions in the <em>TLS client hello</em> while correctly passing the same flow over IPv4.<a href="#section-5.7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

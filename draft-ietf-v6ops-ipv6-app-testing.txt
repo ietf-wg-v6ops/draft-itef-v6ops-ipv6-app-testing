@@ -97,11 +97,13 @@ Table of Contents
      4.5.  Network-based tracing
    5.  Common Sources of IPv6 Related Failures and Misbehavior
      5.1.  Enable IPv6 Feature Gates
-     5.2.  Destination Address Selection Preference and Address
+     5.2.  Ignore Management and Control Interfaces
+     5.3.  Destination Address Selection Preference and Address
            Filtering
-     5.3.  Listening on only one Address Family
-     5.4.  Input Validation and Output Rendering
-     5.5.  Misbehaving Middle-Boxes
+     5.4.  Listening on only one Address Family
+     5.5.  Input Validation and Output Rendering
+     5.6.  Connectivity Checks
+     5.7.  Misbehaving Middle-Boxes
    6.  Deployment Considerations
      6.1.  Operational Scope & Software Lifecycle
      6.2.  Allow & Deny Lists
@@ -691,7 +693,15 @@ Table of Contents
    component specific, every component needs to be checked to determine
    whether IPv6 support needs extra configuration.
 
-5.2.  Destination Address Selection Preference and Address Filtering
+5.2.  Ignore Management and Control Interfaces
+
+   Ignoring management and control interface when enabling and testing
+   applications for IPv6-only operation turns out to be a common
+   pattern.  As already discussed in Section 3.6, special care should be
+   taken to cover all of these flows and avoid setups that require dual-
+   stack deployment.
+
+5.3.  Destination Address Selection Preference and Address Filtering
 
    The destination address selection algorithm in [ADDR-SELECT] filters
    unavailable address families (Rule 1) and de-prioritizes non-matching
@@ -728,7 +738,7 @@ Table of Contents
       use cases, e.g. when trying to contact IPv6-only endpoints via the
       VPN while having IPv4-only Internet connectivity.
 
-5.3.  Listening on only one Address Family
+5.4.  Listening on only one Address Family
 
    Many tutorials and programmer facing documentation still has not been
    upgraded to cover listening on multiple address families in order to
@@ -740,7 +750,7 @@ Table of Contents
    In deployments, always use tools like netstat or lsof to verify both
    address families are listened on if needed.
 
-5.4.  Input Validation and Output Rendering
+5.5.  Input Validation and Output Rendering
 
    While most libraries and application frameworks have decent IPv6
    support, there often is still application logic that prevents taking
@@ -749,7 +759,19 @@ Table of Contents
    the assumption that an address is always an IPv4 address are typical
    examples for this class of limitations.
 
-5.5.  Misbehaving Middle-Boxes
+5.6.  Connectivity Checks
+
+   Some applications perform connectivity checks to determine whether
+   Internet access is available by trying to connect to one or more
+   well-known endpoints.  If the connectivity check endpoints differ
+   from the actual endpoints used by the application, this approach can
+   lead to incorrect conclusions - especially in IPv6-only environments
+   when connectivity checks are IPv4-only or in environments with strict
+   network polices or split-tunnel VPNs.  Applications should prefer
+   implementing appropriate error handling for connectivity issues than
+   relying on connectivity pre-checks.
+
+5.7.  Misbehaving Middle-Boxes
 
    In practice, many IPv6-related regressions uncovered during testing
    turn out to be caused by hidden components outside of the application
