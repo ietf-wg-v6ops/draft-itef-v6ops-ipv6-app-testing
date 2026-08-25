@@ -102,8 +102,7 @@ Table of Contents
            Filtering
      5.4.  Listening on only one Address Family
      5.5.  Input Validation and Output Rendering
-     5.6.  Connectivity Checks
-     5.7.  Misbehaving Middle-Boxes
+     5.6.  Misbehaving Middle-Boxes
    6.  Deployment Considerations
      6.1.  Operational Scope & Software Lifecycle
      6.2.  Allow & Deny Lists
@@ -759,19 +758,7 @@ Table of Contents
    the assumption that an address is always an IPv4 address are typical
    examples for this class of limitations.
 
-5.6.  Connectivity Checks
-
-   Some applications perform connectivity checks to determine whether
-   Internet access is available by trying to connect to one or more
-   well-known endpoints.  If the connectivity check endpoints differ
-   from the actual endpoints used by the application, this approach can
-   lead to incorrect conclusions - especially in IPv6-only environments
-   when connectivity checks are IPv4-only or in environments with strict
-   network polices or split-tunnel VPNs.  Applications should prefer
-   implementing appropriate error handling for connectivity issues than
-   relying on connectivity pre-checks.
-
-5.7.  Misbehaving Middle-Boxes
+5.6.  Misbehaving Middle-Boxes
 
    In practice, many IPv6-related regressions uncovered during testing
    turn out to be caused by hidden components outside of the application
