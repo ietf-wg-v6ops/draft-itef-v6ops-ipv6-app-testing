@@ -449,7 +449,7 @@ As these feature gates are often buried deeply in the documentation and are ofte
 
 ## Ignore Management and Control Interfaces
 
-Ignoring management and control interface when enabling and testing applications for IPv6-only operation turns out to be a common pattern.
+Ignoring management and control interfaces when enabling and testing applications for IPv6-only operation turns out to be a common pattern.
 As already discussed in {{lifecycle-considerations}}, special care should be taken to cover all of these flows and avoid setups that require dual-stack deployment.
 
 ## Destination Address Selection Preference and Address Filtering
@@ -475,8 +475,8 @@ there are a number of notable and widely used implementations that implement som
 
 ## Listening on only one Address Family
 
-Many tutorials and programmer facing documentation still has not been upgraded to cover listening on multiple address families in order to take in connections from IPv6 as well as IPv4.
-Checking listening code whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting ```IPV6_V6ONLY``` socket option on Linux to zero.
+Many tutorials and programmer facing documentation have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
+Listening code should be checked to determine whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting ```IPV6_V6ONLY``` socket option on Linux to zero.
 
 In deployments, always use tools like ```netstat``` or ```lsof``` to verify both address families are listened on if needed.
 
