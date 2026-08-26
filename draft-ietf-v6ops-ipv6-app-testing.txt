@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 26 February 2027                                         Google
+Expires: 27 February 2027                                         Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                          25 August 2026
+                                                          26 August 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 February 2027.
+   This Internet-Draft will expire on 27 February 2027.
 
 Copyright Notice
 
@@ -102,7 +102,8 @@ Table of Contents
            Filtering
      5.4.  Listening on only one Address Family
      5.5.  Input Validation and Output Rendering
-     5.6.  Misbehaving Middle-Boxes
+     5.6.  Connectivity Checks
+     5.7.  Misbehaving Middle-Boxes
    6.  Deployment Considerations
      6.1.  Operational Scope & Software Lifecycle
      6.2.  Allow & Deny Lists
@@ -240,12 +241,12 @@ Table of Contents
 
    The first five scenarios marked as _base_ should cover all major code
    paths and fallback conditions.  These include Dual-stack clients
-   combined with IPv4-only and a IPv6-only-strict server, to test
-   whether the additional address family confused the client.  We also
-   include the cases with Dual-stack Server and Single-Stack clients, to
-   test whether a single address family at client side works as
-   anticipated and look at the transition case using NAT64.  We have no
-   special scenarios for 464XLAT [RFC6877] and IPv6-Mostly
+   combined with IPv4-only and IPv6-only-strict servers, to test whether
+   the additional address family confused the client.  We also include
+   the cases with Dual-stack Server and Single-Stack clients, to test
+   whether a single address family at client side works as anticipated
+   and look at the transition case using NAT64.  We have no special
+   scenarios for 464XLAT [RFC6877] and IPv6-Mostly
    [I-D.draft-ietf-v6ops-6mops], as these architectures are from the
    client side indistinguishable from the Dual-stack (464XLAT or
    IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without
@@ -437,7 +438,7 @@ Table of Contents
    127.0.0.0/8 by default.  For IPv6-only-strict scenarios, system
    administrators may choose to disable IPv4, including loopback.  In
    such cases, applications may fail to operate correctly.  Applications
-   expecting to bind to a IPv4 loopback address may fail to start when
+   expecting to bind to an IPv4 loopback address may fail to start when
    these addresses are unavailable due to a bind failure.  Applications
    expecting these addresses to be available for inter-service
    communication will result in these services being unable to
@@ -464,8 +465,8 @@ Table of Contents
       service acts as the server.  In cases of remote third-party
       services, testing all server scenarios in Table 1 may not be
       feasible, and impact the client scenarios that can be supported.
-      For example, if a third-party service is IPv4-only, then
-      supporting a IPv6-only-strict client is not feasible.
+      For example, if a third-party service is IPv4-only, testing an
+      IPv6-only-strict scenario will fail.
 
    *  User Interface: User interfaces can be incredibly complex with
       numerous contexts, views, API endpoints, CLI commands, etc.  When
@@ -600,8 +601,8 @@ Table of Contents
    without IPv4 connectivity or the IPv4 stack is disabled on the device
    while it is in a Dual-stack network.  While most desktop operating
    systems allow disabling IPv4, mobile operating systems, such as
-   Android and iOS, do not.  For mobiles operating systems, a IPv6-only-
-   strict environment is needed.
+   Android and iOS, do not.  For mobiles operating systems, an IPv6-
+   only-strict environment is needed.
 
    In both cases, it has to be ensured that there is no way to access
    IPv4-only resources.  In particular, fallback to NAT64 must be
@@ -621,10 +622,10 @@ Table of Contents
 
 4.2.  IPv6-only Servers
 
-   IPv6-only servers are a good option when setting up a IPv6-only-
+   IPv6-only servers are a good option when setting up an IPv6-only-
    strict client environment is infeasible and clients are know to only
    contact a single server or a small number of servers under the
-   testers' control.  Even if setting up a IPv6-only-strict server
+   testers' control.  Even if setting up an IPv6-only-strict server
    environment is infeasible, most testing is also achievable by setting
    up a dedicated DNS name only containing an AAAA record pointing to
    the IPv6 addresses of an otherwise Dual-stack server.
@@ -758,7 +759,19 @@ Table of Contents
    the assumption that an address is always an IPv4 address are typical
    examples for this class of limitations.
 
-5.6.  Misbehaving Middle-Boxes
+5.6.  Connectivity Checks
+
+   Some applications perform connectivity checks to determine whether
+   Internet access is available by trying to connect to one or more
+   well-known endpoints.  If the connectivity check endpoints differ
+   from the actual endpoints used by the application, this approach can
+   lead to incorrect conclusions - especially in IPv6-only environments
+   when connectivity checks are IPv4-only or in environments with strict
+   network polices or split-tunnel VPNs.  Applications should prefer
+   implementing appropriate error handling for connectivity issues than
+   relying on connectivity pre-checks.
+
+5.7.  Misbehaving Middle-Boxes
 
    In practice, many IPv6-related regressions uncovered during testing
    turn out to be caused by hidden components outside of the application
@@ -1017,8 +1030,8 @@ Table of Contents
 Acknowledgments
 
    Thanks to Holger Füßler, Michael Richardson, Tommy Jensen, Nathan
-   Sherrard, Jeremy Duncan, Brian E Carpenter, Axel Schemberg, for the
-   discussions, the input, and all contribution.
+   Sherrard, Jeremy Duncan, Brian E Carpenter, Axel Schemberg, Sulabh
+   Soneji, for the discussions, the input, and all contribution.
 
 Authors' Addresses
 
