@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-08-23T01:10:29.611038+00:00",
+  "timestamp": "2026-08-27T07:18:34.854616+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -246,7 +246,7 @@
       "id": "I_kwDOQpLumc8AAAABJk10sQ",
       "title": "Consider adding \"forgot to listen on IPv6\" to Section 5",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -255,8 +255,8 @@
       ],
       "body": "As @franckhlmartin suggested, we should consider adding \"forgot to listen on IPv6\" to Section 5 and suggest checking listening table that all services listening on IPv4 are also listening on IPv6.",
       "createdAt": "2026-07-21T09:53:35Z",
-      "updatedAt": "2026-07-22T08:42:39Z",
-      "closedAt": null,
+      "updatedAt": "2026-08-25T11:28:55Z",
+      "closedAt": "2026-08-25T11:28:55Z",
       "comments": [
         {
           "author": "philsbln",
@@ -298,15 +298,15 @@
       "id": "I_kwDOQpLumc8AAAABKBg_mA",
       "title": "Put a hint about control and managegement iteractions",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/21",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-07-24T10:39:44Z",
-      "updatedAt": "2026-07-24T10:39:44Z",
-      "closedAt": null,
+      "updatedAt": "2026-08-25T11:29:25Z",
+      "closedAt": "2026-08-25T11:29:25Z",
       "comments": []
     },
     {
@@ -314,7 +314,7 @@
       "id": "I_kwDOQpLumc8AAAABNZ07hA",
       "title": "Add discussion about misguided connectivity checks to Section 5",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -324,8 +324,8 @@
       ],
       "body": "When using an endpoint to test for connectivity independently of the communication flows later on, this likely has undesired side effects.\n\nDisabling IPv4/IPv6 when some connectivity test fails is generally not a good idea as the actual endpoint may behave totally different due to VPNs / polices / \u2026\n\nDo we want to add it before WGLC?",
       "createdAt": "2026-08-19T15:42:19Z",
-      "updatedAt": "2026-08-19T15:42:19Z",
-      "closedAt": null,
+      "updatedAt": "2026-08-25T11:29:46Z",
+      "closedAt": "2026-08-25T11:29:46Z",
       "comments": []
     }
   ],
@@ -727,24 +727,26 @@
       "id": "PR_kwDOQpLumc71YNBF",
       "title": "Add section about listening on multiple address families ",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/20",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "closes #18 ",
       "createdAt": "2026-07-23T13:06:36Z",
-      "updatedAt": "2026-07-24T11:22:31Z",
+      "updatedAt": "2026-08-25T11:28:54Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "127d6525a51f7aef2be6f448481b7be3de467cc5",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-listening",
       "headRefOid": "ea24bf3c9b642923d28ef19812bb0b1fbea13c0d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-08-25T11:28:54Z",
+      "mergedAt": "2026-08-25T11:28:53Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "fcc97740d1d2244b6651e4c30b72033c4ecd2298"
+      },
       "comments": [],
       "reviews": []
     },
@@ -753,24 +755,26 @@
       "id": "PR_kwDOQpLumc710zON",
       "title": "Added additional hint about Management and Control interfaces",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/22",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #21 ",
       "createdAt": "2026-07-24T11:21:19Z",
-      "updatedAt": "2026-08-20T09:42:35Z",
+      "updatedAt": "2026-08-25T11:29:24Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "6f29bcd2e888ca2141b50975bf329b225bcfceaf",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-failues-management",
       "headRefOid": "604a77a6230760c180926a291f378386314ed51b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-08-25T11:29:24Z",
+      "mergedAt": "2026-08-25T11:29:24Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "d670e02278cd3a862c3d0567c4caa40162065c92"
+      },
       "comments": [],
       "reviews": []
     },
@@ -779,7 +783,7 @@
       "id": "PR_kwDOQpLumc8AAAABAS4phA",
       "title": "Collection of editorial nits ",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -788,45 +792,107 @@
       ],
       "body": "",
       "createdAt": "2026-08-19T14:38:34Z",
-      "updatedAt": "2026-08-20T12:34:03Z",
+      "updatedAt": "2026-08-26T08:27:19Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "6f29bcd2e888ca2141b50975bf329b225bcfceaf",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "pre-02-knits",
       "headRefOid": "d722b00f9c6600e35be6d45cea86257457a57159",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-08-26T08:27:19Z",
+      "mergedAt": "2026-08-26T08:27:19Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "c3d4bbf102911e7dc1245aa13b3e0a75587742ed"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABK1OgCg",
+          "commit": {
+            "abbreviatedOid": "d722b00"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2026-08-25T17:21:38Z",
+          "updatedAt": "2026-08-25T17:21:38Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 25,
       "id": "PR_kwDOQpLumc8AAAABAa8K8w",
       "title": "Add Section on common problems with connectivity checks",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "closes #24 ",
       "createdAt": "2026-08-20T13:23:35Z",
-      "updatedAt": "2026-08-20T13:23:35Z",
+      "updatedAt": "2026-08-25T11:29:45Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "6f29bcd2e888ca2141b50975bf329b225bcfceaf",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln-connectivity-checks",
       "headRefOid": "b95aefa335045ea2edada0aa089fcf4c53da8da5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-08-25T11:29:45Z",
+      "mergedAt": "2026-08-25T11:29:45Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "65a91a25d3177e0931ac0f85a5eb44bf3ebb691a"
+      },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOQpLumc8AAAABA-J5WQ",
+      "title": "Pre-02 nits",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/26",
+      "state": "MERGED",
+      "author": "kouellette",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "",
+      "createdAt": "2026-08-25T17:35:11Z",
+      "updatedAt": "2026-08-26T08:28:00Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "65a91a25d3177e0931ac0f85a5eb44bf3ebb691a",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "kouellette-pre-02-nits",
+      "headRefOid": "ccc31154d1016d41077735a89869c469fe1eb0b9",
+      "closedAt": "2026-08-26T08:28:00Z",
+      "mergedAt": "2026-08-26T08:27:59Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "9fdeea95cdb4e7be4f06817e3b0746f4c5252b17"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABK7TaxA",
+          "commit": {
+            "abbreviatedOid": "ccc3115"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2026-08-26T08:24:01Z",
+          "updatedAt": "2026-08-26T08:24:01Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
