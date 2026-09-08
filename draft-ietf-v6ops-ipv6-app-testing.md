@@ -48,12 +48,10 @@ normative:
   ADDR-SELECT: I-D.draft-ietf-6man-rfc6724-update
 
 informative:
-  I-D.draft-ietf-v6ops-rfc7084bis:
-  I-D.draft-ietf-v6ops-6mops:
+  RFC7084bis: I-D.draft-ietf-v6ops-rfc7084bis
   I-D.draft-palet-v6ops-ipv6-only:
-  I-D.draft-ietf-dnsop-3901bis:
+  6MOPS: I-D.draft-ietf-v6ops-6mops
   CLAT: I-D.draft-ietf-v6ops-claton
-  RFC8504:
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
     title: 2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application
@@ -96,6 +94,9 @@ informative:
   Selenium:
     target: https://www.selenium.dev/
     title: Selenium WebDriver
+  NGINX.trac-552:
+    target: https://trac.nginx.org/nginx/ticket/552
+    title: Nginx doesn't honor net.ipv6.conf.all.disable_ipv6
 
 --- abstract
 
@@ -117,7 +118,7 @@ Therefore, today's applications are expected to function regardless of whether t
 While the availability of IPv6 support in applications has a considerable impact on the success of IPv6,
 there exists no documented best current practices how to do so.
 Testing IPv6 compliance of network gear and operating systems has been documented extensively.
-While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{I-D.draft-ietf-v6ops-rfc7084bis}}.
+While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}.
 
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
@@ -176,7 +177,9 @@ Note, while the involved parties are listed here as "client" and "server" to ref
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions.
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
-We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{I-D.draft-ietf-v6ops-6mops}}, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
+
+We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
+MTU issues, as described in {{6MOPS}} Section 7.4.5, that may arise form these scenarios are covered in {{partially-broken}}.
 
 For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in {{scn_combinations}}.
 
@@ -259,7 +262,7 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 ### DNS delegation issues
 
 Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-only-strict DNS resolvers.
-{{I-D.draft-ietf-dnsop-3901bis}} describes misconfigurations that may prevent this and should be prevented.
+{{?RFC10001}} describes misconfigurations that may prevent this and should be prevented.
 
 ### Testing with IP literals
 
@@ -269,7 +272,7 @@ Applications should be tested to determine whether they work as expected with IP
 If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{?RFC9844}} and work as expected.
 
 
-## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues
+## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
 When multiple address families are available, network packets may traverse different paths depending on the address family.
 Even when the same path is traversed, the path can exhibit distinct behaviors, e.g., dropping all or particular packets, especially in the presence of middle-boxes.
@@ -343,7 +346,8 @@ For external flows, i.e., flows outside the developers' control, usually all bas
 If one side of the flow is under administrative control, the number of scenario combinations can still be limited:
 For example, a cloud software provider choosing to deploy Dual-stack endpoints can skip all non-Dual-stack cases on the respective side of the communication.
 For internal flows, the relevant scenarios only depend on the applications' architecture, and only scenarios planned in the deployment need to be considered.
-From a networking perspective, flows between components are typically independent. There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.
+From a networking perspective, flows between components are typically independent, as long as endpoints are not signaled inside of the protocol.
+There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.
 
 In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
 While the flows towards these backend systems themselves may be safe to ignore as outlined above,
@@ -466,9 +470,9 @@ there are a number of notable and widely used implementations that implement som
 
 - Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.
 
-- NGINX has its own user DNS resolver without address filtering; thus, adding a _AAAA_ record to a backend can render that backend unusable.
+- NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a _AAAA_ record to a backend can render that backend unusable.
   After having resolved a _AAAA_ record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
-  As socket creation failure is not expected, an internal server error is sent back to the client.
+  As socket creation failure is not expected, an internal server error is sent back to the client. {{NGINX.trac-552}}
 
 - Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
   This becomes cumbersome especially in split-VPN use cases, e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity.
@@ -558,4 +562,5 @@ Jeremy Duncan,
 Brian E Carpenter,
 Axel Schemberg,
 Sulabh Soneji,
+Andrew Yourtchenko,
 for the discussions, the input, and all contribution.
