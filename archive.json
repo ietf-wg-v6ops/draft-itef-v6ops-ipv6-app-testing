@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-08-27T07:18:34.854616+00:00",
+  "timestamp": "2026-09-10T03:05:48.998280+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -152,7 +152,7 @@
       "id": "I_kwDOQpLumc7ekLoX",
       "title": "Do we want to differentiate DNS64 vs local synthesis cases?",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -161,8 +161,8 @@
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/1 in repo migration\n\n@furry13 I think it might be useful to test with RFC8781 w/o DNS64 as a primary case and maybe have a separate case (?) for DNS64 presence?\nIt would be desirable to ensure that there are no dependencies on DNS64?\n\n@philsbln As part of a section on name resolution issues to look for, that makes very much sense.\n\u2794 @furry13 ideas who may want to contribute a section on that?\n\n@furry13 We might want to have a 'network topologies' section",
       "createdAt": "2025-12-16T09:48:06Z",
-      "updatedAt": "2026-05-26T09:09:47Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-09T06:43:21Z",
+      "closedAt": "2026-09-09T06:43:21Z",
       "comments": [
         {
           "author": "philsbln",
@@ -178,15 +178,15 @@
       "id": "I_kwDOQpLumc7ekMyh",
       "title": "Add/Mention customer support perspective",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Cloned from https://github.com/philsbln/ipv6-app-testing/issues/11 in repo migration\n\nFrom Michael Richardson's early review on -00:\n\n> I think the introduction might want to say more about how this document might\ninteract with diagnosis of end-customer problems. With the view to avoiding\nthe \"Just turn off IPv6\" that comes from many places, and which might just\nresult in confused tech-support when there winds up being no connectivity :-)",
       "createdAt": "2025-12-16T09:49:15Z",
-      "updatedAt": "2026-05-26T09:10:00Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-09T06:43:06Z",
+      "closedAt": "2026-09-09T06:43:06Z",
       "comments": []
     },
     {
@@ -237,7 +237,7 @@
       ],
       "body": "As we have a common glossary there, we should make sure our definition is consistent with it.",
       "createdAt": "2026-04-29T12:17:06Z",
-      "updatedAt": "2026-05-12T11:06:17Z",
+      "updatedAt": "2026-09-09T06:41:42Z",
       "closedAt": "2026-05-12T11:06:17Z",
       "comments": []
     },
@@ -272,7 +272,7 @@
       "id": "I_kwDOQpLumc8AAAABJk7OaQ",
       "title": "Consider adding RFC6724 issues with Rule 9 to deployment considerations",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/19",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -281,8 +281,8 @@
       ],
       "body": "As @franckhlmartin pointed out we may consider adding some text about surprising RFC6724 behaviour.\nsee https://www.ietf.org/archive/id/draft-martin-deploying-ipv6-data-center-02.txt Sec. 13.4",
       "createdAt": "2026-07-21T10:04:53Z",
-      "updatedAt": "2026-07-24T11:24:17Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-09T06:42:46Z",
+      "closedAt": "2026-09-09T06:42:46Z",
       "comments": [
         {
           "author": "philsbln",
@@ -324,7 +324,7 @@
       ],
       "body": "When using an endpoint to test for connectivity independently of the communication flows later on, this likely has undesired side effects.\n\nDisabling IPv4/IPv6 when some connectivity test fails is generally not a good idea as the actual endpoint may behave totally different due to VPNs / polices / \u2026\n\nDo we want to add it before WGLC?",
       "createdAt": "2026-08-19T15:42:19Z",
-      "updatedAt": "2026-08-25T11:29:46Z",
+      "updatedAt": "2026-09-09T06:41:57Z",
       "closedAt": "2026-08-25T11:29:46Z",
       "comments": []
     }
@@ -893,6 +893,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOQpLumc8AAAABCrOtig",
+      "title": "Address Feedback Andrew Yourtchenko for -02",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/27",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-09-08T13:03:44Z",
+      "updatedAt": "2026-09-09T06:40:47Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "9fdeea95cdb4e7be4f06817e3b0746f4c5252b17",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/feedback-ayourtch",
+      "headRefOid": "479d5e641c69b54c9eb0f9e7912a22a177e32467",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
