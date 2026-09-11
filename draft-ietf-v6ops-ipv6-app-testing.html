@@ -28,11 +28,11 @@ and explains common regressions to avoid when deploying IPv6 support.
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.3
+    platformdirs 4.11.7
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.2
+    wcwidth 0.8.3
 -->
 <link href="draft-ietf-v6ops-ipv6-app-testing.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1048,11 +1048,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ipv6-app-testing</td>
-<td class="right">August 2026</td>
+<td class="right">September 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 27 February 2027</td>
+<td class="center">Expires 15 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-26" class="published">26 August 2026</time>
+<time datetime="2026-09-11" class="published">11 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-27">27 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-15">15 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 15 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1323,7 +1323,7 @@ Therefore, today's applications are expected to function regardless of whether t
 <p id="section-1-2">While the availability of IPv6 support in applications has a considerable impact on the success of IPv6,
 there exists no documented best current practices how to do so.
 Testing IPv6 compliance of network gear and operating systems has been documented extensively.
-While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes <span>[<a href="#RFC8504" class="cite xref">RFC8504</a>]</span> and Customer Edge (CE) routers <span>[<a href="#I-D.draft-ietf-v6ops-rfc7084bis" class="cite xref">I-D.draft-ietf-v6ops-rfc7084bis</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes <span>[<a href="#RFC8504" class="cite xref">RFC8504</a>]</span> and Customer Edge (CE) routers <span>[<a href="#RFC7084bis" class="cite xref">RFC7084bis</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
 While many application developers assume that the network abstractions of the operating system (OS), communication libraries, and application frameworks will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists and logging.
@@ -1422,11 +1422,12 @@ The following sections provide guidance on which connectivity scenarios to inclu
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications – with "client" representing the initiating or first acting party.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The first five scenarios marked as <em>base</em> should cover all major code paths and fallback conditions.
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
-We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
-We have no special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#I-D.draft-ietf-v6ops-6mops" class="cite xref">I-D.draft-ietf-v6ops-6mops</a>]</span>, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">The other combinations are unlikely to exhibit additional problems for client-server-based applications and therefore are marked as extended in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.
-For peer-to-peer applications and applications with complex connection handling like using STUN <span>[<a href="#RFC8489" class="cite xref">RFC8489</a>]</span> or TURN <span>[<a href="#RFC8656" class="cite xref">RFC8656</a>]</span>, skipping these scenarios is strongly discouraged.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">We have no special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#_6MOPS" class="cite xref">_6MOPS</a>]</span>, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
+MTU issues, as described in <span>[<a href="#_6MOPS" class="cite xref">_6MOPS</a>]</span> Section 7.4.5, that may arise form these scenarios are covered in <a href="#partially-broken" class="auto internal xref">Section 3.4</a>.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">The other combinations are unlikely to exhibit additional problems for client-server-based applications and therefore are marked as extended in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.
+For peer-to-peer applications and applications with complex connection handling like using STUN <span>[<a href="#RFC8489" class="cite xref">RFC8489</a>]</span> or TURN <span>[<a href="#RFC8656" class="cite xref">RFC8656</a>]</span>, skipping these scenarios is strongly discouraged.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <span id="name-connectivity-scenario-combi"></span><div id="scn_combinations">
 <table class="center" id="table-1">
           <caption>
@@ -1610,7 +1611,7 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 <a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-dns-delegation-issues" class="section-name selfRef">DNS delegation issues</a>
           </h4>
 <p id="section-3.3.3-1">Integration testing for Cloud applications should verify that the necessary domain names are resolvable from IPv4-only or IPv6-only-strict DNS resolvers.
-<span>[<a href="#I-D.draft-ietf-dnsop-3901bis" class="cite xref">I-D.draft-ietf-dnsop-3901bis</a>]</span> describes misconfigurations that may prevent this and should be prevented.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
+<span>[<a href="#RFC10001" class="cite xref">RFC10001</a>]</span> describes misconfigurations that may prevent this and should be prevented.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="testing-with-ip-literals">
@@ -1625,7 +1626,7 @@ Applications should be tested to determine whether they work as expected with IP
 </div>
 </section>
 </div>
-<div id="testing-with-partially-broken-connectivity-mtu-and-fragmentation-issues">
+<div id="partially-broken">
 <section id="section-3.4">
         <h3 id="name-testing-with-partially-brok">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-testing-with-partially-brok" class="section-name selfRef">Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues</a>
@@ -1713,7 +1714,8 @@ or whether the connectivity scenarios are only controlled by the deployment of t
 If one side of the flow is under administrative control, the number of scenario combinations can still be limited:
 For example, a cloud software provider choosing to deploy Dual-stack endpoints can skip all non-Dual-stack cases on the respective side of the communication.
 For internal flows, the relevant scenarios only depend on the applications' architecture, and only scenarios planned in the deployment need to be considered.
-From a networking perspective, flows between components are typically independent. There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
+From a networking perspective, flows between components are typically independent, as long as endpoints are not signaled inside of the protocol.
+There is no need to run the Cartesian product of scenarios x communications as long as all relevant scenarios for a given flow are tested.<a href="#section-3.7-3" class="pilcrow">¶</a></p>
 <p id="section-3.7-4">In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
 While the flows towards these backend systems themselves may be safe to ignore as outlined above,
 the functional correctness of the backend systems for all kinds of IP address need to be verified as part of the test series.
@@ -1877,9 +1879,9 @@ To prefer IPv6 addresses over IPv4, one needs to set the system property <code>j
             <p id="section-5.3-2.3.1">Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.<a href="#section-5.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-2.4">
-            <p id="section-5.3-2.4.1">NGINX has its own user DNS resolver without address filtering; thus, adding a <em>AAAA</em> record to a backend can render that backend unusable.
+            <p id="section-5.3-2.4.1">NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a <em>AAAA</em> record to a backend can render that backend unusable.
 After having resolved a <em>AAAA</em> record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
-As socket creation failure is not expected, an internal server error is sent back to the client.<a href="#section-5.3-2.4.1" class="pilcrow">¶</a></p>
+As socket creation failure is not expected, an internal server error is sent back to the client. <span>[<a href="#NGINX.trac-552" class="cite xref">NGINX.trac-552</a>]</span><a href="#section-5.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-2.5">
             <p id="section-5.3-2.5.1">Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
@@ -2062,18 +2064,6 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refTitle">"Beschluss Nr. 2020/14 - Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6"</span>, <span class="seriesInfo">Konferenz der IT-Beauftragten der Ressorts </span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.draft-ietf-dnsop-3901bis">[I-D.draft-ietf-dnsop-3901bis]</dt>
-        <dd>
-<span class="refAuthor">Yamamoto, M.</span> and <span class="refAuthor">T. Fiebig</span>, <span class="refTitle">"Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dnsop-3901bis-17</span>, <time datetime="2026-02-12" class="refDate">12 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-3901bis-17">https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-3901bis-17</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.draft-ietf-v6ops-6mops">[I-D.draft-ietf-v6ops-6mops]</dt>
-        <dd>
-<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Caletka, O.</span>, and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"IPv6-mostly Networks: Deployment and Operations Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-6mops-09</span>, <time datetime="2026-08-12" class="refDate">12 August 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-09">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-09</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.draft-ietf-v6ops-rfc7084bis">[I-D.draft-ietf-v6ops-rfc7084bis]</dt>
-        <dd>
-<span class="refAuthor">Lencse, G.</span>, <span class="refAuthor">Martinez, J. P.</span>, <span class="refAuthor">Patton, B.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"Basic Requirements for IPv6 Customer Edge Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc7084bis-06</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.draft-palet-v6ops-ipv6-only">[I-D.draft-palet-v6ops-ipv6-only]</dt>
         <dd>
 <span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-palet-v6ops-ipv6-only-14</span>, <time datetime="2026-05-07" class="refDate">7 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-palet-v6ops-ipv6-only-14">https://datatracker.ietf.org/doc/html/draft-palet-v6ops-ipv6-only-14</a>&gt;</span>. </dd>
@@ -2085,6 +2075,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="IPvFoo">[IPvFoo]</dt>
         <dd>
 <span class="refAuthor">Marks, P.</span>, <span class="refTitle">"IPvFoo - a Chrome/Firefox extension that adds an icon to indicate whether the current page was fetched using IPv4 or IPv6."</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/pmarks-net/ipvfoo">https://github.com/pmarks-net/ipvfoo</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="NGINX.trac-552">[NGINX.trac-552]</dt>
+        <dd>
+<span class="refTitle">"Nginx doesn't honor net.ipv6.conf.all.disable_ipv6"</span>, <span>n.d.</span>, <span>&lt;<a href="https://trac.nginx.org/nginx/ticket/552">https://trac.nginx.org/nginx/ticket/552</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3484">[RFC3484]</dt>
         <dd>
@@ -2118,6 +2112,10 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Mawatari, M.</span>, <span class="refAuthor">Kawashima, M.</span>, and <span class="refAuthor">C. Byrne</span>, <span class="refTitle">"464XLAT: Combination of Stateful and Stateless Translation"</span>, <span class="seriesInfo">RFC 6877</span>, <span class="seriesInfo">DOI 10.17487/RFC6877</span>, <time datetime="2013-04" class="refDate">April 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6877">https://www.rfc-editor.org/rfc/rfc6877</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC7084bis">[RFC7084bis]</dt>
+        <dd>
+<span class="refAuthor">Lencse, G.</span>, <span class="refAuthor">Martinez, J. P.</span>, <span class="refAuthor">Patton, B.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"Basic Requirements for IPv6 Customer Edge Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc7084bis-06</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc7084bis-06</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8305">[RFC8305]</dt>
         <dd>
 <span class="refAuthor">Schinazi, D.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Happy Eyeballs Version 2: Better Connectivity Using Concurrency"</span>, <span class="seriesInfo">RFC 8305</span>, <span class="seriesInfo">DOI 10.17487/RFC8305</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8305">https://www.rfc-editor.org/rfc/rfc8305</a>&gt;</span>. </dd>
@@ -2138,6 +2136,10 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC10001">[RFC10001]</dt>
+        <dd>
+<span class="refAuthor">Momoka</span> and <span class="refAuthor">T. Fiebig</span>, <span class="refTitle">"Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments"</span>, <span class="seriesInfo">BCP 91</span>, <span class="seriesInfo">RFC 10001</span>, <span class="seriesInfo">DOI 10.17487/RFC10001</span>, <time datetime="2026-08" class="refDate">August 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc10001">https://www.rfc-editor.org/rfc/rfc10001</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="Selenium">[Selenium]</dt>
         <dd>
 <span class="refTitle">"Selenium WebDriver"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.selenium.dev/">https://www.selenium.dev/</a>&gt;</span>. </dd>
@@ -2151,8 +2153,12 @@ Some security-related issues that should be considered and ruled out by appropri
 <span class="refTitle">"M-21-07 – Completing the Transition to Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">United States of America Office of Management and Budget Memorandum for Heads of Executive Departments and Agencies</span>, <time datetime="2020-11-19" class="refDate">19 November 2020</time>, <span>&lt;<a href="https://www.whitehouse.gov/wp-content/uploads/2020/11/M-21-07.pdf">https://www.whitehouse.gov/wp-content/uploads/2020/11/M-21-07.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="Wireshark">[Wireshark]</dt>
-      <dd>
+        <dd>
 <span class="refTitle">"Wireshark packet tracer"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.wireshark.org/">https://www.wireshark.org/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="_6MOPS">[_6MOPS]</dt>
+      <dd>
+<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Caletka, O.</span>, and <span class="refAuthor">J. Linkova</span>, <span class="refTitle">"IPv6-mostly Networks: Deployment and Operations Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-6mops-10</span>, <time datetime="2026-09-10" class="refDate">10 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-10">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2173,6 +2179,7 @@ Jeremy Duncan,
 Brian E Carpenter,
 Axel Schemberg,
 Sulabh Soneji,
+Andrew Yourtchenko,
 for the discussions, the input, and all contribution.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
