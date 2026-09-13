@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-10T03:05:48.998280+00:00",
+  "timestamp": "2026-09-13T03:10:23.285180+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -899,24 +899,26 @@
       "id": "PR_kwDOQpLumc8AAAABCrOtig",
       "title": "Address Feedback Andrew Yourtchenko for -02",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/27",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-09-08T13:03:44Z",
-      "updatedAt": "2026-09-09T06:40:47Z",
+      "updatedAt": "2026-09-11T07:24:34Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "9fdeea95cdb4e7be4f06817e3b0746f4c5252b17",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/feedback-ayourtch",
       "headRefOid": "479d5e641c69b54c9eb0f9e7912a22a177e32467",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-09-11T07:24:34Z",
+      "mergedAt": "2026-09-11T07:24:34Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1"
+      },
       "comments": [],
       "reviews": []
     }
