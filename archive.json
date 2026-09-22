@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-20T03:25:24.015515+00:00",
+  "timestamp": "2026-09-22T03:19:27.289034+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -954,6 +954,32 @@
       "mergeCommit": {
         "oid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOQpLumc8AAAABEbkIzA",
+      "title": "Add text about IPv4-only connectivity issues without NAT",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/30",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "closes #28 from Michael Richardson's review",
+      "createdAt": "2026-09-21T13:57:07Z",
+      "updatedAt": "2026-09-21T13:57:15Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/v4-nat-cases",
+      "headRefOid": "598ca508db689e7fda2bd2c2f18bdc56bb539854",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
