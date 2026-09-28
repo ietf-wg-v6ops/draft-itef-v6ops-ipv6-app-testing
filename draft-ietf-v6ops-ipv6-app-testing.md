@@ -307,6 +307,7 @@ Because of this, when testing applications for the IPv6-only-strict scenario, it
 
 To cover the whole lifecycle of an application including installation, user interface,
 management, and update, it is recommended to test that the lifecycle functions defined in {{lifecycle-functions}} are operational within the connectivity scenarios defined in {{scn_combinations}}.
+Testing the normal operations of the application is encompassed by the user interface lifecycle function.
 
 In particular, keep the following considerations in mind:
 
@@ -317,7 +318,8 @@ In particular, keep the following considerations in mind:
   can be supported. For example, if a third-party service is IPv4-only, testing an IPv6-only-strict scenario will fail.
 
 - User Interface: User interfaces can be incredibly complex with numerous contexts, views, API endpoints,
-  CLI commands, etc. When testing non-web-based user interfaces, it is recommended to focus on components
+  CLI commands, etc. When testing an application's user interface(s), the normal operations of the application should be verified.
+  Additionally, when testing non-web-based user interfaces, it is recommended to test components
   of the interface that involve communications with remote services, and those that handle network configuration parameters.
   For example, a network configuration interface may only accept IPv4 address literals for certain parameters.
   For testing web-based user interfaces, see {{web-app-considerations}}.
