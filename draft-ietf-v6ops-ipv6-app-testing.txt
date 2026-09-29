@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 15 March 2027                                            Google
+Expires: 2 April 2027                                             Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                       11 September 2026
+                                                       29 September 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 March 2027.
+   This Internet-Draft will expire on 2 April 2027.
 
 Copyright Notice
 
@@ -455,7 +455,8 @@ Table of Contents
    installation, user interface, management, and update, it is
    recommended to test that the lifecycle functions defined in
    Section 2.3 are operational within the connectivity scenarios defined
-   in Table 1.
+   in Table 1.  Testing the normal operations of the application is
+   encompassed by the user interface lifecycle function.
 
    In particular, keep the following considerations in mind:
 
@@ -471,8 +472,10 @@ Table of Contents
 
    *  User Interface: User interfaces can be incredibly complex with
       numerous contexts, views, API endpoints, CLI commands, etc.  When
-      testing non-web-based user interfaces, it is recommended to focus
-      on components of the interface that involve communications with
+      testing an application's user interface(s), the normal operations
+      of the application should be verified.  Additionally, when testing
+      non-web-based user interfaces, it is recommended to test
+      components of the interface that involve communications with
       remote services, and those that handle network configuration
       parameters.  For example, a network configuration interface may
       only accept IPv4 address literals for certain parameters.  For
