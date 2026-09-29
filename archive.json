@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-22T03:19:27.289034+00:00",
+  "timestamp": "2026-09-29T04:14:48.151305+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -969,13 +969,60 @@
       "labels": [],
       "body": "closes #28 from Michael Richardson's review",
       "createdAt": "2026-09-21T13:57:07Z",
-      "updatedAt": "2026-09-21T13:57:15Z",
+      "updatedAt": "2026-09-28T13:25:05Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/v4-nat-cases",
       "headRefOid": "598ca508db689e7fda2bd2c2f18bdc56bb539854",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABPj6eZQ",
+          "commit": {
+            "abbreviatedOid": "598ca50"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Otherwise LGTM",
+          "createdAt": "2026-09-28T13:24:03Z",
+          "updatedAt": "2026-09-28T13:25:05Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\nWe also do not separate IPv4-only cases with and without NAT, despite the fact that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.\n```",
+              "createdAt": "2026-09-28T13:24:03Z",
+              "updatedAt": "2026-09-28T13:25:05Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOQpLumc8AAAABFhGOUA",
+      "title": "Clarify normal operations in relation to lifecycle functions",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/31",
+      "state": "OPEN",
+      "author": "kouellette",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #29 ",
+      "createdAt": "2026-09-28T14:40:01Z",
+      "updatedAt": "2026-09-28T14:40:10Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "29-normal-operations",
+      "headRefOid": "8d7618e96c3e4ca1dfe8078d3cbd71a7f2161697",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
