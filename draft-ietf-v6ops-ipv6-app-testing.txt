@@ -195,8 +195,8 @@ Table of Contents
       towards all endpoints relevant for the test scenario using IPv6
       and no connectivity towards any relevant IPv4 endpoints, neither
       encapsulated nor translated.  This definition slightly diverges
-      from the one in [I-D.draft-palet-v6ops-ipv6-only] as it ignores
-      IPv4 connectivity to anywhere outside the testing scope.
+      from the one in [IPv6-ONLY] as it ignores IPv4 connectivity to
+      anywhere outside the testing scope.
 
 2.3.  Lifecycle Functions
 
@@ -247,10 +247,10 @@ Table of Contents
    and look at the transition case using NAT64.
 
    We have no special scenarios for 464XLAT [RFC6877] and IPv6-Mostly
-   [_6MOPS], as these architectures are from the client side
+   [V6MOPS], as these architectures are from the client side
    indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with
    CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).  MTU
-   issues, as described in [_6MOPS] Section 7.4.5, that may arise form
+   issues, as described in [V6MOPS] Section 7.4.5, that may arise form
    these scenarios are covered in Section 3.4.  We also do not separate
    IPv4-only cases with and without NAT, despite the fact that
    applications exist that assume NAT for IPv4 and do not work without,
@@ -915,16 +915,16 @@ Table of Contents
               Konferenz der IT-Beauftragten der Ressorts , 11 November
               2020.
 
-   [I-D.draft-palet-v6ops-ipv6-only]
+   [iCloud-Private-Relay]
+              "Apple iCLoud Private Relay (WWDC2021)", n.d.,
+              <https://developer.apple.com/videos/play/wwdc2021/10096/>.
+
+   [IPv6-ONLY]
               Martinez, J. P., "IPv6-only and IPv6-Mostly Terminology
               Definitions", Work in Progress, Internet-Draft, draft-
               palet-v6ops-ipv6-only-14, 7 May 2026,
               <https://datatracker.ietf.org/doc/html/draft-palet-v6ops-
               ipv6-only-14>.
-
-   [iCloud-Private-Relay]
-              "Apple iCLoud Private Relay (WWDC2021)", n.d.,
-              <https://developer.apple.com/videos/play/wwdc2021/10096/>.
 
    [IPvFoo]   Marks, P., "IPvFoo - a Chrome/Firefox extension that adds
               an icon to indicate whether the current page was fetched
@@ -1028,22 +1028,22 @@ Table of Contents
               <https://www.whitehouse.gov/wp-content/uploads/2020/11/
               M-21-07.pdf>.
 
-   [Wireshark]
-              "Wireshark packet tracer", n.d.,
-              <https://www.wireshark.org/>.
-
-   [_6MOPS]   Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
+   [V6MOPS]   Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
               Networks: Deployment and Operations Considerations", Work
               in Progress, Internet-Draft, draft-ietf-v6ops-6mops-10, 10
               September 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-v6ops-6mops-10>.
 
+   [Wireshark]
+              "Wireshark packet tracer", n.d.,
+              <https://www.wireshark.org/>.
+
 Acknowledgments
 
-   Thanks to Holger Füßler, Michael Richardson, Tommy Jensen, Nathan
-   Sherrard, Jeremy Duncan, Brian E Carpenter, Axel Schemberg, Sulabh
-   Soneji, Andrew Yourtchenko, for the discussions, the input, and all
-   contribution.
+   Thanks to Andrew Yourtchenko, Axel Schemberg, Brian E Carpenter,
+   Holger Füßler, Jeremy Duncan, Jordi Palet, Michael Perscheid, Michael
+   Richardson, Nathan Sherrard, Sulabh Soneji, and Tommy Jensen for the
+   discussions, the input, and all contribution.
 
 Authors' Addresses
 
