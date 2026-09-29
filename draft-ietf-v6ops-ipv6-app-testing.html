@@ -1424,7 +1424,8 @@ Note, while the involved parties are listed here as "client" and "server" to ref
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">We have no special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#_6MOPS" class="cite xref">_6MOPS</a>]</span>, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
-MTU issues, as described in <span>[<a href="#_6MOPS" class="cite xref">_6MOPS</a>]</span> Section 7.4.5, that may arise form these scenarios are covered in <a href="#partially-broken" class="auto internal xref">Section 3.4</a>.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+MTU issues, as described in <span>[<a href="#_6MOPS" class="cite xref">_6MOPS</a>]</span> Section 7.4.5, that may arise form these scenarios are covered in <a href="#partially-broken" class="auto internal xref">Section 3.4</a>.
+We also do not separate IPv4-only cases with and without NAT, despite the fact that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.1-4">For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.1-5">The other combinations are unlikely to exhibit additional problems for client-server-based applications and therefore are marked as extended in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.
 For peer-to-peer applications and applications with complex connection handling like using STUN <span>[<a href="#RFC8489" class="cite xref">RFC8489</a>]</span> or TURN <span>[<a href="#RFC8656" class="cite xref">RFC8656</a>]</span>, skipping these scenarios is strongly discouraged.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
@@ -1504,7 +1505,7 @@ For peer-to-peer applications and applications with complex connection handling 
         </h3>
 <p id="section-3.2-1">Many application protocols support communicating across intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE proxies.
 Peer-to-peer applications often support TURN <span>[<a href="#RFC5766" class="cite xref">RFC5766</a>]</span> as an intermediary to traverse NAT and provide connectivity between IPv4-only and IPv6-only hosts.
-When testing connectivity scenarios for an application, additional test cases including a proxy are recommended.
+When testing connectivity scenarios for such an application, additional test cases including a proxy are recommended.
 As a proxy can convert between address families, all combinations shown in <a href="#scn_proxy" class="auto internal xref">Table 2</a>,
 consisting of base scenarios towards the proxy and (assuming the same scenarios on both sides of the proxy) the respective base scenarios from the proxy to the server,
 should be considered for testing.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
