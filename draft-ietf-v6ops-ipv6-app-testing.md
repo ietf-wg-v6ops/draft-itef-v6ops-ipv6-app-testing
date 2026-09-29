@@ -180,6 +180,7 @@ We also include the cases with Dual-stack Server and Single-Stack clients, to te
 
 We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
 MTU issues, as described in {{6MOPS}} Section 7.4.5, that may arise form these scenarios are covered in {{partially-broken}}.
+We also do not separate IPv4-only cases with and without NAT, despite the fact that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.
 
 For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in {{scn_combinations}}.
 
@@ -204,7 +205,7 @@ For peer-to-peer applications and applications with complex connection handling 
 
 Many application protocols support communicating across intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE proxies.
 Peer-to-peer applications often support TURN {{?RFC5766}} as an intermediary to traverse NAT and provide connectivity between IPv4-only and IPv6-only hosts.
-When testing connectivity scenarios for an application, additional test cases including a proxy are recommended.
+When testing connectivity scenarios for such an application, additional test cases including a proxy are recommended.
 As a proxy can convert between address families, all combinations shown in {{scn_proxy}},
 consisting of base scenarios towards the proxy and (assuming the same scenarios on both sides of the proxy) the respective base scenarios from the proxy to the server,
 should be considered for testing.
