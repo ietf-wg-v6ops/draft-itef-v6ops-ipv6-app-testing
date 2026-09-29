@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 25 March 2027                                            Google
+Expires: 2 April 2027                                             Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                       21 September 2026
+                                                       29 September 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 March 2027.
+   This Internet-Draft will expire on 2 April 2027.
 
 Copyright Notice
 
@@ -252,9 +252,9 @@ Table of Contents
    CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).  MTU
    issues, as described in [_6MOPS] Section 7.4.5, that may arise form
    these scenarios are covered in Section 3.4.  We also do not separate
-   IPv4-only cases with and without NAT, despite the fact that there are
-   applications that assume NAT for IPv4 and do not work without, as
-   these issues are also reveled by the IPv6 scenarios.
+   IPv4-only cases with and without NAT, despite the fact that
+   applications exist that assume NAT for IPv4 and do not work without,
+   as these issues are also revealed by the IPv6 scenarios.
 
    For the IPv6-only datacenter case, where servers may be exposed to
    the IPv4-only Internet using NAT64, it is also advisable to consider
