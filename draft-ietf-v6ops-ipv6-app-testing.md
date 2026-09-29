@@ -49,8 +49,8 @@ normative:
 
 informative:
   RFC7084bis: I-D.draft-ietf-v6ops-rfc7084bis
-  I-D.draft-palet-v6ops-ipv6-only:
-  6MOPS: I-D.draft-ietf-v6ops-6mops
+  IPv6-ONLY: I-D.draft-palet-v6ops-ipv6-only
+  V6MOPS: I-D.draft-ietf-v6ops-6mops
   CLAT: I-D.draft-ietf-v6ops-claton
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
@@ -147,7 +147,7 @@ IPv6-only with NAT64:
 
 IPv6-only-strict:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-This definition slightly diverges from the one in {{I-D.draft-palet-v6ops-ipv6-only}} as it ignores IPv4 connectivity to anywhere outside the testing scope.
+This definition slightly diverges from the one in {{IPv6-ONLY}} as it ignores IPv4 connectivity to anywhere outside the testing scope.
 
 ## Lifecycle Functions {#lifecycle-functions}
 
@@ -178,8 +178,8 @@ The first five scenarios marked as *base* should cover all major code paths and 
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
 
-We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
-MTU issues, as described in {{6MOPS}} Section 7.4.5, that may arise form these scenarios are covered in {{partially-broken}}.
+We have no special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{V6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack (464XLAT or IPv6-Mostly with CLAT) or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
+MTU issues, as described in {{V6MOPS}} Section 7.4.5, that may arise form these scenarios are covered in {{partially-broken}}.
 We also do not separate IPv4-only cases with and without NAT, despite the fact that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.
 
 For the IPv6-only datacenter case, where servers may be exposed to the IPv4-only Internet using NAT64, it is also advisable to consider the case marked as IPv6-only-DC in {{scn_combinations}}.
@@ -557,13 +557,16 @@ This document has no IANA actions.
 {:numbered="false"}
 
 Thanks to
-Holger Füßler,
-Michael Richardson,
-Tommy Jensen,
-Nathan Sherrard,
-Jeremy Duncan,
-Brian E Carpenter,
-Axel Schemberg,
-Sulabh Soneji,
 Andrew Yourtchenko,
+Axel Schemberg,
+Brian E Carpenter,
+Holger Füßler,
+Jeremy Duncan,
+Jordi Palet,
+Michael Perscheid,
+Michael Richardson,
+Nathan Sherrard,
+Sulabh Soneji,
+and
+Tommy Jensen
 for the discussions, the input, and all contribution.
