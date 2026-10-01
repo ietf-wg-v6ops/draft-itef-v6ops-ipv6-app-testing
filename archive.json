@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-29T04:14:48.151305+00:00",
+  "timestamp": "2026-10-01T04:10:18.628458+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -333,15 +333,15 @@
       "id": "I_kwDOQpLumc8AAAABSGxuMg",
       "title": "Add text about IPv4-only connectivity issues without NAT",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/28",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "From Michael Richardson's review\n\n> I want, strangely, to suggest that the Table 2 list might need to distinguish\nbetween IPv4-only with NAT44, and IPv4-only:public address.\n>I've seen multiple cases where v4-connectivity does not work if you have no NAT!\n(This usually infects v6 connectivity too: but support people often won't\nfile tickets for that)",
       "createdAt": "2026-09-19T12:08:04Z",
-      "updatedAt": "2026-09-19T12:08:04Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-29T09:19:53Z",
+      "closedAt": "2026-09-29T09:19:53Z",
       "comments": []
     },
     {
@@ -349,7 +349,7 @@
       "id": "I_kwDOQpLumc8AAAABSIB6eQ",
       "title": "Mention also \"regular operation\" in Section",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/29",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -359,8 +359,8 @@
       "labels": [],
       "body": "from Jeremy Duncan's review:\n\n> For 3.6, 100% agree with installation, UI, maintenance and updates \u2013 but what about operation? Meaning the focus on not operating the application but how the application operates on the network. This is obviously totally specific to the application, but it needs to be pointed out as a totally separate function from just application management as this is the data plane itself. For example, the application has an API connector to another system, that should be tested. Things like that.\n\nWe should mention \"normal operation\" to complement the picture without diverging too much from the NIST definition. ",
       "createdAt": "2026-09-19T15:37:06Z",
-      "updatedAt": "2026-09-19T15:37:06Z",
-      "closedAt": null,
+      "updatedAt": "2026-09-29T09:17:09Z",
+      "closedAt": "2026-09-29T09:17:09Z",
       "comments": []
     }
   ],
@@ -962,24 +962,26 @@
       "id": "PR_kwDOQpLumc8AAAABEbkIzA",
       "title": "Add text about IPv4-only connectivity issues without NAT",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/30",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "closes #28 from Michael Richardson's review",
       "createdAt": "2026-09-21T13:57:07Z",
-      "updatedAt": "2026-09-28T13:25:05Z",
+      "updatedAt": "2026-09-29T09:19:52Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/v4-nat-cases",
-      "headRefOid": "598ca508db689e7fda2bd2c2f18bdc56bb539854",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "cb8572e1396d6e3d8da3d56f7dcf837be26a1464",
+      "closedAt": "2026-09-29T09:19:52Z",
+      "mergedAt": "2026-09-29T09:19:52Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "f79acf88bec088a5b1186197f62759ac7fe5647c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1009,26 +1011,42 @@
       "id": "PR_kwDOQpLumc8AAAABFhGOUA",
       "title": "Clarify normal operations in relation to lifecycle functions",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/31",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "kouellette",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #29 ",
       "createdAt": "2026-09-28T14:40:01Z",
-      "updatedAt": "2026-09-28T14:40:10Z",
+      "updatedAt": "2026-09-29T09:19:17Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "daa3e4c92ce24263c4bcef7e70d03f80d07626b1",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "29-normal-operations",
       "headRefOid": "8d7618e96c3e4ca1dfe8078d3cbd71a7f2161697",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-09-29T09:17:08Z",
+      "mergedAt": "2026-09-29T09:17:08Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "9bd7611ea1eef2bd4ecd9d26e67f4b14bbcbe9e4"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABPub4pA",
+          "commit": {
+            "abbreviatedOid": "8d7618e"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2026-09-29T09:16:55Z",
+          "updatedAt": "2026-09-29T09:16:55Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
