@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-01T04:10:18.628458+00:00",
+  "timestamp": "2026-10-04T04:19:36.201750+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1047,6 +1047,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOQpLumc8AAAABGcm9tQ",
+      "title": "Address issues from Jordi's review",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/32",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-10-03T15:24:19Z",
+      "updatedAt": "2026-10-03T15:31:31Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "da2adfa31df6ba7bed72a4b502853832eec69900",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/feedback-jordi",
+      "headRefOid": "218e3e35687b0ffd63832fd615adf9feadfcd7d3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
