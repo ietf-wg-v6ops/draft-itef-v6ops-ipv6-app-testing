@@ -143,13 +143,17 @@ While this definition is narrower than the one from {{IPv6-ONLY}}, and mirrors t
 
 Dual-stack:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
+This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
+narrows it down by defining the scope to test-relevant endpoints.
 
 IPv6-only with NAT64:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do nit differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
+This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
+narrows them down by defining the scope to test-relevant endpoints.
 
 IPv6-only-strict:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-This definition narrows down the definition from {{IPv6-ONLY}} by defining the scope to test-relevant endpoints.
+This definition narrows down the *IPv6-Only-Strict* definition from {{IPv6-ONLY}} by defining the scope to test-relevant endpoints.
 
 ## Lifecycle Functions {#lifecycle-functions}
 
