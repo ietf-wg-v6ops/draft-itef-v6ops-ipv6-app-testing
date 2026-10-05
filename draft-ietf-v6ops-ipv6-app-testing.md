@@ -272,6 +272,11 @@ Applications should be tested to determine whether they work as expected with IP
 
 If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{?RFC9844}} and work as expected.
 
+### Testing with link-local names
+
+A name such as `example.local` can resolve, e.g. through DNS-Based Service Discovery (?RFC6763),
+to one or both of a link-local IPv4 address {{?RFC3927}} and a link-local IPv6 address.
+The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{?RFC4007}}. Applications should be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.
 
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
