@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 6 April 2027                                             Google
+Expires: 8 April 2027                                             Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                          3 October 2026
+                                                          5 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2027.
+   This Internet-Draft will expire on 8 April 2027.
 
 Copyright Notice
 
@@ -191,7 +191,10 @@ Table of Contents
 
    Dual-stack:  A node or application that has native connectivity
       towards all endpoints relevant for the test scenario using IPv4 as
-      well as using IPv6.
+      well as using IPv6.  This case covers the _Dual-Stack_ and
+      _IPv6-Mostly (for clients not supporting Option 108 ([RFC8925])_
+      cases in [IPv6-ONLY] and narrows it down by defining the scope to
+      test-relevant endpoints.
 
    IPv6-only with NAT64:  A node or application that has native
       connectivity towards all endpoints relevant for the test scenario
@@ -199,14 +202,17 @@ Table of Contents
       transition technology like NAT64, e.g., NAT64 in combination with
       CLAT, DNS64, or local address synthesis.  We do nit differentiate
       between stateful [RFC6146-bis] and stateless [RFC7915] NAT64
-      variants.
+      variants.  This case covers the _IPv6-Only_ as well as
+      _IPv6-Mostly (for clients supporting Option 108 ([RFC8925])_ cases
+      in [IPv6-ONLY] and narrows them down by defining the scope to
+      test-relevant endpoints.
 
    IPv6-only-strict:  A node or application that has native connectivity
       towards all endpoints relevant for the test scenario using IPv6
       and no connectivity towards any relevant IPv4 endpoints, neither
       encapsulated nor translated.  This definition narrows down the
-      definition from [IPv6-ONLY] by defining the scope to test-relevant
-      endpoints.
+      _IPv6-Only-Strict_ definition from [IPv6-ONLY] by defining the
+      scope to test-relevant endpoints.
 
 2.3.  Lifecycle Functions
 
@@ -1031,6 +1037,11 @@ Table of Contents
               Relay Extensions to Session Traversal Utilities for NAT
               (STUN)", RFC 8656, DOI 10.17487/RFC8656, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8656>.
+
+   [RFC8925]  Colitti, L., Linkova, J., Richardson, M., and T.
+              Mrugalski, "IPv6-Only Preferred Option for DHCPv4",
+              RFC 8925, DOI 10.17487/RFC8925, October 2020,
+              <https://www.rfc-editor.org/rfc/rfc8925>.
 
    [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
               Identifiers in User Interfaces", RFC 9844,

@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 6 April 2027</td>
+<td class="center">Expires 8 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-03" class="published">3 October 2026</time>
+<time datetime="2026-10-05" class="published">5 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-06">6 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-08">8 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1366,18 +1366,22 @@ While this definition is narrower than the one from <span>[<a href="#IPv6-ONLY" 
           <dd class="break"></dd>
 <dt id="section-2.2-2.3">Dual-stack:</dt>
           <dd style="margin-left: 1.5em" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
+This case covers the <em>Dual-Stack</em> and <em>IPv6-Mostly (for clients not supporting Option 108 (<span>[<a href="#RFC8925" class="cite xref">RFC8925</a>]</span>)</em> cases in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> and
+narrows it down by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.2-2.5">IPv6-only with NAT64:</dt>
           <dd style="margin-left: 1.5em" id="section-2.2-2.6">
-            <p id="section-2.2-2.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do nit differentiate between stateful <span>[<a href="#RFC6146-bis" class="cite xref">RFC6146-bis</a>]</span> and stateless <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span> NAT64 variants.<a href="#section-2.2-2.6.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do nit differentiate between stateful <span>[<a href="#RFC6146-bis" class="cite xref">RFC6146-bis</a>]</span> and stateless <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span> NAT64 variants.
+This case covers the <em>IPv6-Only</em> as well as <em>IPv6-Mostly (for clients supporting Option 108 (<span>[<a href="#RFC8925" class="cite xref">RFC8925</a>]</span>)</em> cases in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> and
+narrows them down by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.2-2.7">IPv6-only-strict:</dt>
           <dd style="margin-left: 1.5em" id="section-2.2-2.8">
             <p id="section-2.2-2.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-This definition narrows down the definition from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.8.1" class="pilcrow">¶</a></p>
+This definition narrows down the <em>IPv6-Only-Strict</em> definition from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -2155,6 +2159,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC8656">[RFC8656]</dt>
         <dd>
 <span class="refAuthor">Reddy, T., Ed.</span>, <span class="refAuthor">Johnston, A., Ed.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. Rosenberg</span>, <span class="refTitle">"Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 8656</span>, <span class="seriesInfo">DOI 10.17487/RFC8656</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8656">https://www.rfc-editor.org/rfc/rfc8656</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8925">[RFC8925]</dt>
+        <dd>
+<span class="refAuthor">Colitti, L.</span>, <span class="refAuthor">Linkova, J.</span>, <span class="refAuthor">Richardson, M.</span>, and <span class="refAuthor">T. Mrugalski</span>, <span class="refTitle">"IPv6-Only Preferred Option for DHCPv4"</span>, <span class="seriesInfo">RFC 8925</span>, <span class="seriesInfo">DOI 10.17487/RFC8925</span>, <time datetime="2020-10" class="refDate">October 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8925">https://www.rfc-editor.org/rfc/rfc8925</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9844">[RFC9844]</dt>
         <dd>
