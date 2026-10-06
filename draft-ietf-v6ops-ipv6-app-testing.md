@@ -494,8 +494,8 @@ there are a number of notable and widely used implementations that implement som
 ## Listening on IPv4 only
 
 Many tutorials and programmer facing documentation have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
-Listening code should be checked to determine whether it either supports distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting ```IPV6_V6ONLY``` socket option on Linux to zero.
-Listening code should also be able to deal with cases where IPv4 or IPv6 have been disabled in the OS.
+Listening code should be checked to determine whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4, e.g. by setting 
+Listening code should also be able to deal with cases where IPv6 or IPv4 have been disabled in the OS.
 
 In deployments, always use tools like ```netstat``` or ```lsof``` to verify all relevant address families are listened on.
 
