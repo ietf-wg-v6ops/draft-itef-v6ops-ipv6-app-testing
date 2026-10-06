@@ -46,7 +46,7 @@ author:
 
 normative:
   ADDR-SELECT: I-D.draft-ietf-6man-rfc6724-update
-  IPv6-ONLY: I-D.draft-palet-v6ops-ipv6-only
+  IPv6-ONLY: I-D.draft-ietf-v6ops-ipv6-only
 
 informative:
   RFC7084bis: I-D.draft-ietf-v6ops-rfc7084bis
@@ -59,12 +59,12 @@ informative:
     date: 2023-04-27
   US-OMB-M-21-07:
     target: https://www.whitehouse.gov/wp-content/uploads/2020/11/M-21-07.pdf
-    title: M-21-07 – Completing the Transition to Internet Protocol Version 6 (IPv6)
+    title: M-21-07 - Completing the Transition to Internet Protocol Version 6 (IPv6)
     seriesinfo:
       United States of America Office of Management and Budget: Memorandum for Heads of Executive Departments and Agencies
     date: 2020-11-19
   DE-BIT-2020-14:
-    title: Beschluss Nr. 2020/14 - Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6
+    title: Beschluss Nr. 2020/14 - Zukunftsfaehige Netzinfrastrukturen auf Basis von funktionsfiaehigem IPv6
     seriesinfo:
       Konferenz der IT-Beauftragten der Ressorts
     date: 2020-11-11
@@ -147,7 +147,7 @@ This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting O
 narrows it down by defining the scope to test-relevant endpoints.
 
 IPv6-only with NAT64:
-: A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do nit differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
+: A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do not differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
 This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
 narrows them down by defining the scope to test-relevant endpoints.
 
@@ -571,7 +571,7 @@ Thanks to
 Andrew Yourtchenko,
 Axel Schemberg,
 Brian E Carpenter,
-Holger Füßler,
+Holger Fuessler,
 Jeremy Duncan,
 Jordi Palet,
 Michael Perscheid,
