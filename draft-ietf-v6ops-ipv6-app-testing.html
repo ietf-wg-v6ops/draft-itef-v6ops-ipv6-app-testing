@@ -21,18 +21,18 @@ and explains common regressions to avoid when deploying IPv6 support.
 <meta content="draft-ietf-v6ops-ipv6-app-testing-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.34.1
-    Python 3.14.7
-    ConfigArgParse 1.7.7
+    Python 3.14.8
+    ConfigArgParse 1.8.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.10
+    platformdirs 4.12.2
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.4
+    wcwidth 0.9.1
 -->
 <link href="draft-ietf-v6ops-ipv6-app-testing.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1048,11 +1048,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ipv6-app-testing</td>
-<td class="right">September 2026</td>
+<td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 2 April 2027</td>
+<td class="center">Expires 9 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-29" class="published">29 September 2026</time>
+<time datetime="2026-10-06" class="published">6 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-02">2 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-09">9 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1197,6 +1197,9 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.4">
                     <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-testing-with-ip-literals" class="internal xref">Testing with IP literals</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.5">
+                    <p id="section-toc.1-1.3.2.3.2.5.1"><a href="#section-3.3.5" class="auto internal xref">3.3.5</a>.  <a href="#name-testing-with-link-local-nam" class="internal xref">Testing with link-local names</a></p>
 </li>
                 </ul>
 </li>
@@ -1623,6 +1626,16 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 <p id="section-3.3.4-1">Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
 Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.3.4-2">If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in <span>[<a href="#RFC9844" class="cite xref">RFC9844</a>]</span> and work as expected.<a href="#section-3.3.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="testing-with-link-local-names">
+<section id="section-3.3.5">
+          <h4 id="name-testing-with-link-local-nam">
+<a href="#section-3.3.5" class="section-number selfRef">3.3.5. </a><a href="#name-testing-with-link-local-nam" class="section-name selfRef">Testing with link-local names</a>
+          </h4>
+<p id="section-3.3.5-1">A name such as <code>example.local</code> can resolve, e.g. through DNS-Based Service Discovery (?RFC6763),
+to one or both of a link-local IPv4 address <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span> and a link-local IPv6 address.
+The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>. Applications should be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.<a href="#section-3.3.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2086,6 +2099,14 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC3484">[RFC3484]</dt>
         <dd>
 <span class="refAuthor">Draves, R.</span>, <span class="refTitle">"Default Address Selection for Internet Protocol version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 3484</span>, <span class="seriesInfo">DOI 10.17487/RFC3484</span>, <time datetime="2003-03" class="refDate">March 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3484">https://www.rfc-editor.org/rfc/rfc3484</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3927">[RFC3927]</dt>
+        <dd>
+<span class="refAuthor">Cheshire, S.</span>, <span class="refAuthor">Aboba, B.</span>, and <span class="refAuthor">E. Guttman</span>, <span class="refTitle">"Dynamic Configuration of IPv4 Link-Local Addresses"</span>, <span class="seriesInfo">RFC 3927</span>, <span class="seriesInfo">DOI 10.17487/RFC3927</span>, <time datetime="2005-05" class="refDate">May 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3927">https://www.rfc-editor.org/rfc/rfc3927</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4007">[RFC4007]</dt>
+        <dd>
+<span class="refAuthor">Deering, S.</span>, <span class="refAuthor">Haberman, B.</span>, <span class="refAuthor">Jinmei, T.</span>, <span class="refAuthor">Nordmark, E.</span>, and <span class="refAuthor">B. Zill</span>, <span class="refTitle">"IPv6 Scoped Address Architecture"</span>, <span class="seriesInfo">RFC 4007</span>, <span class="seriesInfo">DOI 10.17487/RFC4007</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4007">https://www.rfc-editor.org/rfc/rfc4007</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5766">[RFC5766]</dt>
         <dd>

@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 2 April 2027                                             Google
+Expires: 9 April 2027                                             Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                       29 September 2026
+                                                          6 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 April 2027.
+   This Internet-Draft will expire on 9 April 2027.
 
 Copyright Notice
 
@@ -82,6 +82,7 @@ Table of Contents
        3.3.2.  Incorrect DNS Records
        3.3.3.  DNS delegation issues
        3.3.4.  Testing with IP literals
+       3.3.5.  Testing with link-local names
      3.4.  Testing with Partially Broken Connectivity, MTU, and
            Fragmentation Issues
      3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
@@ -395,6 +396,16 @@ Table of Contents
    If there is a use-case for link-local communication using IP
    literals, it should be tested whether the zone identifier can be
    entered as described in [RFC9844] and work as expected.
+
+3.3.5.  Testing with link-local names
+
+   A name such as example.local can resolve, e.g. through DNS-Based
+   Service Discovery (?RFC6763), to one or both of a link-local IPv4
+   address [RFC3927] and a link-local IPv6 address.  The latter is
+   incomplete and possibly ambiguous unless associated with the relevant
+   zone identifier or zone index [RFC4007].  Applications should be
+   tested to determine whether they work as expected with link-local
+   names, particularly on a host with multiple network interfaces.
 
 3.4.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
       Issues
@@ -939,6 +950,16 @@ Table of Contents
               Protocol version 6 (IPv6)", RFC 3484,
               DOI 10.17487/RFC3484, March 2003,
               <https://www.rfc-editor.org/rfc/rfc3484>.
+
+   [RFC3927]  Cheshire, S., Aboba, B., and E. Guttman, "Dynamic
+              Configuration of IPv4 Link-Local Addresses", RFC 3927,
+              DOI 10.17487/RFC3927, May 2005,
+              <https://www.rfc-editor.org/rfc/rfc3927>.
+
+   [RFC4007]  Deering, S., Haberman, B., Jinmei, T., Nordmark, E., and
+              B. Zill, "IPv6 Scoped Address Architecture", RFC 4007,
+              DOI 10.17487/RFC4007, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4007>.
 
    [RFC5766]  Mahy, R., Matthews, P., and J. Rosenberg, "Traversal Using
               Relays around NAT (TURN): Relay Extensions to Session
