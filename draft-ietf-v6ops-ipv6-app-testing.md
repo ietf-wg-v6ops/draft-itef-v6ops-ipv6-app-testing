@@ -178,7 +178,7 @@ The following sections provide guidance on which connectivity scenarios to inclu
 ## Connectivity Scenarios {#scenarios}
 
 {{scn_combinations}} lists the combinations of connectivity scenarios that application testing should generally consider.
-Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications – with "client" representing the initiating or first acting party.
+Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications -- with "client" representing the initiating or first acting party.
 
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions.
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
@@ -294,7 +294,7 @@ Testing applications against these scenarios can become a key enabler for users'
 especially during a transition phase where partially broken connectivity is expected more frequently.
 
 In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
-In such scenarios, clients restricted to a single address family — such as IPv6-only-strict clients — may experience complete loss of connectivity in these scenarios,
+In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity in these scenarios,
 while dual-stack clients often mask such failures by automatically falling back to another address family.
 
 In addition to partial blackholing, MTU issues may be limited to one address family or behave differently with respect to aspects like
@@ -389,14 +389,14 @@ For example, the IPv6 address `2001:db8::1` can be written as `2001:db8:0:0:0:0:
 While custom logic to check, parse and process addresses is often error-prone and should be validated thoroughly,
 modern environments and frameworks usually provide data structures that encapsulate the canonical binary representation and include methods for parsing the various textual representations, comparing addresses, performing subnet operations, and rendering addresses in a consistent format.
 
-For situations where textual representation of IPv6 addresses is needed — such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML — {{!RFC5952}} provides recommendations on which of the valid textual representations should be used.
+For situations where textual representation of IPv6 addresses is needed -- such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML -- {{!RFC5952}} provides recommendations on which of the valid textual representations should be used.
 Applications should be tested whether they follow {{!RFC5952}} when rendering IPv6 addresses in textual form,
 as required by national regulations like {{US-NIST.SP.500-267Ar1}},
 while accepting all valid representations defined in {{!RFC4291}}.
 
 # Testing Strategies
 
-Naïve IPv6 testing, based on end-to-end functional tests as outlined in {{objectives}}, would require running a set of functional tests in various connectivity scenarios.
+Naive IPv6 testing, based on end-to-end functional tests as outlined in {{objectives}}, would require running a set of functional tests in various connectivity scenarios.
 In certain environments, setting up test cases for all scenarios can become forbiddingly expensive,
 especially for complex cloud applications, application platforms, or when dealing with corporate IT environments.
 
