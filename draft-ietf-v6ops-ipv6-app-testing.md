@@ -504,6 +504,11 @@ While most libraries and application frameworks have decent IPv6 support,
 there often is still application logic that prevents taking advantage of the IPv6 support by the underlying components.
 Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.
 
+Even applications that have been adopted to IPv6 may have based their input validation on wrong assumptions,
+e.g., checking an IPv6 address is in `2000::/3`.
+Therefore, test cases should include IPv6 addresses from GUA (`2000::/3`), ULA (`fc00::/7`), and NAT64 well-known prefix (`64:ff9b::/96`), as well as link-local (`fe80::/10`) range.
+The link-local range needs special attention as addresses are incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{?RFC4007}}. Testing should verify that the zone identifier or zone index are correctly displayed and can be passed if endpoints may be link-local addresses.
+
 ## Connectivity Checks
 
 Some applications perform connectivity checks to determine whether Internet access is available by trying to connect to one or more well-known endpoints.
