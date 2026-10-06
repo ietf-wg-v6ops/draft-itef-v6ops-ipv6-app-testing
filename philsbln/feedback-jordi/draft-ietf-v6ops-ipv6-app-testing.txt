@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 8 April 2027                                             Google
+Expires: 9 April 2027                                             Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                          5 October 2026
+                                                          6 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 April 2027.
+   This Internet-Draft will expire on 9 April 2027.
 
 Copyright Notice
 
@@ -200,7 +200,7 @@ Table of Contents
       connectivity towards all endpoints relevant for the test scenario
       using IPv6 and connectivity towards IPv4 endpoints using a
       transition technology like NAT64, e.g., NAT64 in combination with
-      CLAT, DNS64, or local address synthesis.  We do nit differentiate
+      CLAT, DNS64, or local address synthesis.  We do not differentiate
       between stateful [RFC6146-bis] and stateless [RFC7915] NAT64
       variants.  This case covers the _IPv6-Only_ as well as
       _IPv6-Mostly (for clients supporting Option 108 ([RFC8925])_ cases
@@ -897,11 +897,11 @@ Table of Contents
               rfc6724-update-25>.
 
    [IPv6-ONLY]
-              Martinez, J. P., "IPv6-only and IPv6-Mostly Terminology
+              Martinez, J. P., "IPv6-Only and IPv6-Mostly Terminology
               Definitions", Work in Progress, Internet-Draft, draft-
-              palet-v6ops-ipv6-only-14, 7 May 2026,
-              <https://datatracker.ietf.org/doc/html/draft-palet-v6ops-
-              ipv6-only-14>.
+              ietf-v6ops-ipv6-only-03, 25 September 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
+              ipv6-only-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -942,10 +942,10 @@ Table of Contents
               <https://konecipv4.cz/>.
 
    [DE-BIT-2020-14]
-              "Beschluss Nr. 2020/14 - Zukunftsfähige
-              Netzinfrastrukturen auf Basis von funktionsfähigem IPv6",
-              Konferenz der IT-Beauftragten der Ressorts , 11 November
-              2020.
+              "Beschluss Nr. 2020/14 - Zukunftsfaehige
+              Netzinfrastrukturen auf Basis von funktionsfiaehigem
+              IPv6", Konferenz der IT-Beauftragten der Ressorts , 11
+              November 2020.
 
    [iCloud-Private-Relay]
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
@@ -1062,7 +1062,7 @@ Table of Contents
               NIST.SP.500-267Ar1.pdf>.
 
    [US-OMB-M-21-07]
-              "M-21-07 – Completing the Transition to Internet Protocol
+              "M-21-07 - Completing the Transition to Internet Protocol
               Version 6 (IPv6)", United States of America Office of
               Management and Budget Memorandum for Heads of Executive
               Departments and Agencies, 19 November 2020,
@@ -1082,9 +1082,9 @@ Table of Contents
 Acknowledgments
 
    Thanks to Andrew Yourtchenko, Axel Schemberg, Brian E Carpenter,
-   Holger Füßler, Jeremy Duncan, Jordi Palet, Michael Perscheid, Michael
-   Richardson, Nathan Sherrard, Sulabh Soneji, and Tommy Jensen for the
-   discussions, the input, and all contribution.
+   Holger Fuessler, Jeremy Duncan, Jordi Palet, Michael Perscheid,
+   Michael Richardson, Nathan Sherrard, Sulabh Soneji, and Tommy Jensen
+   for the discussions, the input, and all contribution.
 
 Authors' Addresses
 
