@@ -1256,7 +1256,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-destination-address-selecti" class="internal xref">Destination Address Selection Preference and Address Filtering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-listening-on-only-one-addre" class="internal xref">Listening on only one Address Family</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-listening-on-ipv4-only" class="internal xref">Listening on IPv4 only</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
                 <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-input-validation-and-output" class="internal xref">Input Validation and Output Rendering</a></p>
@@ -1914,14 +1914,15 @@ This becomes cumbersome especially in split-VPN use cases, e.g. when trying to c
         </ul>
 </section>
 </div>
-<div id="listening-on-only-one-address-family">
+<div id="listening-on-ipv4-only">
 <section id="section-5.4">
-        <h3 id="name-listening-on-only-one-addre">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-listening-on-only-one-addre" class="section-name selfRef">Listening on only one Address Family</a>
+        <h3 id="name-listening-on-ipv4-only">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-listening-on-ipv4-only" class="section-name selfRef">Listening on IPv4 only</a>
         </h3>
 <p id="section-5.4-1">Many tutorials and programmer facing documentation have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
-Listening code should be checked to determine whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting <code>IPV6_V6ONLY</code> socket option on Linux to zero.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">In deployments, always use tools like <code>netstat</code> or <code>lsof</code> to verify both address families are listened on if needed.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+Listening code should be checked to determine whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4,
+e.g. by setting Listening code should also be able to deal with cases where IPv6 or IPv4 have been disabled in the OS.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">In deployments, always use tools like <code>netstat</code> or <code>lsof</code> to verify all relevant address families are listened on.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="input-validation-and-output-rendering">
@@ -1932,6 +1933,10 @@ Listening code should be checked to determine whether it either opens distinct l
 <p id="section-5.5-1">While most libraries and application frameworks have decent IPv6 support,
 there often is still application logic that prevents taking advantage of the IPv6 support by the underlying components.
 Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-2">Even applications that have been adopted to IPv6 may have based their input validation on wrong assumptions,
+e.g., checking an IPv6 address is in <code>2000::/3</code>.
+Therefore, test cases should include IPv6 addresses from GUA (<code>2000::/3</code>), ULA (<code>fc00::/7</code>), and NAT64 well-known prefix (<code>64:ff9b::/96</code>), as well as link-local (<code>fe80::/10</code>) range.
+The link-local range needs special attention as addresses are incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>. Testing should verify that the zone identifier or zone index are correctly displayed and can be passed if endpoints may be link-local addresses.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="connectivity-checks">
@@ -2054,7 +2059,7 @@ Some security-related issues that should be considered and ruled out by appropri
 <dd class="break"></dd>
 <dt id="IPv6-ONLY">[IPv6-ONLY]</dt>
         <dd>
-<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-Only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-ipv6-only-03</span>, <time datetime="2026-09-25" class="refDate">25 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-03">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-Only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-ipv6-only-04</span>, <time datetime="2026-10-06" class="refDate">6 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-04">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
