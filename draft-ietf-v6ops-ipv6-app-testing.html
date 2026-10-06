@@ -1430,7 +1430,7 @@ The following sections provide guidance on which connectivity scenarios to inclu
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-connectivity-scenarios" class="section-name selfRef">Connectivity Scenarios</a>
         </h3>
 <p id="section-3.1-1"><a href="#scn_combinations" class="auto internal xref">Table 1</a> lists the combinations of connectivity scenarios that application testing should generally consider.
-Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications – with "client" representing the initiating or first acting party.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering peer-to-peer applications -- with "client" representing the initiating or first acting party.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The first five scenarios marked as <em>base</em> should cover all major code paths and fallback conditions.
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 We also include the cases with Dual-stack Server and Single-Stack clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
@@ -1660,7 +1660,7 @@ some may only be reachable by one address family, while others may only be reach
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
-In such scenarios, clients restricted to a single address family — such as IPv6-only-strict clients — may experience complete loss of connectivity in these scenarios,
+In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity in these scenarios,
 while dual-stack clients often mask such failures by automatically falling back to another address family.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <p id="section-3.4-3">In addition to partial blackholing, MTU issues may be limited to one address family or behave differently with respect to aspects like
 MTU available, dropping of fragmented packets, and ICMP messages generated.
@@ -1771,7 +1771,7 @@ It allows several valid textual representations for the same address, which make
 For example, the IPv6 address <code>2001:db8::1</code> can be written as <code>2001:db8:0:0:0:0:0:1</code>, <code>2001:0db8::0.0.0.1</code>, or in several other forms.<a href="#section-3.9-2" class="pilcrow">¶</a></p>
 <p id="section-3.9-3">While custom logic to check, parse and process addresses is often error-prone and should be validated thoroughly,
 modern environments and frameworks usually provide data structures that encapsulate the canonical binary representation and include methods for parsing the various textual representations, comparing addresses, performing subnet operations, and rendering addresses in a consistent format.<a href="#section-3.9-3" class="pilcrow">¶</a></p>
-<p id="section-3.9-4">For situations where textual representation of IPv6 addresses is needed — such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML — <span>[<a href="#RFC5952" class="cite xref">RFC5952</a>]</span> provides recommendations on which of the valid textual representations should be used.
+<p id="section-3.9-4">For situations where textual representation of IPv6 addresses is needed -- such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML -- <span>[<a href="#RFC5952" class="cite xref">RFC5952</a>]</span> provides recommendations on which of the valid textual representations should be used.
 Applications should be tested whether they follow <span>[<a href="#RFC5952" class="cite xref">RFC5952</a>]</span> when rendering IPv6 addresses in textual form,
 as required by national regulations like <span>[<a href="#US-NIST.SP.500-267Ar1" class="cite xref">US-NIST.SP.500-267Ar1</a>]</span>,
 while accepting all valid representations defined in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.9-4" class="pilcrow">¶</a></p>
@@ -1784,7 +1784,7 @@ while accepting all valid representations defined in <span>[<a href="#RFC4291" c
       <h2 id="name-testing-strategies">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-testing-strategies" class="section-name selfRef">Testing Strategies</a>
       </h2>
-<p id="section-4-1">Naïve IPv6 testing, based on end-to-end functional tests as outlined in <a href="#objectives" class="auto internal xref">Section 3</a>, would require running a set of functional tests in various connectivity scenarios.
+<p id="section-4-1">Naive IPv6 testing, based on end-to-end functional tests as outlined in <a href="#objectives" class="auto internal xref">Section 3</a>, would require running a set of functional tests in various connectivity scenarios.
 In certain environments, setting up test cases for all scenarios can become forbiddingly expensive,
 especially for complex cloud applications, application platforms, or when dealing with corporate IT environments.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">In this section, we give recommendations how to set up scenarios defined in <a href="#scenarios" class="auto internal xref">Section 3.1</a> and
