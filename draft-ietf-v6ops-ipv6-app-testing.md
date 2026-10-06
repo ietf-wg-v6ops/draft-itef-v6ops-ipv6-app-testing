@@ -491,18 +491,24 @@ there are a number of notable and widely used implementations that implement som
 - Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
   This becomes cumbersome especially in split-VPN use cases, e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity.
 
-## Listening on only one Address Family
+## Listening on IPv4 only
 
 Many tutorials and programmer facing documentation have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
-Listening code should be checked to determine whether it either opens distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting ```IPV6_V6ONLY``` socket option on Linux to zero.
+Listening code should be checked to determine whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4,
+e.g. by setting Listening code should also be able to deal with cases where IPv6 or IPv4 have been disabled in the OS.
 
-In deployments, always use tools like ```netstat``` or ```lsof``` to verify both address families are listened on if needed.
+In deployments, always use tools like ```netstat``` or ```lsof``` to verify all relevant address families are listened on.
 
 ## Input Validation and Output Rendering
 
 While most libraries and application frameworks have decent IPv6 support,
 there often is still application logic that prevents taking advantage of the IPv6 support by the underlying components.
 Checking whether user input is a valid IPv4 address or rendering output under the assumption that an address is always an IPv4 address are typical examples for this class of limitations.
+
+Even applications that have been adopted to IPv6 may have based their input validation on wrong assumptions,
+e.g., checking an IPv6 address is in `2000::/3`.
+Therefore, test cases should include IPv6 addresses from GUA (`2000::/3`), ULA (`fc00::/7`), and NAT64 well-known prefix (`64:ff9b::/96`), as well as link-local (`fe80::/10`) range.
+The link-local range needs special attention as addresses are incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{?RFC4007}}. Testing should verify that the zone identifier or zone index are correctly displayed and can be passed if endpoints may be link-local addresses.
 
 ## Connectivity Checks
 
