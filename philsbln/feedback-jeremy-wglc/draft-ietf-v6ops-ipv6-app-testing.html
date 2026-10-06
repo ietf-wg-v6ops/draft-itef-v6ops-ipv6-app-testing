@@ -1920,8 +1920,8 @@ This becomes cumbersome especially in split-VPN use cases, e.g. when trying to c
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-listening-on-ipv4-only" class="section-name selfRef">Listening on IPv4 only</a>
         </h3>
 <p id="section-5.4-1">Many tutorials and programmer facing documentation have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
-Listening code should be checked to determine whether it either supports distinct listening sockets for IPv6 as well as for IPv4 or configures IPv6 sockets also to bind to IPv4, e.g. by setting <code>IPV6_V6ONLY</code> socket option on Linux to zero.
-Listening code should also be able to deal with cases where IPv4 or IPv6 have been disabled in the OS.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+Listening code should be checked to determine whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4,
+e.g. by setting Listening code should also be able to deal with cases where IPv6 or IPv4 have been disabled in the OS.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">In deployments, always use tools like <code>netstat</code> or <code>lsof</code> to verify all relevant address families are listened on.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2059,7 +2059,7 @@ Some security-related issues that should be considered and ruled out by appropri
 <dd class="break"></dd>
 <dt id="IPv6-ONLY">[IPv6-ONLY]</dt>
         <dd>
-<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-Only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-ipv6-only-03</span>, <time datetime="2026-09-25" class="refDate">25 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-03">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-Only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-ipv6-only-04</span>, <time datetime="2026-10-06" class="refDate">6 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-04">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
