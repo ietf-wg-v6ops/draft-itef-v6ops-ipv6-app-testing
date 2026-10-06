@@ -46,24 +46,25 @@ author:
 
 normative:
   ADDR-SELECT: I-D.draft-ietf-6man-rfc6724-update
+  IPv6-ONLY: I-D.draft-ietf-v6ops-ipv6-only
 
 informative:
   RFC7084bis: I-D.draft-ietf-v6ops-rfc7084bis
-  IPv6-ONLY: I-D.draft-palet-v6ops-ipv6-only
   V6MOPS: I-D.draft-ietf-v6ops-6mops
   CLAT: I-D.draft-ietf-v6ops-claton
+  RFC6146-bis: I.D.draft-ietf-v6ops-rfc6146-bis
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
     title: 2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application
     date: 2023-04-27
   US-OMB-M-21-07:
     target: https://www.whitehouse.gov/wp-content/uploads/2020/11/M-21-07.pdf
-    title: M-21-07 – Completing the Transition to Internet Protocol Version 6 (IPv6)
+    title: M-21-07 - Completing the Transition to Internet Protocol Version 6 (IPv6)
     seriesinfo:
       United States of America Office of Management and Budget: Memorandum for Heads of Executive Departments and Agencies
     date: 2020-11-19
   DE-BIT-2020-14:
-    title: Beschluss Nr. 2020/14 - Zukunftsfähige Netzinfrastrukturen auf Basis von funktionsfähigem IPv6
+    title: Beschluss Nr. 2020/14 - Zukunftsfaehige Netzinfrastrukturen auf Basis von funktionsfiaehigem IPv6
     seriesinfo:
       Konferenz der IT-Beauftragten der Ressorts
     date: 2020-11-11
@@ -110,7 +111,7 @@ and explains common regressions to avoid when deploying IPv6 support.
 # Introduction
 
 For the last 20 years, enabling applications for IPv6 has focused on coexistence with IPv4 and allowing traffic to shift towards IPv6 without breaking IPv4 operation.
-This target has changed in part due to a series of national regulations mandating state entities to proceed in the migration to IPv6, e.g., in
+This target has changed in part due to a series of national regulations mandating state entities to proceed in the transition to IPv6, e.g., in
 China [CN-CAC-2023], the United States of America [US-OMB-M-21-07], Germany [DE-BIT-2020-14], and the Czech Republic [CZ-ENDv4].
 IPv6 support today means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, today's applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.
@@ -138,16 +139,21 @@ in which applications ought to be verified for availability and functional corre
 
 IPv4-only:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
+While this definition is narrower than the one from {{IPv6-ONLY}}, and mirrors the *IPv6-only-strict* scenario, we refrain from calling it *IPv4-only-strict* for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in {{IPv6-ONLY}} are covered by the either the *Dual-stack* or *IPv6-only with NAT64* case.
 
 Dual-stack:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
+This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
+narrows it down by defining the scope to test-relevant endpoints.
 
 IPv6-only with NAT64:
-: A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis.
+: A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do not differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
+This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
+narrows them down by defining the scope to test-relevant endpoints.
 
 IPv6-only-strict:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-This definition slightly diverges from the one in {{IPv6-ONLY}} as it ignores IPv4 connectivity to anywhere outside the testing scope.
+This definition narrows down the *IPv6-Only-Strict* definition from {{IPv6-ONLY}} by defining the scope to test-relevant endpoints.
 
 ## Lifecycle Functions {#lifecycle-functions}
 
@@ -505,6 +511,11 @@ If the connectivity check endpoints differ from the actual endpoints used by the
 especially in IPv6-only environments when connectivity checks are IPv4-only or in environments with strict network polices or split-tunnel VPNs.
 Applications should prefer implementing appropriate error handling for connectivity issues than relying on connectivity pre-checks.
 
+## Address bindings in Server Backends
+
+Some backend services use the remote IP address of previous requests as an additional security mechanism and prevent subsequent requests from different addresses.
+Address changes, e.g., through Happy Eyeballs implementations trying switching address family or carrier grade NAT64 implementations mapping subsequent request to a different source, may therefore break within a session on these events.
+
 ## Misbehaving Middle-Boxes
 
 In practice, many IPv6-related regressions uncovered during testing turn out to be caused by hidden components outside of the application developers' control.
@@ -565,7 +576,7 @@ Thanks to
 Andrew Yourtchenko,
 Axel Schemberg,
 Brian E Carpenter,
-Holger Füßler,
+Holger Fuessler,
 Jeremy Duncan,
 Jordi Palet,
 Michael Perscheid,
