@@ -122,11 +122,11 @@ Testing IPv6 compliance of network gear and operating systems has been documente
 While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}.
 
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
-It describes which scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
+It describes the parts of an application lifecycle to include, which communication scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
 While many application developers assume that the network abstractions of the operating system (OS), communication libraries, and application frameworks will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists and logging.
-In addition to that challenge, modern cloud applications are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
-Enabling these applications to communicate over IPv6 requires careful analysis of data flows within all services and proper IPv6 support in all components that may require IPv6 traffic, as well as IPv6 addresses as metadata.
 
+Testing modern cloud applications poses an additional challenge, as these are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
+Enabling these applications to communicate over IPv6 requires careful analysis of data flows towards services, between components, and towards external services as well as analysis where IPv6 addresses may occur as metadata.
 
 # Conventions and Definitions
 
@@ -173,7 +173,7 @@ Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phase
 As a basic principle, IPv6 application testing should always be derived from functional and integration testing.
 Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios,
 i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64 and IPv6-only-strict settings.
-The following sections provide guidance on which connectivity scenarios to include in a testing campaign and how to approach testing complex cloud applications.
+The following sections provide guidance on which connectivity scenarios to include in a testing campaign for an ideal application that is supposed to run anywhere and how to approach testing complex cloud applications and exclude connectivity scenarios based on the environment they are deployed in.
 
 ## Connectivity Scenarios {#scenarios}
 
@@ -346,8 +346,9 @@ In particular, keep the following considerations in mind:
 
 ## Testing Complex Cloud Applications and Applying Test Cases
 
-When testing complex applications, especially cloud applications, they typically involve many data flows.
-An application or component may be considered as a server for some of these, while being a client in others.
+Complex applications and especially cloud applications typically involve many data flows into the application, across components, and towards external services.
+In such a system, an application or component may be considered as a server for some communication flows,
+while being a client in others.
 Therefore, test cases need to cover each data flow in all relevant scenarios.
 
 As functional and integration tests are often defined as end-to-end test cases,
