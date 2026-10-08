@@ -137,10 +137,9 @@ Enabling these applications to communicate over IPv6 requires careful analysis o
 Within this document, we define the following four "base connectivity scenarios"
 in which applications ought to be verified for availability and functional correctness.
 
-(**Note to the RFC-Editor:**
-The capitalization of the following terms has not found WG consensus in {{IPv6-ONLY}} so far.
-The final capitalization should match the one from {{IPv6-ONLY}} once it is published.
-)
+[^1]
+
+[^1]: **Note to the RFC-Editor:** The capitalization of the following terms has not found WG consensus in {{IPv6-ONLY}} so far. The final capitalization should match the one from {{IPv6-ONLY}} once it is published.
 
 IPv4-only:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
