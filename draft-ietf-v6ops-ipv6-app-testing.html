@@ -1360,31 +1360,35 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
         </h3>
 <p id="section-2.2-1">Within this document, we define the following four "base connectivity scenarios"
 in which applications ought to be verified for availability and functional correctness.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-2.2-2">
-          <dt id="section-2.2-2.1">IPv4-only:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
-While this definition is narrower than the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span>, and mirrors the <em>IPv6-only-strict</em> scenario, we refrain from calling it <em>IPv4-only-strict</em> for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> are covered by the either the <em>Dual-stack</em> or <em>IPv6-only with NAT64</em> case.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">(<strong>Note to the RFC-Editor:</strong>
+The capitalization of the following terms has not found WG consensus in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> so far.
+The final capitalization should match the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> once it is published.
+)<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2.2-3">
+          <dt id="section-2.2-3.1">IPv4-only:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.2-3.2">
+            <p id="section-2.2-3.2.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
+While this definition is narrower than the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span>, and mirrors the <em>IPv6-only-strict</em> scenario, we refrain from calling it <em>IPv4-only-strict</em> for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> are covered by the either the <em>Dual-stack</em> or <em>IPv6-only with NAT64</em> case.<a href="#section-2.2-3.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-2.3">Dual-stack:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
+<dt id="section-2.2-3.3">Dual-stack:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.2-3.4">
+            <p id="section-2.2-3.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
 This case covers the <em>Dual-Stack</em> and <em>IPv6-Mostly (for clients not supporting Option 108 (<span>[<a href="#RFC8925" class="cite xref">RFC8925</a>]</span>)</em> cases in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> and
-narrows it down by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+narrows it down by defining the scope to test-relevant endpoints.<a href="#section-2.2-3.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-2.5">IPv6-only with NAT64:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-2.6">
-            <p id="section-2.2-2.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do not differentiate between stateful <span>[<a href="#RFC6146-bis" class="cite xref">RFC6146-bis</a>]</span> and stateless <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span> NAT64 variants.
+<dt id="section-2.2-3.5">IPv6-only with NAT64:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.2-3.6">
+            <p id="section-2.2-3.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do not differentiate between stateful <span>[<a href="#RFC6146-bis" class="cite xref">RFC6146-bis</a>]</span> and stateless <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span> NAT64 variants.
 This case covers the <em>IPv6-Only</em> as well as <em>IPv6-Mostly (for clients supporting Option 108 (<span>[<a href="#RFC8925" class="cite xref">RFC8925</a>]</span>)</em> cases in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> and
-narrows them down by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.6.1" class="pilcrow">¶</a></p>
+narrows them down by defining the scope to test-relevant endpoints.<a href="#section-2.2-3.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-2.7">IPv6-only-strict:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-2.8">
-            <p id="section-2.2-2.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-This definition narrows down the <em>IPv6-Only-Strict</em> definition from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> by defining the scope to test-relevant endpoints.<a href="#section-2.2-2.8.1" class="pilcrow">¶</a></p>
+<dt id="section-2.2-3.7">IPv6-only-strict:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.2-3.8">
+            <p id="section-2.2-3.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
+This definition narrows down the <em>IPv6-Only-Strict</em> definition from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> by defining the scope to test-relevant endpoints.<a href="#section-2.2-3.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
