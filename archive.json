@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-06T04:53:09.617530+00:00",
+  "timestamp": "2026-10-08T04:31:17.719928+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1053,24 +1053,26 @@
       "id": "PR_kwDOQpLumc8AAAABGcm9tQ",
       "title": "Address issues from Jordi's review",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/32",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-10-03T15:24:19Z",
-      "updatedAt": "2026-10-05T15:17:04Z",
+      "updatedAt": "2026-10-06T08:52:20Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "da2adfa31df6ba7bed72a4b502853832eec69900",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/feedback-jordi",
-      "headRefOid": "88e6ed44fcd895fa307e85ec2aef615d7cddfd9d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "f3f0b939af1e7a5c25f2fdaf26dad278771d9071",
+      "closedAt": "2026-10-06T08:52:20Z",
+      "mergedAt": "2026-10-06T08:52:20Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "3f8351d4d98ead052b0eb885b8b9c60bfe57e773"
+      },
       "comments": [],
       "reviews": []
     },
@@ -1079,26 +1081,129 @@
       "id": "PR_kwDOQpLumc8AAAABGvH11Q",
       "title": "Add Link Local Issues to Testing Name Resolution",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/33",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "on suggestion from Brian Carpenter",
       "createdAt": "2026-10-05T15:13:36Z",
-      "updatedAt": "2026-10-05T15:13:47Z",
+      "updatedAt": "2026-10-06T06:34:21Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "da2adfa31df6ba7bed72a4b502853832eec69900",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/feedback-brianec-local",
       "headRefOid": "ae97ef9dcda331830819b2f1dd24ff73a15f2778",
+      "closedAt": "2026-10-06T06:34:21Z",
+      "mergedAt": "2026-10-06T06:34:21Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "b5421fa6579d6444b0254750b2c0182cfe5fb753"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOQpLumc8AAAABG6dxug",
+      "title": "Address Jeremy Duncan's WGLC review comments",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/34",
+      "state": "MERGED",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-10-06T12:47:30Z",
+      "updatedAt": "2026-10-06T19:09:35Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "3b0332fc58aa960264fb5475246ce8faab823722",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/feedback-jeremy-wglc",
+      "headRefOid": "7e1d9681e481b48f225229c1b8c997d44b52261f",
+      "closedAt": "2026-10-06T19:09:34Z",
+      "mergedAt": "2026-10-06T19:09:34Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "32722095c8003ec77f1c2401331e03ec37fd0305"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABQ7Guug",
+          "commit": {
+            "abbreviatedOid": "1133fbc"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-10-06T15:21:24Z",
+          "updatedAt": "2026-10-06T15:27:50Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\nListening code should be checked to determine whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4, e.g. by setting ```IPV6_V6ONLY``` socket option on Linux to zero.\n```",
+              "createdAt": "2026-10-06T15:21:24Z",
+              "updatedAt": "2026-10-06T15:27:50Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\nListening code should also be able to deal with cases where IPv6 or IPv4 have been disabled in the OS.\n```",
+              "createdAt": "2026-10-06T15:25:08Z",
+              "updatedAt": "2026-10-06T15:27:50Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "Super small nit so feel free to reject, but the rest of the section lists IPv6 before IPv4.",
+              "createdAt": "2026-10-06T15:25:47Z",
+              "updatedAt": "2026-10-06T15:27:50Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOQpLumc8AAAABHGrHdQ",
+      "title": "Update Intro texts to set the scene for ideal applications vs. complex systems",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/35",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-10-07T11:07:00Z",
+      "updatedAt": "2026-10-07T20:03:36Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "32722095c8003ec77f1c2401331e03ec37fd0305",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/intro-updates",
+      "headRefOid": "5965f127345ffd416b59f986b6831c297eb15f4c",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABRLT-gw",
+          "commit": {
+            "abbreviatedOid": "5965f12"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2026-10-07T20:03:36Z",
+          "updatedAt": "2026-10-07T20:03:36Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
