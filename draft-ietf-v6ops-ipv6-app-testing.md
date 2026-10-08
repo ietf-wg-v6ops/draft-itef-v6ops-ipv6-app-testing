@@ -137,6 +137,11 @@ Enabling these applications to communicate over IPv6 requires careful analysis o
 Within this document, we define the following four "base connectivity scenarios"
 in which applications ought to be verified for availability and functional correctness.
 
+(**Note to the RFC-Editor:**
+The capitalization of the following terms has not found WG consensus in {{IPv6-ONLY}} so far.
+The final capitalization should match the one from {{IPv6-ONLY}} once it is published.
+)
+
 IPv4-only:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
 While this definition is narrower than the one from {{IPv6-ONLY}}, and mirrors the *IPv6-only-strict* scenario, we refrain from calling it *IPv4-only-strict* for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in {{IPv6-ONLY}} are covered by the either the *Dual-stack* or *IPv6-only with NAT64* case.
@@ -577,7 +582,7 @@ This document has no IANA actions.
 --- back
 
 # Acknowledgments
-{:numbered="false"}
+{:unnumbered}
 
 Thanks to
 Andrew Yourtchenko,
