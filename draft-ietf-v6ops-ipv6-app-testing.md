@@ -68,6 +68,7 @@ informative:
     target: https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/cio-bund/steuerung-it-bund/beschluesse_cio-board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf
     seriesinfo:
       Konferenz der IT-Beauftragten der Ressorts
+    annotation: Original link is broken - cached copy available at https://raw.githubusercontent.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/refs/tags/draft-ietf-v6ops-ipv6-app-testing-05/references/DE-BIT-2020-14.pdf
     date: 2020-11-11
   CZ-ENDv4:
     target: https://konecipv4.cz/
