@@ -479,9 +479,9 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 
 ## Destination Address Selection Preference and Address Filtering
 
-The destination address selection algorithm in {{ADDR-SELECT}} filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
+The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most operating systems and some alternative resolver libraries, such as {{C-ARES}}, implement {{ADDR-SELECT}} or its predecessors {{?RFC6724}}/{{?RFC3484}} correctly,
+While most operating systems and some alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} or its predecessor {{?RFC3484}} correctly,
 there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.
 
 - Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
