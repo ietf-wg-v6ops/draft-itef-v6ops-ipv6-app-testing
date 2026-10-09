@@ -46,9 +46,9 @@ author:
 
 normative:
   ADDR-SELECT: I-D.draft-ietf-6man-rfc6724-update
-  IPv6-ONLY: I-D.draft-ietf-v6ops-ipv6-only
 
 informative:
+  IPv6-ONLY: I-D.draft-ietf-v6ops-ipv6-only
   RFC7084bis: I-D.draft-ietf-v6ops-rfc7084bis
   V6MOPS: I-D.draft-ietf-v6ops-6mops
   CLAT: I-D.draft-ietf-v6ops-claton
@@ -65,6 +65,7 @@ informative:
     date: 2020-11-19
   DE-BIT-2020-14:
     title: Beschluss Nr. 2020/14 - Zukunftsfaehige Netzinfrastrukturen auf Basis von funktionsfiaehigem IPv6
+    target: https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/cio-bund/steuerung-it-bund/beschluesse_cio-board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf
     seriesinfo:
       Konferenz der IT-Beauftragten der Ressorts
     date: 2020-11-11
@@ -214,7 +215,7 @@ For peer-to-peer applications and applications with complex connection handling 
 ## Testing with Intermediaries (e.g., Proxies)  {#intermediaries}
 
 Many application protocols support communicating across intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE proxies.
-Peer-to-peer applications often support TURN {{?RFC5766}} as an intermediary to traverse NAT and provide connectivity between IPv4-only and IPv6-only hosts.
+Peer-to-peer applications often support TURN {{?RFC8656}} as an intermediary to traverse NAT and provide connectivity between IPv4-only and IPv6-only hosts.
 When testing connectivity scenarios for such an application, additional test cases including a proxy are recommended.
 As a proxy can convert between address families, all combinations shown in {{scn_proxy}},
 consisting of base scenarios towards the proxy and (assuming the same scenarios on both sides of the proxy) the respective base scenarios from the proxy to the server,
