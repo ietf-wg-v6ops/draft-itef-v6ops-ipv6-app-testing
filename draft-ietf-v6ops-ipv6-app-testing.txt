@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 11 April 2027                                            Google
+Expires: 12 April 2027                                            Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                          8 October 2026
+                                                          9 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 April 2027.
+   This Internet-Draft will expire on 12 April 2027.
 
 Copyright Notice
 
@@ -324,7 +324,7 @@ Table of Contents
 
    Many application protocols support communicating across
    intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE
-   proxies.  Peer-to-peer applications often support TURN [RFC5766] as
+   proxies.  Peer-to-peer applications often support TURN [RFC8656] as
    an intermediary to traverse NAT and provide connectivity between
    IPv4-only and IPv6-only hosts.  When testing connectivity scenarios
    for such an application, additional test cases including a proxy are
@@ -930,13 +930,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-6man-
               rfc6724-update-25>.
 
-   [IPv6-ONLY]
-              Martinez, J. P., "IPv6-Only and IPv6-Mostly Terminology
-              Definitions", Work in Progress, Internet-Draft, draft-
-              ietf-v6ops-ipv6-only-04, 6 October 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              ipv6-only-04>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -979,11 +972,21 @@ Table of Contents
               "Beschluss Nr. 2020/14 - Zukunftsfaehige
               Netzinfrastrukturen auf Basis von funktionsfiaehigem
               IPv6", Konferenz der IT-Beauftragten der Ressorts , 11
-              November 2020.
+              November 2020,
+              <https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/
+              cio-bund/steuerung-it-bund/beschluesse_cio-
+              board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf>.
 
    [iCloud-Private-Relay]
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
               <https://developer.apple.com/videos/play/wwdc2021/10096/>.
+
+   [IPv6-ONLY]
+              Martinez, J. P., "IPv6-Only and IPv6-Mostly Terminology
+              Definitions", Work in Progress, Internet-Draft, draft-
+              ietf-v6ops-ipv6-only-04, 6 October 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
+              ipv6-only-04>.
 
    [IPvFoo]   Marks, P., "IPvFoo - a Chrome/Firefox extension that adds
               an icon to indicate whether the current page was fetched
@@ -1008,12 +1011,6 @@ Table of Contents
               B. Zill, "IPv6 Scoped Address Architecture", RFC 4007,
               DOI 10.17487/RFC4007, March 2005,
               <https://www.rfc-editor.org/rfc/rfc4007>.
-
-   [RFC5766]  Mahy, R., Matthews, P., and J. Rosenberg, "Traversal Using
-              Relays around NAT (TURN): Relay Extensions to Session
-              Traversal Utilities for NAT (STUN)", RFC 5766,
-              DOI 10.17487/RFC5766, April 2010,
-              <https://www.rfc-editor.org/rfc/rfc5766>.
 
    [RFC6052]  Bao, C., Huitema, C., Bagnulo, M., Boucadair, M., and X.
               Li, "IPv6 Addressing of IPv4/IPv6 Translators", RFC 6052,
