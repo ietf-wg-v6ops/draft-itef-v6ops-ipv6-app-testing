@@ -750,15 +750,14 @@ Table of Contents
 
 5.3.  Destination Address Selection Preference and Address Filtering
 
-   The destination address selection algorithm in [ADDR-SELECT] filters
+   The destination address selection algorithm in [RFC6724] filters
    unavailable address families (Rule 1) and de-prioritizes non-matching
    address families (Rule 2) and clearly prioritizes IPv6 GUA addresses
    over IPv4 addresses.  While most operating systems and some
-   alternative resolver libraries, such as [C-ARES], implement
-   [ADDR-SELECT] or its predecessors [RFC6724]/[RFC3484] correctly,
-   there are a number of notable and widely used implementations that
-   implement something else, causing anything from unexpected behavior
-   to hard-to-debug errors.
+   alternative resolver libraries, such as [C-ARES], implement [RFC6724]
+   or its predecessor [RFC3484] correctly, there are a number of notable
+   and widely used implementations that implement something else,
+   causing anything from unexpected behavior to hard-to-debug errors.
 
    *  Most JAVA runtimes do the opposite and prefer IPv4 destinations
       over IPv6.  To prefer IPv6 addresses over IPv4, one needs to set
@@ -944,6 +943,11 @@ Table of Contents
               DOI 10.17487/RFC5952, August 2010,
               <https://www.rfc-editor.org/rfc/rfc5952>.
 
+   [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
+              "Default Address Selection for Internet Protocol Version 6
+              (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
+              <https://www.rfc-editor.org/rfc/rfc6724>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -976,6 +980,10 @@ Table of Contents
               <https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/
               cio-bund/steuerung-it-bund/beschluesse_cio-
               board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf>.
+              Original link is broken - cached copy available at
+              https://raw.githubusercontent.com/ietf-wg-v6ops/draft-
+              itef-v6ops-ipv6- app-testing/refs/tags/draft-ietf-v6ops-
+              ipv6-app-testing-05/references/ DE-BIT-2020-14.pdf
 
    [iCloud-Private-Relay]
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
@@ -1032,11 +1040,6 @@ Table of Contents
    [RFC6555]  Wing, D. and A. Yourtchenko, "Happy Eyeballs: Success with
               Dual-Stack Hosts", RFC 6555, DOI 10.17487/RFC6555, April
               2012, <https://www.rfc-editor.org/rfc/rfc6555>.
-
-   [RFC6724]  Thaler, D., Ed., Draves, R., Matsumoto, A., and T. Chown,
-              "Default Address Selection for Internet Protocol Version 6
-              (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
-              <https://www.rfc-editor.org/rfc/rfc6724>.
 
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,

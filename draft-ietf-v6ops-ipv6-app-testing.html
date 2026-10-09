@@ -1889,9 +1889,9 @@ As already discussed in <a href="#lifecycle-considerations" class="auto internal
         <h3 id="name-destination-address-selecti">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
         </h3>
-<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
+<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#ADDR-SELECT" class="cite xref">ADDR-SELECT</a>]</span> or its predecessors <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span>/<span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
+While most operating systems and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
 there are a number of notable and widely used implementations that implement something else, causing anything from unexpected behavior to hard-to-debug errors.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-2.1">
@@ -2071,6 +2071,10 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Kawamura, S.</span> and <span class="refAuthor">M. Kawashima</span>, <span class="refTitle">"A Recommendation for IPv6 Address Text Representation"</span>, <span class="seriesInfo">RFC 5952</span>, <span class="seriesInfo">DOI 10.17487/RFC5952</span>, <time datetime="2010-08" class="refDate">August 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5952">https://www.rfc-editor.org/rfc/rfc5952</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6724">[RFC6724]</dt>
+        <dd>
+<span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
@@ -2102,7 +2106,8 @@ Some security-related issues that should be considered and ruled out by appropri
 <dd class="break"></dd>
 <dt id="DE-BIT-2020-14">[DE-BIT-2020-14]</dt>
         <dd>
-<span class="refTitle">"Beschluss Nr. 2020/14 - Zukunftsfaehige Netzinfrastrukturen auf Basis von funktionsfiaehigem IPv6"</span>, <span class="seriesInfo">Konferenz der IT-Beauftragten der Ressorts </span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>, <span>&lt;<a href="https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/cio-bund/steuerung-it-bund/beschluesse_cio-board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf">https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/cio-bund/steuerung-it-bund/beschluesse_cio-board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf</a>&gt;</span>. </dd>
+<span class="refTitle">"Beschluss Nr. 2020/14 - Zukunftsfaehige Netzinfrastrukturen auf Basis von funktionsfiaehigem IPv6"</span>, <span class="seriesInfo">Konferenz der IT-Beauftragten der Ressorts </span>, <time datetime="2020-11-11" class="refDate">11 November 2020</time>, <span>&lt;<a href="https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/cio-bund/steuerung-it-bund/beschluesse_cio-board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf">https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/cio-bund/steuerung-it-bund/beschluesse_cio-board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf</a>&gt;</span>. <span class="annotation">Original link is broken - cached copy available at https://raw.githubusercontent.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/refs/tags/draft-ietf-v6ops-ipv6-app-testing-05/references/DE-BIT-2020-14.pdf</span>
+        </dd>
 <dd class="break"></dd>
 <dt id="iCloud-Private-Relay">[iCloud-Private-Relay]</dt>
         <dd>
@@ -2147,10 +2152,6 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC6555">[RFC6555]</dt>
         <dd>
 <span class="refAuthor">Wing, D.</span> and <span class="refAuthor">A. Yourtchenko</span>, <span class="refTitle">"Happy Eyeballs: Success with Dual-Stack Hosts"</span>, <span class="seriesInfo">RFC 6555</span>, <span class="seriesInfo">DOI 10.17487/RFC6555</span>, <time datetime="2012-04" class="refDate">April 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6555">https://www.rfc-editor.org/rfc/rfc6555</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6724">[RFC6724]</dt>
-        <dd>
-<span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6762">[RFC6762]</dt>
         <dd>
