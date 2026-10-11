@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-08T04:31:17.719928+00:00",
+  "timestamp": "2026-10-11T04:00:47.282852+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1170,24 +1170,26 @@
       "id": "PR_kwDOQpLumc8AAAABHGrHdQ",
       "title": "Update Intro texts to set the scene for ideal applications vs. complex systems",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/35",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-10-07T11:07:00Z",
-      "updatedAt": "2026-10-07T20:03:36Z",
+      "updatedAt": "2026-10-08T05:13:30Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "32722095c8003ec77f1c2401331e03ec37fd0305",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "philsbln/intro-updates",
       "headRefOid": "5965f127345ffd416b59f986b6831c297eb15f4c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-10-08T05:13:29Z",
+      "mergedAt": "2026-10-08T05:13:29Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "e4204b1c1c8e4e5a4310548e39910732b293a49e"
+      },
       "comments": [],
       "reviews": [
         {
