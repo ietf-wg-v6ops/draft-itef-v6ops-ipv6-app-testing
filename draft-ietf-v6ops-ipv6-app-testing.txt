@@ -5,11 +5,11 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                        J. Linkova
-Expires: 12 April 2027                                            Google
+Expires: 17 April 2027                                            Google
                                                             K. Ouellette
                                                                B. Patton
                                                                  UNH-IOL
-                                                          9 October 2026
+                                                         14 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 April 2027.
+   This Internet-Draft will expire on 17 April 2027.
 
 Copyright Notice
 
@@ -71,9 +71,8 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-     2.1.  Requirements Language
-     2.2.  Base Connectivity Scenarios
-     2.3.  Lifecycle Functions
+     2.1.  Base Connectivity Scenarios
+     2.2.  Lifecycle Functions
    3.  Testing Objectives
      3.1.  Connectivity Scenarios
      3.2.  Testing with Intermediaries (e.g., Proxies)
@@ -168,15 +167,7 @@ Table of Contents
 
 2.  Conventions and Definitions
 
-2.1.  Requirements Language
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
-
-2.2.  Base Connectivity Scenarios
+2.1.  Base Connectivity Scenarios
 
    Within this document, we define the following four "base connectivity
    scenarios" in which applications ought to be verified for
@@ -224,7 +215,7 @@ Table of Contents
       _IPv6-Only-Strict_ definition from [IPv6-ONLY] by defining the
       scope to test-relevant endpoints.
 
-2.3.  Lifecycle Functions
+2.2.  Lifecycle Functions
 
    Orthogonal to the Base Scenarios, we define lifecycle functions,
    i.e., the phases in which an application is approached during a
@@ -495,7 +486,7 @@ Table of Contents
    To cover the whole lifecycle of an application including
    installation, user interface, management, and update, it is
    recommended to test that the lifecycle functions defined in
-   Section 2.3 are operational within the connectivity scenarios defined
+   Section 2.2 are operational within the connectivity scenarios defined
    in Table 1.  Testing the normal operations of the application is
    encompassed by the user interface lifecycle function.
 
@@ -921,18 +912,17 @@ Table of Contents
 
 9.1.  Normative References
 
-   [ADDR-SELECT]
-              Buraglio, N., Chown, T., and J. Duncan, "Prioritizing
-              known-local IPv6 ULAs through address selection policy",
-              Work in Progress, Internet-Draft, draft-ietf-6man-rfc6724-
-              update-25, 11 August 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-6man-
-              rfc6724-update-25>.
+   [IPv6-ONLY]
+              Martinez, J. P., "IPv6-Only and IPv6-Mostly Terminology
+              Definitions", Work in Progress, Internet-Draft, draft-
+              ietf-v6ops-ipv6-only-05, 14 October 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
+              ipv6-only-05>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/rfc/rfc2119>.
+   [RFC4007]  Deering, S., Haberman, B., Jinmei, T., Nordmark, E., and
+              B. Zill, "IPv6 Scoped Address Architecture", RFC 4007,
+              DOI 10.17487/RFC4007, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4007>.
 
    [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
               Architecture", RFC 4291, DOI 10.17487/RFC4291, February
@@ -948,9 +938,15 @@ Table of Contents
               (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
               <https://www.rfc-editor.org/rfc/rfc6724>.
 
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+   [RFC8305]  Schinazi, D. and T. Pauly, "Happy Eyeballs Version 2:
+              Better Connectivity Using Concurrency", RFC 8305,
+              DOI 10.17487/RFC8305, December 2017,
+              <https://www.rfc-editor.org/rfc/rfc8305>.
+
+   [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
+              Identifiers in User Interfaces", RFC 9844,
+              DOI 10.17487/RFC9844, August 2025,
+              <https://www.rfc-editor.org/rfc/rfc9844>.
 
 9.2.  Informative References
 
@@ -989,13 +985,6 @@ Table of Contents
               "Apple iCLoud Private Relay (WWDC2021)", n.d.,
               <https://developer.apple.com/videos/play/wwdc2021/10096/>.
 
-   [IPv6-ONLY]
-              Martinez, J. P., "IPv6-Only and IPv6-Mostly Terminology
-              Definitions", Work in Progress, Internet-Draft, draft-
-              ietf-v6ops-ipv6-only-04, 6 October 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              ipv6-only-04>.
-
    [IPvFoo]   Marks, P., "IPvFoo - a Chrome/Firefox extension that adds
               an icon to indicate whether the current page was fetched
               using IPv4 or IPv6.", n.d.,
@@ -1014,11 +1003,6 @@ Table of Contents
               Configuration of IPv4 Link-Local Addresses", RFC 3927,
               DOI 10.17487/RFC3927, May 2005,
               <https://www.rfc-editor.org/rfc/rfc3927>.
-
-   [RFC4007]  Deering, S., Haberman, B., Jinmei, T., Nordmark, E., and
-              B. Zill, "IPv6 Scoped Address Architecture", RFC 4007,
-              DOI 10.17487/RFC4007, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4007>.
 
    [RFC6052]  Bao, C., Huitema, C., Bagnulo, M., Boucadair, M., and X.
               Li, "IPv6 Addressing of IPv4/IPv6 Translators", RFC 6052,
@@ -1062,11 +1046,6 @@ Table of Contents
               DOI 10.17487/RFC7915, June 2016,
               <https://www.rfc-editor.org/rfc/rfc7915>.
 
-   [RFC8305]  Schinazi, D. and T. Pauly, "Happy Eyeballs Version 2:
-              Better Connectivity Using Concurrency", RFC 8305,
-              DOI 10.17487/RFC8305, December 2017,
-              <https://www.rfc-editor.org/rfc/rfc8305>.
-
    [RFC8489]  Petit-Huguenin, M., Salgueiro, G., Rosenberg, J., Wing,
               D., Mahy, R., and P. Matthews, "Session Traversal
               Utilities for NAT (STUN)", RFC 8489, DOI 10.17487/RFC8489,
@@ -1086,11 +1065,6 @@ Table of Contents
               Mrugalski, "IPv6-Only Preferred Option for DHCPv4",
               RFC 8925, DOI 10.17487/RFC8925, October 2020,
               <https://www.rfc-editor.org/rfc/rfc8925>.
-
-   [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
-              Identifiers in User Interfaces", RFC 9844,
-              DOI 10.17487/RFC9844, August 2025,
-              <https://www.rfc-editor.org/rfc/rfc9844>.
 
    [RFC10001] Momoka and T. Fiebig, "Operational Guidelines for DNS
               Transport in Mixed IPv4/IPv6 Environments", BCP 91,

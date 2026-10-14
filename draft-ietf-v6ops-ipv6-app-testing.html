@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 12 April 2027</td>
+<td class="center">Expires 17 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-09" class="published">9 October 2026</time>
+<time datetime="2026-10-14" class="published">14 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-12">12 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-17">17 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1164,13 +1164,10 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-base-connectivity-scenarios" class="internal xref">Base Connectivity Scenarios</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-base-connectivity-scenarios" class="internal xref">Base Connectivity Scenarios</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-lifecycle-functions" class="internal xref">Lifecycle Functions</a></p>
+                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-lifecycle-functions" class="internal xref">Lifecycle Functions</a></p>
 </li>
             </ul>
 </li>
@@ -1342,74 +1339,63 @@ Enabling these applications to communicate over IPv6 requires careful analysis o
       <h2 id="name-conventions-and-definitions">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
-<div id="requirements-language">
-<section id="section-2.1">
-        <h3 id="name-requirements-language">
-<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
-        </h3>
-<p id="section-2.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
-"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
-described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="base-connectivity-scenarios">
-<section id="section-2.2">
+<section id="section-2.1">
         <h3 id="name-base-connectivity-scenarios">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-base-connectivity-scenarios" class="section-name selfRef">Base Connectivity Scenarios</a>
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-base-connectivity-scenarios" class="section-name selfRef">Base Connectivity Scenarios</a>
         </h3>
-<p id="section-2.2-1">Within this document, we define the following four "base connectivity scenarios"
-in which applications ought to be verified for availability and functional correctness.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2"><span class="cref" id="_1"><strong>Note to the RFC-Editor:</strong> The capitalization of the following terms has not found WG consensus in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> so far. The final capitalization should match the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> once it is published.</span><a href="#section-2.2-2" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-2.2-3">
-          <dt id="section-2.2-3.1">IPv4-only:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-3.2">
-            <p id="section-2.2-3.2.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
-While this definition is narrower than the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span>, and mirrors the <em>IPv6-only-strict</em> scenario, we refrain from calling it <em>IPv4-only-strict</em> for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> are covered by the either the <em>Dual-stack</em> or <em>IPv6-only with NAT64</em> case.<a href="#section-2.2-3.2.1" class="pilcrow">¶</a></p>
+<p id="section-2.1-1">Within this document, we define the following four "base connectivity scenarios"
+in which applications ought to be verified for availability and functional correctness.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2"><span class="cref" id="_1"><strong>Note to the RFC-Editor:</strong> The capitalization of the following terms has not found WG consensus in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> so far. The final capitalization should match the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> once it is published.</span><a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2.1-3">
+          <dt id="section-2.1-3.1">IPv4-only:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-3.2">
+            <p id="section-2.1-3.2.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
+While this definition is narrower than the one from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span>, and mirrors the <em>IPv6-only-strict</em> scenario, we refrain from calling it <em>IPv4-only-strict</em> for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> are covered by the either the <em>Dual-stack</em> or <em>IPv6-only with NAT64</em> case.<a href="#section-2.1-3.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-3.3">Dual-stack:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-3.4">
-            <p id="section-2.2-3.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
+<dt id="section-2.1-3.3">Dual-stack:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-3.4">
+            <p id="section-2.1-3.4.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
 This case covers the <em>Dual-Stack</em> and <em>IPv6-Mostly (for clients not supporting Option 108 (<span>[<a href="#RFC8925" class="cite xref">RFC8925</a>]</span>)</em> cases in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> and
-narrows it down by defining the scope to test-relevant endpoints.<a href="#section-2.2-3.4.1" class="pilcrow">¶</a></p>
+narrows it down by defining the scope to test-relevant endpoints.<a href="#section-2.1-3.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-3.5">IPv6-only with NAT64:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-3.6">
-            <p id="section-2.2-3.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do not differentiate between stateful <span>[<a href="#RFC6146-bis" class="cite xref">RFC6146-bis</a>]</span> and stateless <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span> NAT64 variants.
+<dt id="section-2.1-3.5">IPv6-only with NAT64:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-3.6">
+            <p id="section-2.1-3.6.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT, DNS64, or local address synthesis. We do not differentiate between stateful <span>[<a href="#RFC6146-bis" class="cite xref">RFC6146-bis</a>]</span> and stateless <span>[<a href="#RFC7915" class="cite xref">RFC7915</a>]</span> NAT64 variants.
 This case covers the <em>IPv6-Only</em> as well as <em>IPv6-Mostly (for clients supporting Option 108 (<span>[<a href="#RFC8925" class="cite xref">RFC8925</a>]</span>)</em> cases in <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> and
-narrows them down by defining the scope to test-relevant endpoints.<a href="#section-2.2-3.6.1" class="pilcrow">¶</a></p>
+narrows them down by defining the scope to test-relevant endpoints.<a href="#section-2.1-3.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-2.2-3.7">IPv6-only-strict:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.2-3.8">
-            <p id="section-2.2-3.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-This definition narrows down the <em>IPv6-Only-Strict</em> definition from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> by defining the scope to test-relevant endpoints.<a href="#section-2.2-3.8.1" class="pilcrow">¶</a></p>
+<dt id="section-2.1-3.7">IPv6-only-strict:</dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-3.8">
+            <p id="section-2.1-3.8.1">A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
+This definition narrows down the <em>IPv6-Only-Strict</em> definition from <span>[<a href="#IPv6-ONLY" class="cite xref">IPv6-ONLY</a>]</span> by defining the scope to test-relevant endpoints.<a href="#section-2.1-3.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="lifecycle-functions">
-<section id="section-2.3">
+<section id="section-2.2">
         <h3 id="name-lifecycle-functions">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-lifecycle-functions" class="section-name selfRef">Lifecycle Functions</a>
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-lifecycle-functions" class="section-name selfRef">Lifecycle Functions</a>
         </h3>
-<p id="section-2.3-1">Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phases in which an application is approached during a simplified lifecycle of the application, in accordance to <span>[<a href="#US-NIST.SP.500-267Ar1" class="cite xref">US-NIST.SP.500-267Ar1</a>]</span> as follows:<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">Orthogonal to the Base Scenarios, we define lifecycle functions, i.e., the phases in which an application is approached during a simplified lifecycle of the application, in accordance to <span>[<a href="#US-NIST.SP.500-267Ar1" class="cite xref">US-NIST.SP.500-267Ar1</a>]</span> as follows:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.3-2.1">
-            <p id="section-2.3-2.1.1">Installation: The installation of the application including any initial configuration required for
-getting the application in a state where remote services are operational.<a href="#section-2.3-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2.2-2.1">
+            <p id="section-2.2-2.1.1">Installation: The installation of the application including any initial configuration required for
+getting the application in a state where remote services are operational.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.3-2.2">
-            <p id="section-2.3-2.2.1">User Interface: All forms of interactive access to the application (e.g., Web UI, API).<a href="#section-2.3-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-2.2-2.2">
+            <p id="section-2.2-2.2.1">User Interface: All forms of interactive access to the application (e.g., Web UI, API).<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.3-2.3">
-            <p id="section-2.3-2.3.1">Management: All forms of remote management and monitoring functions.<a href="#section-2.3-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-2.2-2.3">
+            <p id="section-2.2-2.3.1">Management: All forms of remote management and monitoring functions.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.3-2.4">
-            <p id="section-2.3-2.4.1">Update: All forms of update functions, including both automatic and manual update mechanisms.<a href="#section-2.3-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-2.2-2.4">
+            <p id="section-2.2-2.4.1">Update: All forms of update functions, including both automatic and manual update mechanisms.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1690,7 +1676,7 @@ Applications expecting these addresses to be available for inter-service communi
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-testing-lifecycle-function-" class="section-name selfRef">Testing Lifecycle Function Considerations</a>
         </h3>
 <p id="section-3.6-1">To cover the whole lifecycle of an application including installation, user interface,
-management, and update, it is recommended to test that the lifecycle functions defined in <a href="#lifecycle-functions" class="auto internal xref">Section 2.3</a> are operational within the connectivity scenarios defined in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.
+management, and update, it is recommended to test that the lifecycle functions defined in <a href="#lifecycle-functions" class="auto internal xref">Section 2.2</a> are operational within the connectivity scenarios defined in <a href="#scn_combinations" class="auto internal xref">Table 1</a>.
 Testing the normal operations of the application is encompassed by the user interface lifecycle function.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <p id="section-3.6-2">In particular, keep the following considerations in mind:<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -2055,13 +2041,13 @@ Some security-related issues that should be considered and ruled out by appropri
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="ADDR-SELECT">[ADDR-SELECT]</dt>
+<dt id="IPv6-ONLY">[IPv6-ONLY]</dt>
         <dd>
-<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Chown, T.</span>, and <span class="refAuthor">J. Duncan</span>, <span class="refTitle">"Prioritizing known-local IPv6 ULAs through address selection policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-6man-rfc6724-update-25</span>, <time datetime="2025-08-11" class="refDate">11 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25">https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25</a>&gt;</span>. </dd>
+<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-Only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-ipv6-only-05</span>, <time datetime="2026-10-14" class="refDate">14 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-05">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC2119">[RFC2119]</dt>
+<dt id="RFC4007">[RFC4007]</dt>
         <dd>
-<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<span class="refAuthor">Deering, S.</span>, <span class="refAuthor">Haberman, B.</span>, <span class="refAuthor">Jinmei, T.</span>, <span class="refAuthor">Nordmark, E.</span>, and <span class="refAuthor">B. Zill</span>, <span class="refTitle">"IPv6 Scoped Address Architecture"</span>, <span class="seriesInfo">RFC 4007</span>, <span class="seriesInfo">DOI 10.17487/RFC4007</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4007">https://www.rfc-editor.org/rfc/rfc4007</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4291">[RFC4291]</dt>
         <dd>
@@ -2075,9 +2061,13 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8174">[RFC8174]</dt>
+<dt id="RFC8305">[RFC8305]</dt>
+        <dd>
+<span class="refAuthor">Schinazi, D.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Happy Eyeballs Version 2: Better Connectivity Using Concurrency"</span>, <span class="seriesInfo">RFC 8305</span>, <span class="seriesInfo">DOI 10.17487/RFC8305</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8305">https://www.rfc-editor.org/rfc/rfc8305</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9844">[RFC9844]</dt>
       <dd>
-<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2113,10 +2103,6 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refTitle">"Apple iCLoud Private Relay (WWDC2021)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://developer.apple.com/videos/play/wwdc2021/10096/">https://developer.apple.com/videos/play/wwdc2021/10096/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="IPv6-ONLY">[IPv6-ONLY]</dt>
-        <dd>
-<span class="refAuthor">Martinez, J. P.</span>, <span class="refTitle">"IPv6-Only and IPv6-Mostly Terminology Definitions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-ipv6-only-04</span>, <time datetime="2026-10-06" class="refDate">6 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-04">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-ipv6-only-04</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="IPvFoo">[IPvFoo]</dt>
         <dd>
 <span class="refAuthor">Marks, P.</span>, <span class="refTitle">"IPvFoo - a Chrome/Firefox extension that adds an icon to indicate whether the current page was fetched using IPv4 or IPv6."</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/pmarks-net/ipvfoo">https://github.com/pmarks-net/ipvfoo</a>&gt;</span>. </dd>
@@ -2132,10 +2118,6 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC3927">[RFC3927]</dt>
         <dd>
 <span class="refAuthor">Cheshire, S.</span>, <span class="refAuthor">Aboba, B.</span>, and <span class="refAuthor">E. Guttman</span>, <span class="refTitle">"Dynamic Configuration of IPv4 Link-Local Addresses"</span>, <span class="seriesInfo">RFC 3927</span>, <span class="seriesInfo">DOI 10.17487/RFC3927</span>, <time datetime="2005-05" class="refDate">May 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3927">https://www.rfc-editor.org/rfc/rfc3927</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC4007">[RFC4007]</dt>
-        <dd>
-<span class="refAuthor">Deering, S.</span>, <span class="refAuthor">Haberman, B.</span>, <span class="refAuthor">Jinmei, T.</span>, <span class="refAuthor">Nordmark, E.</span>, and <span class="refAuthor">B. Zill</span>, <span class="refTitle">"IPv6 Scoped Address Architecture"</span>, <span class="seriesInfo">RFC 4007</span>, <span class="seriesInfo">DOI 10.17487/RFC4007</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4007">https://www.rfc-editor.org/rfc/rfc4007</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6052">[RFC6052]</dt>
         <dd>
@@ -2169,10 +2151,6 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Bao, C.</span>, <span class="refAuthor">Li, X.</span>, <span class="refAuthor">Baker, F.</span>, <span class="refAuthor">Anderson, T.</span>, and <span class="refAuthor">F. Gont</span>, <span class="refTitle">"IP/ICMP Translation Algorithm"</span>, <span class="seriesInfo">RFC 7915</span>, <span class="seriesInfo">DOI 10.17487/RFC7915</span>, <time datetime="2016-06" class="refDate">June 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7915">https://www.rfc-editor.org/rfc/rfc7915</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8305">[RFC8305]</dt>
-        <dd>
-<span class="refAuthor">Schinazi, D.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Happy Eyeballs Version 2: Better Connectivity Using Concurrency"</span>, <span class="seriesInfo">RFC 8305</span>, <span class="seriesInfo">DOI 10.17487/RFC8305</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8305">https://www.rfc-editor.org/rfc/rfc8305</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8489">[RFC8489]</dt>
         <dd>
 <span class="refAuthor">Petit-Huguenin, M.</span>, <span class="refAuthor">Salgueiro, G.</span>, <span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">Mahy, R.</span>, and <span class="refAuthor">P. Matthews</span>, <span class="refTitle">"Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 8489</span>, <span class="seriesInfo">DOI 10.17487/RFC8489</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8489">https://www.rfc-editor.org/rfc/rfc8489</a>&gt;</span>. </dd>
@@ -2188,10 +2166,6 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC8925">[RFC8925]</dt>
         <dd>
 <span class="refAuthor">Colitti, L.</span>, <span class="refAuthor">Linkova, J.</span>, <span class="refAuthor">Richardson, M.</span>, and <span class="refAuthor">T. Mrugalski</span>, <span class="refTitle">"IPv6-Only Preferred Option for DHCPv4"</span>, <span class="seriesInfo">RFC 8925</span>, <span class="seriesInfo">DOI 10.17487/RFC8925</span>, <time datetime="2020-10" class="refDate">October 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8925">https://www.rfc-editor.org/rfc/rfc8925</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9844">[RFC9844]</dt>
-        <dd>
-<span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC10001">[RFC10001]</dt>
         <dd>
