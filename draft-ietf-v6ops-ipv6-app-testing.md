@@ -45,10 +45,9 @@ author:
     email: bpatton@iol.unh.edu
 
 normative:
-  ADDR-SELECT: I-D.draft-ietf-6man-rfc6724-update
+  IPv6-ONLY: I-D.draft-ietf-v6ops-ipv6-only
 
 informative:
-  IPv6-ONLY: I-D.draft-ietf-v6ops-ipv6-only
   RFC7084bis: I-D.draft-ietf-v6ops-rfc7084bis
   V6MOPS: I-D.draft-ietf-v6ops-6mops
   CLAT: I-D.draft-ietf-v6ops-claton
@@ -131,9 +130,6 @@ Testing modern cloud applications poses an additional challenge, as these are ty
 Enabling these applications to communicate over IPv6 requires careful analysis of data flows towards services, between components, and towards external services as well as analysis where IPv6 addresses may occur as metadata.
 
 # Conventions and Definitions
-
-## Requirements Language
-{::boilerplate bcp14-tagged}
 
 ## Base Connectivity Scenarios
 Within this document, we define the following four "base connectivity scenarios"
@@ -238,7 +234,7 @@ should be considered for testing.
 
 As most applications use name resolution to bootstrap their connectivity,
 it is necessary to consider name resolution aspects when testing IPv6 readiness.
-While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}},
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{!RFC8305}},
 others will just map to different connectivity scenarios.
 In this section, we list name resolution issues to consider for testing.
 
@@ -261,15 +257,15 @@ e.g., to an old or planned deployment.
 
 For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.
 
-For Dual-stack clients, it should be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}} or trying the next resolved address candidate after timeout.
+For Dual-stack clients, it should be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs {{RFC6555}}/{{RFC8305}} or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable of the desired use-case.
 
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in Section {{scenarios}}) or
-local NAT64 address, e.g., as when implementing Happy Eyeballs v2 {{?RFC8305}}.
+local NAT64 address, e.g., as when implementing Happy Eyeballs v2 {{RFC8305}}.
 IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.
 
-Testing with IPv4-Mapped IPv6 Addresses {{?RFC4291}} in AAAA records is also recommended.
+Testing with IPv4-Mapped IPv6 Addresses {{RFC4291}} in AAAA records is also recommended.
 While this makes zero sense, it has been seen in the wild and should not confuse the client.
 
 ### DNS delegation issues
@@ -282,13 +278,13 @@ Integration testing for Cloud applications should verify that the necessary doma
 Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
 Applications should be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
 
-If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{?RFC9844}} and work as expected.
+If there is a use-case for link-local communication using IP literals, it should be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
 
 ### Testing with link-local names
 
 A name such as `example.local` can resolve, e.g. through DNS-Based Service Discovery (?RFC6763),
 to one or both of a link-local IPv4 address {{?RFC3927}} and a link-local IPv6 address.
-The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{?RFC4007}}. Applications should be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.
+The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{!RFC4007}}. Applications should be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.
 
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
@@ -515,7 +511,7 @@ Checking whether user input is a valid IPv4 address or rendering output under th
 Even applications that have been adopted to IPv6 may have based their input validation on wrong assumptions,
 e.g., checking an IPv6 address is in `2000::/3`.
 Therefore, test cases should include IPv6 addresses from GUA (`2000::/3`), ULA (`fc00::/7`), and NAT64 well-known prefix (`64:ff9b::/96`), as well as link-local (`fe80::/10`) range.
-The link-local range needs special attention as addresses are incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{?RFC4007}}. Testing should verify that the zone identifier or zone index are correctly displayed and can be passed if endpoints may be link-local addresses.
+The link-local range needs special attention as addresses are incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{!RFC4007}}. Testing should verify that the zone identifier or zone index are correctly displayed and can be passed if endpoints may be link-local addresses.
 
 ## Connectivity Checks
 
