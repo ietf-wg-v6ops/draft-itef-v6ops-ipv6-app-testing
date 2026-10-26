@@ -28,12 +28,6 @@ author:
       - philipp@tiesel.net
       - philipp.tiesel@sap.com
  -
-    fullname: Jen Linkova
-    organization: Google
-    email:
-      - furry13@gmail.com
-      - furry@google.com
- -
     fullname: Kyle Ouellette
     organization: University of New Hampshire Interoperability Labs
     abbrev: UNH-IOL
@@ -595,3 +589,5 @@ Sulabh Soneji,
 and
 Tommy Jensen
 for the discussions, the input, and all contribution.
+
+Special thanks to Jen Linkova and Timothy Winters for advise on how to shape the document and finding the right set of authors.
