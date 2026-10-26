@@ -4,12 +4,10 @@
 
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
-Intended status: Best Current Practice                        J. Linkova
-Expires: 17 April 2027                                            Google
-                                                            K. Ouellette
-                                                               B. Patton
+Intended status: Best Current Practice                      K. Ouellette
+Expires: 29 April 2027                                         B. Patton
                                                                  UNH-IOL
-                                                         14 October 2026
+                                                         26 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -51,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 April 2027.
+   This Internet-Draft will expire on 29 April 2027.
 
 Copyright Notice
 
@@ -1104,16 +1102,14 @@ Acknowledgments
    Michael Richardson, Nathan Sherrard, Sulabh Soneji, and Tommy Jensen
    for the discussions, the input, and all contribution.
 
+   Special thanks to Jen Linkova and Timothy Winters for advise on how
+   to shape the document and finding the right set of authors.
+
 Authors' Addresses
 
    Philipp S. Tiesel
    SAP SE
    Email: philipp@tiesel.net, philipp.tiesel@sap.com
-
-
-   Jen Linkova
-   Google
-   Email: furry13@gmail.com, furry@google.com
 
 
    Kyle Ouellette
