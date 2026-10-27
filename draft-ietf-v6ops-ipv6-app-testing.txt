@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 29 April 2027                                         B. Patton
+Expires: 30 April 2027                                         B. Patton
                                                                  UNH-IOL
-                                                         26 October 2026
+                                                         27 October 2026
 
 
                    Testing Applications' IPv6 Support
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 April 2027.
+   This Internet-Draft will expire on 30 April 2027.
 
 Copyright Notice
 
@@ -985,8 +985,7 @@ Table of Contents
 
    [IPvFoo]   Marks, P., "IPvFoo - a Chrome/Firefox extension that adds
               an icon to indicate whether the current page was fetched
-              using IPv4 or IPv6.", n.d.,
-              <https://github.com/pmarks-net/ipvfoo>.
+              using IPv4 or IPv6.", n.d., <https://pmarks.net/ipvfoo>.
 
    [NGINX.trac-552]
               "Nginx doesn't honor net.ipv6.conf.all.disable_ipv6",
@@ -1087,9 +1086,9 @@ Table of Contents
 
    [V6MOPS]   Buraglio, N., Caletka, O., and J. Linkova, "IPv6-mostly
               Networks: Deployment and Operations Considerations", Work
-              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-10, 10
-              September 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-v6ops-6mops-10>.
+              in Progress, Internet-Draft, draft-ietf-v6ops-6mops-11, 27
+              October 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-v6ops-6mops-11>.
 
    [Wireshark]
               "Wireshark packet tracer", n.d.,
