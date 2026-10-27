@@ -75,7 +75,7 @@ informative:
     target: https://developer.apple.com/videos/play/wwdc2021/10096/
     title: Apple iCLoud Private Relay (WWDC2021)
   IPvFoo:
-    target: https://github.com/pmarks-net/ipvfoo
+    target: https://pmarks.net/ipvfoo
     title: IPvFoo - a Chrome/Firefox extension that adds an icon to indicate whether the current page was fetched using IPv4 or IPv6.
     author:
       -
