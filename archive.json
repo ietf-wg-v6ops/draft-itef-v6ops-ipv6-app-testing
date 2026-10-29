@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-11T04:00:47.282852+00:00",
+  "timestamp": "2026-10-29T04:23:08.701294+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1203,6 +1203,48 @@
           "body": "LGTM",
           "createdAt": "2026-10-07T20:03:36Z",
           "updatedAt": "2026-10-07T20:03:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOQpLumc8AAAABLFZKQg",
+      "title": "Update IPvFoo target URL",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/36",
+      "state": "MERGED",
+      "author": "pmarks-net",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "If this becomes an RFC, I'd rather leave open the option to migrate to a GitHub alternative in the future.",
+      "createdAt": "2026-10-27T18:06:59Z",
+      "updatedAt": "2026-10-27T18:35:31Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "ba7cd4c13fa95cb977409946eb6629cc6c3046e1",
+      "headRepository": "pmarks-net/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "update-ipvfoo-url",
+      "headRefOid": "ee3ec1329fe20bb436bb22face93d30fe249254d",
+      "closedAt": "2026-10-27T18:35:31Z",
+      "mergedAt": "2026-10-27T18:35:31Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "cd27c5ebcda3370a38135a033e7854a9c54d408d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABUhoIhw",
+          "commit": {
+            "abbreviatedOid": "ee3ec13"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Reference update works for me \u2013 can understand to keep it independent.",
+          "createdAt": "2026-10-27T18:34:31Z",
+          "updatedAt": "2026-10-27T18:34:31Z",
           "comments": []
         }
       ]
