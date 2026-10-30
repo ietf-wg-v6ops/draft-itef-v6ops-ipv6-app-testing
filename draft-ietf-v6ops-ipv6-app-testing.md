@@ -101,7 +101,8 @@ informative:
 --- abstract
 
 This document provides guidance for application developers and Software-as-a-Service (SaaS) providers on how to approach IPv6 testing in Dual-stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
-It discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
+
+The document alsoi discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support.
 
 
@@ -178,6 +179,8 @@ As a basic principle, IPv6 application testing should always be derived from fun
 Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios,
 i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings.
 
+This document does not include application-specific testing. For example, some IETF specifications (e.g., SIP {{?RFC3261}}) contains broken IPv6 Augmented Backus-Naur Form (ABNF) and rules to compare URIs with embedded IPv6 addresses; fixes (e.g., {{?RFC5954}}) must be used instead. Testing and validation of such application-specific matters are out the scope of this document.
+
 The following subsections provide guidance on which connectivity scenarios to include in a testing campaign for an ideal application that is supposed to run anywhere and how to approach testing complex cloud applications and exclude connectivity scenarios based on the environment they are deployed in.
 
 ## Connectivity Scenarios {#scenarios}
@@ -240,7 +243,7 @@ consisting of base scenarios towards the proxy and (assuming the same scenarios 
 
 As most applications use name resolution to bootstrap their connectivity,
 it is necessary to consider name resolution aspects when testing IPv6 readiness.
-While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{!RFC8305}},
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs {{?RFC6555}}/{{?RFC8305}},
 others will just map to different connectivity scenarios.
 
 This section lists name resolution issues to consider for testing.
