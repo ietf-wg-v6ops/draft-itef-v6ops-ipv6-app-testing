@@ -428,9 +428,9 @@ While most desktop OSes allow disabling IPv4, mobile OSes, such as Android and i
 For mobiles OSes, an IPv6-only-strict environment is needed.
 
 In both cases, it has to be ensured that there is no way to access IPv4-only resources.
-In particular, fallback to NAT64 must be prevented by disabling CLAT {{CLAT}},
-making sure DNS resolution does not perform DNS64 address synthesis {{?RFC6147}}
-and blocking the Well-known Prefix (WKP) {{?RFC6052}} for these clients.
+In particular, fallback to NAT64 must be prevented by disabling CLAT {{!CLAT}},
+making sure DNS resolution does not perform DNS64 address synthesis {{!RFC6147}}
+and blocking the Well-known Prefix (WKP) {{!RFC6052}} for these clients.
 In addition, VPN services including privacy services like {{iCloud-Private-Relay}} need to be disabled as they can provide connectivity towards the IPv4 Internet.
 
 A note on the applicability of disabling IPv4:
