@@ -44,7 +44,7 @@ author:
 
 normative:
   IPv6-ONLY: I-D.ietf-v6ops-ipv6-only
-  CLAT: I-D.ietf-v6ops-claton  
+  CLAT: I-D.ietf-v6ops-claton
 
 informative:
   RFC7084bis: I-D.ietf-v6ops-rfc7084bis
