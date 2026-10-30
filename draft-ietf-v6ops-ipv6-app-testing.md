@@ -44,11 +44,11 @@ author:
 
 normative:
   IPv6-ONLY: I-D.ietf-v6ops-ipv6-only
+  CLAT: I-D.ietf-v6ops-claton  
 
 informative:
   RFC7084bis: I-D.ietf-v6ops-rfc7084bis
   V6MOPS: I-D.ietf-v6ops-6mops
-  CLAT: I-D.ietf-v6ops-claton
   RFC6146-bis: I-D.ietf-v6ops-rfc6146-bis
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
@@ -428,7 +428,7 @@ While most desktop OSes allow disabling IPv4, mobile OSes, such as Android and i
 For mobiles OSes, an IPv6-only-strict environment is needed.
 
 In both cases, it has to be ensured that there is no way to access IPv4-only resources.
-In particular, fallback to NAT64 must be prevented by disabling CLAT {{!CLAT}},
+In particular, fallback to NAT64 must be prevented by disabling CLAT {{CLAT}},
 making sure DNS resolution does not perform DNS64 address synthesis {{!RFC6147}}
 and blocking the Well-known Prefix (WKP) {{!RFC6052}} for these clients.
 In addition, VPN services including privacy services like {{iCloud-Private-Relay}} need to be disabled as they can provide connectivity towards the IPv4 Internet.
