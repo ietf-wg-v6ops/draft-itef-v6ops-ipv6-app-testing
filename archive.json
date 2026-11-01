@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-29T04:23:08.701294+00:00",
+  "timestamp": "2026-11-01T04:25:34.776415+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1248,6 +1248,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOQpLumc8AAAABLxTCew",
+      "title": "Med's AD Review",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/37",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "* Fix references, especially those that need to be normative\n* Add examples of existing IPv6 testing specs in IETF\n* Declare application-specific tests out of scope (e.g., broken SIP ABNF)\n* Remove confusing note about lack of consensus for IPv6-only draft.\n* and several editorial suggestions.\n",
+      "createdAt": "2026-10-30T13:09:20Z",
+      "updatedAt": "2026-10-30T13:15:00Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "cd27c5ebcda3370a38135a033e7854a9c54d408d",
+      "headRepository": "boucadair/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "main",
+      "headRefOid": "c57a98f3375e3eca60d3f02475aaddc4a03458bb",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
