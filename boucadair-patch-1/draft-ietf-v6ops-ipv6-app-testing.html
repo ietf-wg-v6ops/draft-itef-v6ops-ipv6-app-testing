@@ -1656,7 +1656,7 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 <a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-testing-with-ip-literals" class="section-name selfRef">Testing with IP Literals</a>
           </h4>
 <p id="section-3.3.4-1">Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
-Applications MUST be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>.<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
+Applications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>. Some applications (client or server) may not allow for IPv4 literals.<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.3.4-2">If there is a use case for link-local communication using IP literals, it MUST be tested whether the zone identifier can be entered as described in <span>[<a href="#RFC9844" class="cite xref">RFC9844</a>]</span> and work as expected.<a href="#section-3.3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
