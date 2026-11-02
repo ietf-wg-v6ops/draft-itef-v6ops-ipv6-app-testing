@@ -290,7 +290,7 @@ Integration testing for cloud applications MUST verify that the necessary domain
 ### Testing with IP Literals
 
 Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
-Applications MUST be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
+Applications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}. Some applications (client or server) may not allow for IPv4 literals. 
 
 If there is a use case for link-local communication using IP literals, it MUST be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
 
