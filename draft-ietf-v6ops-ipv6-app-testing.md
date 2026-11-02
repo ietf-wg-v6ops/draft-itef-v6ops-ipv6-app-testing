@@ -189,7 +189,7 @@ The following subsections provide guidance on which connectivity scenarios to in
 
 ## Connectivity Scenarios {#scenarios}
 
-{{scn_combinations}} lists the combinations of connectivity scenarios that application testing SHOULD consider.
+{{scn_combinations}} lists the combinations of connectivity scenarios that application testing SHOULD consider. Not testing some of these cases may lead to failures in operations.
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering Peer-to-Peer (P2P) applications -- with "client" representing the initiating or first acting party.
 
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {complex-apps} for further discussion).
@@ -202,7 +202,7 @@ MTU issues, as described in {{Section 7.4.5 of V6MOPS}}, that may arise form the
 
 This document also do not separate IPv4-only cases with and without NAT, despite that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.
 
-For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT64, the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered.
+For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT46, the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered. This case MAY be omitted for deployments targeting IPv6-only clients.
 
 The other combinations are unlikely to exhibit additional problems for 'client/server'-based applications and, therefore, are marked as extended in {{scn_combinations}}.
 
@@ -290,9 +290,9 @@ Integration testing for cloud applications MUST verify that the necessary domain
 ### Testing with IP Literals
 
 Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
-Applications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
+Applications MUST be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}.
 
-If there is a use case for link-local communication using IP literals, it SHOULD be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
+If there is a use case for link-local communication using IP literals, it MUST be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
 
 ### Testing with Link-local Names
 
@@ -319,7 +319,7 @@ In addition to partial blackholing, MTU issues may be limited to one address fam
 MTU available, dropping of fragmented packets, and ICMP messages generated.
 As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working ICMP *packet too big* reporting.
 
-During deployment and integration testing, checking for partial blackholing and MTU issues SHOULD be done by testing with IPv4-only and IPv6-only-strict clients to detect such blackholes.
+During deployment and integration testing, checking for partial blackholing and MTU issues MUST be done by testing with IPv4-only and IPv6-only-strict clients to detect such blackholes.
 In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.
 
 ## Testing without IPv4 Loopback Addresses (127.0.0.0/8)
@@ -354,7 +354,7 @@ In particular, the following MUST be considered:
   For testing web-based user interfaces, see {{web-app-considerations}}.
 
 - Management: Depending on the application, management functions may be provided via the user interface.
-  However, the application may have additional management functions (e.g., SNMP, syslog, etc.) that should be tested.
+  However, the application may have additional management functions (SNMP, syslog, etc.) that should be tested.
   As the source triggering application behavior is crucial for logging and auditing functionality,
   addresses recorded need to be verified to be represented correctly. See Section {{addr-as-data}} about representation of addresses.
 
@@ -409,7 +409,7 @@ For example, the IPv6 address `2001:db8::1` can be written as `2001:db8:0:0:0:0:
 While custom logic to check, parse and process addresses is often error-prone and should be validated thoroughly,
 modern environments and frameworks usually provide data structures that encapsulate the canonical binary representation and include methods for parsing the various textual representations, comparing addresses, performing subnet operations, and rendering addresses in a consistent format.
 
-For situations where textual representation of IPv6 addresses is needed -- such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML -- {{!RFC5952}} provides recommendations on which of the valid textual representations SHOULD be used.
+For situations where textual representation of IPv6 addresses is needed -- such as in user interfaces, logging output, and text-based data formats like JSON, YAML, TOML, and XML -- {{!RFC5952}} provides recommendations on which of the valid textual representations should be used.
 Applications MUST be tested whether they follow {{!RFC5952}} when rendering IPv6 addresses in textual form,
 as required by national regulations like {{US-NIST.SP.500-267Ar1}},
 while accepting all valid representations defined in {{!RFC4291}}.
