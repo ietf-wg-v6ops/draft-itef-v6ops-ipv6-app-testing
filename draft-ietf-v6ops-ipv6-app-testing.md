@@ -132,7 +132,7 @@ Enabling these applications to communicate over IPv6 requires careful analysis o
 
 ## Requirements Language
 
-{::boilerplate bcp14+}
+{::boilerplate bcp14+-tagged-bcp14}
 
 ## Base Connectivity Scenarios
 
@@ -149,12 +149,12 @@ IPv4-only:
 
 Dual-stack:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
-: This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
+: This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
 narrows it down by defining the scope to test-relevant endpoints.
 
 IPv6-only with NAT64:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology like NAT64, e.g., NAT64 in combination with CLAT {{?RFC6877}}, DNS64 {{?RFC6147}}, or local address synthesis. This document does not differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
-: This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 ({{?RFC8925}})* cases in {{IPv6-ONLY}} and
+: This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
 narrows them down by defining the scope to test-relevant endpoints.
 
 IPv6-only-strict:
