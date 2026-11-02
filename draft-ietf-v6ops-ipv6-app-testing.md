@@ -102,7 +102,7 @@ informative:
 
 This document provides guidance for application developers and Software-as-a-Service (SaaS) providers on how to approach IPv6 testing in Dual-stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
 
-The document alsoi discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
+The document also discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support.
 
 
