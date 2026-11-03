@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 6 May 2027                                            B. Patton
+Expires: 7 May 2027                                            B. Patton
                                                                  UNH-IOL
-                                                         2 November 2026
+                                                         3 November 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 May 2027.
+   This Internet-Draft will expire on 7 May 2027.
 
 Copyright Notice
 
@@ -391,8 +391,8 @@ Table of Contents
    connectivity, it is necessary to consider name resolution aspects
    when testing IPv6 readiness.  While some name resolution issues only
    manifest in certain connectivity scenarios or can be mitigated by
-   using Happy Eyeballs [RFC6555]/[RFC8305], others will just map to
-   different connectivity scenarios.
+   using Happy Eyeballs [RFC8305], others will just map to different
+   connectivity scenarios.
 
    This section lists name resolution issues to consider for testing.
 
@@ -422,10 +422,10 @@ Table of Contents
 
    For Dual-stack clients, it MUST be tested whether they can use the
    working IPv4-only or IPv6-only connectivity scenario, either by using
-   Happy Eyeballs [RFC6555]/[RFC8305] or trying the next resolved
-   address candidate after timeout.  Especially for the latter, it is
-   advisable to verify whether the connection delay is acceptable of the
-   desired use-case.
+   Happy Eyeballs [RFC8305] or trying the next resolved address
+   candidate after timeout.  Especially for the latter, it is advisable
+   to verify whether the connection delay is acceptable of the desired
+   use-case.
 
    IPv6-only clients with NAT64 are only expected to work with broken
    AAAA records when deployed with CLAT (should behave like Dual-stack
@@ -460,7 +460,7 @@ Table of Contents
 3.3.5.  Testing with Link-local Names
 
    A name such as example.local can resolve, e.g., through DNS-Based
-   Service Discovery (?RFC6763), to one or both of a link-local IPv4
+   Service Discovery [RFC6763], to one or both of a link-local IPv4
    address [RFC3927] and a link-local IPv6 address.  The latter is
    incomplete and possibly ambiguous unless associated with the relevant
    zone identifier or zone index [RFC4007].  Applications SHOULD be
@@ -1025,6 +1025,11 @@ Table of Contents
               (IPv6)", RFC 6724, DOI 10.17487/RFC6724, September 2012,
               <https://www.rfc-editor.org/rfc/rfc6724>.
 
+   [RFC8305]  Schinazi, D. and T. Pauly, "Happy Eyeballs Version 2:
+              Better Connectivity Using Concurrency", RFC 8305,
+              DOI 10.17487/RFC8305, December 2017,
+              <https://www.rfc-editor.org/rfc/rfc8305>.
+
    [RFC9844]  Carpenter, B. and R. Hinden, "Entering IPv6 Zone
               Identifiers in User Interfaces", RFC 9844,
               DOI 10.17487/RFC9844, August 2025,
@@ -1049,8 +1054,8 @@ Table of Contents
               IPv6", Konferenz der IT-Beauftragten der Ressorts , 11
               November 2020,
               <https://www.cio.bund.de/SharedDocs/downloads/Webs/CIO/DE/
-              cio-bund/steuerung-it-bund/beschluesse_cio-
-              board_KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf>.
+              cio-bund/steuerung-it-bund/beschluesse_cio-board_
+              KoITB/2020_14_Beschluss_Konferenz_IT_Beauftragte.pdf>.
               Original link is broken - cached copy available at
               https://raw.githubusercontent.com/ietf-wg-v6ops/draft-
               itef-v6ops-ipv6- app-testing/refs/tags/draft-ietf-v6ops-
@@ -1103,13 +1108,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
               rfc6146-bis-16>.
 
-   [RFC6555]  Wing, D. and A. Yourtchenko, "Happy Eyeballs: Success with
-              Dual-Stack Hosts", RFC 6555, DOI 10.17487/RFC6555, April
-              2012, <https://www.rfc-editor.org/rfc/rfc6555>.
-
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,
               <https://www.rfc-editor.org/rfc/rfc6762>.
+
+   [RFC6763]  Cheshire, S. and M. Krochmal, "DNS-Based Service
+              Discovery", RFC 6763, DOI 10.17487/RFC6763, February 2013,
+              <https://www.rfc-editor.org/rfc/rfc6763>.
 
    [RFC6877]  Mawatari, M., Kawashima, M., and C. Byrne, "464XLAT:
               Combination of Stateful and Stateless Translation",
@@ -1128,11 +1133,6 @@ Table of Contents
               "IP/ICMP Translation Algorithm", RFC 7915,
               DOI 10.17487/RFC7915, June 2016,
               <https://www.rfc-editor.org/rfc/rfc7915>.
-
-   [RFC8305]  Schinazi, D. and T. Pauly, "Happy Eyeballs Version 2:
-              Better Connectivity Using Concurrency", RFC 8305,
-              DOI 10.17487/RFC8305, December 2017,
-              <https://www.rfc-editor.org/rfc/rfc8305>.
 
    [RFC8489]  Petit-Huguenin, M., Salgueiro, G., Rosenberg, J., Wing,
               D., Mahy, R., and P. Matthews, "Session Traversal

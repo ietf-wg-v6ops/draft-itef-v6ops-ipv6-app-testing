@@ -13,7 +13,7 @@
        The document also discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support. 
     ' name="description">
-<meta content="xml2rfc 3.34.1" name="generator">
+<meta content="xml2rfc 3.35.0" name="generator">
 <meta content="Interoperability" name="keyword">
 <meta content="Deployment" name="keyword">
 <meta content="Operation" name="keyword">
@@ -23,19 +23,19 @@ and explains common regressions to avoid when deploying IPv6 support.
 <meta content="Application developer" name="keyword">
 <meta content="draft-ietf-v6ops-ipv6-app-testing-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.1
-    Python 3.14.8
-    ConfigArgParse 1.8.0
+  xml2rfc 3.35.0
+    Python 3.14.10
+    ConfigArgParse 1.9.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.13.4
+    platformdirs 4.14.3
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.9.2
+    wcwidth 0.9.4
 -->
 <link href="draft-ietf-v6ops-ipv6-app-testing.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1055,7 +1055,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 6 May 2027</td>
+<td class="center">Expires 7 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-02" class="published">2 November 2026</time>
+<time datetime="2026-11-03" class="published">3 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-07">7 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1127,7 +1127,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1604,7 +1604,7 @@ consisting of base scenarios towards the proxy and (assuming the same scenarios 
         </h3>
 <p id="section-3.3-1">As most applications use name resolution to bootstrap their connectivity,
 it is necessary to consider name resolution aspects when testing IPv6 readiness.
-While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs <span>[<a href="#RFC6555" class="cite xref">RFC6555</a>]</span>/<span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span>,
+While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span>,
 others will just map to different connectivity scenarios.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">This section lists name resolution issues to consider for testing.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <div id="missing-dns-records">
@@ -1630,7 +1630,7 @@ and, therefore, already addressed by testing the base scenarios above.<a href="#
 there may be an A and AAAA resource record either pointing somewhere else,
 e.g., to an old or planned deployment.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-2">For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.<a href="#section-3.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.3.2-3">For Dual-stack clients, it <span class="bcp14">MUST</span> be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs <span>[<a href="#RFC6555" class="cite xref">RFC6555</a>]</span>/<span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or trying the next resolved address candidate after timeout.
+<p id="section-3.3.2-3">For Dual-stack clients, it <span class="bcp14">MUST</span> be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable of the desired use-case.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-4">IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in <a href="#scenarios" class="auto internal xref">Section 3.1</a>) or
@@ -1664,7 +1664,7 @@ Applications <span class="bcp14">SHOULD</span> be tested to determine whether th
           <h4 id="name-testing-with-link-local-nam">
 <a href="#section-3.3.5" class="section-number selfRef">3.3.5. </a><a href="#name-testing-with-link-local-nam" class="section-name selfRef">Testing with Link-local Names</a>
           </h4>
-<p id="section-3.3.5-1">A name such as <code>example.local</code> can resolve, e.g., through DNS-Based Service Discovery (?RFC6763),
+<p id="section-3.3.5-1">A name such as <code>example.local</code> can resolve, e.g., through DNS-Based Service Discovery <span>[<a href="#RFC6763" class="cite xref">RFC6763</a>]</span>,
 to one or both of a link-local IPv4 address <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span> and a link-local IPv6 address.
 The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>.
 Applications <span class="bcp14">SHOULD</span> be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.<a href="#section-3.3.5-1" class="pilcrow">¶</a></p>
@@ -2120,6 +2120,10 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Thaler, D., Ed.</span>, <span class="refAuthor">Draves, R.</span>, <span class="refAuthor">Matsumoto, A.</span>, and <span class="refAuthor">T. Chown</span>, <span class="refTitle">"Default Address Selection for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 6724</span>, <span class="seriesInfo">DOI 10.17487/RFC6724</span>, <time datetime="2012-09" class="refDate">September 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6724">https://www.rfc-editor.org/rfc/rfc6724</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8305">[RFC8305]</dt>
+        <dd>
+<span class="refAuthor">Schinazi, D.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Happy Eyeballs Version 2: Better Connectivity Using Concurrency"</span>, <span class="seriesInfo">RFC 8305</span>, <span class="seriesInfo">DOI 10.17487/RFC8305</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8305">https://www.rfc-editor.org/rfc/rfc8305</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9844">[RFC9844]</dt>
       <dd>
 <span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="seriesInfo">RFC 9844</span>, <span class="seriesInfo">DOI 10.17487/RFC9844</span>, <time datetime="2025-08" class="refDate">August 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9844">https://www.rfc-editor.org/rfc/rfc9844</a>&gt;</span>. </dd>
@@ -2186,13 +2190,13 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Bagnulo, M.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. P. Martinez</span>, <span class="refTitle">"Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc6146-bis-16</span>, <time datetime="2026-09-04" class="refDate">4 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6555">[RFC6555]</dt>
-        <dd>
-<span class="refAuthor">Wing, D.</span> and <span class="refAuthor">A. Yourtchenko</span>, <span class="refTitle">"Happy Eyeballs: Success with Dual-Stack Hosts"</span>, <span class="seriesInfo">RFC 6555</span>, <span class="seriesInfo">DOI 10.17487/RFC6555</span>, <time datetime="2012-04" class="refDate">April 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6555">https://www.rfc-editor.org/rfc/rfc6555</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6762">[RFC6762]</dt>
         <dd>
 <span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"Multicast DNS"</span>, <span class="seriesInfo">RFC 6762</span>, <span class="seriesInfo">DOI 10.17487/RFC6762</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6762">https://www.rfc-editor.org/rfc/rfc6762</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6763">[RFC6763]</dt>
+        <dd>
+<span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"DNS-Based Service Discovery"</span>, <span class="seriesInfo">RFC 6763</span>, <span class="seriesInfo">DOI 10.17487/RFC6763</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6763">https://www.rfc-editor.org/rfc/rfc6763</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6877">[RFC6877]</dt>
         <dd>
@@ -2205,10 +2209,6 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC7915">[RFC7915]</dt>
         <dd>
 <span class="refAuthor">Bao, C.</span>, <span class="refAuthor">Li, X.</span>, <span class="refAuthor">Baker, F.</span>, <span class="refAuthor">Anderson, T.</span>, and <span class="refAuthor">F. Gont</span>, <span class="refTitle">"IP/ICMP Translation Algorithm"</span>, <span class="seriesInfo">RFC 7915</span>, <span class="seriesInfo">DOI 10.17487/RFC7915</span>, <time datetime="2016-06" class="refDate">June 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7915">https://www.rfc-editor.org/rfc/rfc7915</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8305">[RFC8305]</dt>
-        <dd>
-<span class="refAuthor">Schinazi, D.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Happy Eyeballs Version 2: Better Connectivity Using Concurrency"</span>, <span class="seriesInfo">RFC 8305</span>, <span class="seriesInfo">DOI 10.17487/RFC8305</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8305">https://www.rfc-editor.org/rfc/rfc8305</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8489">[RFC8489]</dt>
         <dd>
