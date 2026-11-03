@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-01T04:25:34.776415+00:00",
+  "timestamp": "2026-11-03T05:22:02.187090+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1254,26 +1254,279 @@
       "id": "PR_kwDOQpLumc8AAAABLxTCew",
       "title": "Med's AD Review",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/37",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "* Fix references, especially those that need to be normative\n* Add examples of existing IPv6 testing specs in IETF\n* Declare application-specific tests out of scope (e.g., broken SIP ABNF)\n* Remove confusing note about lack of consensus for IPv6-only draft.\n* and several editorial suggestions.\n",
       "createdAt": "2026-10-30T13:09:20Z",
-      "updatedAt": "2026-10-30T13:15:00Z",
+      "updatedAt": "2026-11-02T09:40:39Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "cd27c5ebcda3370a38135a033e7854a9c54d408d",
       "headRepository": "boucadair/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "main",
-      "headRefOid": "c57a98f3375e3eca60d3f02475aaddc4a03458bb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "8a4fac18d87e7b6ef359806fc6ca10dfea604ee2",
+      "closedAt": "2026-11-02T09:40:39Z",
+      "mergedAt": "2026-11-02T09:40:39Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "cdcea35048edafdd115071cb8a42b8e04a080011"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVcMjkQ",
+          "commit": {
+            "abbreviatedOid": "c57a98f"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thank you for this great PR and all the editorial input!\nIt is always astonishing to see how much an author uses to overlook.\n\nAs I 100% agree with most suggestions, I will mostly merge as-is.",
+          "createdAt": "2026-11-02T08:32:24Z",
+          "updatedAt": "2026-11-02T09:37:48Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\nThe document also discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away\n```\n",
+              "createdAt": "2026-11-02T08:32:24Z",
+              "updatedAt": "2026-11-02T09:37:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOQpLumc8AAAABMVTFAA",
+      "title": "Introduce BCP 14 language to definine minimal required level of testing",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/38",
+      "state": "MERGED",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-02T15:12:44Z",
+      "updatedAt": "2026-11-02T15:20:24Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "cdcea35048edafdd115071cb8a42b8e04a080011",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/bcp14-language",
+      "headRefOid": "974821eb718802f58bbdfb1efd7de98a4358d4e7",
+      "closedAt": "2026-11-02T15:20:24Z",
+      "mergedAt": "2026-11-02T15:20:24Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "e4e85eaaa255fcb9aeb5b927c4d7d97336bc87c2"
+      },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOQpLumc8AAAABMVsObA",
+      "title": "Normative language check",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/39",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "SHOUDLs ones have to be conformant to https://datatracker.ietf.org/doc/statement-iesg-statement-on-clarifying-the-use-of-bcp-14-key-words/",
+      "createdAt": "2026-11-02T15:40:08Z",
+      "updatedAt": "2026-11-02T16:08:15Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "e4e85eaaa255fcb9aeb5b927c4d7d97336bc87c2",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "0859c5d6bfbcae734797a23c1e1d247168721910",
+      "closedAt": "2026-11-02T16:08:15Z",
+      "mergedAt": "2026-11-02T16:08:15Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "bc783f27b4927edc3dda5472b3b0961d43142535"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhRqsA",
+          "commit": {
+            "abbreviatedOid": "cdf3c11"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:42:10Z",
+          "updatedAt": "2026-11-02T15:42:10Z",
+          "comments": [
+            {
+              "originalPosition": 53,
+              "body": "The normative behavior is already in 5952, no need to be redundant here.",
+              "createdAt": "2026-11-02T15:42:10Z",
+              "updatedAt": "2026-11-02T15:42:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhSZEw",
+          "commit": {
+            "abbreviatedOid": "cdf3c11"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:43:03Z",
+          "updatedAt": "2026-11-02T15:43:03Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Call out the implications if the SHOULD is not followed",
+              "createdAt": "2026-11-02T15:43:03Z",
+              "updatedAt": "2026-11-02T15:43:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhS-ww",
+          "commit": {
+            "abbreviatedOid": "cdf3c11"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:43:40Z",
+          "updatedAt": "2026-11-02T15:43:40Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Indicate a case where the SHOULD can be safely ignored.\n\nAlso, I think this is NAT46 not NAT64",
+              "createdAt": "2026-11-02T15:43:40Z",
+              "updatedAt": "2026-11-02T15:43:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhTPsQ",
+          "commit": {
+            "abbreviatedOid": "cdf3c11"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:43:59Z",
+          "updatedAt": "2026-11-02T15:43:59Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "I would uplevel this one",
+              "createdAt": "2026-11-02T15:43:59Z",
+              "updatedAt": "2026-11-02T15:43:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhTfKA",
+          "commit": {
+            "abbreviatedOid": "cdf3c11"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:44:14Z",
+          "updatedAt": "2026-11-02T15:44:15Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "I would uplevel this one",
+              "createdAt": "2026-11-02T15:44:15Z",
+              "updatedAt": "2026-11-02T15:44:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhVDKw",
+          "commit": {
+            "abbreviatedOid": "cdf3c11"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:46:00Z",
+          "updatedAt": "2026-11-02T15:46:00Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\nApplications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}. Some applications (client or server) may not allow for IPv4 literals. \n```\n\nIndicate when the test can be done.",
+              "createdAt": "2026-11-02T15:46:00Z",
+              "updatedAt": "2026-11-02T15:46:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhVmPA",
+          "commit": {
+            "abbreviatedOid": "4b8361f"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:46:36Z",
+          "updatedAt": "2026-11-02T15:46:36Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "````suggestion\nApplications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}. Some applications (client or server) may not allow for IPv4 literals.\n````",
+              "createdAt": "2026-11-02T15:46:36Z",
+              "updatedAt": "2026-11-02T15:46:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhVm2w",
+          "commit": {
+            "abbreviatedOid": "4b8361f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-02T15:46:37Z",
+          "updatedAt": "2026-11-02T15:46:37Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "Indicate when the SHOULD can't be followed.",
+              "createdAt": "2026-11-02T15:46:37Z",
+              "updatedAt": "2026-11-02T15:46:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABVhn9mQ",
+          "commit": {
+            "abbreviatedOid": "0859c5d"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thank you again for the constructive feedback.\nBy unfortunate timing, I already submitted a new rev, but will include it for the next.",
+          "createdAt": "2026-11-02T16:07:38Z",
+          "updatedAt": "2026-11-02T16:07:38Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
