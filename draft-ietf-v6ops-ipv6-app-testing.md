@@ -132,7 +132,7 @@ Enabling these applications to communicate over IPv6 requires careful analysis o
 
 ## Requirements Language
 
-{::boilerplate bcp14+-tagged-bcp14}
+{::boilerplate bcp14-tagged-bcp14}
 
 ## Base Connectivity Scenarios
 
