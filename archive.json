@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-03T05:22:02.187090+00:00",
+  "timestamp": "2026-11-05T05:07:12.432926+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1524,6 +1524,48 @@
           "body": "Thank you again for the constructive feedback.\nBy unfortunate timing, I already submitted a new rev, but will include it for the next.",
           "createdAt": "2026-11-02T16:07:38Z",
           "updatedAt": "2026-11-02T16:07:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOQpLumc8AAAABMvkhYQ",
+      "title": "boilterplate fix",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/40",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-04T06:46:42Z",
+      "updatedAt": "2026-11-04T09:57:22Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "dfe8dc936bc35e0be975eb68ccfdce61b0b145c8",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "61a3f0515a05652730ac7ec99f39200e661138f5",
+      "closedAt": "2026-11-04T09:57:21Z",
+      "mergedAt": "2026-11-04T09:57:21Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "165b9ec999dbcf82bc513ebf21322b1de7b3f2fd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABV7aq6g",
+          "commit": {
+            "abbreviatedOid": "61a3f05"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Ok, let's get back to citing RFC2119 and RFC8174 instead of BCP14",
+          "createdAt": "2026-11-04T09:56:21Z",
+          "updatedAt": "2026-11-04T09:56:21Z",
           "comments": []
         }
       ]
