@@ -292,7 +292,7 @@ Table of Contents
    scenarios to include in a testing campaign for an ideal application
    that is supposed to run anywhere and how to approach testing complex
    cloud applications and exclude connectivity scenarios based on the
-   environment they are deployed in.
+   deployment environment.
 
 3.1.  Connectivity Scenarios
 
@@ -455,7 +455,7 @@ Table of Contents
    AAAA records prevents synthesis of DNS64 records.
 
    Testing with IPv4-Mapped IPv6 addresses [RFC4291] in AAAA resource
-   records is also recommended.  While this makes zero sense, it has
+   records is also RECOMMENDED.  While this makes zero sense, it has
    been seen in the wild and should not confuse the client.
 
 3.3.3.  DNS Delegation Issues
@@ -464,7 +464,8 @@ Table of Contents
    necessary domain names are resolvable from IPv4-only or IPv6-only-
    strict DNS resolvers.  [RFC10001] describes common misconfigurations
    breaking IPv4-only or IPv6-only-strict in detail and provides
-   guidance how to avoid these.
+   guidance how to avoid these.  Applications providing endpoints SHOULD
+   test against these misconfigurations.
 
 3.3.4.  Testing with IP Literals
 
@@ -586,7 +587,7 @@ Table of Contents
       should be tested.  As the source triggering application behavior
       is crucial for logging and auditing functionality, addresses
       recorded need to be verified to be represented correctly.  See
-      Section Section 3.9 about representation of addresses.
+      Section 3.9 about representation of addresses.
 
    *  Update: Depending on the application, update functions may be
       exercised during installation.  However, the application may have
@@ -613,8 +614,8 @@ Table of Contents
    connectivity scenarios are only controlled by the deployment of the
    application.
 
-   For external flows (i.e., flows outside the developers' control),
-   usually all base scenarios from Section 3.1 MUST be accounted for.
+   For external flows (i.e., flows outside the developers' control), all
+   base scenarios from Section 3.1 MUST be accounted for.
 
    If one side of the flow is under administrative control, the number
    of scenario combinations can still be limited: For example, a cloud
@@ -755,7 +756,7 @@ Table of Contents
    IPv4-only testing is also possible.
 
    The most relevant case for this strategy is testing Web applications.
-   By examining the Web browsers' performance log or using a plugin like
+   By examining the Web browser performance log or using a plugin like
    [IPvFoo] that visualizes connectivity information, the tester can
    determine whether all resources are available using IPv6.
 
