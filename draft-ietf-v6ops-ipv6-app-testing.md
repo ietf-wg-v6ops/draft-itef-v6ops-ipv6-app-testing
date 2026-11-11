@@ -193,7 +193,7 @@ i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only wi
 
 This document does not include application-specific testing. For example, some IETF specifications (e.g., SIP {{?RFC3261}}) contains broken IPv6 Augmented Backus-Naur Form (ABNF) and rules to compare URIs with embedded IPv6 addresses; fixes (e.g., {{?RFC5954}}) must be used instead. Testing and validation of such application-specific matters are out the scope of this document.
 
-The following subsections provide guidance on which connectivity scenarios to include in a testing campaign for an ideal application that is supposed to run anywhere and how to approach testing complex cloud applications and exclude connectivity scenarios based on the environment they are deployed in.
+The following subsections provide guidance on which connectivity scenarios to include in a testing campaign for an ideal application that is supposed to run anywhere and how to approach testing complex cloud applications and exclude connectivity scenarios based on the deployment environment.
 
 ## Connectivity Scenarios {#scenarios}
 
@@ -287,13 +287,14 @@ CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
 local NAT64 address (e.g., as when implementing Happy Eyeballs v2 {{RFC8305}}).
 IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.
 
-Testing with IPv4-Mapped IPv6 addresses {{RFC4291}} in AAAA resource records is also recommended.
+Testing with IPv4-Mapped IPv6 addresses {{RFC4291}} in AAAA resource records is also RECOMMENDED.
 While this makes zero sense, it has been seen in the wild and should not confuse the client.
 
 ### DNS Delegation Issues
 
 Integration testing for cloud applications MUST verify that the necessary domain names are resolvable from IPv4-only or IPv6-only-strict DNS resolvers.
 {{?RFC10001}} describes common misconfigurations breaking IPv4-only or IPv6-only-strict in detail and provides guidance how to avoid these.
+Applications providing endpoints SHOULD test against these misconfigurations.
 
 ### Testing with IP Literals
 
@@ -366,7 +367,7 @@ In particular, the following MUST be considered:
 - Management: Depending on the application, management functions may be provided via the user interface.
   However, the application may have additional management functions (SNMP, syslog, etc.) that should be tested.
   As the source triggering application behavior is crucial for logging and auditing functionality,
-  addresses recorded need to be verified to be represented correctly. See Section {{addr-as-data}} about representation of addresses.
+  addresses recorded need to be verified to be represented correctly. See {{addr-as-data}} about representation of addresses.
 
 - Update: Depending on the application, update functions may be exercised during installation. However, the application
   may have additional update functions (e.g., automatic updates or manual update mechanisms) that should be tested.
@@ -384,7 +385,7 @@ Therefore, an end-to-end test case breaks down to a series of flows between comp
 it MUST be determine whether it is necessary to apply the connectivity scenarios from {{scn_combinations}} to it,
 or whether the connectivity scenarios are only controlled by the deployment of the application.
 
-For external flows (i.e., flows outside the developers' control), usually all base scenarios from {{scenarios}} MUST be accounted for.
+For external flows (i.e., flows outside the developers' control), all base scenarios from {{scenarios}} MUST be accounted for.
 
 If one side of the flow is under administrative control, the number of scenario combinations can still be limited:
 For example, a cloud software provider choosing to deploy Dual-stack endpoints can skip all non-Dual-stack cases on the respective side of the communication.
@@ -467,7 +468,7 @@ Client-based tracing is especially useful when Dual-stack servers and clients ar
 By using the clients' logging/tracing/debugging functionality, the tester can verify that the actual data flows happen over IPv6, which is preferred by most network abstractions. If the client allows changing the preference between IPv6 and IPv4, IPv4-only testing is also possible.
 
 The most relevant case for this strategy is testing Web applications.
-By examining the Web browsers' performance log or using a plugin like {{IPvFoo}} that visualizes connectivity information, the tester can determine whether all resources are available using IPv6.
+By examining the Web browser performance log or using a plugin like {{IPvFoo}} that visualizes connectivity information, the tester can determine whether all resources are available using IPv6.
 
 ## Server-based Tracing
 
