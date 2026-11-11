@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 14 May 2027                                           B. Patton
+Expires: 15 May 2027                                           B. Patton
                                                                  UNH-IOL
-                                                        10 November 2026
+                                                        11 November 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 May 2027.
+   This Internet-Draft will expire on 15 May 2027.
 
 Copyright Notice
 
@@ -135,15 +135,16 @@ Table of Contents
    achieve this, applications need to be verified against all these
    scenarios.
 
-   While the availability of IPv6 support in applications has a
-   considerable impact on the success of IPv6 deployment, there exists
-   no documented best current practices how to do so.  There are,
-   however, some documentation about specific applications such as SIP
-   torture tests for IPv6 [RFC5118].  Testing IPv6 compliance of network
-   gear and Operating Systems (OSes) has been documented extensively.
-   While the IETF does not define compliance tests, best current
-   practice exists for the behavior of general IPv6 nodes [RFC8504] and
-   Customer Edge (CE) routers [RFC7084bis].
+   The availability of IPv6 support in applications, from small command-
+   line tools to huge cloud-based distributed applications like modern
+   ERP systems, has a considerable impact on the success of IPv6
+   deployment.  While the IETF does not define compliance tests, best
+   current practice exists for the behavior of general IPv6 nodes
+   [RFC8504] and Customer Edge (CE) routers [RFC7084bis], as well as for
+   test SIP-based applications [RFC5118].  However, at the time of
+   writing this, there exists no documented best current practices on
+   how to test whether applications are ready for Dual-stack and
+   IPv6-only environments.
 
    To fill that gap, this document provides guidance for application
    developers and cloud application providers on how to approach IPv6
@@ -151,12 +152,12 @@ Table of Contents
    include, which communication scenarios they should consider
    validating against, and which common regressions to avoid when adding
    IPv6 support.  While many application developers assume that the
-   network abstractions of the OS, communication libraries, and
-   application frameworks will handle the transition towards IPv6
-   transparently, leaky abstractions within these frameworks will make
-   it difficult for an application developer to write address family-
-   independent code for features such as allow/deny lists, tracing, and
-   logging.
+   network abstractions of the OS, communication libraries, application
+   frameworks, or embedded platforms will handle the transition towards
+   IPv6 transparently, leaky abstractions within these frameworks will
+   make it difficult for an application developer to write address
+   family-independent code for features such as allow/deny lists,
+   tracing, and logging.
 
    Testing cloud applications poses an additional challenge, as these
    are typically composed of hundreds to thousands of micro and
@@ -166,6 +167,27 @@ Table of Contents
    analysis of data flows towards services, between components, and
    towards external services as well as analysis where IPv6 addresses
    may occur as metadata.
+
+   As the scope of applications to be guided by this document ranges
+   from small command-line tools to huge cloud-based systems, not all
+   details discussed here are relevant for all applications.  However,
+   the underlying idea of how to approach IPv6 application testing is
+   the same for all of these: Don't invent new tests for IPv6, but
+   instead test whether the functional correctness is given irrespective
+   of the address family used for communication.  In cases where IP
+   addresses are processed as data, make sure to update the tests to
+   support IPv4 and IPv6 addressees.
+
+   The remainder of this document is organized as follows: Section 2
+   contains the base definitions and scenarios used throughout the
+   document.  Section 3 provides guidance on testing objectives and
+   dimensions that should be considered in an IPv6 testing campaign.
+   Section 4 presents practical testing strategies for setting up the
+   scenarios defined in Section 3 without building all scenarios within
+   a lab environment.  Section 5 describes common sources of
+   IPv6-related failures and misbehavior that application developers and
+   testers should be aware of.  Finally, {#ops} describes operational
+   considerations to keep in mind while designing end-to-end tests.
 
 2.  Conventions and Definitions
 
