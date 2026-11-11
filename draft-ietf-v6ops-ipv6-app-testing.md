@@ -116,19 +116,30 @@ China {{CN-CAC-2023}}, the United States of America {{US-OMB-M-21-07}}, Germany 
 IPv6 support thus means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.
 
-While the availability of IPv6 support in applications has a considerable impact on the success of IPv6 deployment,
-there exists no documented best current practices how to do so. There are, however, some documentation about specific applications such as SIP torture tests for IPv6 {{?RFC5118}}.
-Testing IPv6 compliance of network gear and Operating Systems (OSes) has been documented extensively.
-While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}.
+The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications like modern ERP systems, has a considerable impact on the success of IPv6 deployment.
+While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}, as well as for test SIP-based applications {{?RFC5118}}.
+However, at the time of writing this, there exists no documented best current practices on how to test whether applications are ready for Dual-stack and IPv6-only environments.
 
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes the parts of an application lifecycle to include, which communication scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
-While many application developers assume that the network abstractions of the OS, communication libraries, and application frameworks will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists, tracing, and logging.
+While many application developers assume that the network abstractions of the OS, communication libraries, application frameworks, or embedded platforms will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists, tracing, and logging.
 
 Testing cloud applications poses an additional challenge, as these are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
 Enabling these applications to communicate over IPv6 requires careful analysis of data flows towards services, between components, and towards external services as well as analysis where IPv6 addresses may occur as metadata.
 
-# Conventions and Definitions
+As the scope of applications to be guided by this document ranges from small command-line tools to huge cloud-based systems,
+not all details discussed here are relevant for all applications.
+However, the underlying idea of how to approach IPv6 application testing is the same for all of these:
+Don't invent new tests for IPv6, but instead test whether the functional correctness is given irrespective of the address family used for communication. In cases where IP addresses are processed as data, make sure to update the tests to support IPv4 and IPv6 addressees.
+
+The remainder of this document is organized as follows:
+{{definitions}} contains the base definitions and scenarios used throughout the document.
+{{objectives}} provides guidance on testing objectives and dimensions that should be considered in an IPv6 testing campaign.
+{{strategies}} presents practical testing strategies for setting up the scenarios defined in {{objectives}} without building all scenarios within a lab environment.
+{{failures}} describes common sources of IPv6-related failures and misbehavior that application developers and testers should be aware of.
+Finally, {#ops} describes operational considerations to keep in mind while designing end-to-end tests.
+
+# Conventions and Definitions {#definitions}
 
 ## Requirements Language
 
@@ -413,7 +424,7 @@ Applications MUST be tested whether they follow {{!RFC5952}} when rendering IPv6
 as required by national regulations like {{US-NIST.SP.500-267Ar1}},
 while accepting all valid representations defined in {{!RFC4291}}.
 
-# Testing Strategies
+# Testing Strategies {#strategies}
 
 Naive IPv6 testing, based on end-to-end functional tests as outlined in {{objectives}}, would require running a set of functional tests in various connectivity scenarios.
 In certain environments, setting up test cases for all scenarios can become forbiddingly expensive,
@@ -550,7 +561,7 @@ Address changes, e.g., through Happy Eyeballs implementations trying switching a
 In practice, many IPv6-related regressions uncovered during testing turn out to be caused by hidden components outside of the application developers' control.
 Middleboxes (e.g., firewalls, virus scanners, and intrusion detection systems) can break end-to-end tests in surprising ways, like terminating TLS sessions over IPv6 with certain extensions in the _TLS client hello_ while correctly passing the same flow over IPv4.
 
-# Operational Considerations
+# Operational Considerations {#ops}
 
 Lab testing of applications for IPv6 compliance should always have the next step in mind: Deploying the application and providing the users with decent IPv6 support.
 Therefore, end-to-end tests, especially of cloud applications, should also keep deployment steps, prerequisites, and risks in mind.
