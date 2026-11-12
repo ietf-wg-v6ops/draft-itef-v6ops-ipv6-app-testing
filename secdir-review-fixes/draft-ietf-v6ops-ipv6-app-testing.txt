@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 15 May 2027                                           B. Patton
+Expires: 16 May 2027                                           B. Patton
                                                                  UNH-IOL
-                                                        11 November 2026
+                                                        12 November 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 May 2027.
+   This Internet-Draft will expire on 16 May 2027.
 
 Copyright Notice
 
@@ -97,7 +97,7 @@ Table of Contents
      4.5.  Network-based Tracing
    5.  Common Sources of IPv6 Related Failures and Misbehavior
      5.1.  Enable IPv6 Feature Gates
-     5.2.  Ignoring to test Management and Control Interfaces
+     5.2.  Ignoring to Test Management and Control Interfaces
      5.3.  Destination Address Selection Preference and Address
            Filtering
      5.4.  Listening on IPv4 Only
@@ -136,15 +136,15 @@ Table of Contents
    scenarios.
 
    The availability of IPv6 support in applications, from small command-
-   line tools to huge cloud-based distributed applications like modern
-   ERP systems, has a considerable impact on the success of IPv6
-   deployment.  While the IETF does not define compliance tests, best
-   current practice exists for the behavior of general IPv6 nodes
-   [RFC8504] and Customer Edge (CE) routers [RFC7084bis], as well as for
-   test SIP-based applications [RFC5118].  However, at the time of
-   writing this, there exists no documented best current practices on
-   how to test whether applications are ready for Dual-stack and
-   IPv6-only environments.
+   line tools to huge cloud-based distributed applications like
+   Enterprise Resource Planning (ERP) systems, has a considerable impact
+   on the success of IPv6 deployment.  While the IETF does not define
+   compliance tests, best current practice exists for the behavior of
+   general IPv6 nodes [RFC8504] and Customer Edge (CE) routers
+   [RFC7084bis], as well as for test SIP-based applications [RFC5118].
+   However, at the time of writing this document, there exists no
+   documented best current practices on how to test whether applications
+   are ready for Dual-stack and IPv6-only environments.
 
    To fill that gap, this document provides guidance for application
    developers and cloud application providers on how to approach IPv6
@@ -152,7 +152,7 @@ Table of Contents
    include, which communication scenarios they should consider
    validating against, and which common regressions to avoid when adding
    IPv6 support.  While many application developers assume that the
-   network abstractions of the OS, communication libraries, application
+   network abstractions of an OS, communication libraries, application
    frameworks, or embedded platforms will handle the transition towards
    IPv6 transparently, leaky abstractions within these frameworks will
    make it difficult for an application developer to write address
@@ -186,7 +186,7 @@ Table of Contents
    scenarios defined in Section 3 without building all scenarios within
    a lab environment.  Section 5 describes common sources of
    IPv6-related failures and misbehavior that application developers and
-   testers should be aware of.  Finally, {#ops} describes operational
+   testers should be aware of.  Finally, Section 6 describes operational
    considerations to keep in mind while designing end-to-end tests.
 
 2.  Conventions and Definitions
@@ -311,7 +311,7 @@ Table of Contents
    include Dual-stack clients combined with IPv4-only and IPv6-only-
    strict servers, to test whether the additional address family
    confused the client.  The document also includes the cases with Dual-
-   stack server and IPv4-only as well as UPv6-only clients, to test
+   stack server and IPv4-only as well as IPv6-only clients, to test
    whether a single address family at client side works as anticipated
    and look at the transition case using NAT64.
 
@@ -445,7 +445,7 @@ Table of Contents
    Happy Eyeballs [RFC8305] or trying the next resolved address
    candidate after timeout.  Especially for the latter, it is advisable
    to verify whether the connection delay is acceptable for the desired
-   use-case.
+   use case.
 
    IPv6-only clients with NAT64 are only expected to work with broken
    AAAA records when deployed with CLAT (should behave like Dual-stack
@@ -614,8 +614,8 @@ Table of Contents
    connectivity scenarios are only controlled by the deployment of the
    application.
 
-   For external flows (i.e., flows outside the developers' control), all
-   base scenarios from Section 3.1 MUST be accounted for.
+   For external flows (i.e., flows outside the application developers'
+   control), all base scenarios from Section 3.1 MUST be accounted for.
 
    If one side of the flow is under administrative control, the number
    of scenario combinations can still be limited: For example, a cloud
@@ -806,7 +806,7 @@ Table of Contents
    component specific, every component needs to be checked to determine
    whether IPv6 support needs extra configuration.
 
-5.2.  Ignoring to test Management and Control Interfaces
+5.2.  Ignoring to Test Management and Control Interfaces
 
    Ignoring management and control interfaces when enabling and testing
    applications for IPv6-only operation turns out to be a common
@@ -821,7 +821,7 @@ Table of Contents
    address families (Rule 2) and clearly prioritizes IPv6 GUA addresses
    over IPv4 addresses.  While most OSes and some alternative resolver
    libraries, such as [C-ARES], implement [RFC6724] or its predecessor
-   [RFC3484] correctly, there are a number of notable and widely used
+   [RFC3484] correctly, there is a number of notable and widely used
    implementations that implement something else, causing unexpected
    behavior and other hard-to-debug errors.
 
