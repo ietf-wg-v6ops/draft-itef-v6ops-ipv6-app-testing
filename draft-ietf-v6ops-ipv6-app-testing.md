@@ -50,6 +50,7 @@ informative:
   RFC7084bis: I-D.ietf-v6ops-rfc7084bis
   V6MOPS: I-D.ietf-v6ops-6mops
   RFC6146-bis: I-D.ietf-v6ops-rfc6146-bis
+  RFC6724-update: I-D.ietf-6man-rfc6724-update
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
     title: 2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application
@@ -505,10 +506,11 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 
 ## Destination Address Selection Preference and Address Filtering
 
-The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
-and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most OSes and some alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} or its predecessor {{?RFC3484}} correctly,
-there is a number of notable and widely used implementations that implement something else, causing  unexpected behavior and other hard-to-debug errors.
+The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1) and
+de-prioritizes non-matching address families (Rule 2) and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
+Most OSes and some alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} or its predecessor {{?RFC3484}} correctly while, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
+
+Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing  unexpected behavior and other hard-to-debug errors:
 
 - Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
   To prefer IPv6 addresses over IPv4, one needs to set the system property ```java.net.preferIPv6Addresses=true```.
