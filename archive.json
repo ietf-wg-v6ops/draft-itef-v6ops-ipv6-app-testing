@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-05T05:07:12.432926+00:00",
+  "timestamp": "2026-11-12T05:45:39.169936+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1569,6 +1569,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOQpLumc8AAAABONffeg",
+      "title": "Secdir Review Issues",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/41",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-10T20:48:04Z",
+      "updatedAt": "2026-11-11T13:42:39Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "165b9ec999dbcf82bc513ebf21322b1de7b3f2fd",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "secdir-review-fixes",
+      "headRefOid": "4a3785dd69a0dd94e3a77d00c2744767ddccb71f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
