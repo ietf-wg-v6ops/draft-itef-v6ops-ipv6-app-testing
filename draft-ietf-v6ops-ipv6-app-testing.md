@@ -314,25 +314,27 @@ Applications SHOULD be tested to determine whether they work as expected with li
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
 When multiple address families are available, IP packets may traverse different forwarding paths depending on the address family.
-Even when the same path is traversed, the path can exhibit distinct behaviors (e.g., dropping all or particular packets), especially in the presence of middleboxes.
+Even when the same path is traversed, the path can exhibit distinct behaviors, especially in the presence of middleboxes, including:
 
-Even when communication endpoints are expected to be reachable using both address families,
-there are failure scenarios where some endpoints are only reachable using IPv6,
-while others are only reachable using IPv4.
-Disabling either address family therefore may break a scenario that seems to function correctly on first glance.
+ - Dropping all packets
+ - Dropping particular packets, e.g., TCP vs. UDP packets, packets to different ports
+ - Preventing the use of QUIC
+ - Behaving differently for the same values of ECN or DSCP fields
+ - Exhibit a different Maximum Transmission Unit (MTU)
+ - Dropping ICMP and breaking MTU discovery
+ - Dropping fragmented packets
+ - Block certain protocol features, e.g., certain extensions or ciphers in TLS handshake
+
+In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity,
+while dual-stack clients often mask such failures by automatically falling back to another address family.
+Disabling either address family may therefore break a scenario that seems to function correctly at first glance.
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.
 
-In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
-In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity in these scenarios,
-while dual-stack clients often mask such failures by automatically falling back to another address family.
-
-In addition to partial blackholing, MTU issues may be limited to one address family or behave differently with respect to aspects like
-MTU available, dropping of fragmented packets, and ICMP messages generated.
-As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working ICMP *packet too big* reporting.
-
-During deployment and integration testing, checking for partial blackholing and MTU issues MUST be done by testing with IPv4-only and IPv6-only-strict clients to detect such blackholes.
-In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.
+While this document provides no comprehensive guide on how to test for these network issues,
+it REQUIRES to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.
+Note that in some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake / QUIC initial packet, but before a TLS handshake succeeds.
+Because these issues can occur outside the testers' control, it is advisable to simulate them and ensure the application's behavior supports detecting and analyzing these errors.
 
 ## Testing without IPv4 Loopback Addresses (127.0.0.0/8)
 
