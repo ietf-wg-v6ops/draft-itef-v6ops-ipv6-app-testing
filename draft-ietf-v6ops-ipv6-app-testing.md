@@ -116,13 +116,13 @@ China {{CN-CAC-2023}}, the United States of America {{US-OMB-M-21-07}}, Germany 
 IPv6 support thus means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.
 
-The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications like modern ERP systems, has a considerable impact on the success of IPv6 deployment.
+The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications like Enterprise Resource Planning (ERP) systems, has a considerable impact on the success of IPv6 deployment.
 While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}, as well as for test SIP-based applications {{?RFC5118}}.
-However, at the time of writing this, there exists no documented best current practices on how to test whether applications are ready for Dual-stack and IPv6-only environments.
+However, at the time of writing this document, there exists no documented best current practices on how to test whether applications are ready for Dual-stack and IPv6-only environments.
 
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes the parts of an application lifecycle to include, which communication scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
-While many application developers assume that the network abstractions of the OS, communication libraries, application frameworks, or embedded platforms will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists, tracing, and logging.
+While many application developers assume that the network abstractions of an OS, communication libraries, application frameworks, or embedded platforms will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists, tracing, and logging.
 
 Testing cloud applications poses an additional challenge, as these are typically composed of hundreds to thousands of micro and macroservices, forming a complex distributed system that requires intricate communication and orchestration infrastructure to operate.
 Enabling these applications to communicate over IPv6 requires careful analysis of data flows towards services, between components, and towards external services as well as analysis where IPv6 addresses may occur as metadata.
@@ -137,7 +137,7 @@ The remainder of this document is organized as follows:
 {{objectives}} provides guidance on testing objectives and dimensions that should be considered in an IPv6 testing campaign.
 {{strategies}} presents practical testing strategies for setting up the scenarios defined in {{objectives}} without building all scenarios within a lab environment.
 {{failures}} describes common sources of IPv6-related failures and misbehavior that application developers and testers should be aware of.
-Finally, {#ops} describes operational considerations to keep in mind while designing end-to-end tests.
+Finally, {{ops}} describes operational considerations to keep in mind while designing end-to-end tests.
 
 # Conventions and Definitions {#definitions}
 
@@ -202,7 +202,7 @@ Note, while the involved parties are listed here as "client" and "server" to ref
 
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {complex-apps} for further discussion).
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
-The document also includes the cases with Dual-stack server and IPv4-only as well as UPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
+The document also includes the cases with Dual-stack server and IPv4-only as well as IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
 
 This document does not include any special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{V6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
 
@@ -280,7 +280,7 @@ e.g., to an old or planned deployment.
 For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.
 
 For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs {{!RFC8305}} or trying the next resolved address candidate after timeout.
-Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use-case.
+Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.
 
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
@@ -385,7 +385,7 @@ Therefore, an end-to-end test case breaks down to a series of flows between comp
 it MUST be determine whether it is necessary to apply the connectivity scenarios from {{scn_combinations}} to it,
 or whether the connectivity scenarios are only controlled by the deployment of the application.
 
-For external flows (i.e., flows outside the developers' control), all base scenarios from {{scenarios}} MUST be accounted for.
+For external flows (i.e., flows outside the application developers' control), all base scenarios from {{scenarios}} MUST be accounted for.
 
 If one side of the flow is under administrative control, the number of scenario combinations can still be limited:
 For example, a cloud software provider choosing to deploy Dual-stack endpoints can skip all non-Dual-stack cases on the respective side of the communication.
@@ -498,7 +498,7 @@ Some applications completely ignore IPv6 unless explicitly configured to enable 
 This adds another class of user or configuration errors, like deploying an application without enabled IPv6 support in an IPv6-only environment.
 As these feature gates are often buried deeply in the documentation and are often vendor, product, or component specific, every component needs to be checked to determine whether IPv6 support needs extra configuration.
 
-## Ignoring to test Management and Control Interfaces
+## Ignoring to Test Management and Control Interfaces
 
 Ignoring management and control interfaces when enabling and testing applications for IPv6-only operation turns out to be a common pattern.
 As already discussed in {{lifecycle-considerations}}, special care should be taken to cover all of these flows and avoid setups that require Dual-stack deployment.
@@ -508,7 +508,7 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
 and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
 While most OSes and some alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} or its predecessor {{?RFC3484}} correctly,
-there are a number of notable and widely used implementations that implement something else, causing  unexpected behavior and other hard-to-debug errors.
+there is a number of notable and widely used implementations that implement something else, causing  unexpected behavior and other hard-to-debug errors.
 
 - Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
   To prefer IPv6 addresses over IPv4, one needs to set the system property ```java.net.preferIPv6Addresses=true```.
