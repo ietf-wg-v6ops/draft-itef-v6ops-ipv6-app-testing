@@ -490,7 +490,7 @@ While this is the least invasive method of testing IPv6-only-strict scenarios in
 
 This section discusses special failure modes that can cause unexpected application behavior that is hard to debug.
 
-Some of these cases can be automatically mitigated, especially by using Happy Eyeballs {{!RFC8305}} or similar techniques.
+Some of these cases can be automatically mitigated, especially by using Happy Eyeballs {{?RFC8305}} or similar techniques.
 In cases when where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.
 
 ## Enable IPv6 Feature Gates
