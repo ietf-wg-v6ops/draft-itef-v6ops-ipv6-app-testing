@@ -1918,29 +1918,29 @@ As already discussed in <a href="#lifecycle-considerations" class="auto internal
         <h3 id="name-destination-address-selecti">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
         </h3>
-<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1) and de-prioritizes non-matching address families (Rule 2)
-and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-While most OSes and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly,
-there is a number of notable and widely used implementations that implement something else, causing  unexpected behavior and other hard-to-debug errors.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1) and
+de-prioritizes non-matching address families (Rule 2) and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
+Most OSes and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly while, at the time of writing this document, major operating systems are still implementing the old behavior from <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> -- if an application relies on behavior updated through <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or <span>[<a href="#RFC6724-update" class="cite xref">RFC6724-update</a>]</span>, especially preference of ULA, integration testing against this behavior SHOULD be performed.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span>, causing  unexpected behavior and other hard-to-debug errors:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.3-2.1">
-            <p id="section-5.3-2.1.1">Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
-To prefer IPv6 addresses over IPv4, one needs to set the system property <code>java.net.preferIPv6Addresses=true</code>.<a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3-3.1">
+            <p id="section-5.3-3.1.1">Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
+To prefer IPv6 addresses over IPv4, one needs to set the system property <code>java.net.preferIPv6Addresses=true</code>.<a href="#section-5.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-2.2">
-            <p id="section-5.3-2.2.1">Some applications only use the first address candidate from the <code>getaddrinfo()</code> and fail if the connection attempt to that one fails.<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-3.2">
+            <p id="section-5.3-3.2.1">Some applications only use the first address candidate from the <code>getaddrinfo()</code> and fail if the connection attempt to that one fails.<a href="#section-5.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-2.3">
-            <p id="section-5.3-2.3.1">Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.<a href="#section-5.3-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-3.3">
+            <p id="section-5.3-3.3.1">Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.<a href="#section-5.3-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-2.4">
-            <p id="section-5.3-2.4.1">NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a <em>AAAA</em> resource record to a backend can render that backend unusable.
+          <li class="normal" id="section-5.3-3.4">
+            <p id="section-5.3-3.4.1">NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a <em>AAAA</em> resource record to a backend can render that backend unusable.
 After having resolved a <em>AAAA</em> resource record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
-As socket creation failure is not expected, an internal server error is sent back to the client. <span>[<a href="#NGINX.trac-552" class="cite xref">NGINX.trac-552</a>]</span><a href="#section-5.3-2.4.1" class="pilcrow">¶</a></p>
+As socket creation failure is not expected, an internal server error is sent back to the client. <span>[<a href="#NGINX.trac-552" class="cite xref">NGINX.trac-552</a>]</span><a href="#section-5.3-3.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-2.5">
-            <p id="section-5.3-2.5.1">Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
-This becomes cumbersome especially in split-VPN use cases (e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity).<a href="#section-5.3-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-3.5">
+            <p id="section-5.3-3.5.1">Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
+This becomes cumbersome especially in split-VPN use cases (e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity).<a href="#section-5.3-3.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2195,6 +2195,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC6146-bis">[RFC6146-bis]</dt>
         <dd>
 <span class="refAuthor">Bagnulo, M.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. P. Martinez</span>, <span class="refTitle">"Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc6146-bis-16</span>, <time datetime="2026-09-04" class="refDate">4 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6724-update">[RFC6724-update]</dt>
+        <dd>
+<span class="refAuthor">Buraglio, N.</span>, <span class="refAuthor">Chown, T.</span>, and <span class="refAuthor">J. Duncan</span>, <span class="refTitle">"Prioritizing known-local IPv6 ULAs through address selection policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-6man-rfc6724-update-25</span>, <time datetime="2025-08-11" class="refDate">11 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25">https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6724-update-25</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6762">[RFC6762]</dt>
         <dd>
