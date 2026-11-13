@@ -3,7 +3,7 @@ v: 3
 stand_alone: yes
 smart_quotes: no
 pi: [toc, sortrefs, symrefs]
-title: "Testing Applications' IPv6 Support"
+title: "IPv6 Testing Best-Practices for Applications"
 abbrev: "ipv6-app-testing"
 docname: draft-ietf-v6ops-ipv6-app-testing-latest
 submissiontype: IETF
