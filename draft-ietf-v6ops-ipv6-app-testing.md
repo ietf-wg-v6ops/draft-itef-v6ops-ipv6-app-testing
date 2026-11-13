@@ -506,7 +506,7 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 
 ## Destination Address Selection Preference and Address Filtering
 
-The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1), 
+The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1),
 de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
 Some OSes and alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
 
