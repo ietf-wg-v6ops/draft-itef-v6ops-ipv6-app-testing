@@ -118,7 +118,7 @@ IPv6 support thus means being fully functional in the absence of IPv4 and transi
 Therefore, applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.
 
 The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications like Enterprise Resource Planning (ERP) systems, has a considerable impact on the success of IPv6 deployment.
-While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}, as well as for test SIP-based applications {{?RFC5118}}.
+While the IETF does not define compliance tests, best current practices exist for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}, as well as for test SIP-based applications {{?RFC5118}}.
 However, at the time of writing this document, there exists no documented best current practices on how to test whether applications are ready for Dual-stack and IPv6-only environments.
 
 To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
@@ -203,7 +203,7 @@ Note, while the involved parties are listed here as "client" and "server" to ref
 
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {complex-apps} for further discussion).
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
-The document also includes the cases with Dual-stack server and IPv4-only as well as IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
+The document also includes the cases with Dual-stack server and both IPv4-only and IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
 
 This document does not include any special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{V6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
 
@@ -317,8 +317,8 @@ When multiple address families are available, IP packets may traverse different 
 Even when the same path is traversed, the path can exhibit distinct behaviors (e.g., dropping all or particular packets), especially in the presence of middleboxes.
 
 Even when communication endpoints are expected to be reachable using both address families,
-there are failure scenarios where some endpoints end up only being reachable using IPv6,
-while others end up only being reachable using IPv4.
+there are failure scenarios where some endpoints are only reachable using IPv6,
+while others are only reachable using IPv4.
 Disabling either address family therefore may break a scenario that seems to function correctly on first glance.
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.
@@ -491,7 +491,7 @@ While this is the least invasive method of testing IPv6-only-strict scenarios in
 This section discusses special failure modes that can cause unexpected application behavior that is hard to debug.
 
 Some of these cases can be automatically mitigated, especially by using Happy Eyeballs {{?RFC8305}} or similar techniques.
-In cases when where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.
+In cases where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.
 
 ## Enable IPv6 Feature Gates
 
@@ -506,11 +506,11 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 
 ## Destination Address Selection Preference and Address Filtering
 
-The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1) and
-de-prioritizes non-matching address families (Rule 2) and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-Most OSes and some alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} or its predecessor {{?RFC3484}} correctly while, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
+The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1), 
+de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
+Some OSes and alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
 
-Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing  unexpected behavior and other hard-to-debug errors:
+Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing unexpected behavior and other hard-to-debug errors:
 
 - Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
   To prefer IPv6 addresses over IPv4, one needs to set the system property ```java.net.preferIPv6Addresses=true```.
