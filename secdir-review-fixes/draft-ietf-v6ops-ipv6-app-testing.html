@@ -1055,7 +1055,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 16 May 2027</td>
+<td class="center">Expires 17 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-12" class="published">12 November 2026</time>
+<time datetime="2026-11-13" class="published">13 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-16">16 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-17">17 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1127,7 +1127,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1326,7 +1326,7 @@ China <span>[<a href="#CN-CAC-2023" class="cite xref">CN-CAC-2023</a>]</span>, t
 IPv6 support thus means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications like Enterprise Resource Planning (ERP) systems, has a considerable impact on the success of IPv6 deployment.
-While the IETF does not define compliance tests, best current practice exists for the behavior of general IPv6 nodes <span>[<a href="#RFC8504" class="cite xref">RFC8504</a>]</span> and Customer Edge (CE) routers <span>[<a href="#RFC7084bis" class="cite xref">RFC7084bis</a>]</span>, as well as for test SIP-based applications <span>[<a href="#RFC5118" class="cite xref">RFC5118</a>]</span>.
+While the IETF does not define compliance tests, best current practices exist for the behavior of general IPv6 nodes <span>[<a href="#RFC8504" class="cite xref">RFC8504</a>]</span> and Customer Edge (CE) routers <span>[<a href="#RFC7084bis" class="cite xref">RFC7084bis</a>]</span>, as well as for test SIP-based applications <span>[<a href="#RFC5118" class="cite xref">RFC5118</a>]</span>.
 However, at the time of writing this document, there exists no documented best current practices on how to test whether applications are ready for Dual-stack and IPv6-only environments.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">To fill that gap, this document provides guidance for application developers and cloud application providers on how to approach IPv6 testing.
 It describes the parts of an application lifecycle to include, which communication scenarios they should consider validating against, and which common regressions to avoid when adding IPv6 support.
@@ -1462,7 +1462,7 @@ i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only wi
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering Peer-to-Peer (P2P) applications -- with "client" representing the initiating or first acting party.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The first five scenarios marked as <em>base</em> should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {complex-apps} for further discussion).
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
-The document also includes the cases with Dual-stack server and IPv4-only as well as IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+The document also includes the cases with Dual-stack server and both IPv4-only and IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">This document does not include any special scenarios for 464XLAT <span>[<a href="#RFC6877" class="cite xref">RFC6877</a>]</span> and IPv6-Mostly <span>[<a href="#V6MOPS" class="cite xref">V6MOPS</a>]</span>, as these architectures are from the client side indistinguishable from the Dual-stack or IPv6-only with NAT64 (IPv6-Mostly without CLAT).<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.1-4">MTU issues, as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-6mops-12#section-7.4.5" class="relref">Section 7.4.5</a> of [<a href="#V6MOPS" class="cite xref">V6MOPS</a>]</span>, that may arise form these scenarios are covered in <a href="#partially-broken" class="auto internal xref">Section 3.4</a>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.1-5">This document also do not separate IPv4-only cases with and without NAT, despite that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
@@ -1686,8 +1686,8 @@ Applications SHOULD be tested to determine whether they work as expected with li
 <p id="section-3.4-1">When multiple address families are available, IP packets may traverse different forwarding paths depending on the address family.
 Even when the same path is traversed, the path can exhibit distinct behaviors (e.g., dropping all or particular packets), especially in the presence of middleboxes.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Even when communication endpoints are expected to be reachable using both address families,
-there are failure scenarios where some endpoints end up only being reachable using IPv6,
-while others end up only being reachable using IPv4.
+there are failure scenarios where some endpoints are only reachable using IPv6,
+while others are only reachable using IPv4.
 Disabling either address family therefore may break a scenario that seems to function correctly on first glance.
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
@@ -1893,7 +1893,7 @@ If this can be verified, failures in IPv6-only-strict environments are unlikely.
       </h2>
 <p id="section-5-1">This section discusses special failure modes that can cause unexpected application behavior that is hard to debug.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">Some of these cases can be automatically mitigated, especially by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or similar techniques.
-In cases when where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.<a href="#section-5-2" class="pilcrow">¶</a></p>
+In cases where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <div id="enable-ipv6-feature-gates">
 <section id="section-5.1">
         <h3 id="name-enable-ipv6-feature-gates">
@@ -1918,10 +1918,10 @@ As already discussed in <a href="#lifecycle-considerations" class="auto internal
         <h3 id="name-destination-address-selecti">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-destination-address-selecti" class="section-name selfRef">Destination Address Selection Preference and Address Filtering</a>
         </h3>
-<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1) and
-de-prioritizes non-matching address families (Rule 2) and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
-Most OSes and some alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> correctly while, at the time of writing this document, major operating systems are still implementing the old behavior from <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> -- if an application relies on behavior updated through <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or <span>[<a href="#RFC6724-update" class="cite xref">RFC6724-update</a>]</span>, especially preference of ULA, integration testing against this behavior SHOULD be performed.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span>, causing  unexpected behavior and other hard-to-debug errors:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">The destination address selection algorithm in <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> filters unavailable address families (Rule 1),
+de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
+Some OSes and alternative resolver libraries, such as <span>[<a href="#C-ARES" class="cite xref">C-ARES</a>]</span>, implement <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span> -- if an application relies on behavior updated through <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or <span>[<a href="#RFC6724-update" class="cite xref">RFC6724-update</a>]</span>, especially preference of ULA, integration testing against this behavior SHOULD be performed.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from <span>[<a href="#RFC6724" class="cite xref">RFC6724</a>]</span> or its predecessor <span>[<a href="#RFC3484" class="cite xref">RFC3484</a>]</span>, causing unexpected behavior and other hard-to-debug errors:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-3.1">
             <p id="section-5.3-3.1.1">Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.

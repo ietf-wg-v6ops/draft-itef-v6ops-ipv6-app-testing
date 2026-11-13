@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 16 May 2027                                           B. Patton
+Expires: 17 May 2027                                           B. Patton
                                                                  UNH-IOL
-                                                        12 November 2026
+                                                        13 November 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 May 2027.
+   This Internet-Draft will expire on 17 May 2027.
 
 Copyright Notice
 
@@ -139,7 +139,7 @@ Table of Contents
    line tools to huge cloud-based distributed applications like
    Enterprise Resource Planning (ERP) systems, has a considerable impact
    on the success of IPv6 deployment.  While the IETF does not define
-   compliance tests, best current practice exists for the behavior of
+   compliance tests, best current practices exist for the behavior of
    general IPv6 nodes [RFC8504] and Customer Edge (CE) routers
    [RFC7084bis], as well as for test SIP-based applications [RFC5118].
    However, at the time of writing this document, there exists no
@@ -311,7 +311,7 @@ Table of Contents
    include Dual-stack clients combined with IPv4-only and IPv6-only-
    strict servers, to test whether the additional address family
    confused the client.  The document also includes the cases with Dual-
-   stack server and IPv4-only as well as IPv6-only clients, to test
+   stack server and both IPv4-only and IPv6-only clients, to test
    whether a single address family at client side works as anticipated
    and look at the transition case using NAT64.
 
@@ -500,13 +500,12 @@ Table of Contents
 
    Even when communication endpoints are expected to be reachable using
    both address families, there are failure scenarios where some
-   endpoints end up only being reachable using IPv6, while others end up
-   only being reachable using IPv4.  Disabling either address family
-   therefore may break a scenario that seems to function correctly on
-   first glance.  Testing applications against these scenarios can
-   become a key enabler for users' acceptance of IPv6, especially during
-   a transition phase where partially broken connectivity is expected
-   more frequently.
+   endpoints are only reachable using IPv6, while others are only
+   reachable using IPv4.  Disabling either address family therefore may
+   break a scenario that seems to function correctly on first glance.
+   Testing applications against these scenarios can become a key enabler
+   for users' acceptance of IPv6, especially during a transition phase
+   where partially broken connectivity is expected more frequently.
 
    In some cases, connectivity issues may only become apparent late in
    the communication process, for example, after a successful TCP
@@ -790,11 +789,10 @@ Table of Contents
    unexpected application behavior that is hard to debug.
 
    Some of these cases can be automatically mitigated, especially by
-   using Happy Eyeballs [RFC8305] or similar techniques.  In cases when
-   where this is not possible or where developers choose not to
-   implement mitigation strategies, users and operators should be
-   supported in manual resolution by providing detailed error or debug
-   messages.
+   using Happy Eyeballs [RFC8305] or similar techniques.  In cases where
+   this is not possible or where developers choose not to implement
+   mitigation strategies, users and operators should be supported in
+   manual resolution by providing detailed error or debug messages.
 
 5.1.  Enable IPv6 Feature Gates
 
@@ -817,15 +815,15 @@ Table of Contents
 5.3.  Destination Address Selection Preference and Address Filtering
 
    The destination address selection algorithm in [RFC6724] filters
-   unavailable address families (Rule 1) and de-prioritizes non-matching
-   address families (Rule 2) and clearly prioritizes IPv6 GUA addresses
-   over IPv4 addresses.  Most OSes and some alternative resolver
-   libraries, such as [C-ARES], implement [RFC6724] or its predecessor
-   [RFC3484] correctly while, at the time of writing this document,
-   major operating systems are still implementing the old behavior from
-   [RFC3484] -- if an application relies on behavior updated through
-   [RFC6724] or [RFC6724-update], especially preference of ULA,
-   integration testing against this behavior SHOULD be performed.
+   unavailable address families (Rule 1), de-prioritizes non-matching
+   address families (Rule 2), and clearly prioritizes IPv6 GUA addresses
+   over IPv4 addresses.  Some OSes and alternative resolver libraries,
+   such as [C-ARES], implement [RFC6724] correctly.  However, at the
+   time of writing this document, major operating systems are still
+   implementing the old behavior from [RFC3484] -- if an application
+   relies on behavior updated through [RFC6724] or [RFC6724-update],
+   especially preference of ULA, integration testing against this
+   behavior SHOULD be performed.
 
    Beyond that, there are several notable and widely used
    implementations that implement an address selection algorithm
