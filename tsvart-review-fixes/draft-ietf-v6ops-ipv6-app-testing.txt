@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 17 May 2027                                           B. Patton
+Expires: 18 May 2027                                           B. Patton
                                                                  UNH-IOL
-                                                        13 November 2026
+                                                        14 November 2026
 
 
                    Testing Applications' IPv6 Support
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2027.
+   This Internet-Draft will expire on 18 May 2027.
 
 Copyright Notice
 
@@ -286,13 +286,14 @@ Table of Contents
    campaign for an ideal application that is supposed to run anywhere.
    It is RECOMMENDED to apply these scenarios to all existing
    functional, integration, and end-to-end test cases that the
-   application's communication pattern may influence.  We also explain
-   how to approach testing complex cloud applications and how to exclude
-   connectivity scenarios based on the deployment environment.  Testing
-   for application-specific or protocol-specific issues is out of scope.
-   While this section assumes that the communication scenarios are under
-   full control of the tester, Section 4 explains how to test in cases
-   where control over the test environment is limited.
+   application's communication pattern may influence.  The document also
+   explains how to approach testing of complex cloud applications and
+   how to exclude connectivity scenarios based on the deployment
+   environment.  Testing for application-specific or protocol-specific
+   issues is out of scope.  While this section assumes that the
+   communication scenarios are under full control of the tester,
+   Section 4 explains how to conduct tests in cases where control over
+   the test environment is limited.
 
 3.1.  Connectivity Scenarios
 
@@ -494,25 +495,27 @@ Table of Contents
 
    When multiple address families are available, IP packets may traverse
    different forwarding paths depending on the address family.  Even
-   when the same path is traversed, the path can exhibit distinct
-   behaviors, especially in the presence of middleboxes, including:
+   when the same forwarding path is traversed, the path can exhibit
+   distinct forwarding behaviors, especially in the presence of
+   middleboxes, including:
 
    *  Dropping all packets
 
-   *  Dropping particular packets, e.g., TCP vs. UDP packets, packets to
-      different ports
+   *  Dropping particular packets, e.g., TCP vs. UDP packets, packets
+      destined to different port numbers
 
-   *  Preventing the use of QUIC
+   *  Preventing the use of QUIC, specific port numbers, or
+      encapsulation schemes
 
    *  Behaving differently for the same values of ECN or DSCP fields
 
-   *  Exhibit a different Maximum Transmission Unit (MTU)
+   *  Exhibiting a different Path Maximum Transmission Unit (PMTU)
 
-   *  Dropping ICMP and breaking MTU discovery
+   *  Dropping some ICMP messages and breaking PMTU discovery
 
    *  Dropping fragmented packets
 
-   *  Block certain protocol features, e.g., certain extensions or
+   *  Blocking certain protocol features, e.g., certain extensions or
       ciphers in TLS handshake
 
    In such scenarios, clients restricted to a single address family --
@@ -526,7 +529,7 @@ Table of Contents
    connectivity is expected more frequently.
 
    While this document provides no comprehensive guide on how to test
-   for these network issues, it REQUIRES to check applications with
+   for these network issues, it is REQUIRED to check applications with
    dual-stack servers for partial blackholing and MTU issues by testing
    with IPv4-only and IPv6-only-strict clients during deployment and
    integration testing.  Note that in some cases, connectivity issues
@@ -590,12 +593,13 @@ Table of Contents
 
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
-      have additional management functions (NETCONF, RESTCONF, SNMP,
-      Open Telemetry, syslog, etc.) that should be tested.  As the
-      source triggering application behavior is crucial for logging and
-      auditing functionality, addresses recorded need to be verified to
-      be represented correctly.  See Section 3.9 about representation of
-      addresses.
+      have additional management functions (Network Configuration
+      Protocol (NETCONF) [RFC6124], RESTCONF [RFC8040], SNMP [STD62],
+      Open Telemetry [RFC9232], syslog [RFC5424], etc.) that should be
+      tested.  As the source triggering application behavior is crucial
+      for logging and auditing functionality, addresses recorded need to
+      be verified to be represented correctly.  See Section 3.9 about
+      representation of addresses.
 
    *  Update: Depending on the application, update functions may be
       exercised during installation.  However, the application may have
@@ -1135,6 +1139,15 @@ Table of Contents
               DOI 10.17487/RFC5118, February 2008,
               <https://www.rfc-editor.org/rfc/rfc5118>.
 
+   [RFC5424]  Gerhards, R., "The Syslog Protocol", RFC 5424,
+              DOI 10.17487/RFC5424, March 2009,
+              <https://www.rfc-editor.org/rfc/rfc5424>.
+
+   [RFC6124]  Sheffer, Y., Zorn, G., Tschofenig, H., and S. Fluhrer, "An
+              EAP Authentication Method Based on the Encrypted Key
+              Exchange (EKE) Protocol", RFC 6124, DOI 10.17487/RFC6124,
+              February 2011, <https://www.rfc-editor.org/rfc/rfc6124>.
+
    [RFC6146-bis]
               Bagnulo, M., Matthews, P., and J. P. Martinez, "Stateful
               NAT64: Network Address and Protocol Translation from IPv6
@@ -1182,6 +1195,10 @@ Table of Contents
               DOI 10.17487/RFC7915, June 2016,
               <https://www.rfc-editor.org/rfc/rfc7915>.
 
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
    [RFC8489]  Petit-Huguenin, M., Salgueiro, G., Rosenberg, J., Wing,
               D., Mahy, R., and P. Matthews, "Session Traversal
               Utilities for NAT (STUN)", RFC 8489, DOI 10.17487/RFC8489,
@@ -1202,12 +1219,65 @@ Table of Contents
               RFC 8925, DOI 10.17487/RFC8925, October 2020,
               <https://www.rfc-editor.org/rfc/rfc8925>.
 
+   [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
+              A. Wang, "Network Telemetry Framework", RFC 9232,
+              DOI 10.17487/RFC9232, May 2022,
+              <https://www.rfc-editor.org/rfc/rfc9232>.
+
    [RFC10001] Momoka and T. Fiebig, "Operational Guidelines for DNS
               Transport in Mixed IPv4/IPv6 Environments", BCP 91,
               RFC 10001, DOI 10.17487/RFC10001, August 2026,
               <https://www.rfc-editor.org/rfc/rfc10001>.
 
    [Selenium] "Selenium WebDriver", n.d., <https://www.selenium.dev/>.
+
+   [STD62]    Internet Standard 62,
+              <https://www.rfc-editor.org/info/std62>.
+              At the time of writing, this STD comprises the following:
+
+              Harrington, D., Presuhn, R., and B. Wijnen, "An
+              Architecture for Describing Simple Network Management
+              Protocol (SNMP) Management Frameworks", STD 62, RFC 3411,
+              DOI 10.17487/RFC3411, December 2002,
+              <https://www.rfc-editor.org/info/rfc3411>.
+
+              Case, J., Harrington, D., Presuhn, R., and B. Wijnen,
+              "Message Processing and Dispatching for the Simple Network
+              Management Protocol (SNMP)", STD 62, RFC 3412,
+              DOI 10.17487/RFC3412, December 2002,
+              <https://www.rfc-editor.org/info/rfc3412>.
+
+              Levi, D., Meyer, P., and B. Stewart, "Simple Network
+              Management Protocol (SNMP) Applications", STD 62,
+              RFC 3413, DOI 10.17487/RFC3413, December 2002,
+              <https://www.rfc-editor.org/info/rfc3413>.
+
+              Blumenthal, U. and B. Wijnen, "User-based Security Model
+              (USM) for version 3 of the Simple Network Management
+              Protocol (SNMPv3)", STD 62, RFC 3414,
+              DOI 10.17487/RFC3414, December 2002,
+              <https://www.rfc-editor.org/info/rfc3414>.
+
+              Wijnen, B., Presuhn, R., and K. McCloghrie, "View-based
+              Access Control Model (VACM) for the Simple Network
+              Management Protocol (SNMP)", STD 62, RFC 3415,
+              DOI 10.17487/RFC3415, December 2002,
+              <https://www.rfc-editor.org/info/rfc3415>.
+
+              Presuhn, R., Ed., "Version 2 of the Protocol Operations
+              for the Simple Network Management Protocol (SNMP)",
+              STD 62, RFC 3416, DOI 10.17487/RFC3416, December 2002,
+              <https://www.rfc-editor.org/info/rfc3416>.
+
+              Presuhn, R., Ed., "Transport Mappings for the Simple
+              Network Management Protocol (SNMP)", STD 62, RFC 3417,
+              DOI 10.17487/RFC3417, December 2002,
+              <https://www.rfc-editor.org/info/rfc3417>.
+
+              Presuhn, R., Ed., "Management Information Base (MIB) for
+              the Simple Network Management Protocol (SNMP)", STD 62,
+              RFC 3418, DOI 10.17487/RFC3418, December 2002,
+              <https://www.rfc-editor.org/info/rfc3418>.
 
    [US-NIST.SP.500-267Ar1]
               "NIST Special Publication 500-267 Revision 1 - NIST IPv6

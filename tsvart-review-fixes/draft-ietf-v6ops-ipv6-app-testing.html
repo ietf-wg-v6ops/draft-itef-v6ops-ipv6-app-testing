@@ -1055,7 +1055,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiesel, et al.</td>
-<td class="center">Expires 17 May 2027</td>
+<td class="center">Expires 18 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <dd class="internet-draft">draft-ietf-v6ops-ipv6-app-testing-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-13" class="published">13 November 2026</time>
+<time datetime="2026-11-14" class="published">14 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-17">17 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-18">18 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1127,7 +1127,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1454,10 +1454,10 @@ i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only wi
 <p id="section-3-2">This section provides guidance on which connectivity scenarios and parts of the lifecycle of an application to include in a testing campaign
 for an ideal application that is supposed to run anywhere.
 It is RECOMMENDED to apply these scenarios to all existing functional, integration, and end-to-end test cases that the application's communication pattern may influence.
-We also explain how to approach testing complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
+The document also explains how to approach testing of complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
 Testing for application-specific or protocol-specific issues is out of scope.
 While this section assumes that the communication scenarios are under full control of the tester,
-<a href="#strategies" class="auto internal xref">Section 4</a> explains how to test in cases where control over the test environment is limited.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<a href="#strategies" class="auto internal xref">Section 4</a> explains how to conduct tests in cases where control over the test environment is limited.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div id="scenarios">
 <section id="section-3.1">
         <h3 id="name-connectivity-scenarios">
@@ -1690,31 +1690,31 @@ Applications SHOULD be tested to determine whether they work as expected with li
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-testing-with-partially-brok" class="section-name selfRef">Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues</a>
         </h3>
 <p id="section-3.4-1">When multiple address families are available, IP packets may traverse different forwarding paths depending on the address family.
-Even when the same path is traversed, the path can exhibit distinct behaviors, especially in the presence of middleboxes, including:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+Even when the same forwarding path is traversed, the path can exhibit distinct forwarding behaviors, especially in the presence of middleboxes, including:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-2.1">
             <p id="section-3.4-2.1.1">Dropping all packets<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.2">
-            <p id="section-3.4-2.2.1">Dropping particular packets, e.g., TCP vs. UDP packets, packets to different ports<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.2.1">Dropping particular packets, e.g., TCP vs. UDP packets, packets destined to different port numbers<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.3">
-            <p id="section-3.4-2.3.1">Preventing the use of QUIC<a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.3.1">Preventing the use of QUIC, specific port numbers, or encapsulation schemes<a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.4">
             <p id="section-3.4-2.4.1">Behaving differently for the same values of ECN or DSCP fields<a href="#section-3.4-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.5">
-            <p id="section-3.4-2.5.1">Exhibit a different Maximum Transmission Unit (MTU)<a href="#section-3.4-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.5.1">Exhibiting a different Path Maximum Transmission Unit (PMTU)<a href="#section-3.4-2.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.6">
-            <p id="section-3.4-2.6.1">Dropping ICMP and breaking MTU discovery<a href="#section-3.4-2.6.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.6.1">Dropping some ICMP messages and breaking PMTU discovery<a href="#section-3.4-2.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.7">
             <p id="section-3.4-2.7.1">Dropping fragmented packets<a href="#section-3.4-2.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-2.8">
-            <p id="section-3.4-2.8.1">Block certain protocol features, e.g., certain extensions or ciphers in TLS handshake<a href="#section-3.4-2.8.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-2.8.1">Blocking certain protocol features, e.g., certain extensions or ciphers in TLS handshake<a href="#section-3.4-2.8.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.4-3">In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity,
@@ -1723,7 +1723,7 @@ Disabling either address family may therefore break a scenario that seems to fun
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <p id="section-3.4-4">While this document provides no comprehensive guide on how to test for these network issues,
-it REQUIRES to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.
+it is  REQUIRED to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.
 Note that in some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake / QUIC initial packet, but before a TLS handshake succeeds.
 Because these issues can occur outside the testers' control, it is advisable to simulate them and ensure the application's behavior supports detecting and analyzing these errors.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 </section>
@@ -1768,7 +1768,7 @@ For testing web-based user interfaces, see <a href="#web-app-considerations" cla
 </li>
           <li class="normal" id="section-3.6-3.3">
             <p id="section-3.6-3.3.1">Management: Depending on the application, management functions may be provided via the user interface.
-However, the application may have additional management functions (NETCONF, RESTCONF, SNMP, Open Telemetry, syslog, etc.) that should be tested.
+However, the application may have additional management functions (Network Configuration Protocol (NETCONF) <span>[<a href="#RFC6124" class="cite xref">RFC6124</a>]</span>, RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>, SNMP <span>[<a href="#STD62" class="cite xref">STD62</a>]</span>, Open Telemetry <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>, syslog <span>[<a href="#RFC5424" class="cite xref">RFC5424</a>]</span>, etc.) that should be tested.
 As the source triggering application behavior is crucial for logging and auditing functionality,
 addresses recorded need to be verified to be represented correctly. See <a href="#addr-as-data" class="auto internal xref">Section 3.9</a> about representation of addresses.<a href="#section-3.6-3.3.1" class="pilcrow">¶</a></p>
 </li>
@@ -2221,6 +2221,14 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Gurbani, V.</span>, <span class="refAuthor">Boulton, C.</span>, and <span class="refAuthor">R. Sparks</span>, <span class="refTitle">"Session Initiation Protocol (SIP) Torture Test Messages for Internet Protocol Version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 5118</span>, <span class="seriesInfo">DOI 10.17487/RFC5118</span>, <time datetime="2008-02" class="refDate">February 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5118">https://www.rfc-editor.org/rfc/rfc5118</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5424">[RFC5424]</dt>
+        <dd>
+<span class="refAuthor">Gerhards, R.</span>, <span class="refTitle">"The Syslog Protocol"</span>, <span class="seriesInfo">RFC 5424</span>, <span class="seriesInfo">DOI 10.17487/RFC5424</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5424">https://www.rfc-editor.org/rfc/rfc5424</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6124">[RFC6124]</dt>
+        <dd>
+<span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Zorn, G.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"An EAP Authentication Method Based on the Encrypted Key Exchange (EKE) Protocol"</span>, <span class="seriesInfo">RFC 6124</span>, <span class="seriesInfo">DOI 10.17487/RFC6124</span>, <time datetime="2011-02" class="refDate">February 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6124">https://www.rfc-editor.org/rfc/rfc6124</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6146-bis">[RFC6146-bis]</dt>
         <dd>
 <span class="refAuthor">Bagnulo, M.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. P. Martinez</span>, <span class="refTitle">"Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc6146-bis-16</span>, <time datetime="2026-09-04" class="refDate">4 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16</a>&gt;</span>. </dd>
@@ -2253,6 +2261,10 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Bao, C.</span>, <span class="refAuthor">Li, X.</span>, <span class="refAuthor">Baker, F.</span>, <span class="refAuthor">Anderson, T.</span>, and <span class="refAuthor">F. Gont</span>, <span class="refTitle">"IP/ICMP Translation Algorithm"</span>, <span class="seriesInfo">RFC 7915</span>, <span class="seriesInfo">DOI 10.17487/RFC7915</span>, <time datetime="2016-06" class="refDate">June 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7915">https://www.rfc-editor.org/rfc/rfc7915</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8489">[RFC8489]</dt>
         <dd>
 <span class="refAuthor">Petit-Huguenin, M.</span>, <span class="refAuthor">Salgueiro, G.</span>, <span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">Mahy, R.</span>, and <span class="refAuthor">P. Matthews</span>, <span class="refTitle">"Session Traversal Utilities for NAT (STUN)"</span>, <span class="seriesInfo">RFC 8489</span>, <span class="seriesInfo">DOI 10.17487/RFC8489</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8489">https://www.rfc-editor.org/rfc/rfc8489</a>&gt;</span>. </dd>
@@ -2269,6 +2281,10 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Colitti, L.</span>, <span class="refAuthor">Linkova, J.</span>, <span class="refAuthor">Richardson, M.</span>, and <span class="refAuthor">T. Mrugalski</span>, <span class="refTitle">"IPv6-Only Preferred Option for DHCPv4"</span>, <span class="seriesInfo">RFC 8925</span>, <span class="seriesInfo">DOI 10.17487/RFC8925</span>, <time datetime="2020-10" class="refDate">October 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8925">https://www.rfc-editor.org/rfc/rfc8925</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9232">[RFC9232]</dt>
+        <dd>
+<span class="refAuthor">Song, H.</span>, <span class="refAuthor">Qin, F.</span>, <span class="refAuthor">Martinez-Julia, P.</span>, <span class="refAuthor">Ciavaglia, L.</span>, and <span class="refAuthor">A. Wang</span>, <span class="refTitle">"Network Telemetry Framework"</span>, <span class="seriesInfo">RFC 9232</span>, <span class="seriesInfo">DOI 10.17487/RFC9232</span>, <time datetime="2022-05" class="refDate">May 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9232">https://www.rfc-editor.org/rfc/rfc9232</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC10001">[RFC10001]</dt>
         <dd>
 <span class="refAuthor">Momoka</span> and <span class="refAuthor">T. Fiebig</span>, <span class="refTitle">"Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments"</span>, <span class="seriesInfo">BCP 91</span>, <span class="seriesInfo">RFC 10001</span>, <span class="seriesInfo">DOI 10.17487/RFC10001</span>, <time datetime="2026-08" class="refDate">August 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc10001">https://www.rfc-editor.org/rfc/rfc10001</a>&gt;</span>. </dd>
@@ -2276,6 +2292,28 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="Selenium">[Selenium]</dt>
         <dd>
 <span class="refTitle">"Selenium WebDriver"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.selenium.dev/">https://www.selenium.dev/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="STD62">[STD62]</dt>
+        <dd>
+<div class="refInstance">Internet Standard 62, <span>&lt;<a href="https://www.rfc-editor.org/info/std62">https://www.rfc-editor.org/info/std62</a>&gt;</span>.<br><span>At the time of writing, this STD comprises the following:</span>
+</div>
+<div class="refInstance" id="RFC3411">
+            <span class="refAuthor">Harrington, D.</span>, <span class="refAuthor">Presuhn, R.</span>, and <span class="refAuthor">B. Wijnen</span>, <span class="refTitle">"An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3411</span>, <span class="seriesInfo">DOI 10.17487/RFC3411</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3411">https://www.rfc-editor.org/info/rfc3411</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3412">
+            <span class="refAuthor">Case, J.</span>, <span class="refAuthor">Harrington, D.</span>, <span class="refAuthor">Presuhn, R.</span>, and <span class="refAuthor">B. Wijnen</span>, <span class="refTitle">"Message Processing and Dispatching for the Simple Network Management Protocol (SNMP)"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3412</span>, <span class="seriesInfo">DOI 10.17487/RFC3412</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3412">https://www.rfc-editor.org/info/rfc3412</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3413">
+            <span class="refAuthor">Levi, D.</span>, <span class="refAuthor">Meyer, P.</span>, and <span class="refAuthor">B. Stewart</span>, <span class="refTitle">"Simple Network Management Protocol (SNMP) Applications"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3413</span>, <span class="seriesInfo">DOI 10.17487/RFC3413</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3413">https://www.rfc-editor.org/info/rfc3413</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3414">
+            <span class="refAuthor">Blumenthal, U.</span> and <span class="refAuthor">B. Wijnen</span>, <span class="refTitle">"User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3414</span>, <span class="seriesInfo">DOI 10.17487/RFC3414</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3414">https://www.rfc-editor.org/info/rfc3414</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3415">
+            <span class="refAuthor">Wijnen, B.</span>, <span class="refAuthor">Presuhn, R.</span>, and <span class="refAuthor">K. McCloghrie</span>, <span class="refTitle">"View-based Access Control Model (VACM) for the Simple Network Management Protocol (SNMP)"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3415</span>, <span class="seriesInfo">DOI 10.17487/RFC3415</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3415">https://www.rfc-editor.org/info/rfc3415</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3416">
+            <span class="refAuthor">Presuhn, R., Ed.</span>, <span class="refTitle">"Version 2 of the Protocol Operations for the Simple Network Management Protocol (SNMP)"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3416</span>, <span class="seriesInfo">DOI 10.17487/RFC3416</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3416">https://www.rfc-editor.org/info/rfc3416</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3417">
+            <span class="refAuthor">Presuhn, R., Ed.</span>, <span class="refTitle">"Transport Mappings for the Simple Network Management Protocol (SNMP)"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3417</span>, <span class="seriesInfo">DOI 10.17487/RFC3417</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3417">https://www.rfc-editor.org/info/rfc3417</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC3418">
+            <span class="refAuthor">Presuhn, R., Ed.</span>, <span class="refTitle">"Management Information Base (MIB) for the Simple Network Management Protocol (SNMP)"</span>, <span class="seriesInfo">STD 62</span>, <span class="seriesInfo">RFC 3418</span>, <span class="seriesInfo">DOI 10.17487/RFC3418</span>, <time datetime="2002-12" class="refDate">December 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3418">https://www.rfc-editor.org/info/rfc3418</a>&gt;</span>. </div>
+</dd>
 <dd class="break"></dd>
 <dt id="US-NIST.SP.500-267Ar1">[US-NIST.SP.500-267Ar1]</dt>
         <dd>
