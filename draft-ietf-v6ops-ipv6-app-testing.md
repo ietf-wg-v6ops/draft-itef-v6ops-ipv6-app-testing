@@ -51,6 +51,7 @@ informative:
   V6MOPS: I-D.ietf-v6ops-6mops
   RFC6146-bis: I-D.ietf-v6ops-rfc6146-bis
   RFC6724-update: I-D.ietf-6man-rfc6724-update
+  MASQUE: I-D.draft-schinazi-masque-proxy
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
     title: 2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application
@@ -192,16 +193,21 @@ As a basic principle, IPv6 application testing should always be derived from fun
 Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios,
 i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings.
 
-This document does not include application-specific testing. For example, some IETF specifications (e.g., SIP {{?RFC3261}}) contains broken IPv6 Augmented Backus-Naur Form (ABNF) and rules to compare URIs with embedded IPv6 addresses; fixes (e.g., {{?RFC5954}}) must be used instead. Testing and validation of such application-specific matters are out the scope of this document.
-
-The following subsections provide guidance on which connectivity scenarios to include in a testing campaign for an ideal application that is supposed to run anywhere and how to approach testing complex cloud applications and exclude connectivity scenarios based on the deployment environment.
+This section provides guidance on which connectivity scenarios and parts of the lifecycle of an application to include in a testing campaign
+for an ideal application that is supposed to run anywhere.
+It is RECOMMENDED to apply these scenarios to all existing functional, integration, and end-to-end test cases that the application's communication pattern may influence.
+The document also explains how to approach testing of complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
+Testing for application-specific or protocol-specific issues is out of scope.
+While this section assumes that the communication scenarios are under full control of the tester,
+{{strategies}} explains how to conduct tests in cases where control over the test environment is limited.
 
 ## Connectivity Scenarios {#scenarios}
 
-{{scn_combinations}} lists the combinations of connectivity scenarios that application testing SHOULD consider. Not testing some of these cases may lead to failures in operations.
+{{scn_combinations}} lists the combinations of connectivity scenarios that application testing SHOULD consider.
+Not testing some of these cases may lead to failures in operations.
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering Peer-to-Peer (P2P) applications -- with "client" representing the initiating or first acting party.
 
-The first five scenarios marked as *base* should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {complex-apps} for further discussion).
+The first five scenarios marked as *base* should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {{complex-apps}} for further discussion).
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confused the client.
 The document also includes the cases with Dual-stack server and both IPv4-only and IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.
 
@@ -233,7 +239,7 @@ For P2P applications and applications with complex connection handling like usin
 
 ## Testing with Intermediaries (e.g., Proxies)  {#intermediaries}
 
-Many application protocols support communicating across intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE proxies.
+Many application protocols support communicating across intermediates, most commonly HTTP Connect {{?RFC7230}},  SOCKS {{?RFC1928}}, or MASQUE {{MASQUE}} proxies.
 P2P applications often support TURN {{?RFC8656}} as an intermediary to traverse NAT and provide connectivity between IPv4-only and IPv6-only hosts.
 When testing connectivity scenarios for such an application, the additional test cases including a proxy MUST also be validated.
 
@@ -314,25 +320,27 @@ Applications SHOULD be tested to determine whether they work as expected with li
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
 When multiple address families are available, IP packets may traverse different forwarding paths depending on the address family.
-Even when the same path is traversed, the path can exhibit distinct behaviors (e.g., dropping all or particular packets), especially in the presence of middleboxes.
+Even when the same forwarding path is traversed, the path can exhibit distinct forwarding behaviors, especially in the presence of middleboxes, including:
 
-Even when communication endpoints are expected to be reachable using both address families,
-there are failure scenarios where some endpoints are only reachable using IPv6,
-while others are only reachable using IPv4.
-Disabling either address family therefore may break a scenario that seems to function correctly on first glance.
+ - Dropping all packets
+ - Dropping particular packets, e.g., TCP vs. UDP packets, packets destined to different port numbers
+ - Preventing the use of QUIC, specific port numbers, or encapsulation schemes
+ - Behaving differently for the same values of ECN or DSCP fields
+ - Exhibiting a different Path Maximum Transmission Unit (PMTU)
+ - Dropping some ICMP messages and breaking PMTU discovery
+ - Dropping fragmented packets
+ - Blocking certain protocol features, e.g., certain extensions or ciphers in TLS handshake
+
+In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity,
+while dual-stack clients often mask such failures by automatically falling back to another address family.
+Disabling either address family may therefore break a scenario that seems to function correctly at first glance.
 Testing applications against these scenarios can become a key enabler for users' acceptance of IPv6,
 especially during a transition phase where partially broken connectivity is expected more frequently.
 
-In some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake but before a TLS handshake succeeds.
-In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity in these scenarios,
-while dual-stack clients often mask such failures by automatically falling back to another address family.
-
-In addition to partial blackholing, MTU issues may be limited to one address family or behave differently with respect to aspects like
-MTU available, dropping of fragmented packets, and ICMP messages generated.
-As only IPv4 supports on-path fragmentation, IPv6 is more dependent on working ICMP *packet too big* reporting.
-
-During deployment and integration testing, checking for partial blackholing and MTU issues MUST be done by testing with IPv4-only and IPv6-only-strict clients to detect such blackholes.
-In case these issues can occur outside the testers' circle of control, it is advisable to simulate this type of failure and ensure that the application's behavior supports the detection and analysis of these errors.
+While this document provides no comprehensive guide on how to test for these network issues,
+it is  REQUIRED to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.
+Note that in some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake / QUIC initial packet, but before a TLS handshake succeeds.
+Because these issues can occur outside the testers' control, it is advisable to simulate them and ensure the application's behavior supports detecting and analyzing these errors.
 
 ## Testing without IPv4 Loopback Addresses (127.0.0.0/8)
 
@@ -366,7 +374,7 @@ In particular, the following MUST be considered:
   For testing web-based user interfaces, see {{web-app-considerations}}.
 
 - Management: Depending on the application, management functions may be provided via the user interface.
-  However, the application may have additional management functions (SNMP, syslog, etc.) that should be tested.
+  However, the application may have additional management functions (Network Configuration Protocol (NETCONF) {{?RFC6124}}, RESTCONF {{?RFC8040}}, SNMP {{?STD62}}, Open Telemetry {{?RFC9232}}, syslog {{?RFC5424}}, etc.) that should be tested.
   As the source triggering application behavior is crucial for logging and auditing functionality,
   addresses recorded need to be verified to be represented correctly. See {{addr-as-data}} about representation of addresses.
 
@@ -457,7 +465,7 @@ Some corporate environments may render the machines unusable as they require IPv
 ## IPv6-only Servers
 
 IPv6-only servers are a good option when setting up an IPv6-only-strict client environment is infeasible and
-clients are know to only contact a single server or a small number of servers under the testers' control.
+it is clear that clients only contact a single server or a small number of servers under the testers' control.
 Even if setting up an IPv6-only-strict server environment is infeasible,
 most testing is also achievable by setting up a dedicated DNS name only containing an AAAA resource record pointing to the IPv6 addresses of an otherwise Dual-stack server.
 
@@ -483,7 +491,9 @@ this approach is not feasible for Web-based applications where a client usually 
 If the communication pattern of an application is known well enough, a packet tracer such as {{Wireshark}} can verify that an application in a Dual-stack environment uses IPv6 for all of its flows.
 If this can be verified, failures in IPv6-only-strict environments are unlikely.
 
-While this is the least invasive method of testing IPv6-only-strict scenarios in a Dual-stack setup, it is the most error-prone as it requires the tester to fully understand the network flows of the application and requires the skills to interpret the output of a packet tracer.
+While this is the least invasive method of testing IPv6-only-strict scenarios in a Dual-stack setup,
+it is the most error-prone as it requires the tester to fully understand the network flows of the application
+and cross-check these expected flows with the flows shown in the packet trace.
 
 
 # Common Sources of IPv6 Related Failures and Misbehavior {#failures}
@@ -529,10 +539,10 @@ Beyond that, there are several notable and widely used implementations that impl
 ## Listening on IPv4 Only
 
 Many tutorials and programmer facing documentations have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
-Listening code should be checked to determine whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4.
+Listening code should be checked whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets to also bind to IPv4.
 Listening code should also be able to deal with cases where IPv6 or IPv4 have been disabled in the OS.
 
-In deployments, it is recommended to always use tools like ```netstat``` or ```lsof``` to verify all relevant address families are listened on.
+In deployments, it is recommended to always use tools like ```netstat``` or ```lsof``` (if available) to verify all relevant address families are listened on.
 
 ## Input Validation and Output Rendering
 
@@ -590,7 +600,6 @@ To prevent unintended exposure of services and mitigate allow or deny lists caus
 it is RECOMMENDED to enable including IPv6 addresses in allow and deny lists way before rolling out IPv6 on the transport and communicated towards the users.
 To further limit the probability of service disruptions, generalizing Happy Eyeballs to re-try using IPv4 after certain error conditions should be evaluated.
 
-
 ## Component and Service Reuse
 
 If components or cloud services can be reused in other products, special care needs to be taken when planning IPv6 deployment.
@@ -603,6 +612,7 @@ This is often a recursive process.
 
 Sometimes enabling IPv6 requires touching components that are not actively maintained anymore.
 Operators have to be prepared for this and plan extra time or budget for updating or replacing these components.
+
 
 # Security Considerations
 
