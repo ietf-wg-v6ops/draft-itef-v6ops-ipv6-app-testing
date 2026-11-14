@@ -196,10 +196,10 @@ i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only wi
 This section provides guidance on which connectivity scenarios and parts of the lifecycle of an application to include in a testing campaign
 for an ideal application that is supposed to run anywhere.
 It is RECOMMENDED to apply these scenarios to all existing functional, integration, and end-to-end test cases that the application's communication pattern may influence.
-We also explain how to approach testing complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
+The document also explains how to approach testing of complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
 Testing for application-specific or protocol-specific issues is out of scope.
 While this section assumes that the communication scenarios are under full control of the tester,
-{{strategies}} explains how to test in cases where control over the test environment is limited.
+{{strategies}} explains how to conduct tests in cases where control over the test environment is limited.
 
 ## Connectivity Scenarios {#scenarios}
 
@@ -320,16 +320,16 @@ Applications SHOULD be tested to determine whether they work as expected with li
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
 When multiple address families are available, IP packets may traverse different forwarding paths depending on the address family.
-Even when the same path is traversed, the path can exhibit distinct behaviors, especially in the presence of middleboxes, including:
+Even when the same forwarding path is traversed, the path can exhibit distinct forwarding behaviors, especially in the presence of middleboxes, including:
 
  - Dropping all packets
- - Dropping particular packets, e.g., TCP vs. UDP packets, packets to different ports
- - Preventing the use of QUIC
+ - Dropping particular packets, e.g., TCP vs. UDP packets, packets destined to different port numbers
+ - Preventing the use of QUIC, specific port numbers, or encapsulation schemes
  - Behaving differently for the same values of ECN or DSCP fields
- - Exhibit a different Maximum Transmission Unit (MTU)
- - Dropping ICMP and breaking MTU discovery
+ - Exhibiting a different Path Maximum Transmission Unit (PMTU)
+ - Dropping some ICMP messages and breaking PMTU discovery
  - Dropping fragmented packets
- - Block certain protocol features, e.g., certain extensions or ciphers in TLS handshake
+ - Blocking certain protocol features, e.g., certain extensions or ciphers in TLS handshake
 
 In such scenarios, clients restricted to a single address family -- such as IPv6-only-strict clients -- may experience complete loss of connectivity,
 while dual-stack clients often mask such failures by automatically falling back to another address family.
@@ -338,7 +338,7 @@ Testing applications against these scenarios can become a key enabler for users'
 especially during a transition phase where partially broken connectivity is expected more frequently.
 
 While this document provides no comprehensive guide on how to test for these network issues,
-it REQUIRES to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.
+it is  REQUIRED to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.
 Note that in some cases, connectivity issues may only become apparent late in the communication process, for example, after a successful TCP handshake / QUIC initial packet, but before a TLS handshake succeeds.
 Because these issues can occur outside the testers' control, it is advisable to simulate them and ensure the application's behavior supports detecting and analyzing these errors.
 
@@ -374,7 +374,7 @@ In particular, the following MUST be considered:
   For testing web-based user interfaces, see {{web-app-considerations}}.
 
 - Management: Depending on the application, management functions may be provided via the user interface.
-  However, the application may have additional management functions (NETCONF, RESTCONF, SNMP, Open Telemetry, syslog, etc.) that should be tested.
+  However, the application may have additional management functions (Network Configuration Protocol (NETCONF) {{?RFC6124}}, RESTCONF {{?RFC8040}}, SNMP {{?STD62}}, Open Telemetry {{?RFC9232}}, syslog {{?RFC5424}}, etc.) that should be tested.
   As the source triggering application behavior is crucial for logging and auditing functionality,
   addresses recorded need to be verified to be represented correctly. See {{addr-as-data}} about representation of addresses.
 
