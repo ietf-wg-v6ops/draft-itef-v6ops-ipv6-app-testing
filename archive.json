@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-12T05:45:39.169936+00:00",
+  "timestamp": "2026-11-15T04:49:10.801948+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -1575,26 +1575,478 @@
       "id": "PR_kwDOQpLumc8AAAABONffeg",
       "title": "Secdir Review Issues",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/41",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-11-10T20:48:04Z",
-      "updatedAt": "2026-11-11T13:42:39Z",
+      "updatedAt": "2026-11-13T10:07:05Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "165b9ec999dbcf82bc513ebf21322b1de7b3f2fd",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "secdir-review-fixes",
-      "headRefOid": "4a3785dd69a0dd94e3a77d00c2744767ddccb71f",
+      "headRefOid": "f4d583d7bae392eb33b0f323af642605548bacd6",
+      "closedAt": "2026-11-13T10:07:05Z",
+      "mergedAt": "2026-11-13T10:07:05Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "94076fb6f7875b9baf3c3961ec119d3b6942ef31"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABXe1BRQ",
+          "commit": {
+            "abbreviatedOid": "4a3785d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-12T07:39:01Z",
+          "updatedAt": "2026-11-12T07:45:55Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\nThe availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications like Enterprise Resource Planning (ERP) systems, has a considerable impact on the success of IPv6 deployment.\n```",
+              "createdAt": "2026-11-12T07:39:01Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\nHowever, at the time of writing this document, there exists no documented best current practices on how to test whether applications are ready for Dual-stack and IPv6-only environments.\n```",
+              "createdAt": "2026-11-12T07:39:56Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\nWhile many application developers assume that the network abstractions of an OS, communication libraries, application frameworks, or embedded platforms will handle the transition towards IPv6 transparently, leaky abstractions within these frameworks will make it difficult for an application developer to write address family-independent code for features such as allow/deny lists, tracing, and logging.\n```",
+              "createdAt": "2026-11-12T07:40:29Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\nFinally, {{ops}} describes operational considerations to keep in mind while designing end-to-end tests.\n```",
+              "createdAt": "2026-11-12T07:41:37Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 70,
+              "body": "```suggestion\nThe document also includes the cases with Dual-stack server and IPv4-only as well as IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.\n```",
+              "createdAt": "2026-11-12T07:42:08Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\nEspecially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.\n```",
+              "createdAt": "2026-11-12T07:42:28Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 133,
+              "body": "```suggestion\nFor external flows (i.e., flows outside the application developers' control), all base scenarios from {{scenarios}} MUST be accounted for.\n```",
+              "createdAt": "2026-11-12T07:43:50Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 179,
+              "body": "```suggestion\nSome of these cases can be automatically mitigated, especially by using Happy Eyeballs {{?RFC8305}} or similar techniques.\n```",
+              "createdAt": "2026-11-12T07:44:38Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 189,
+              "body": "```suggestion\n## Ignoring to Test Management and Control Interfaces\n```",
+              "createdAt": "2026-11-12T07:45:00Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            },
+            {
+              "originalPosition": 198,
+              "body": "```suggestion\nthere is a number of notable and widely used implementations that implement something else, causing  unexpected behavior and other hard-to-debug errors.\n```",
+              "createdAt": "2026-11-12T07:45:32Z",
+              "updatedAt": "2026-11-12T07:45:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABXgnXXQ",
+          "commit": {
+            "abbreviatedOid": "4a3785d"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-12T10:15:26Z",
+          "updatedAt": "2026-11-12T10:15:27Z",
+          "comments": [
+            {
+              "originalPosition": 179,
+              "body": "I would argue it is crucial to understand Happy Eyeballs and some of the considerations in its RFC to be able to execute testing correctly. Would prefer to have this as a Normative Reference",
+              "createdAt": "2026-11-12T10:15:26Z",
+              "updatedAt": "2026-11-12T10:15:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABXgpWoQ",
+          "commit": {
+            "abbreviatedOid": "4a3785d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-12T10:18:02Z",
+          "updatedAt": "2026-11-12T10:18:02Z",
+          "comments": [
+            {
+              "originalPosition": 179,
+              "body": "The language around should be reworded to align with the expectation you have. Otherwise, the current wording smells more informative.",
+              "createdAt": "2026-11-12T10:18:02Z",
+              "updatedAt": "2026-11-12T10:20:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABXhCGoA",
+          "commit": {
+            "abbreviatedOid": "00ba450"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-12T10:51:04Z",
+          "updatedAt": "2026-11-12T10:51:05Z",
+          "comments": [
+            {
+              "originalPosition": 179,
+              "body": "In the end, it does not matter \u2013 Happy Eyeballs is used in a more normative way at several other places.",
+              "createdAt": "2026-11-12T10:51:04Z",
+              "updatedAt": "2026-11-12T10:51:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABXlDuOw",
+          "commit": {
+            "abbreviatedOid": "70083bc"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-12T15:38:40Z",
+          "updatedAt": "2026-11-12T16:06:00Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\nWhile the IETF does not define compliance tests, best current practices exist for the behavior of general IPv6 nodes {{?RFC8504}} and Customer Edge (CE) routers {{RFC7084bis}}, as well as for test SIP-based applications {{?RFC5118}}.\n```",
+              "createdAt": "2026-11-12T15:38:40Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 78,
+              "body": "```suggestion\nThe document also includes the cases with Dual-stack server and both IPv4-only and IPv6-only clients, to test whether a single address family at client side works as anticipated and look at the transition case using NAT64.\n```",
+              "createdAt": "2026-11-12T15:43:46Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 121,
+              "body": "```suggestion\nthere are failure scenarios where some endpoints are only reachable using IPv6,\n```",
+              "createdAt": "2026-11-12T15:46:28Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 122,
+              "body": "```suggestion\nwhile others are only reachable using IPv4.\n```",
+              "createdAt": "2026-11-12T15:46:45Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 188,
+              "body": "```suggestion\nIn cases where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.\n```",
+              "createdAt": "2026-11-12T15:48:27Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 208,
+              "body": "```suggestion\nThe destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1), \n```",
+              "createdAt": "2026-11-12T15:49:35Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 209,
+              "body": "```suggestion\nde-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.\n```",
+              "createdAt": "2026-11-12T15:49:55Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 210,
+              "body": "I find this somewhat confusing to read. This could use some massaging but does this still convey what you want? \n\n```suggestion\nSome OSes and alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.\n```",
+              "createdAt": "2026-11-12T16:03:42Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            },
+            {
+              "originalPosition": 212,
+              "body": "```suggestion\nBeyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing unexpected behavior and other hard-to-debug errors:\n```",
+              "createdAt": "2026-11-12T16:05:06Z",
+              "updatedAt": "2026-11-12T16:06:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABXwRz4g",
+          "commit": {
+            "abbreviatedOid": "9fca97b"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-13T09:56:18Z",
+          "updatedAt": "2026-11-13T09:56:19Z",
+          "comments": [
+            {
+              "originalPosition": 208,
+              "body": "````suggestion\nThe destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1),\n````",
+              "createdAt": "2026-11-13T09:56:18Z",
+              "updatedAt": "2026-11-13T09:56:19Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOQpLumc8AAAABO7R5fg",
+      "title": "Address issues from TSVART review",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/42",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-13T13:51:16Z",
+      "updatedAt": "2026-11-15T02:59:53Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "94076fb6f7875b9baf3c3961ec119d3b6942ef31",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "tsvart-review-fixes",
+      "headRefOid": "c2d3b3a42ddf6ecea27e867cb270af75f4613a38",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABX1fF4A",
+          "commit": {
+            "abbreviatedOid": "0d368fa"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-13T16:27:33Z",
+          "updatedAt": "2026-11-13T16:37:29Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\nThe document also explains how to approach testing of complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.\n```",
+              "createdAt": "2026-11-13T16:27:33Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\n{{strategies}} explains how to conduct tests in cases where control over the test environment is limited.\n```",
+              "createdAt": "2026-11-13T16:28:16Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 26,
+              "body": "who is the targe of this SHOULD? app dev? If so, reword to make that explicit.",
+              "createdAt": "2026-11-13T16:29:57Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "```suggestion\nEven when the same forwarding path is traversed, the path can exhibit distinct forwarding behaviors, especially in the presence of middleboxes, including:\n```",
+              "createdAt": "2026-11-13T16:30:56Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "```suggestion\n - Dropping particular packets, e.g., TCP vs. UDP packets, packets destined to different port numbers\n```",
+              "createdAt": "2026-11-13T16:31:40Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\n - Preventing the use of QUIC, specific port numbers, or encapsulation schemes\n```",
+              "createdAt": "2026-11-13T16:32:13Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "```suggestion\n - Exhibiting a different Path Maximum Transmission Unit (PMTU)\n```",
+              "createdAt": "2026-11-13T16:32:40Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "```suggestion\n - Dropping some ICMP messages and breaking PMTU discovery\n```",
+              "createdAt": "2026-11-13T16:33:21Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 63,
+              "body": "```suggestion\n - Blocking certain protocol features, e.g., certain extensions or ciphers in TLS handshake\n```",
+              "createdAt": "2026-11-13T16:33:37Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\nit is  REQUIRED to check applications with dual-stack servers for partial blackholing and MTU issues by testing with IPv4-only and IPv6-only-strict clients during deployment and integration testing.\n```\n\nREQUIRES is not a normative key word",
+              "createdAt": "2026-11-13T16:34:33Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            },
+            {
+              "originalPosition": 93,
+              "body": "```suggestion\n  However, the application may have additional management functions (Network Configuration Protocol (NETCONF) {{?RFC6124}}, RESTCONF {{?RFC8040}}, SNMP {{?STD62}}, Open Telemetry {{?RFC9232}}, syslog {{?RFC5424}}, etc.) that should be tested.\n```",
+              "createdAt": "2026-11-13T16:36:59Z",
+              "updatedAt": "2026-11-13T16:37:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABX-LxuQ",
+          "commit": {
+            "abbreviatedOid": "0d368fa"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-14T10:11:27Z",
+          "updatedAt": "2026-11-14T10:11:27Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Anyone testing\u2026 so usually either app devs, QA staff or external certifiers. Re-Reading it makes me wonder how much sense the combination of \"SHOULD\" and \"consider\" makes.\r\n```suggestion\r\n{{scn_combinations}} lists the combinations of connectivity scenarios that should be considered when testing the application for IPv6 issues.\r\n```",
+              "createdAt": "2026-11-14T10:11:27Z",
+              "updatedAt": "2026-11-15T02:59:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYDCYKA",
+          "commit": {
+            "abbreviatedOid": "0d368fa"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-15T02:59:09Z",
+          "updatedAt": "2026-11-15T02:59:09Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "OK with s/be consider/be considered",
+              "createdAt": "2026-11-15T02:59:09Z",
+              "updatedAt": "2026-11-15T02:59:09Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOQpLumc8AAAABO9g9dw",
+      "title": "Update title based on GENART review",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/43",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-13T16:21:03Z",
+      "updatedAt": "2026-11-15T02:57:31Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "94076fb6f7875b9baf3c3961ec119d3b6942ef31",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "update-title",
+      "headRefOid": "f74085d4899e0bcc2a448c1488cb01c5fe5d1f62",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABX1eUGg",
+          "commit": {
+            "abbreviatedOid": "dab6074"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-13T16:26:33Z",
+          "updatedAt": "2026-11-13T16:26:38Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\ntitle: \"IPv6 Recommendations for Testing Applications\"\n```\n\nI would avoid having the doc status (i.e., Best current thing) in the title. ",
+              "createdAt": "2026-11-13T16:26:33Z",
+              "updatedAt": "2026-11-13T16:26:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABX-JeZw",
+          "commit": {
+            "abbreviatedOid": "dab6074"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-14T10:05:36Z",
+          "updatedAt": "2026-11-14T10:05:36Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "That suggestion looks the wrong way around\u2026 how about\n```suggestion\ntitle: \"Recommendations for IPv6 Testing of Applications\"\n```",
+              "createdAt": "2026-11-14T10:05:36Z",
+              "updatedAt": "2026-11-14T10:05:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYDCHFA",
+          "commit": {
+            "abbreviatedOid": "f74085d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-11-15T02:57:31Z",
+          "updatedAt": "2026-11-15T02:57:31Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
