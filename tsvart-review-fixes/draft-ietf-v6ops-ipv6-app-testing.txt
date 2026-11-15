@@ -82,13 +82,14 @@ Table of Contents
        3.3.3.  DNS Delegation Issues
        3.3.4.  Testing with IP Literals
        3.3.5.  Testing with Link-local Names
-     3.4.  Testing with Partially Broken Connectivity, MTU, and
-           Fragmentation Issues
-     3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
-     3.6.  Testing Lifecycle Function Considerations
-     3.7.  Testing Complex Cloud Applications and Applying Test Cases
-     3.8.  Special Considerations for Web-based Applications
-     3.9.  Considerations for Addresses as Data
+     3.4.  Testing with Different Transports
+     3.5.  Testing with Partially Broken Connectivity, MTU, and
+            Fragmentation Issues
+     3.6.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+     3.7.  Testing Lifecycle Function Considerations
+     3.8.  Testing Complex Cloud Applications and Applying Test Cases
+     3.9.  Special Considerations for Web-based Applications
+     3.10. Considerations for Addresses as Data
    4.  Testing Strategies
      4.1.  IPv6-only-strict Clients
      4.2.  IPv6-only Servers
@@ -308,7 +309,7 @@ Table of Contents
    The first five scenarios marked as _base_ should cover all major code
    paths and fallback conditions and MUST be validated to work as
    expected unless the application's architecture or deployment makes
-   them irrelevant (see Section 3.7 for further discussion).  These
+   them irrelevant (see Section 3.8 for further discussion).  These
    include Dual-stack clients combined with IPv4-only and IPv6-only-
    strict servers, to test whether the additional address family
    confused the client.  The document also includes the cases with Dual-
@@ -322,7 +323,7 @@ Table of Contents
    with NAT64 (IPv6-Mostly without CLAT).
 
    MTU issues, as described in Section 7.4.5 of [V6MOPS], that may arise
-   form these scenarios are covered in Section 3.4.
+   form these scenarios are covered in Section 3.5.
 
    This document also do not separate IPv4-only cases with and without
    NAT, despite that applications exist that assume NAT for IPv4 and do
@@ -490,7 +491,27 @@ Table of Contents
    tested to determine whether they work as expected with link-local
    names, particularly on a host with multiple network interfaces.
 
-3.4.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
+3.4.  Testing with Different Transports
+
+   Some applications can employ different transports or protocol
+   variants for their communication flows.  Typical examples include
+   HTTP-based applications running over TCP or QUIC [RFC9114] (over UDP)
+   and SIP-based applications that can do signaling over UDP, TCP, and
+   SCTP.  While Transport Layer Security (TLS) or similar security
+   layers are used for most application flows today, they may be
+   optional from an application protocol's point of view.  IPv6-related
+   issues that only arise with certain transports or protocol variants
+   are usually hard to identify and debug in production.  Because TCP
+   transport is usually implemented in the OS, while UDP/QUIC transport
+   is usually implemented in the application or a library shipped with
+   it, diverging behaviors and failures in IP-family-specific corner
+   cases are more likely.  Therefore, a testing strategy MUST exercise
+   all transport and protocol variants that might be available at the
+   endpoints.  Testers SHOULD cross-check whether these test cases
+   actually use the expected protocol or variant, or fall back to a less
+   preferable transport.
+
+3.5.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
       Issues
 
    When multiple address families are available, IP packets may traverse
@@ -540,7 +561,7 @@ Table of Contents
    ensure the application's behavior supports detecting and analyzing
    these errors.
 
-3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+3.6.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
 
    Some applications and services may assume the existence and
    reachability of the IPv4 loopback addresses (127.0.0.0/8) when
@@ -559,7 +580,7 @@ Table of Contents
    scenario, it is RECOMMENDED to test the application in an environment
    without IPv4 on the loopback interface.
 
-3.6.  Testing Lifecycle Function Considerations
+3.7.  Testing Lifecycle Function Considerations
 
    To cover the whole lifecycle of an application including
    installation, user interface, management, and update, it is
@@ -589,7 +610,7 @@ Table of Contents
       remote services, and those that handle network configuration
       parameters.  For example, a network configuration interface may
       only accept IPv4 address literals for certain parameters.  For
-      testing web-based user interfaces, see Section 3.8.
+      testing web-based user interfaces, see Section 3.9.
 
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
@@ -598,7 +619,7 @@ Table of Contents
       Open Telemetry [RFC9232], syslog [RFC5424], etc.) that should be
       tested.  As the source triggering application behavior is crucial
       for logging and auditing functionality, addresses recorded need to
-      be verified to be represented correctly.  See Section 3.9 about
+      be verified to be represented correctly.  See Section 3.10 about
       representation of addresses.
 
    *  Update: Depending on the application, update functions may be
@@ -606,7 +627,7 @@ Table of Contents
       additional update functions (e.g., automatic updates or manual
       update mechanisms) that should be tested.
 
-3.7.  Testing Complex Cloud Applications and Applying Test Cases
+3.8.  Testing Complex Cloud Applications and Applying Test Cases
 
    Complex applications and especially cloud applications typically
    involve many data flows into the application, across components, and
@@ -651,7 +672,7 @@ Table of Contents
    always denying access over IPv6, or security issues, like not logging
    access from IPv6 clients.
 
-3.8.  Special Considerations for Web-based Applications
+3.9.  Special Considerations for Web-based Applications
 
    Web-based applications usually load resources from multiple parties,
    including Content Delivery Networks (CDNs) and analytic tools,
@@ -669,7 +690,7 @@ Table of Contents
    request resources from more parties, this kind of testing usually
    requires an instrumented Web browser, e.g., using [Selenium].
 
-3.9.  Considerations for Addresses as Data
+3.10.  Considerations for Addresses as Data
 
    When applications process IP addresses as data (e.g., as part of
    logging or management functionality), this functionality MUST work
@@ -821,7 +842,7 @@ Table of Contents
 
    Ignoring management and control interfaces when enabling and testing
    applications for IPv6-only operation turns out to be a common
-   pattern.  As already discussed in Section 3.6, special care should be
+   pattern.  As already discussed in Section 3.7, special care should be
    taken to cover all of these flows and avoid setups that require Dual-
    stack deployment.
 
@@ -1022,9 +1043,9 @@ Table of Contents
 
    [IPv6-ONLY]
               Martinez, J. P., "IPv6 Terminology Definitions", Work in
-              Progress, Internet-Draft, draft-ietf-v6ops-ipv6-only-06,
-              30 October 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-v6ops-ipv6-only-06>.
+              Progress, Internet-Draft, draft-ietf-v6ops-ipv6-only-07,
+              15 November 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-v6ops-ipv6-only-07>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1218,6 +1239,9 @@ Table of Contents
               Mrugalski, "IPv6-Only Preferred Option for DHCPv4",
               RFC 8925, DOI 10.17487/RFC8925, October 2020,
               <https://www.rfc-editor.org/rfc/rfc8925>.
+
+   [RFC9114]  Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
+              June 2022, <https://www.rfc-editor.org/rfc/rfc9114>.
 
    [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
               A. Wang, "Network Telemetry Framework", RFC 9232,
