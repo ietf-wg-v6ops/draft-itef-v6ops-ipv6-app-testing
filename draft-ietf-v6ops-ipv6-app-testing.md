@@ -203,7 +203,7 @@ While this section assumes that the communication scenarios are under full contr
 
 ## Connectivity Scenarios {#scenarios}
 
-{{scn_combinations}} lists the combinations of connectivity scenarios that application testing SHOULD consider.
+{{scn_combinations}} lists the combinations of connectivity scenarios that should be considered when testing the application for IPv6 issues.
 Not testing some of these cases may lead to failures in operations.
 Note, while the involved parties are listed here as "client" and "server" to reflect the most common case, the combinations can be used the same way when considering Peer-to-Peer (P2P) applications -- with "client" representing the initiating or first acting party.
 
