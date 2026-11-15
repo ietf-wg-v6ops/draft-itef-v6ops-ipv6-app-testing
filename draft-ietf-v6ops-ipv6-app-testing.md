@@ -317,6 +317,15 @@ to one or both of a link-local IPv4 address {{?RFC3927}} and a link-local IPv6 a
 The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{!RFC4007}}.
 Applications SHOULD be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.
 
+## Testing with Different Transports
+
+Some applications can employ different transports or protocol variants for their communication flows.
+Typical examples include HTTP-based applications running over TCP or QUIC {{?RFC9114}} (over UDP) and SIP-based applications that can do signaling over UDP, TCP, and SCTP.
+While Transport Layer Security (TLS) or similar security layers are used for most application flows today, they may be optional from an application protocol's point of view.
+IPv6-related issues that only arise with certain transports or protocol variants are usually hard to identify and debug in production. Because TCP transport is usually implemented in the OS, while UDP/QUIC transport is usually implemented in the application or a library shipped with it, diverging behaviors and failures in IP-family-specific corner cases are more likely.
+Therefore, a testing strategy MUST exercise all transport and protocol variants that might be available at the endpoints.
+Testers SHOULD cross-check whether these test cases actually use the expected protocol or variant, or fall back to a less preferable transport.
+
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
 When multiple address families are available, IP packets may traverse different forwarding paths depending on the address family.
