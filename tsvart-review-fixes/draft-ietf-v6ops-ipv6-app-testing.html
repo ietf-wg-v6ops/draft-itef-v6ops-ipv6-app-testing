@@ -1198,7 +1198,10 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                     <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-testing-with-ip-literals" class="internal xref">Testing with IP Literals</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.5">
-                    <p id="section-toc.1-1.3.2.3.2.5.1"><a href="#section-3.3.5" class="auto internal xref">3.3.5</a>.  <a href="#name-testing-with-link-local-nam" class="internal xref">Testing with Link-local Names</a></p>
+                    <p id="section-toc.1-1.3.2.3.2.5.1"><a href="#section-3.3.5" class="auto internal xref">3.3.5</a>.  <a href="#name-testing-reverse-dns-lookups" class="internal xref">Testing Reverse DNS Lookups</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.6">
+                    <p id="section-toc.1-1.3.2.3.2.6.1"><a href="#section-3.3.6" class="auto internal xref">3.3.6</a>.  <a href="#name-testing-with-link-local-nam" class="internal xref">Testing with Link-local Names</a></p>
 </li>
                 </ul>
 </li>
@@ -1674,15 +1677,23 @@ Applications SHOULD be tested to determine whether they work as expected with IP
 <p id="section-3.3.4-2">If there is a use case for link-local communication using IP literals, it MUST be tested whether the zone identifier can be entered as described in <span>[<a href="#RFC9844" class="cite xref">RFC9844</a>]</span> and work as expected.<a href="#section-3.3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="testing-with-link-local-names">
+<div id="testing-reverse-dns-lookups">
 <section id="section-3.3.5">
-          <h4 id="name-testing-with-link-local-nam">
-<a href="#section-3.3.5" class="section-number selfRef">3.3.5. </a><a href="#name-testing-with-link-local-nam" class="section-name selfRef">Testing with Link-local Names</a>
+          <h4 id="name-testing-reverse-dns-lookups">
+<a href="#section-3.3.5" class="section-number selfRef">3.3.5. </a><a href="#name-testing-reverse-dns-lookups" class="section-name selfRef">Testing Reverse DNS Lookups</a>
           </h4>
-<p id="section-3.3.5-1">A name such as <code>example.local</code> can resolve, e.g., through DNS-Based Service Discovery <span>[<a href="#RFC6763" class="cite xref">RFC6763</a>]</span>,
+<p id="section-3.3.5-1">Applications SHOULD be tested whether they correctly resolve and display reverse DNS lookups for all address families and deal correctly with missing DNS records if reverse DNS is used anywhere in the code or runtime environment.<a href="#section-3.3.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="testing-with-link-local-names">
+<section id="section-3.3.6">
+          <h4 id="name-testing-with-link-local-nam">
+<a href="#section-3.3.6" class="section-number selfRef">3.3.6. </a><a href="#name-testing-with-link-local-nam" class="section-name selfRef">Testing with Link-local Names</a>
+          </h4>
+<p id="section-3.3.6-1">A name such as <code>example.local</code> can resolve, e.g., through DNS-Based Service Discovery <span>[<a href="#RFC6763" class="cite xref">RFC6763</a>]</span>,
 to one or both of a link-local IPv4 address <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span> and a link-local IPv6 address.
 The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>.
-Applications SHOULD be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.<a href="#section-3.3.5-1" class="pilcrow">¶</a></p>
+Applications SHOULD be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.<a href="#section-3.3.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

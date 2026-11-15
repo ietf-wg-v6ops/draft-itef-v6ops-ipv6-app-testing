@@ -81,7 +81,8 @@ Table of Contents
        3.3.2.  Incorrect DNS Resource Records
        3.3.3.  DNS Delegation Issues
        3.3.4.  Testing with IP Literals
-       3.3.5.  Testing with Link-local Names
+       3.3.5.  Testing Reverse DNS Lookups
+       3.3.6.  Testing with Link-local Names
      3.4.  Testing with Different Transports
      3.5.  Testing with Partially Broken Connectivity, MTU, and
             Fragmentation Issues
@@ -481,7 +482,14 @@ Table of Contents
    literals, it MUST be tested whether the zone identifier can be
    entered as described in [RFC9844] and work as expected.
 
-3.3.5.  Testing with Link-local Names
+3.3.5.  Testing Reverse DNS Lookups
+
+   Applications SHOULD be tested whether they correctly resolve and
+   display reverse DNS lookups for all address families and deal
+   correctly with missing DNS records if reverse DNS is used anywhere in
+   the code or runtime environment.
+
+3.3.6.  Testing with Link-local Names
 
    A name such as example.local can resolve, e.g., through DNS-Based
    Service Discovery [RFC6763], to one or both of a link-local IPv4
