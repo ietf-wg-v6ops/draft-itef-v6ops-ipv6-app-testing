@@ -327,8 +327,8 @@ Some applications can employ different transports or protocol variants for their
 Typical examples include HTTP-based applications running over TCP or QUIC {{?RFC9114}} (over UDP) and SIP-based applications that can do signaling over UDP, TCP, and SCTP.
 While Transport Layer Security (TLS) or similar security layers are used for most application flows today, they may be optional from an application protocol's point of view.
 IPv6-related issues that only arise with certain transports or protocol variants are usually hard to identify and debug in production. Because TCP transport is usually implemented in the OS, while UDP/QUIC transport is usually implemented in the application or a library shipped with it, diverging behaviors and failures in IP-family-specific corner cases are more likely.
-Therefore, a testing strategy MUST exercise all transport and protocol variants that might be available at the endpoints.
-Testers SHOULD cross-check whether these test cases actually use the expected protocol or variant, or fall back to a less preferable transport.
+Therefore, an IP connectivity testing strategy MUST also exercise all transport and protocol variants supported by the application and that might be available at the endpoints.
+Testers have to assess whether these test cases use the expected transport protocol (or variant) or fall back to a less preferable transport under specific forwarding conditions.
 
 ## Testing with Partially Broken Connectivity, MTU, and Fragmentation Issues {#partially-broken}
 
