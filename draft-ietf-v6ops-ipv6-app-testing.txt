@@ -81,14 +81,16 @@ Table of Contents
        3.3.2.  Incorrect DNS Resource Records
        3.3.3.  DNS Delegation Issues
        3.3.4.  Testing with IP Literals
-       3.3.5.  Testing with Link-local Names
-     3.4.  Testing with Partially Broken Connectivity, MTU, and
-           Fragmentation Issues
-     3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
-     3.6.  Testing Lifecycle Function Considerations
-     3.7.  Testing Complex Cloud Applications and Applying Test Cases
-     3.8.  Special Considerations for Web-based Applications
-     3.9.  Considerations for Addresses as Data
+       3.3.5.  Testing Reverse DNS Lookups
+       3.3.6.  Testing with Link-local Names
+     3.4.  Testing with Different Transports
+     3.5.  Testing with Partially Broken Connectivity, MTU, and
+            Fragmentation Issues
+     3.6.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+     3.7.  Testing Lifecycle Function Considerations
+     3.8.  Testing Complex Cloud Applications and Applying Test Cases
+     3.9.  Special Considerations for Web-based Applications
+     3.10. Considerations for Addresses as Data
    4.  Testing Strategies
      4.1.  IPv6-only-strict Clients
      4.2.  IPv6-only Servers
@@ -281,33 +283,34 @@ Table of Contents
    IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict
    settings.
 
-   This document does not include application-specific testing.  For
-   example, some IETF specifications (e.g., SIP [RFC3261]) contains
-   broken IPv6 Augmented Backus-Naur Form (ABNF) and rules to compare
-   URIs with embedded IPv6 addresses; fixes (e.g., [RFC5954]) must be
-   used instead.  Testing and validation of such application-specific
-   matters are out the scope of this document.
-
-   The following subsections provide guidance on which connectivity
-   scenarios to include in a testing campaign for an ideal application
-   that is supposed to run anywhere and how to approach testing complex
-   cloud applications and exclude connectivity scenarios based on the
-   deployment environment.
+   This section provides guidance on which connectivity scenarios and
+   parts of the lifecycle of an application to include in a testing
+   campaign for an ideal application that is supposed to run anywhere.
+   It is RECOMMENDED to apply these scenarios to all existing
+   functional, integration, and end-to-end test cases that the
+   application's communication pattern may influence.  The document also
+   explains how to approach testing of complex cloud applications and
+   how to exclude connectivity scenarios based on the deployment
+   environment.  Testing for application-specific or protocol-specific
+   issues is out of scope.  While this section assumes that the
+   communication scenarios are under full control of the tester,
+   Section 4 explains how to conduct tests in cases where control over
+   the test environment is limited.
 
 3.1.  Connectivity Scenarios
 
-   Table 1 lists the combinations of connectivity scenarios that
-   application testing SHOULD consider.  Not testing some of these cases
-   may lead to failures in operations.  Note, while the involved parties
-   are listed here as "client" and "server" to reflect the most common
-   case, the combinations can be used the same way when considering
-   Peer-to-Peer (P2P) applications -- with "client" representing the
-   initiating or first acting party.
+   Table 1 lists the combinations of connectivity scenarios that should
+   be considered when testing the application for IPv6 issues.  Not
+   testing some of these cases may lead to failures in operations.
+   Note, while the involved parties are listed here as "client" and
+   "server" to reflect the most common case, the combinations can be
+   used the same way when considering Peer-to-Peer (P2P) applications --
+   with "client" representing the initiating or first acting party.
 
    The first five scenarios marked as _base_ should cover all major code
    paths and fallback conditions and MUST be validated to work as
    expected unless the application's architecture or deployment makes
-   them irrelevant (see {complex-apps} for further discussion).  These
+   them irrelevant (see Section 3.8 for further discussion).  These
    include Dual-stack clients combined with IPv4-only and IPv6-only-
    strict servers, to test whether the additional address family
    confused the client.  The document also includes the cases with Dual-
@@ -321,7 +324,7 @@ Table of Contents
    with NAT64 (IPv6-Mostly without CLAT).
 
    MTU issues, as described in Section 7.4.5 of [V6MOPS], that may arise
-   form these scenarios are covered in Section 3.4.
+   form these scenarios are covered in Section 3.5.
 
    This document also do not separate IPv4-only cases with and without
    NAT, despite that applications exist that assume NAT for IPv4 and do
@@ -371,12 +374,12 @@ Table of Contents
 3.2.  Testing with Intermediaries (e.g., Proxies)
 
    Many application protocols support communicating across
-   intermediates, most commonly HTTP, HTTP-Connect, SOCKS, or MASQUE
-   proxies.  P2P applications often support TURN [RFC8656] as an
-   intermediary to traverse NAT and provide connectivity between
-   IPv4-only and IPv6-only hosts.  When testing connectivity scenarios
-   for such an application, the additional test cases including a proxy
-   MUST also be validated.
+   intermediates, most commonly HTTP Connect [RFC7230], SOCKS [RFC1928],
+   or MASQUE [MASQUE] proxies.  P2P applications often support TURN
+   [RFC8656] as an intermediary to traverse NAT and provide connectivity
+   between IPv4-only and IPv6-only hosts.  When testing connectivity
+   scenarios for such an application, the additional test cases
+   including a proxy MUST also be validated.
 
    As a proxy can convert between address families, all combinations
    shown in Table 2, consisting of base scenarios towards the proxy and
@@ -479,7 +482,14 @@ Table of Contents
    literals, it MUST be tested whether the zone identifier can be
    entered as described in [RFC9844] and work as expected.
 
-3.3.5.  Testing with Link-local Names
+3.3.5.  Testing Reverse DNS Lookups
+
+   Applications SHOULD be tested whether they correctly resolve and
+   display reverse DNS lookups for all address families and deal
+   correctly with missing DNS records if reverse DNS is used anywhere in
+   the code or runtime environment.
+
+3.3.6.  Testing with Link-local Names
 
    A name such as example.local can resolve, e.g., through DNS-Based
    Service Discovery [RFC6763], to one or both of a link-local IPv4
@@ -489,47 +499,78 @@ Table of Contents
    tested to determine whether they work as expected with link-local
    names, particularly on a host with multiple network interfaces.
 
-3.4.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
+3.4.  Testing with Different Transports
+
+   Some applications can employ different transports or protocol
+   variants for their communication flows.  Typical examples include
+   HTTP-based applications running over TCP or QUIC [RFC9114] (over UDP)
+   and SIP-based applications that can do signaling over UDP, TCP, and
+   SCTP.  While Transport Layer Security (TLS) or similar security
+   layers are used for most application flows today, they may be
+   optional from an application protocol's point of view.  IPv6-related
+   issues that only arise with certain transports or protocol variants
+   are usually hard to identify and debug in production.  Because TCP
+   transport is usually implemented in the OS, while UDP/QUIC transport
+   is usually implemented in the application or a library shipped with
+   it, diverging behaviors and failures in IP-family-specific corner
+   cases are more likely.  Therefore, an IP connectivity testing
+   strategy MUST also exercise all transport and protocol variants
+   supported by the application and that might be available at the
+   endpoints.  Testers have to assess whether these test cases use the
+   expected transport protocol (or variant) or fall back to a less
+   preferable transport under specific forwarding conditions.
+
+3.5.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
       Issues
 
    When multiple address families are available, IP packets may traverse
    different forwarding paths depending on the address family.  Even
-   when the same path is traversed, the path can exhibit distinct
-   behaviors (e.g., dropping all or particular packets), especially in
-   the presence of middleboxes.
+   when the same forwarding path is traversed, the path can exhibit
+   distinct forwarding behaviors, especially in the presence of
+   middleboxes, including:
 
-   Even when communication endpoints are expected to be reachable using
-   both address families, there are failure scenarios where some
-   endpoints are only reachable using IPv6, while others are only
-   reachable using IPv4.  Disabling either address family therefore may
-   break a scenario that seems to function correctly on first glance.
-   Testing applications against these scenarios can become a key enabler
-   for users' acceptance of IPv6, especially during a transition phase
-   where partially broken connectivity is expected more frequently.
+   *  Dropping all packets
 
-   In some cases, connectivity issues may only become apparent late in
-   the communication process, for example, after a successful TCP
-   handshake but before a TLS handshake succeeds.  In such scenarios,
-   clients restricted to a single address family -- such as IPv6-only-
-   strict clients -- may experience complete loss of connectivity in
-   these scenarios, while dual-stack clients often mask such failures by
-   automatically falling back to another address family.
+   *  Dropping particular packets, e.g., TCP vs. UDP packets, packets
+      destined to different port numbers
 
-   In addition to partial blackholing, MTU issues may be limited to one
-   address family or behave differently with respect to aspects like MTU
-   available, dropping of fragmented packets, and ICMP messages
-   generated.  As only IPv4 supports on-path fragmentation, IPv6 is more
-   dependent on working ICMP _packet too big_ reporting.
+   *  Preventing the use of QUIC, specific port numbers, or
+      encapsulation schemes
 
-   During deployment and integration testing, checking for partial
-   blackholing and MTU issues MUST be done by testing with IPv4-only and
-   IPv6-only-strict clients to detect such blackholes.  In case these
-   issues can occur outside the testers' circle of control, it is
-   advisable to simulate this type of failure and ensure that the
-   application's behavior supports the detection and analysis of these
-   errors.
+   *  Behaving differently for the same values of ECN or DSCP fields
 
-3.5.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
+   *  Exhibiting a different Path Maximum Transmission Unit (PMTU)
+
+   *  Dropping some ICMP messages and breaking PMTU discovery
+
+   *  Dropping fragmented packets
+
+   *  Blocking certain protocol features, e.g., certain extensions or
+      ciphers in TLS handshake
+
+   In such scenarios, clients restricted to a single address family --
+   such as IPv6-only-strict clients -- may experience complete loss of
+   connectivity, while dual-stack clients often mask such failures by
+   automatically falling back to another address family.  Disabling
+   either address family may therefore break a scenario that seems to
+   function correctly at first glance.  Testing applications against
+   these scenarios can become a key enabler for users' acceptance of
+   IPv6, especially during a transition phase where partially broken
+   connectivity is expected more frequently.
+
+   While this document provides no comprehensive guide on how to test
+   for these network issues, it is REQUIRED to check applications with
+   dual-stack servers for partial blackholing and MTU issues by testing
+   with IPv4-only and IPv6-only-strict clients during deployment and
+   integration testing.  Note that in some cases, connectivity issues
+   may only become apparent late in the communication process, for
+   example, after a successful TCP handshake / QUIC initial packet, but
+   before a TLS handshake succeeds.  Because these issues can occur
+   outside the testers' control, it is advisable to simulate them and
+   ensure the application's behavior supports detecting and analyzing
+   these errors.
+
+3.6.  Testing without IPv4 Loopback Addresses (127.0.0.0/8)
 
    Some applications and services may assume the existence and
    reachability of the IPv4 loopback addresses (127.0.0.0/8) when
@@ -548,7 +589,7 @@ Table of Contents
    scenario, it is RECOMMENDED to test the application in an environment
    without IPv4 on the loopback interface.
 
-3.6.  Testing Lifecycle Function Considerations
+3.7.  Testing Lifecycle Function Considerations
 
    To cover the whole lifecycle of an application including
    installation, user interface, management, and update, it is
@@ -578,22 +619,24 @@ Table of Contents
       remote services, and those that handle network configuration
       parameters.  For example, a network configuration interface may
       only accept IPv4 address literals for certain parameters.  For
-      testing web-based user interfaces, see Section 3.8.
+      testing web-based user interfaces, see Section 3.9.
 
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
-      have additional management functions (SNMP, syslog, etc.) that
-      should be tested.  As the source triggering application behavior
-      is crucial for logging and auditing functionality, addresses
-      recorded need to be verified to be represented correctly.  See
-      Section 3.9 about representation of addresses.
+      have additional management functions (Network Configuration
+      Protocol (NETCONF) [RFC6124], RESTCONF [RFC8040], SNMP [STD62],
+      Open Telemetry [RFC9232], syslog [RFC5424], etc.) that should be
+      tested.  As the source triggering application behavior is crucial
+      for logging and auditing functionality, addresses recorded need to
+      be verified to be represented correctly.  See Section 3.10 about
+      representation of addresses.
 
    *  Update: Depending on the application, update functions may be
       exercised during installation.  However, the application may have
       additional update functions (e.g., automatic updates or manual
       update mechanisms) that should be tested.
 
-3.7.  Testing Complex Cloud Applications and Applying Test Cases
+3.8.  Testing Complex Cloud Applications and Applying Test Cases
 
    Complex applications and especially cloud applications typically
    involve many data flows into the application, across components, and
@@ -638,7 +681,7 @@ Table of Contents
    always denying access over IPv6, or security issues, like not logging
    access from IPv6 clients.
 
-3.8.  Special Considerations for Web-based Applications
+3.9.  Special Considerations for Web-based Applications
 
    Web-based applications usually load resources from multiple parties,
    including Content Delivery Networks (CDNs) and analytic tools,
@@ -656,7 +699,7 @@ Table of Contents
    request resources from more parties, this kind of testing usually
    requires an instrumented Web browser, e.g., using [Selenium].
 
-3.9.  Considerations for Addresses as Data
+3.10.  Considerations for Addresses as Data
 
    When applications process IP addresses as data (e.g., as part of
    logging or management functionality), this functionality MUST work
@@ -733,8 +776,8 @@ Table of Contents
 4.2.  IPv6-only Servers
 
    IPv6-only servers are a good option when setting up an IPv6-only-
-   strict client environment is infeasible and clients are know to only
-   contact a single server or a small number of servers under the
+   strict client environment is infeasible and it is clear that clients
+   only contact a single server or a small number of servers under the
    testers' control.  Even if setting up an IPv6-only-strict server
    environment is infeasible, most testing is also achievable by setting
    up a dedicated DNS name only containing an AAAA resource record
@@ -780,8 +823,8 @@ Table of Contents
    While this is the least invasive method of testing IPv6-only-strict
    scenarios in a Dual-stack setup, it is the most error-prone as it
    requires the tester to fully understand the network flows of the
-   application and requires the skills to interpret the output of a
-   packet tracer.
+   application and cross-check these expected flows with the flows shown
+   in the packet trace.
 
 5.  Common Sources of IPv6 Related Failures and Misbehavior
 
@@ -808,7 +851,7 @@ Table of Contents
 
    Ignoring management and control interfaces when enabling and testing
    applications for IPv6-only operation turns out to be a common
-   pattern.  As already discussed in Section 3.6, special care should be
+   pattern.  As already discussed in Section 3.7, special care should be
    taken to cover all of these flows and avoid setups that require Dual-
    stack deployment.
 
@@ -862,13 +905,14 @@ Table of Contents
    Many tutorials and programmer facing documentations have still not
    been updated to cover listening on multiple address families to
    accept connections from both IPv6 and IPv4.  Listening code should be
-   checked to determine whether it supports distinct listening sockets
-   for IPv6 and IPv4, or configures IPv6 sockets that also bind to IPv4.
-   Listening code should also be able to deal with cases where IPv6 or
-   IPv4 have been disabled in the OS.
+   checked whether it supports distinct listening sockets for IPv6 and
+   IPv4, or configures IPv6 sockets to also bind to IPv4.  Listening
+   code should also be able to deal with cases where IPv6 or IPv4 have
+   been disabled in the OS.
 
    In deployments, it is recommended to always use tools like netstat or
-   lsof to verify all relevant address families are listened on.
+   lsof (if available) to verify all relevant address families are
+   listened on.
 
 5.5.  Input Validation and Output Rendering
 
@@ -1095,15 +1139,19 @@ Table of Contents
               an icon to indicate whether the current page was fetched
               using IPv4 or IPv6.", n.d., <https://pmarks.net/ipvfoo>.
 
+   [MASQUE]   Schinazi, D., "The MASQUE Architecture", Work in Progress,
+              Internet-Draft, draft-schinazi-masque-proxy-09, 27 August
+              2026, <https://datatracker.ietf.org/doc/html/draft-
+              schinazi-masque-proxy-09>.
+
    [NGINX.trac-552]
               "Nginx doesn't honor net.ipv6.conf.all.disable_ipv6",
               n.d., <https://trac.nginx.org/nginx/ticket/552>.
 
-   [RFC3261]  Rosenberg, J., Schulzrinne, H., Camarillo, G., Johnston,
-              A., Peterson, J., Sparks, R., Handley, M., and E.
-              Schooler, "SIP: Session Initiation Protocol", RFC 3261,
-              DOI 10.17487/RFC3261, July 2002,
-              <https://www.rfc-editor.org/rfc/rfc3261>.
+   [RFC1928]  Leech, M., Ganis, M., Lee, Y., Kuris, R., Koblas, D., and
+              L. Jones, "SOCKS Protocol Version 5", RFC 1928,
+              DOI 10.17487/RFC1928, March 1996,
+              <https://www.rfc-editor.org/rfc/rfc1928>.
 
    [RFC3484]  Draves, R., "Default Address Selection for Internet
               Protocol version 6 (IPv6)", RFC 3484,
@@ -1121,10 +1169,14 @@ Table of Contents
               DOI 10.17487/RFC5118, February 2008,
               <https://www.rfc-editor.org/rfc/rfc5118>.
 
-   [RFC5954]  Gurbani, V., Ed., Carpenter, B., Ed., and B. Tate, Ed.,
-              "Essential Correction for IPv6 ABNF and URI Comparison in
-              RFC 3261", RFC 5954, DOI 10.17487/RFC5954, August 2010,
-              <https://www.rfc-editor.org/rfc/rfc5954>.
+   [RFC5424]  Gerhards, R., "The Syslog Protocol", RFC 5424,
+              DOI 10.17487/RFC5424, March 2009,
+              <https://www.rfc-editor.org/rfc/rfc5424>.
+
+   [RFC6124]  Sheffer, Y., Zorn, G., Tschofenig, H., and S. Fluhrer, "An
+              EAP Authentication Method Based on the Encrypted Key
+              Exchange (EKE) Protocol", RFC 6124, DOI 10.17487/RFC6124,
+              February 2011, <https://www.rfc-editor.org/rfc/rfc6124>.
 
    [RFC6146-bis]
               Bagnulo, M., Matthews, P., and J. P. Martinez, "Stateful
@@ -1163,10 +1215,19 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
               rfc7084bis-08>.
 
+   [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Message Syntax and Routing",
+              RFC 7230, DOI 10.17487/RFC7230, June 2014,
+              <https://www.rfc-editor.org/rfc/rfc7230>.
+
    [RFC7915]  Bao, C., Li, X., Baker, F., Anderson, T., and F. Gont,
               "IP/ICMP Translation Algorithm", RFC 7915,
               DOI 10.17487/RFC7915, June 2016,
               <https://www.rfc-editor.org/rfc/rfc7915>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
 
    [RFC8489]  Petit-Huguenin, M., Salgueiro, G., Rosenberg, J., Wing,
               D., Mahy, R., and P. Matthews, "Session Traversal
@@ -1188,12 +1249,68 @@ Table of Contents
               RFC 8925, DOI 10.17487/RFC8925, October 2020,
               <https://www.rfc-editor.org/rfc/rfc8925>.
 
+   [RFC9114]  Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
+              June 2022, <https://www.rfc-editor.org/rfc/rfc9114>.
+
+   [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
+              A. Wang, "Network Telemetry Framework", RFC 9232,
+              DOI 10.17487/RFC9232, May 2022,
+              <https://www.rfc-editor.org/rfc/rfc9232>.
+
    [RFC10001] Momoka and T. Fiebig, "Operational Guidelines for DNS
               Transport in Mixed IPv4/IPv6 Environments", BCP 91,
               RFC 10001, DOI 10.17487/RFC10001, August 2026,
               <https://www.rfc-editor.org/rfc/rfc10001>.
 
    [Selenium] "Selenium WebDriver", n.d., <https://www.selenium.dev/>.
+
+   [STD62]    Internet Standard 62,
+              <https://www.rfc-editor.org/info/std62>.
+              At the time of writing, this STD comprises the following:
+
+              Harrington, D., Presuhn, R., and B. Wijnen, "An
+              Architecture for Describing Simple Network Management
+              Protocol (SNMP) Management Frameworks", STD 62, RFC 3411,
+              DOI 10.17487/RFC3411, December 2002,
+              <https://www.rfc-editor.org/info/rfc3411>.
+
+              Case, J., Harrington, D., Presuhn, R., and B. Wijnen,
+              "Message Processing and Dispatching for the Simple Network
+              Management Protocol (SNMP)", STD 62, RFC 3412,
+              DOI 10.17487/RFC3412, December 2002,
+              <https://www.rfc-editor.org/info/rfc3412>.
+
+              Levi, D., Meyer, P., and B. Stewart, "Simple Network
+              Management Protocol (SNMP) Applications", STD 62,
+              RFC 3413, DOI 10.17487/RFC3413, December 2002,
+              <https://www.rfc-editor.org/info/rfc3413>.
+
+              Blumenthal, U. and B. Wijnen, "User-based Security Model
+              (USM) for version 3 of the Simple Network Management
+              Protocol (SNMPv3)", STD 62, RFC 3414,
+              DOI 10.17487/RFC3414, December 2002,
+              <https://www.rfc-editor.org/info/rfc3414>.
+
+              Wijnen, B., Presuhn, R., and K. McCloghrie, "View-based
+              Access Control Model (VACM) for the Simple Network
+              Management Protocol (SNMP)", STD 62, RFC 3415,
+              DOI 10.17487/RFC3415, December 2002,
+              <https://www.rfc-editor.org/info/rfc3415>.
+
+              Presuhn, R., Ed., "Version 2 of the Protocol Operations
+              for the Simple Network Management Protocol (SNMP)",
+              STD 62, RFC 3416, DOI 10.17487/RFC3416, December 2002,
+              <https://www.rfc-editor.org/info/rfc3416>.
+
+              Presuhn, R., Ed., "Transport Mappings for the Simple
+              Network Management Protocol (SNMP)", STD 62, RFC 3417,
+              DOI 10.17487/RFC3417, December 2002,
+              <https://www.rfc-editor.org/info/rfc3417>.
+
+              Presuhn, R., Ed., "Management Information Base (MIB) for
+              the Simple Network Management Protocol (SNMP)", STD 62,
+              RFC 3418, DOI 10.17487/RFC3418, December 2002,
+              <https://www.rfc-editor.org/info/rfc3418>.
 
    [US-NIST.SP.500-267Ar1]
               "NIST Special Publication 500-267 Revision 1 - NIST IPv6
