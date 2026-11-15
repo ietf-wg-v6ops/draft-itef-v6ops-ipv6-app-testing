@@ -310,6 +310,10 @@ Applications SHOULD be tested to determine whether they work as expected with IP
 
 If there is a use case for link-local communication using IP literals, it MUST be tested whether the zone identifier can be entered as described in {{!RFC9844}} and work as expected.
 
+### Testing Reverse DNS Lookups
+
+Applications SHOULD be tested whether they correctly resolve and display reverse DNS lookups for all address families and deal correctly with missing DNS records if reverse DNS is used anywhere in the code or runtime environment.
+
 ### Testing with Link-local Names
 
 A name such as `example.local` can resolve, e.g., through DNS-Based Service Discovery {{?RFC6763}},
