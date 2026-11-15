@@ -5,12 +5,12 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 17 May 2027                                           B. Patton
+Expires: 19 May 2027                                           B. Patton
                                                                  UNH-IOL
-                                                        13 November 2026
+                                                        15 November 2026
 
 
-              IPv6 Testing Best-Practices for Applications
+            Recommendations for IPv6 Testing of Applications
                 draft-ietf-v6ops-ipv6-app-testing-latest
 
 Abstract
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2027.
+   This Internet-Draft will expire on 19 May 2027.
 
 Copyright Notice
 
