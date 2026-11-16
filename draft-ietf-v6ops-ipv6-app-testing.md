@@ -145,7 +145,7 @@ Finally, {{ops}} describes operational considerations to keep in mind while desi
 
 ## Requirements Language
 
-{::boilerplate bcp14+}
+{::boilerplate bcp14}
 
 ## Base Connectivity Scenarios
 
