@@ -2402,7 +2402,7 @@ crosses the two to identify the relevant data flows between components as descri
 and finally derives the IPv6 test cases by applying the connectivity scenarios from <a href="#scn_combinations" class="auto internal xref">Table 1</a> to each flow.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">The example is deliberately kept small; a real application will have many more components, flows, and tests.
 The intent is to demonstrate the method, not to provide a complete test plan.
-None of the keywords defined in <a href="#definitions" class="auto internal xref">Section 2</a> are used in a normative sense in this appendix.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+This appendix is informative.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 <div id="example-app">
 <section id="appendix-A.1">
         <h3 id="name-the-application-and-its-end">
@@ -2412,7 +2412,7 @@ None of the keywords defined in <a href="#definitions" class="auto internal xref
 Customers use a browser-based frontend to browse the catalog, check availability, and place orders.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-2">The bookshop already maintains a suite of functional end-to-end tests.
 These tests predate any IPv6 testing effort and verify the functional correctness of the application; they form the basis from which the IPv6 test cases are derived.
-<a href="#example-e2e-tests" class="auto internal xref">Table 3</a> lists them.<a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
+<a href="#example-e2e-tests" class="auto internal xref">Table 3</a> provides a non-exhaustive list of such tests.<a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
 <span id="name-existing-end-to-end-tests"></span><div id="example-e2e-tests">
 <table class="center" id="table-3">
           <caption>
@@ -2477,10 +2477,10 @@ The backend is composed of the following components:<a href="#appendix-A.2-1" cl
             <p id="appendix-A.2-2.3.1">a Database (DB) that keeps the business state (catalog, customer accounts, carts, and orders);<a href="#appendix-A.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.4">
-            <p id="appendix-A.2-2.4.1">an Audit Log Service (ALS), internal to the backend, to which the business microservice writes audit records of security-relevant business operations; each record includes the originating client's IP address and other request metadata; and<a href="#appendix-A.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.4.1">an Audit Log Service (ALS), internal to the backend, to which the BMS writes audit records of security-relevant business operations; each record includes the originating client's IP address and other request metadata; and<a href="#appendix-A.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.5">
-            <p id="appendix-A.2-2.5.1">an external Logistics Partner API (LPA), operated by a third party, that the business microservice queries for stock levels and uses to issue shipping orders.<a href="#appendix-A.2-2.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.5.1">an external Logistics Partner API (LPA), operated by a third party, that the BMS queries for stock levels and uses to issue shipping orders.<a href="#appendix-A.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="appendix-A.2-3"><a href="#example-arch" class="auto internal xref">Figure 1</a> shows these components and the connections between them.
@@ -2737,7 +2737,7 @@ Crossing the tests of <a href="#example-e2e-tests" class="auto internal xref">Ta
 <p id="appendix-A.3-4">For the purpose of this example, the scope of each flow is classified following <a href="#complex-apps" class="auto internal xref">Section 3.8</a>:<a href="#appendix-A.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.3-5.1">
-            <p id="appendix-A.3-5.1.1">F1 and F5 are external flows for which one side is under the operator's administrative control (the Load Balancer for F1, the business microservice for F5) and the other side is not (the customer's browser, the logistics partner).<a href="#appendix-A.3-5.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.3-5.1.1">F1 and F5 are external flows for which one side is under the operator's administrative control (the LB for F1, the BMS for F5) and the other side is not (the customer's browser, the LPA).<a href="#appendix-A.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.3-5.2">
             <p id="appendix-A.3-5.2.1">F2 is an external flow where neither side is under the operator's control; the bookshop controls neither the browser nor the third-party analytics provider.<a href="#appendix-A.3-5.2.1" class="pilcrow">¶</a></p>
@@ -2747,7 +2747,7 @@ Crossing the tests of <a href="#example-e2e-tests" class="auto internal xref">Ta
 </li>
         </ul>
 <p id="appendix-A.3-6">Note that, even though F3 and F6 are internal flows whose transport only needs to be tested against the deployed scenario, they carry the originating client's IP address as data and need to be tested to work correctly for all relevant address families as discussed in <a href="#addr-as-data" class="auto internal xref">Section 3.10</a>.
-For example, the audit log service's handling of that address value (storage, comparison, and rendering) must therefore be verified for all address families and representations, independent of the connectivity scenario used for the flow itself.<a href="#appendix-A.3-6" class="pilcrow">¶</a></p>
+For example, the ALS's handling of that address value (storage, comparison, and rendering) must therefore be verified for all address families and representations, independent of the connectivity scenario used for the flow itself.<a href="#appendix-A.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="example-derivation">
@@ -2755,18 +2755,18 @@ For example, the audit log service's handling of that address value (storage, co
         <h3 id="name-deriving-the-ipv6-test-case">
 <a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-deriving-the-ipv6-test-case" class="section-name selfRef">Deriving the IPv6 Test Cases</a>
         </h3>
-<p id="appendix-A.4-1">The flows identified in <a href="#example-flows-sec" class="auto internal xref">Appendix A.3</a> and their classification provide everything needed to derive the IPv6 test cases:
+<p id="appendix-A.4-1">The flows identified in <a href="#example-flows-sec" class="auto internal xref">Appendix A.3</a> and their classification are used to derive the IPv6 test cases:
 for each flow, all connectivity scenarios from <a href="#scn_combinations" class="auto internal xref">Table 1</a> that can occur based on the deployment assumptions described in <a href="#complex-apps" class="auto internal xref">Section 3.8</a> are applied.<a href="#appendix-A.4-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-2">For the bookshop example, we assume a Dual-stack public edge (the Load Balancer endpoint) while internally IPv6-only with NAT64 for outbound IPv4 connectivity is used.<a href="#appendix-A.4-2" class="pilcrow">¶</a></p>
+<p id="appendix-A.4-2">For the bookshop example, a Dual-stack public edge (i.e., the LB endpoint) is used while internally IPv6-only with NAT64 for outbound IPv4 connectivity is used.<a href="#appendix-A.4-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.4-3">The internal flows F3, F4, and F6 are fully under the operator's administrative control.
 Following <a href="#complex-apps" class="auto internal xref">Section 3.8</a>, their connectivity only needs to be validated in the single configuration that is actually deployed; they are not multiplied across connectivity scenarios.<a href="#appendix-A.4-3" class="pilcrow">¶</a></p>
 <p id="appendix-A.4-4">Two of these flows, however, carry an IP address as data and must be tested with all connectivity scenarios that might occur on F1 in the data.<a href="#appendix-A.4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.4-5.1">
-            <p id="appendix-A.4-5.1.1">F3 carries the originating client's address in the <code>X-Forwarded-For</code> (or <code>Forwarded</code> <span>[<a href="#RFC7239" class="cite xref">RFC7239</a>]</span>) header the Load Balancer adds when proxying to the Business Microservice.<a href="#appendix-A.4-5.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.4-5.1.1">F3 carries the originating client's address in the <code>Forwarded</code> <span>[<a href="#RFC7239" class="cite xref">RFC7239</a>]</span> header the LB adds when proxying to the BMS.<a href="#appendix-A.4-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.4-5.2">
-            <p id="appendix-A.4-5.2.1">F6 carries that same address where the Business Microservice writes it to the audit log.<a href="#appendix-A.4-5.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.4-5.2.1">F6 carries that same address where the BMS writes it to the audit log.<a href="#appendix-A.4-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="appendix-A.4-6">This leaves F1, F2, and F5 for connectivity-scenario testing, plus data tests on F3 and F6.
@@ -2774,7 +2774,7 @@ Each of these flows can be exercised either through the full end-to-end test or 
 Running everything end-to-end stays closest to production and reuses the existing tests unchanged, but it couples the flows:
 one run fixes the browser scenario (F1, F2) and the logistics scenario (F5) at the same time.
 Testing each flow individually avoids the Cartesian blow-up warned against in <a href="#complex-apps" class="auto internal xref">Section 3.8</a> but may be difficult to build as a test case.<a href="#appendix-A.4-6" class="pilcrow">¶</a></p>
-<p id="appendix-A.4-7">In this example, we keep the end-to-end tests for the browser edge (F1, F2), where the browser genuinely drives the flow, as well as for the F3/F6 data handling.
+<p id="appendix-A.4-7">This example keeps the end-to-end tests for the browser edge (F1, F2), where the browser genuinely drives the flow, as well as for the F3/F6 data handling.
 The server-initiated flow F5 is tested individually, as it is largely independent of the browser scenario.<a href="#appendix-A.4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2802,15 +2802,15 @@ The server-initiated flow F5 is tested individually, as it is largely independen
           <dd class="break"></dd>
 <dt id="appendix-A.5-2.7">F5:</dt>
           <dd style="margin-left: 1.5em" id="appendix-A.5-2.8">
-            <p id="appendix-A.5-2.8.1">The Business Microservice is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.<a href="#appendix-A.5-2.8.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.5-2.8.1">The BMS is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.<a href="#appendix-A.5-2.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
 <p id="appendix-A.5-3">The data tests for F3 and F6 do not need their own connectivity setup; they are driven by the client addresses that the F1 scenarios above produce.
-The IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the <code>X-Forwarded-For</code> (or <code>Forwarded</code> <span>[<a href="#RFC7239" class="cite xref">RFC7239</a>]</span>) header on F3 and into the audit record on F6.
-For every input, verify that the Business Microservice parses the header correctly (F3) and that the Audit Log Service stores it.<a href="#appendix-A.5-3" class="pilcrow">¶</a></p>
+The IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the <code>Forwarded</code> header on F3 and into the audit record on F6.
+For every input, verify that the BMS parses the header correctly (F3) and that the ALS stores it.<a href="#appendix-A.5-3" class="pilcrow">¶</a></p>
 <p id="appendix-A.5-4">In case the Logistics backend (F5) is dual stack, a trick from <a href="#strategies" class="auto internal xref">Section 4</a> can be applied to avoid testing against a mocked endpoint:
-Point the Business Microservice at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.<a href="#appendix-A.5-4" class="pilcrow">¶</a></p>
+Point the BMS at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.<a href="#appendix-A.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
