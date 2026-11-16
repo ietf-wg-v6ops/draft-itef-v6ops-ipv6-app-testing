@@ -639,6 +639,161 @@ This document has no IANA actions.
 
 --- back
 
+# Example: Deriving IPv6 Test Cases for a Web Application {#example}
+
+This appendix illustrates how the methodology of this document can be applied to a concrete application.
+It starts from the application's existing end-to-end tests and its system architecture,
+crosses the two to identify the relevant data flows between components as described in {{complex-apps}},
+and finally derives the IPv6 test cases by applying the connectivity scenarios from {{scn_combinations}} to each flow.
+
+The example is deliberately kept small; a real application will have many more components, flows, and tests.
+The intent is to demonstrate the method, not to provide a complete test plan.
+This appendix is informative.
+
+## The Application and its End-to-End Tests {#example-app}
+
+The example application is the online shop of a bookshop.
+Customers use a browser-based frontend to browse the catalog, check availability, and place orders.
+
+The bookshop already maintains a suite of functional end-to-end tests.
+These tests predate any IPv6 testing effort and verify the functional correctness of the application; they form the basis from which the IPv6 test cases are derived.
+{{example-e2e-tests}} provides a non-exhaustive list of such tests.
+
+| Test  | Description                                                                 |
+| :---  | :---                                                                        |
+| E2E-1 | Load the shop front page and browse the catalog.                            |
+| E2E-2 | Search the catalog and open a book's detail page.                           |
+| E2E-3 | Open a book detail page showing live stock availability.                    |
+| E2E-4 | Register a new customer account and sign in.                                |
+| E2E-5 | Add books to the cart and place an order, issuing a shipment.               |
+| E2E-6 | Open the order history and track the shipment status of an existing order.  |
+| E2E-7 | Load a page and confirm the third-party analytics resource loads and events are sent. |
+{: #example-e2e-tests title="Existing end-to-end tests"}
+
+## Architecture {#example-architecture}
+
+While the frontend runs in a Web browser in the user's side, it is delivered and served from a cloud-based backend operated by the bookshop, and it additionally loads a third-party analytics solution directly into the customer's browser.
+The backend is composed of the following components:
+
+- a Load Balancer (LB) that terminates TLS, serves the static content, and reverse-proxies API requests to the business logic;
+- a Business Microservice (BMS) that implements the shop's business logic;
+- a Database (DB) that keeps the business state (catalog, customer accounts, carts, and orders);
+- an Audit Log Service (ALS), internal to the backend, to which the BMS writes audit records of security-relevant business operations; each record includes the originating client's IP address and other request metadata; and
+- an external Logistics Partner API (LPA), operated by a third party, that the BMS queries for stock levels and uses to issue shipping orders.
+
+{{example-arch}} shows these components and the connections between them.
+The data flows are labeled F1 to F6 for reference; which of them are relevant for IPv6 testing is determined in {{example-flows-sec}}.
+The direction on the edges points from client to the server of the flow.
+
+~~~ aasvg
+                                  Operator's cloud backend
+                           .--------------------------------------.
+                           |                                      |
+.-----------------.        |   .------------.                     |
+|    Browser      |        |   |    Load    |         .---------. |
+|     based       |   F1   |   |  Balancer  |----F3-->| Business| |
+|    frontend     |----------->|  + static  |         |  Micro- | |
+'--------+--------'        |   |    content |         | service | |
+         |                 |   '------------'         '-+--+--+-' |
+         |                 |                            |  |  |   |
+         | F2              |       .-----------.        |  |  |   |
+         V                 |       | Database  |<---F4--+  |  |   |
+ .---------------.         |       '-----------'           |  |   |
+ |   3rd-party   |         |                               |  |   |
+ |   analytics   |         |       .-----------.           |  |   |
+ '---------------'         |       | Audit Log |<---F6-----+  |   |
+                           |       '-----------'              |   |
+                           '----------------------------------|---'
+                                                              | F5
+                                                              V
+                                                 +-----------------+
+                                                 |    Logistics    |
+                                                 |   Partner API   |
+                                                 +-----------------+
+~~~
+{: #example-arch title="Components and data flows of the example bookshop application"}
+
+## Identifying the Relevant Flows {#example-flows-sec}
+
+Tracing each end-to-end test through the architecture shows which component-to-component connections it exercises.
+{{example-flows}} summarizes the resulting flows.
+Crossing the tests of {{example-e2e-tests}} with the architecture of {{example-arch}} yields the matrix in {{example-matrix}}; its populated columns are the data flows relevant for IPv6 testing.
+
+| Flow | From      | To                    | Scope    | Description                                                     |
+| :--- | :---      | :---                  | :---     | :---                                                            |
+| F1   | Browser   | LB                    | external | Static content (SPA bundle, style sheets, images) and API requests, reverse-proxied to the business microservice (HTTPS). |
+| F2   | Browser   | 3rd-party analytics   | external | Analytics events sent from the customer's browser.              |
+| F3   | LB        | BMS                   | internal | Reverse-proxied API requests inside the backend.                |
+| F4   | BMS       | Database              | internal | Reads and writes of business state.                             |
+| F5   | BMS       | Logistics Partner API | external | Stock queries and shipping orders towards the logistics partner.|
+| F6   | BMS       | Audit Log Service     | internal | Audit records of business operations, carrying the originating client IP address as data. |
+{: #example-flows title="Data flows of the example bookshop application"}
+
+| Test  | F1 | F2 | F3 | F4 | F5 | F6 |
+| :---  | :-:| :-:| :-:| :-:| :-:| :-:|
+| E2E-1 | X  |    | X  | X  |    |    |
+| E2E-2 | X  |    | X  | X  |    |    |
+| E2E-3 | X  |    | X  | X  | X  |    |
+| E2E-4 | X  |    | X  | X  |    | X  |
+| E2E-5 | X  |    | X  | X  | X  | X  |
+| E2E-6 | X  |    | X  | X  | X  |    |
+| E2E-7 | X  | X  | X  |    |    |    |
+{: #example-matrix title="End-to-end tests crossed with the architecture: the flows each test exercises"}
+
+For the purpose of this example, the scope of each flow is classified following {{complex-apps}}:
+
+- F1 and F5 are external flows for which one side is under the operator's administrative control (the LB for F1, the BMS for F5) and the other side is not (the customer's browser, the LPA).
+- F2 is an external flow where neither side is under the operator's control; the bookshop controls neither the browser nor the third-party analytics provider.
+- F3, F4, and F6 are internal flows, fully under the operator's administrative control, and thus only need to be considered in the connectivity scenarios actually planned for the deployment.
+
+Note that, even though F3 and F6 are internal flows whose transport only needs to be tested against the deployed scenario, they carry the originating client's IP address as data and need to be tested to work correctly for all relevant address families as discussed in {{addr-as-data}}.
+For example, the ALS's handling of that address value (storage, comparison, and rendering) must therefore be verified for all address families and representations, independent of the connectivity scenario used for the flow itself.
+
+## Deriving the IPv6 Test Cases {#example-derivation}
+
+The flows identified in {{example-flows-sec}} and their classification are used to derive the IPv6 test cases:
+for each flow, all connectivity scenarios from {{scn_combinations}} that can occur based on the deployment assumptions described in {{complex-apps}} are applied.
+
+For the bookshop example, a Dual-stack public edge (i.e., the LB endpoint) is used while internally IPv6-only with NAT64 for outbound IPv4 connectivity is used.
+
+The internal flows F3, F4, and F6 are fully under the operator's administrative control.
+Following {{complex-apps}}, their connectivity only needs to be validated in the single configuration that is actually deployed; they are not multiplied across connectivity scenarios.
+
+Two of these flows, however, carry an IP address as data and must be tested with all connectivity scenarios that might occur on F1 in the data.
+
+- F3 carries the originating client's address in the `Forwarded` {{?RFC7239}} header the LB adds when proxying to the BMS.
+- F6 carries that same address where the BMS writes it to the audit log.
+
+This leaves F1, F2, and F5 for connectivity-scenario testing, plus data tests on F3 and F6.
+Each of these flows can be exercised either through the full end-to-end test or in isolation between its two endpoints.
+Running everything end-to-end stays closest to production and reuses the existing tests unchanged, but it couples the flows:
+one run fixes the browser scenario (F1, F2) and the logistics scenario (F5) at the same time.
+Testing each flow individually avoids the Cartesian blow-up warned against in {{complex-apps}} but may be difficult to build as a test case.
+
+This example keeps the end-to-end tests for the browser edge (F1, F2), where the browser genuinely drives the flow, as well as for the F3/F6 data handling.
+The server-initiated flow F5 is tested individually, as it is largely independent of the browser scenario.
+
+## Scenarios and Data Tests for the Remaining Flows {#example-remaining}
+
+The connectivity scenarios to cover for F1, F2, and F5 follow directly from {{scenarios}} once the controlled side of each flow is fixed to the deployment above:
+
+F1:
+: The server (edge) is Dual-stack, so vary the client/browser side: IPv4-only and IPv6-only-strict (base cases).
+
+F2:
+: Follows the F1 browser scenario; even in the case of an IPv6-only-strict browser with a IPv4-only analytics provider, the shop must still render (see {{web-app-considerations}}).
+: Whether the loss of analytics capabilities is critical is a business decision.
+
+F5:
+: The BMS is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.
+
+The data tests for F3 and F6 do not need their own connectivity setup; they are driven by the client addresses that the F1 scenarios above produce.
+The IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the `Forwarded` header on F3 and into the audit record on F6.
+For every input, verify that the BMS parses the header correctly (F3) and that the ALS stores it.
+
+In case the Logistics backend (F5) is dual stack, a trick from {{strategies}} can be applied to avoid testing against a mocked endpoint:
+Point the BMS at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.
+
 # Acknowledgments
 {:unnumbered}
 
@@ -651,11 +806,13 @@ Jeremy Duncan,
 Jordi Palet,
 Michael Perscheid,
 Michael Richardson,
-Mohamed Boucadair,
 Nathan Sherrard,
 Sulabh Soneji,
 and
 Tommy Jensen
 for the discussions, the input, and all contribution.
 
-Special thanks to Jen Linkova and Timothy Winters for advise on how to shape the document and finding the right set of authors.
+Special thanks to Jen Linkova and Timothy Winters for advise on how to shape the document and finding the right set of authors
+as well as Mohamed Boucadair for numerous fruitful discussions and suggestions.
+
+{{example}} has been written withe the help of Anthropic Opus 4.8.
