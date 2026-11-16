@@ -685,26 +685,27 @@ The backend is composed of the following components:
 The data flows are labeled F1 to F6 for reference; which of them are relevant for IPv6 testing is determined in {{example-flows-sec}}.
 The direction on the edges points from client to the server of the flow.
 
-~~~
+~~~ aasvg
                                   Operator's cloud backend
                            .--------------------------------------.
                            |                                      |
-+-----------------+        |   +------------+                     |
-|    Browser      |        |   |    Load    |         +---------+ |
+.-----------------.        |   .------------.                     |
+|    Browser      |        |   |    Load    |         .---------. |
 |     based       |   F1   |   |  Balancer  |----F3-->| Business| |
-|   frontend      |------->|-->|  + static  |         |  Micro- | |
-+--------+--------+        |   |    content |         | service | |
-         |                 |   +------------+         +-+--+--+-+ |
+|    frontend     |----------->|  + static  |         |  Micro- | |
+'--------+--------'        |   |    content |         | service | |
+         |                 |   '------------'         '-+--+--+-' |
          |                 |                            |  |  |   |
-         |                 |       +-----------+        |  |  |   |
-         | F2              |       | Database  |<---F4--+  |  |   |
-         v                 |       +-----------+           |  |   |
- +---------------+         |       +-----------+           |  |   |
- |   3rd-party   |         |       | Audit Log |<---F6-----+  |   |
- |   analytics   |         |       +-----------+              |   |
- +---------------+         '----------------------------------|---'
+         | F2              |       .-----------.        |  |  |   |
+         V                 |       | Database  |<---F4--+  |  |   |
+ .---------------.         |       '-----------'           |  |   |
+ |   3rd-party   |         |                               |  |   |
+ |   analytics   |         |       .-----------.           |  |   |
+ '---------------'         |       | Audit Log |<---F6-----+  |   |
+                           |       '-----------'              |   |
+                           '----------------------------------|---'
                                                               | F5
-                                                              v
+                                                              V
                                                  +-----------------+
                                                  |    Logistics    |
                                                  |   Partner API   |
