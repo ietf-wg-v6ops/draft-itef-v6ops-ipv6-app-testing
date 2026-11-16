@@ -648,7 +648,7 @@ and finally derives the IPv6 test cases by applying the connectivity scenarios f
 
 The example is deliberately kept small; a real application will have many more components, flows, and tests.
 The intent is to demonstrate the method, not to provide a complete test plan.
-None of the keywords defined in {{definitions}} are used in a normative sense in this appendix.
+This appendix is informative.
 
 ## The Application and its End-to-End Tests {#example-app}
 
@@ -657,7 +657,7 @@ Customers use a browser-based frontend to browse the catalog, check availability
 
 The bookshop already maintains a suite of functional end-to-end tests.
 These tests predate any IPv6 testing effort and verify the functional correctness of the application; they form the basis from which the IPv6 test cases are derived.
-{{example-e2e-tests}} lists them.
+{{example-e2e-tests}} provides a non-exhaustive list of such tests.
 
 | Test  | Description                                                                 |
 | :---  | :---                                                                        |
@@ -678,8 +678,8 @@ The backend is composed of the following components:
 - a Load Balancer (LB) that terminates TLS, serves the static content, and reverse-proxies API requests to the business logic;
 - a Business Microservice (BMS) that implements the shop's business logic;
 - a Database (DB) that keeps the business state (catalog, customer accounts, carts, and orders);
-- an Audit Log Service (ALS), internal to the backend, to which the business microservice writes audit records of security-relevant business operations; each record includes the originating client's IP address and other request metadata; and
-- an external Logistics Partner API (LPA), operated by a third party, that the business microservice queries for stock levels and uses to issue shipping orders.
+- an Audit Log Service (ALS), internal to the backend, to which the BMS writes audit records of security-relevant business operations; each record includes the originating client's IP address and other request metadata; and
+- an external Logistics Partner API (LPA), operated by a third party, that the BMS queries for stock levels and uses to issue shipping orders.
 
 {{example-arch}} shows these components and the connections between them.
 The data flows are labeled F1 to F6 for reference; which of them are relevant for IPv6 testing is determined in {{example-flows-sec}}.
@@ -742,27 +742,27 @@ Crossing the tests of {{example-e2e-tests}} with the architecture of {{example-a
 
 For the purpose of this example, the scope of each flow is classified following {{complex-apps}}:
 
-- F1 and F5 are external flows for which one side is under the operator's administrative control (the Load Balancer for F1, the business microservice for F5) and the other side is not (the customer's browser, the logistics partner).
+- F1 and F5 are external flows for which one side is under the operator's administrative control (the LB for F1, the BMS for F5) and the other side is not (the customer's browser, the LPA).
 - F2 is an external flow where neither side is under the operator's control; the bookshop controls neither the browser nor the third-party analytics provider.
 - F3, F4, and F6 are internal flows, fully under the operator's administrative control, and thus only need to be considered in the connectivity scenarios actually planned for the deployment.
 
 Note that, even though F3 and F6 are internal flows whose transport only needs to be tested against the deployed scenario, they carry the originating client's IP address as data and need to be tested to work correctly for all relevant address families as discussed in {{addr-as-data}}.
-For example, the audit log service's handling of that address value (storage, comparison, and rendering) must therefore be verified for all address families and representations, independent of the connectivity scenario used for the flow itself.
+For example, the ALS's handling of that address value (storage, comparison, and rendering) must therefore be verified for all address families and representations, independent of the connectivity scenario used for the flow itself.
 
 ## Deriving the IPv6 Test Cases {#example-derivation}
 
-The flows identified in {{example-flows-sec}} and their classification provide everything needed to derive the IPv6 test cases:
+The flows identified in {{example-flows-sec}} and their classification are used to derive the IPv6 test cases:
 for each flow, all connectivity scenarios from {{scn_combinations}} that can occur based on the deployment assumptions described in {{complex-apps}} are applied.
 
-For the bookshop example, we assume a Dual-stack public edge (the Load Balancer endpoint) while internally IPv6-only with NAT64 for outbound IPv4 connectivity is used.
+For the bookshop example, a Dual-stack public edge (i.e., the LB endpoint) is used while internally IPv6-only with NAT64 for outbound IPv4 connectivity is used.
 
 The internal flows F3, F4, and F6 are fully under the operator's administrative control.
 Following {{complex-apps}}, their connectivity only needs to be validated in the single configuration that is actually deployed; they are not multiplied across connectivity scenarios.
 
 Two of these flows, however, carry an IP address as data and must be tested with all connectivity scenarios that might occur on F1 in the data.
 
-- F3 carries the originating client's address in the `X-Forwarded-For` (or `Forwarded` {{?RFC7239}}) header the Load Balancer adds when proxying to the Business Microservice.
-- F6 carries that same address where the Business Microservice writes it to the audit log.
+- F3 carries the originating client's address in the `Forwarded` {{?RFC7239}} header the LB adds when proxying to the BMS.
+- F6 carries that same address where the BMS writes it to the audit log.
 
 This leaves F1, F2, and F5 for connectivity-scenario testing, plus data tests on F3 and F6.
 Each of these flows can be exercised either through the full end-to-end test or in isolation between its two endpoints.
@@ -770,7 +770,7 @@ Running everything end-to-end stays closest to production and reuses the existin
 one run fixes the browser scenario (F1, F2) and the logistics scenario (F5) at the same time.
 Testing each flow individually avoids the Cartesian blow-up warned against in {{complex-apps}} but may be difficult to build as a test case.
 
-In this example, we keep the end-to-end tests for the browser edge (F1, F2), where the browser genuinely drives the flow, as well as for the F3/F6 data handling.
+This example keeps the end-to-end tests for the browser edge (F1, F2), where the browser genuinely drives the flow, as well as for the F3/F6 data handling.
 The server-initiated flow F5 is tested individually, as it is largely independent of the browser scenario.
 
 ## Scenarios and Data Tests for the Remaining Flows {#example-remaining}
@@ -785,14 +785,14 @@ F2:
 : Whether the loss of analytics capabilities is critical is a business decision.
 
 F5:
-: The Business Microservice is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.
+: The BMS is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.
 
 The data tests for F3 and F6 do not need their own connectivity setup; they are driven by the client addresses that the F1 scenarios above produce.
-The IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the `X-Forwarded-For` (or `Forwarded` {{?RFC7239}}) header on F3 and into the audit record on F6.
-For every input, verify that the Business Microservice parses the header correctly (F3) and that the Audit Log Service stores it.
+The IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the `Forwarded` header on F3 and into the audit record on F6.
+For every input, verify that the BMS parses the header correctly (F3) and that the ALS stores it.
 
 In case the Logistics backend (F5) is dual stack, a trick from {{strategies}} can be applied to avoid testing against a mocked endpoint:
-Point the Business Microservice at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.
+Point the BMS at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.
 
 # Acknowledgments
 {:unnumbered}
