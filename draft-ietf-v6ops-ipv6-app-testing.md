@@ -806,11 +806,13 @@ Jeremy Duncan,
 Jordi Palet,
 Michael Perscheid,
 Michael Richardson,
-Mohamed Boucadair,
 Nathan Sherrard,
 Sulabh Soneji,
 and
 Tommy Jensen
 for the discussions, the input, and all contribution.
 
-Special thanks to Jen Linkova and Timothy Winters for advise on how to shape the document and finding the right set of authors.
+Special thanks to Jen Linkova and Timothy Winters for advise on how to shape the document and finding the right set of authors
+as well as Mohamed Boucadair for numerous fruitful discussions and suggestions.
+
+{{example}} has been written withe the help of Anthropic Opus 4.8.
