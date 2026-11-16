@@ -1626,12 +1626,14 @@ Acknowledgments
 
    Thanks to Andrew Yourtchenko, Axel Schemberg, Brian E Carpenter,
    Holger Fuessler, Jeremy Duncan, Jordi Palet, Michael Perscheid,
-   Michael Richardson, Mohamed Boucadair, Nathan Sherrard, Sulabh
-   Soneji, and Tommy Jensen for the discussions, the input, and all
-   contribution.
+   Michael Richardson, Nathan Sherrard, Sulabh Soneji, and Tommy Jensen
+   for the discussions, the input, and all contribution.
 
    Special thanks to Jen Linkova and Timothy Winters for advise on how
-   to shape the document and finding the right set of authors.
+   to shape the document and finding the right set of authors as well as
+   Mohamed Boucadair for numerous fruitful discussions and suggestions.
+
+   Appendix A has been written withe the help of Anthropic Opus 4.8.
 
 Authors' Addresses
 
