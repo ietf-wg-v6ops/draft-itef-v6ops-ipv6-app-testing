@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-15T04:49:10.801948+00:00",
+  "timestamp": "2026-11-17T06:32:45.562309+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -361,6 +361,22 @@
       "createdAt": "2026-09-19T15:37:06Z",
       "updatedAt": "2026-09-29T09:17:09Z",
       "closedAt": "2026-09-29T09:17:09Z",
+      "comments": []
+    },
+    {
+      "number": 45,
+      "id": "I_kwDOQpLumc8AAAABfyazWA",
+      "title": "Decide whether to move Section 5 to appendix",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/issues/45",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-16T18:44:47Z",
+      "updatedAt": "2026-11-16T18:44:47Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -1826,24 +1842,26 @@
       "id": "PR_kwDOQpLumc8AAAABO7R5fg",
       "title": "Address issues from TSVART review",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/42",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-11-13T13:51:16Z",
-      "updatedAt": "2026-11-15T02:59:53Z",
+      "updatedAt": "2026-11-15T13:41:52Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "94076fb6f7875b9baf3c3961ec119d3b6942ef31",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "tsvart-review-fixes",
-      "headRefOid": "c2d3b3a42ddf6ecea27e867cb270af75f4613a38",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "321afffbd15d30b4ca6cd8bc2c3214d857cd8bfa",
+      "closedAt": "2026-11-15T13:41:52Z",
+      "mergedAt": "2026-11-15T13:41:51Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "25db39b46bfec2494aafa3b3c1f4e2279ce05a22"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1965,6 +1983,38 @@
               "updatedAt": "2026-11-15T02:59:09Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYFElAQ",
+          "commit": {
+            "abbreviatedOid": "71beb56"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-15T13:14:01Z",
+          "updatedAt": "2026-11-15T13:19:13Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "```suggestion\nTherefore, an IP connectivity testing strategy MUST also exercise all transport and protocol variants supported by the application and that might be available at the endpoints.\n```",
+              "createdAt": "2026-11-15T13:14:01Z",
+              "updatedAt": "2026-11-15T13:19:13Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "I'm afraid this too generic. Suggest to scope to IP connectivity + not random transport supported by endpoints but those meaningful for the app under test.",
+              "createdAt": "2026-11-15T13:15:27Z",
+              "updatedAt": "2026-11-15T13:19:13Z"
+            },
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\nTesters have to assess whether these test cases use the expected transport protocol (or variant) or fall back to a less preferable transport under specific forwarding conditions.\n```",
+              "createdAt": "2026-11-15T13:17:24Z",
+              "updatedAt": "2026-11-15T13:19:13Z"
+            }
+          ]
         }
       ]
     },
@@ -1973,24 +2023,26 @@
       "id": "PR_kwDOQpLumc8AAAABO9g9dw",
       "title": "Update title based on GENART review",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/43",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "philsbln",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-11-13T16:21:03Z",
-      "updatedAt": "2026-11-15T02:57:31Z",
+      "updatedAt": "2026-11-15T13:40:55Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "94076fb6f7875b9baf3c3961ec119d3b6942ef31",
       "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "headRefName": "update-title",
       "headRefOid": "f74085d4899e0bcc2a448c1488cb01c5fe5d1f62",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-11-15T13:40:55Z",
+      "mergedAt": "2026-11-15T13:40:55Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "358766d4bf7d4e6fa029c0ae2736ec3ab44c6b68"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2044,6 +2096,224 @@
           "body": "",
           "createdAt": "2026-11-15T02:57:31Z",
           "updatedAt": "2026-11-15T02:57:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDOQpLumc8AAAABPjvybw",
+      "title": "Add an Example for a test strategy as an Appendix",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/44",
+      "state": "MERGED",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As requested by some reviewers, an example how to exercise a testing strategy.\n\nThis example has been developed with the help of Claude Opus, which seems to have largely understood the document. ",
+      "createdAt": "2026-11-16T14:42:59Z",
+      "updatedAt": "2026-11-16T18:43:29Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "25db39b46bfec2494aafa3b3c1f4e2279ce05a22",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "philsbln/example",
+      "headRefOid": "7c8437b91e53de0ea2e4dc39fbca819b51ba6a16",
+      "closedAt": "2026-11-16T18:43:29Z",
+      "mergedAt": "2026-11-16T18:43:29Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "0033ca79e9936e2010499f6c21f9de74d198e1f9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYQQfVg",
+          "commit": {
+            "abbreviatedOid": "5a75457"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I think this is useful to show how to put the recos into practice.",
+          "createdAt": "2026-11-16T15:31:44Z",
+          "updatedAt": "2026-11-16T15:42:35Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "```suggestion\n~~~ aasvg\n```",
+              "createdAt": "2026-11-16T15:31:44Z",
+              "updatedAt": "2026-11-16T15:42:35Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\n{{example-e2e-tests}} provides a non-exhaustive list of such tests.\n```",
+              "createdAt": "2026-11-16T15:33:07Z",
+              "updatedAt": "2026-11-16T15:42:35Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\nThis appendix is informative.\n```",
+              "createdAt": "2026-11-16T15:33:53Z",
+              "updatedAt": "2026-11-16T15:42:36Z"
+            },
+            {
+              "originalPosition": 4,
+              "body": "Add here or a brief statement in the ACK section that says the example has been developed with the help of Claude Opus.",
+              "createdAt": "2026-11-16T15:34:40Z",
+              "updatedAt": "2026-11-16T15:42:36Z"
+            },
+            {
+              "originalPosition": 115,
+              "body": "```suggestion\nThe flows identified in {{example-flows-sec}} and their classification are used to derive the IPv6 test cases:\n```",
+              "createdAt": "2026-11-16T15:36:48Z",
+              "updatedAt": "2026-11-16T15:42:36Z"
+            },
+            {
+              "originalPosition": 118,
+              "body": "```suggestion\nFor the bookshop example, a Dual-stack public edge (i.e., the LB endpoint) is used while internally IPv6-only with NAT64 for outbound IPv4 connectivity is used.\n```",
+              "createdAt": "2026-11-16T15:37:38Z",
+              "updatedAt": "2026-11-16T15:42:36Z"
+            },
+            {
+              "originalPosition": 125,
+              "body": "To avoid being distracted by XFF, better to simply mention \"Forwarded\" ",
+              "createdAt": "2026-11-16T15:39:23Z",
+              "updatedAt": "2026-11-16T15:42:36Z"
+            },
+            {
+              "originalPosition": 134,
+              "body": "```suggestion\nThis example keeps the end-to-end tests for the browser edge (F1, F2), where the browser genuinely drives the flow, as well as for the F3/F6 data handling.\n```",
+              "createdAt": "2026-11-16T15:40:02Z",
+              "updatedAt": "2026-11-16T15:42:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYQlPDw",
+          "commit": {
+            "abbreviatedOid": "5a75457"
+          },
+          "author": "kouellette",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-16T15:53:09Z",
+          "updatedAt": "2026-11-16T16:02:50Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "Acronyms are created for these components but then aren't used consistently, or at all (e.g., ALS and LPA), throughout the rest of the text. I'll make suggestions where possible, but don't want to risk botching the formatting on the component diagram or flow table.",
+              "createdAt": "2026-11-16T15:53:09Z",
+              "updatedAt": "2026-11-16T16:02:50Z"
+            },
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\n- an Audit Log Service (ALS), internal to the backend, to which the BMS writes audit records of security-relevant business operations; each record includes the originating client's IP address and other request metadata; and\n```",
+              "createdAt": "2026-11-16T15:53:25Z",
+              "updatedAt": "2026-11-16T16:02:50Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\n- an external Logistics Partner API (LPA), operated by a third party, that the BMS queries for stock levels and uses to issue shipping orders.\n```",
+              "createdAt": "2026-11-16T15:53:37Z",
+              "updatedAt": "2026-11-16T16:02:50Z"
+            },
+            {
+              "originalPosition": 106,
+              "body": "```suggestion\n- F1 and F5 are external flows for which one side is under the operator's administrative control (the LB for F1, the BMS for F5) and the other side is not (the customer's browser, the LPA).\n```",
+              "createdAt": "2026-11-16T15:55:47Z",
+              "updatedAt": "2026-11-16T16:02:50Z"
+            },
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\n- F3 carries the originating client's address in the `X-Forwarded-For` (or `Forwarded` {{?RFC7239}}) header the LB adds when proxying to the BMS.\n```",
+              "createdAt": "2026-11-16T15:56:14Z",
+              "updatedAt": "2026-11-16T16:02:50Z"
+            },
+            {
+              "originalPosition": 126,
+              "body": "```suggestion\n- F6 carries that same address where the BMS writes it to the audit log.\n```",
+              "createdAt": "2026-11-16T15:56:27Z",
+              "updatedAt": "2026-11-16T16:02:51Z"
+            },
+            {
+              "originalPosition": 149,
+              "body": "```suggestion\n: The BMS is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.\n```",
+              "createdAt": "2026-11-16T15:56:40Z",
+              "updatedAt": "2026-11-16T16:02:51Z"
+            },
+            {
+              "originalPosition": 153,
+              "body": "```suggestion\nFor every input, verify that the BMS parses the header correctly (F3) and that the ALS stores it.\n```",
+              "createdAt": "2026-11-16T15:57:06Z",
+              "updatedAt": "2026-11-16T16:02:51Z"
+            },
+            {
+              "originalPosition": 156,
+              "body": "```suggestion\nPoint the BMS at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.\n```",
+              "createdAt": "2026-11-16T15:57:22Z",
+              "updatedAt": "2026-11-16T16:02:51Z"
+            },
+            {
+              "originalPosition": 111,
+              "body": "```suggestion\nFor example, the ALS's handling of that address value (storage, comparison, and rendering) must therefore be verified for all address families and representations, independent of the connectivity scenario used for the flow itself.\n```",
+              "createdAt": "2026-11-16T16:00:51Z",
+              "updatedAt": "2026-11-16T16:02:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYROMcg",
+          "commit": {
+            "abbreviatedOid": "0b088e5"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-16T16:36:12Z",
+          "updatedAt": "2026-11-16T16:36:12Z",
+          "comments": [
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\r\n- F3 carries the originating client's address in the `Forwarded` {{?RFC7239}} header the LB adds when proxying to the BMS.\r\n```",
+              "createdAt": "2026-11-16T16:36:12Z",
+              "updatedAt": "2026-11-16T16:42:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYRSQ4A",
+          "commit": {
+            "abbreviatedOid": "1ff180b"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-16T16:40:20Z",
+          "updatedAt": "2026-11-16T16:40:20Z",
+          "comments": [
+            {
+              "originalPosition": 153,
+              "body": "```suggestion\r\nThe IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the `Forwarded` header on F3 and into the audit record on F6.\r\n```",
+              "createdAt": "2026-11-16T16:40:20Z",
+              "updatedAt": "2026-11-16T16:40:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABYRxDEQ",
+          "commit": {
+            "abbreviatedOid": "7c8437b"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-11-16T17:13:31Z",
+          "updatedAt": "2026-11-16T17:13:31Z",
           "comments": []
         }
       ]
