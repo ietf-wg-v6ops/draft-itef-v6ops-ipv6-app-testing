@@ -145,7 +145,7 @@ Finally, {{ops}} describes operational considerations to keep in mind while desi
 
 ## Requirements Language
 
-{::boilerplate bcp14}
+{::boilerplate bcp14-tagged}
 
 ## Base Connectivity Scenarios
 
@@ -158,21 +158,22 @@ in which applications ought to be verified for availability and functional corre
 
 IPv4-only:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 and no connectivity towards any relevant IPv6 endpoints.
-: While this definition is narrower than the one from {{IPv6-ONLY}}, and mirrors the *IPv6-only-strict* scenario, it refrains from calling it *IPv4-only-strict* for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in {{IPv6-ONLY}} are covered by either the *Dual-stack* or *IPv6-only with NAT64* case.
+: While this definition is narrower than the one from {{IPv6-ONLY}}, and mirrors the *IPv6-only-strict* scenario.
+: This document refrains from calling the scenario IIPv4-only-strict* for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in {{IPv6-ONLY}} are covered by either the *Dual-stack* or *IPv6-only with NAT64* case.
 
 Dual-stack:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
 : This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
-narrows it down by defining the scope to test-relevant endpoints.
+narrows it down by defining the scope as test-relevant endpoints.
 
 IPv6-only with NAT64:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology such as NAT64, e.g., NAT64 in combination with CLAT {{?RFC6877}}, DNS64 {{?RFC6147}}, or local address synthesis. This document does not differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
 : This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
-narrows them down by defining the scope to test-relevant endpoints.
+narrows them down by defining the scope as test-relevant endpoints.
 
 IPv6-only-strict:
 : A node or application that has native IPv6 connectivity towards all endpoints relevant for the test scenario and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-: This definition narrows down the *IPv6-Only-Strict* definition from {{IPv6-ONLY}} by defining the scope to test-relevant endpoints.
+: This definition narrows down the *IPv6-Only-Strict* definition from {{IPv6-ONLY}} by defining the scope as test-relevant endpoints.
 
 ## Lifecycle Functions {#lifecycle-functions}
 
@@ -190,7 +191,7 @@ Orthogonal to the base scenarios, this document defines lifecycle functions (i.e
 # Testing Objectives {#objectives}
 
 As a basic principle, IPv6 application testing should always be derived from functional and integration testing.
-Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios (i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings).
+Therefore, the goal is to verify that the application behavior is consistent across all connectivity scenarios (i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings).
 
 This section provides guidance on which connectivity scenarios and parts of the lifecycle of an application to include in a testing campaign
 for an ideal application that is supposed to run anywhere.
@@ -215,13 +216,12 @@ This document does not include any special scenarios for 464XLAT {{?RFC6877}} an
 
 MTU issues, as described in {{Section 7.4.5 of V6MOPS}}, that may arise from these scenarios are covered in {{partially-broken}}.
 
-This document also does not separate IPv4-only cases with and without NAT, despite that applications exist that assume NAT for IPv4 and do not work without, as these issues are also revealed by the IPv6 scenarios.
+This document also does not separate IPv4-only cases with and without NAT. While applications exist that assume NAT for IPv4 and do not work without, these issues are usually also revealed by the IPv6 scenarios.
 
 For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT46, the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered. This case MAY be omitted for deployments targeting IPv6-only clients.
 
-The other combinations are unlikely to exhibit additional problems for 'client/server'-based applications and, therefore, are marked as extended in {{scn_combinations}}.
-
-For P2P applications and applications with complex connection handling such as using Session Traversal Utilities for NAT (STUN) {{?RFC8489}} or Traversal Using Relays around NAT (TURN) {{?RFC8656}}, skipping these scenarios is strongly discouraged.
+The other combinations are unlikely to exhibit additional problems for 'client/server'-based applications and, therefore, are marked as *extended* in {{scn_combinations}}.
+For P2P applications and applications with complex connection handling such as using Session Traversal Utilities for NAT (STUN) {{?RFC8489}} or Traversal Using Relays around NAT (TURN) {{?RFC8656}}, skipping scenarios classified as *extended* is strongly discouraged.
 
 | Client               | Server               | Classification |
 | :---                 | :---                 | :---:          |
@@ -417,7 +417,7 @@ There is no need to run the Cartesian product of scenarios x communications as l
 In addition to the data flows, an implementation may include metadata about the data flow when communicating with backend systems, e.g., for logging or authorization purposes.
 While the flows towards these backend systems themselves may be safe to ignore as outlined above,
 the functional correctness of the backend systems for all kinds of IP address MUST be verified as part of the test series.
-Ignoring IP addresses as data in the testing may result in malfunctions, such as always denying access over IPv6, or security issues, such as not logging access from IPv6 clients.
+See {{addr-as-data}} for details.
 
 ## Special Considerations for Web-based Applications {#web-app-considerations}
 
@@ -433,6 +433,7 @@ e.g., using {{Selenium}}.
 
 When applications process IP addresses as data (e.g., as part of logging or management functionality),
 this functionality MUST work for all possible address families and representations.
+Ignoring IP addresses as data in the testing may result in malfunctions, such as always denying access over IPv6, or security issues, such as not logging access from IPv6 clients.
 
 One challenge to consider is that the textual representation of IPv4 and IPv6 addresses are not canonical. Although {{!RFC5952}} recommends a canonical format, all implementations MUST accept and be able to handle any legitimate {{!RFC4291}} address format.
 It allows several valid textual representations for the same address, which makes direct string comparison and arithmetic operations on addresses error-prone and slow.
@@ -446,6 +447,12 @@ Applications MUST be tested whether they follow {{!RFC5952}} when rendering IPv6
 as required by national regulations such as {{US-NIST.SP.500-267Ar1}},
 while accepting all valid representations defined in {{!RFC4291}}.
 
+## IPv4 addresses represented or embedded into IPv6 addresses {#ipv4-mapped}
+
+IPv4 addresses can also be represented as *IPv4-Mapped IPv6 Addresses* (see {{?RFC4291}} Section 2.5.5.2) or as a part of a NAT64 prefix (see {{?RFC6052}}).
+Depending on the environment an application is running in, logic treating IPv4 addresses (e.g., allow/deny lists) MUST be tested again all representations that are expected to occur in the particular environment and SHOULD behave consistent with IPv4 addresses (e.g., deny access from IPv4 addresses listed in a deny list even when received as IPv4-Mapped IPv6 Address or as NAT64 address when a server is expected to be deployed in an IPv6-only with NAT64 scenario).
+
+
 # Testing Strategies {#strategies}
 
 Naive IPv6 testing, based on end-to-end functional tests as outlined in {{objectives}}, would require running a set of functional tests in various connectivity scenarios.
@@ -457,8 +464,7 @@ presents strategies to meet the relevant testing objective by modifying Dual-sta
 
 ## IPv6-only-strict Clients
 
-This is the most natural way to test whether IPv6-only-strict clients behave correctly.
-
+Testing from an IPv6-only-strict client is the most natural way to test whether an application behaves correctly in an IPv6-only-strict scenario.
 The client device is either placed in a network without IPv4 connectivity or the IPv4 stack is disabled on the device while it is in a Dual-stack network.
 While most desktop OSes allow disabling IPv4, mobile OSes, such as Android and iOS, do not.
 For mobile OSes, an IPv6-only-strict environment is needed.
@@ -515,7 +521,7 @@ This section discusses special failure modes that can cause unexpected applicati
 Some of these cases can be automatically mitigated, especially by using Happy Eyeballs {{?RFC8305}} or similar techniques.
 In cases where this is not possible or where developers choose not to implement mitigation strategies, users and operators should be supported in manual resolution by providing detailed error or debug messages.
 
-## Enable IPv6 Feature Gates
+## IPv6 Feature Gates
 
 Some applications completely ignore IPv6 unless explicitly configured to enable IPv6.
 This adds another class of user or configuration errors, such as deploying an application without enabled IPv6 support in an IPv6-only environment.
@@ -529,7 +535,7 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 ## Destination Address Selection Preference and Address Filtering
 
 The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1),
-de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 GUA addresses over IPv4 addresses.
+de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 Global Unicast Addresses (GUAs, see {{?RFC4291}} Section 2.5.4) over IPv4 addresses.
 Some OSes and alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
 
 Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing unexpected behavior and other hard-to-debug errors:
@@ -543,7 +549,9 @@ Beyond that, there are several notable and widely used implementations that impl
 
 - NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a _AAAA_ resource record to a backend can render that backend unusable.
   After having resolved a _AAAA_ resource record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
-  As socket creation failure is not expected, an internal server error is sent back to the client. {{NGINX.trac-552}}
+  As socket creation failure is not expected, an internal server error is sent back to the client {{NGINX.trac-552}}.
+  While the developers marked the bug as invalid because it can be considered being a misconfiguration,
+  this configuration can occur during IPv6 enablement of complex applications maintained by multiple teams.
 
 - Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
   This becomes cumbersome especially in split-VPN use cases (e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity).
@@ -720,7 +728,7 @@ Crossing the tests of {{example-e2e-tests}} with the architecture of {{example-a
 
 | Flow | From      | To                    | Scope    | Description                                                     |
 | :--- | :---      | :---                  | :---     | :---                                                            |
-| F1   | Browser   | LB                    | external | Static content (SPA bundle, style sheets, images) and API requests, reverse-proxied to the business microservice (HTTPS). |
+| F1   | Browser   | LB                    | external | Static content (page bundle incl. style sheets, images) and API requests, reverse-proxied to the business microservice (HTTPS). |
 | F2   | Browser   | 3rd-party analytics   | external | Analytics events sent from the customer's browser.              |
 | F3   | LB        | BMS                   | internal | Reverse-proxied API requests inside the backend.                |
 | F4   | BMS       | Database              | internal | Reads and writes of business state.                             |
