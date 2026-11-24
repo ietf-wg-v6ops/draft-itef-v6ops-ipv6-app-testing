@@ -77,10 +77,10 @@ Table of Contents
      3.1.  Connectivity Scenarios
      3.2.  Testing with Intermediaries (e.g., Proxies)
      3.3.  Testing Name Resolution Issues
-       3.3.1.  Missing DNS Records
+       3.3.1.  Missing DNS Resource Records
        3.3.2.  Incorrect DNS Resource Records
        3.3.3.  DNS Delegation Issues
-       3.3.4.  Testing with IP Literals
+       3.3.4.  Testing with IP Address Literals
        3.3.5.  Testing Reverse DNS Lookups
        3.3.6.  Testing with Link-local Names
      3.4.  Testing with Different Transports
@@ -135,7 +135,7 @@ Table of Contents
    to a series of national regulations mandating state entities to
    proceed in the transition to IPv6, e.g., in China [CN-CAC-2023], the
    United States of America [US-OMB-M-21-07], Germany [DE-BIT-2020-14],
-   and the Czech Republic [CZ-ENDv4].  IPv6 support thus means being
+   and the Czech Republic [CZ-ENDv4].  IPv6 support, thus, means being
    fully functional in the absence of IPv4 and transition technologies
    providing connectivity to the IPv4 Internet.  Therefore, applications
    are expected to function regardless of whether they are used in an
@@ -284,9 +284,9 @@ Table of Contents
    As a basic principle, IPv6 application testing should always be
    derived from functional and integration testing.  Therefore, the goal
    is to verify that the expected behavior is consistent across all
-   connectivity scenarios, i.e., the application functions correctly in
+   connectivity scenarios (i.e., the application functions correctly in
    IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict
-   settings.
+   settings).
 
    This section provides guidance on which connectivity scenarios and
    parts of the lifecycle of an application to include in a testing
@@ -297,10 +297,11 @@ Table of Contents
    explains how to approach testing of complex cloud applications and
    how to exclude connectivity scenarios based on the deployment
    environment.  Testing for application-specific or protocol-specific
-   issues is out of scope.  While this section assumes that the
-   communication scenarios are under full control of the tester,
-   Section 4 explains how to conduct tests in cases where control over
-   the test environment is limited.
+   issues is out of scope.
+
+   While this section assumes that the communication scenarios are under
+   full control of the tester, Section 4 explains how to conduct tests
+   in cases where control over the test environment is limited.
 
 3.1.  Connectivity Scenarios
 
@@ -424,7 +425,7 @@ Table of Contents
 
    This section lists name resolution issues to consider for testing.
 
-3.3.1.  Missing DNS Records
+3.3.1.  Missing DNS Resource Records
 
    While a server endpoint is intended to support Dual-stack
    connectivity, A or AAAA DNS resource records for the endpoint may be
@@ -442,8 +443,8 @@ Table of Contents
 3.3.2.  Incorrect DNS Resource Records
 
    Independent of the deployed server endpoint, there may be an A and
-   AAAA resource record pointing somewhere else, e.g., to an old or
-   planned deployment.
+   AAAA resource record pointing somewhere else (e.g., to an old or
+   planned deployment).
 
    For either IPv4-only or IPv6-only-strict clients, this scenario
    should always fail.
@@ -460,7 +461,7 @@ Table of Contents
    as discussed in Section 3.1) or local NAT64 address (e.g., as when
    implementing Happy Eyeballs v2 [RFC8305]).  IPv6-only clients with
    NAT64 that rely on DNS64 only are expected to fail as the presence of
-   AAAA records prevents synthesis of DNS64 records.
+   AAAA resource records prevents synthesis of DNS64 records.
 
    Testing with IPv4-Mapped IPv6 addresses [RFC4291] in AAAA resource
    records is also RECOMMENDED.  While this makes zero sense, it has
@@ -475,7 +476,7 @@ Table of Contents
    guidance how to avoid these.  Applications providing endpoints SHOULD
    test against these misconfigurations.
 
-3.3.4.  Testing with IP Literals
+3.3.4.  Testing with IP Address Literals
 
    Most name resolution libraries support IP literals, i.e., textual
    representations of IP addresses.  Applications SHOULD be tested to
@@ -510,20 +511,21 @@ Table of Contents
    variants for their communication flows.  Typical examples include
    HTTP-based applications running over TCP or QUIC [RFC9114] (over UDP)
    and SIP-based applications that can do signaling over UDP, TCP, and
-   SCTP.  While Transport Layer Security (TLS) or similar security
-   layers are used for most application flows today, they may be
-   optional from an application protocol's point of view.  IPv6-related
-   issues that only arise with certain transports or protocol variants
-   are usually hard to identify and debug in production.  Because TCP
-   transport is usually implemented in the OS, while UDP/QUIC transport
-   is usually implemented in the application or a library shipped with
-   it, diverging behaviors and failures in IP-family-specific corner
-   cases are more likely.  Therefore, an IP connectivity testing
-   strategy MUST also exercise all transport and protocol variants
-   supported by the application and that might be available at the
-   endpoints.  Testers have to assess whether these test cases use the
-   expected transport protocol (or variant) or fall back to a less
-   preferable transport under specific forwarding conditions.
+   SCTP.  While Transport Layer Security (TLS) [RFC9846] or similar
+   security layers are used for most application flows today, they may
+   be optional from an application protocol's point of view.
+   IPv6-related issues that only arise with certain transports or
+   protocol variants are usually hard to identify and debug in
+   production.  Because TCP transport is usually implemented in the OS,
+   while UDP/QUIC transport is usually implemented in the application or
+   a library shipped with it, diverging behaviors and failures in IP-
+   family-specific corner cases are more likely.  Therefore, an IP
+   connectivity testing strategy MUST also exercise all transport and
+   protocol variants supported by the application and that might be
+   available at the endpoints.  Testers have to assess whether these
+   test cases use the expected transport protocol (or variant) or fall
+   back to a less preferable transport under specific forwarding
+   conditions.
 
 3.5.  Testing with Partially Broken Connectivity, MTU, and Fragmentation
       Issues
@@ -629,7 +631,7 @@ Table of Contents
    *  Management: Depending on the application, management functions may
       be provided via the user interface.  However, the application may
       have additional management functions (Network Configuration
-      Protocol (NETCONF) [RFC6124], RESTCONF [RFC8040], SNMP [STD62],
+      Protocol (NETCONF) [RFC6241], RESTCONF [RFC8040], SNMP [STD62],
       Open Telemetry [RFC9232], syslog [RFC5424], etc.) that should be
       tested.  As the source triggering application behavior is crucial
       for logging and auditing functionality, addresses recorded need to
@@ -1179,11 +1181,6 @@ Table of Contents
               DOI 10.17487/RFC5424, March 2009,
               <https://www.rfc-editor.org/rfc/rfc5424>.
 
-   [RFC6124]  Sheffer, Y., Zorn, G., Tschofenig, H., and S. Fluhrer, "An
-              EAP Authentication Method Based on the Encrypted Key
-              Exchange (EKE) Protocol", RFC 6124, DOI 10.17487/RFC6124,
-              February 2011, <https://www.rfc-editor.org/rfc/rfc6124>.
-
    [RFC6146-bis]
               Bagnulo, M., Matthews, P., and J. P. Martinez, "Stateful
               NAT64: Network Address and Protocol Translation from IPv6
@@ -1191,6 +1188,11 @@ Table of Contents
               Draft, draft-ietf-v6ops-rfc6146-bis-16, 4 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
               rfc6146-bis-16>.
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
 
    [RFC6724-update]
               Buraglio, N., Chown, T., and J. Duncan, "Prioritizing
@@ -1266,6 +1268,10 @@ Table of Contents
               A. Wang, "Network Telemetry Framework", RFC 9232,
               DOI 10.17487/RFC9232, May 2022,
               <https://www.rfc-editor.org/rfc/rfc9232>.
+
+   [RFC9846]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 9846, DOI 10.17487/RFC9846, July 2026,
+              <https://www.rfc-editor.org/rfc/rfc9846>.
 
    [RFC10001] Momoka and T. Fiebig, "Operational Guidelines for DNS
               Transport in Mixed IPv4/IPv6 Environments", BCP 91,

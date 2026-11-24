@@ -1186,7 +1186,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-testing-name-resolution-iss" class="internal xref">Testing Name Resolution Issues</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
-                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-missing-dns-records" class="internal xref">Missing DNS Records</a></p>
+                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-missing-dns-resource-record" class="internal xref">Missing DNS Resource Records</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
                     <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-incorrect-dns-resource-reco" class="internal xref">Incorrect DNS Resource Records</a></p>
@@ -1195,7 +1195,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
                     <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-dns-delegation-issues" class="internal xref">DNS Delegation Issues</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.4">
-                    <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-testing-with-ip-literals" class="internal xref">Testing with IP Literals</a></p>
+                    <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-testing-with-ip-address-lit" class="internal xref">Testing with IP Address Literals</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.5">
                     <p id="section-toc.1-1.3.2.3.2.5.1"><a href="#section-3.3.5" class="auto internal xref">3.3.5</a>.  <a href="#name-testing-reverse-dns-lookups" class="internal xref">Testing Reverse DNS Lookups</a></p>
@@ -1349,7 +1349,7 @@ and explains common regressions to avoid when deploying IPv6 support.<a href="#s
 <p id="section-1-1">For the last 20 years, enabling applications for IPv6 has focused on coexistence with IPv4 and allowing traffic to shift towards IPv6 without breaking IPv4 operation.
 This target has changed in part due to a series of national regulations mandating state entities to proceed in the transition to IPv6, e.g., in
 China <span>[<a href="#CN-CAC-2023" class="cite xref">CN-CAC-2023</a>]</span>, the United States of America <span>[<a href="#US-OMB-M-21-07" class="cite xref">US-OMB-M-21-07</a>]</span>, Germany <span>[<a href="#DE-BIT-2020-14" class="cite xref">DE-BIT-2020-14</a>]</span>, and the Czech Republic <span>[<a href="#CZ-ENDv4" class="cite xref">CZ-ENDv4</a>]</span>.
-IPv6 support thus means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
+IPv6 support, thus, means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications such as Enterprise Resource Planning (ERP) systems, has a considerable impact on the success of IPv6 deployment.
 While the IETF does not define compliance tests, best current practices exist for the behavior of general IPv6 nodes <span>[<a href="#RFC8504" class="cite xref">RFC8504</a>]</span> and Customer Edge (CE) routers <span>[<a href="#RFC7084bis" class="cite xref">RFC7084bis</a>]</span>, as well as for test SIP-based applications <span>[<a href="#RFC5118" class="cite xref">RFC5118</a>]</span>.
@@ -1473,15 +1473,14 @@ getting the application in a state where remote services are operational.<a href
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-testing-objectives" class="section-name selfRef">Testing Objectives</a>
       </h2>
 <p id="section-3-1">As a basic principle, IPv6 application testing should always be derived from functional and integration testing.
-Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios,
-i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings.<a href="#section-3-1" class="pilcrow">¶</a></p>
+Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios (i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings).<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">This section provides guidance on which connectivity scenarios and parts of the lifecycle of an application to include in a testing campaign
 for an ideal application that is supposed to run anywhere.
 It is RECOMMENDED to apply these scenarios to all existing functional, integration, and end-to-end test cases that the application's communication pattern may influence.
 The document also explains how to approach testing of complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
-Testing for application-specific or protocol-specific issues is out of scope.
-While this section assumes that the communication scenarios are under full control of the tester,
-<a href="#strategies" class="auto internal xref">Section 4</a> explains how to conduct tests in cases where control over the test environment is limited.<a href="#section-3-2" class="pilcrow">¶</a></p>
+Testing for application-specific or protocol-specific issues is out of scope.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">While this section assumes that the communication scenarios are under full control of the tester,
+<a href="#strategies" class="auto internal xref">Section 4</a> explains how to conduct tests in cases where control over the test environment is limited.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div id="scenarios">
 <section id="section-3.1">
         <h3 id="name-connectivity-scenarios">
@@ -1642,10 +1641,10 @@ it is necessary to consider name resolution aspects when testing IPv6 readiness.
 While some name resolution issues only manifest in certain connectivity scenarios or can be mitigated by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span>,
 others will just map to different connectivity scenarios.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">This section lists name resolution issues to consider for testing.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
-<div id="missing-dns-records">
+<div id="missing-dns-resource-records">
 <section id="section-3.3.1">
-          <h4 id="name-missing-dns-records">
-<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-missing-dns-records" class="section-name selfRef">Missing DNS Records</a>
+          <h4 id="name-missing-dns-resource-record">
+<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-missing-dns-resource-record" class="section-name selfRef">Missing DNS Resource Records</a>
           </h4>
 <p id="section-3.3.1-1">While a server endpoint is intended to support Dual-stack connectivity,
 A or AAAA DNS resource records for the endpoint may be missing (e.g., due to misconfiguration or broken tooling)
@@ -1662,15 +1661,14 @@ and, therefore, already addressed by testing the base scenarios above.<a href="#
 <a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-incorrect-dns-resource-reco" class="section-name selfRef">Incorrect DNS Resource Records</a>
           </h4>
 <p id="section-3.3.2-1">Independent of the deployed server endpoint,
-there may be an A and AAAA resource record pointing somewhere else,
-e.g., to an old or planned deployment.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
+there may be an A and AAAA resource record pointing somewhere else (e.g., to an old or planned deployment).<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-2">For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.<a href="#section-3.3.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-3">For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-4">IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in <a href="#scenarios" class="auto internal xref">Section 3.1</a>) or
 local NAT64 address (e.g., as when implementing Happy Eyeballs v2 <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span>).
-IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.<a href="#section-3.3.2-4" class="pilcrow">¶</a></p>
+IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA resource records prevents synthesis of DNS64 records.<a href="#section-3.3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-5">Testing with IPv4-Mapped IPv6 addresses <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span> in AAAA resource records is also RECOMMENDED.
 While this makes zero sense, it has been seen in the wild and should not confuse the client.<a href="#section-3.3.2-5" class="pilcrow">¶</a></p>
 </section>
@@ -1685,10 +1683,10 @@ While this makes zero sense, it has been seen in the wild and should not confuse
 Applications providing endpoints SHOULD test against these misconfigurations.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="testing-with-ip-literals">
+<div id="testing-with-ip-address-literals">
 <section id="section-3.3.4">
-          <h4 id="name-testing-with-ip-literals">
-<a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-testing-with-ip-literals" class="section-name selfRef">Testing with IP Literals</a>
+          <h4 id="name-testing-with-ip-address-lit">
+<a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-testing-with-ip-address-lit" class="section-name selfRef">Testing with IP Address Literals</a>
           </h4>
 <p id="section-3.3.4-1">Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
 Applications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span>. Some applications (client or server) may not allow for IPv4 literals.<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
@@ -1723,7 +1721,7 @@ Applications SHOULD be tested to determine whether they work as expected with li
         </h3>
 <p id="section-3.4-1">Some applications can employ different transports or protocol variants for their communication flows.
 Typical examples include HTTP-based applications running over TCP or QUIC <span>[<a href="#RFC9114" class="cite xref">RFC9114</a>]</span> (over UDP) and SIP-based applications that can do signaling over UDP, TCP, and SCTP.
-While Transport Layer Security (TLS) or similar security layers are used for most application flows today, they may be optional from an application protocol's point of view.
+While Transport Layer Security (TLS) <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span> or similar security layers are used for most application flows today, they may be optional from an application protocol's point of view.
 IPv6-related issues that only arise with certain transports or protocol variants are usually hard to identify and debug in production. Because TCP transport is usually implemented in the OS, while UDP/QUIC transport is usually implemented in the application or a library shipped with it, diverging behaviors and failures in IP-family-specific corner cases are more likely.
 Therefore, an IP connectivity testing strategy MUST also exercise all transport and protocol variants supported by the application and that might be available at the endpoints.
 Testers have to assess whether these test cases use the expected transport protocol (or variant) or fall back to a less preferable transport under specific forwarding conditions.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
@@ -1813,7 +1811,7 @@ For testing web-based user interfaces, see <a href="#web-app-considerations" cla
 </li>
           <li class="normal" id="section-3.7-3.3">
             <p id="section-3.7-3.3.1">Management: Depending on the application, management functions may be provided via the user interface.
-However, the application may have additional management functions (Network Configuration Protocol (NETCONF) <span>[<a href="#RFC6124" class="cite xref">RFC6124</a>]</span>, RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>, SNMP <span>[<a href="#STD62" class="cite xref">STD62</a>]</span>, Open Telemetry <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>, syslog <span>[<a href="#RFC5424" class="cite xref">RFC5424</a>]</span>, etc.) that should be tested.
+However, the application may have additional management functions (Network Configuration Protocol (NETCONF) <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>, RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>, SNMP <span>[<a href="#STD62" class="cite xref">STD62</a>]</span>, Open Telemetry <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>, syslog <span>[<a href="#RFC5424" class="cite xref">RFC5424</a>]</span>, etc.) that should be tested.
 As the source triggering application behavior is crucial for logging and auditing functionality,
 addresses recorded need to be verified to be represented correctly. See <a href="#addr-as-data" class="auto internal xref">Section 3.10</a> about representation of addresses.<a href="#section-3.7-3.3.1" class="pilcrow">¶</a></p>
 </li>
@@ -2270,13 +2268,13 @@ Some security-related issues that should be considered and ruled out by appropri
         <dd>
 <span class="refAuthor">Gerhards, R.</span>, <span class="refTitle">"The Syslog Protocol"</span>, <span class="seriesInfo">RFC 5424</span>, <span class="seriesInfo">DOI 10.17487/RFC5424</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5424">https://www.rfc-editor.org/rfc/rfc5424</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6124">[RFC6124]</dt>
-        <dd>
-<span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Zorn, G.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"An EAP Authentication Method Based on the Encrypted Key Exchange (EKE) Protocol"</span>, <span class="seriesInfo">RFC 6124</span>, <span class="seriesInfo">DOI 10.17487/RFC6124</span>, <time datetime="2011-02" class="refDate">February 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6124">https://www.rfc-editor.org/rfc/rfc6124</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6146-bis">[RFC6146-bis]</dt>
         <dd>
 <span class="refAuthor">Bagnulo, M.</span>, <span class="refAuthor">Matthews, P.</span>, and <span class="refAuthor">J. P. Martinez</span>, <span class="refTitle">"Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-v6ops-rfc6146-bis-16</span>, <time datetime="2026-09-04" class="refDate">4 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16">https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-rfc6146-bis-16</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6241">[RFC6241]</dt>
+        <dd>
+<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6724-update">[RFC6724-update]</dt>
         <dd>
@@ -2337,6 +2335,10 @@ Some security-related issues that should be considered and ruled out by appropri
 <dt id="RFC9232">[RFC9232]</dt>
         <dd>
 <span class="refAuthor">Song, H.</span>, <span class="refAuthor">Qin, F.</span>, <span class="refAuthor">Martinez-Julia, P.</span>, <span class="refAuthor">Ciavaglia, L.</span>, and <span class="refAuthor">A. Wang</span>, <span class="refTitle">"Network Telemetry Framework"</span>, <span class="seriesInfo">RFC 9232</span>, <span class="seriesInfo">DOI 10.17487/RFC9232</span>, <time datetime="2022-05" class="refDate">May 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9232">https://www.rfc-editor.org/rfc/rfc9232</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9846">[RFC9846]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9846</span>, <span class="seriesInfo">DOI 10.17487/RFC9846</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9846">https://www.rfc-editor.org/rfc/rfc9846</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC10001">[RFC10001]</dt>
         <dd>
