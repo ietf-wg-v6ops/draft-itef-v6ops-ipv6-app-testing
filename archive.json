@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-17T06:32:45.562309+00:00",
+  "timestamp": "2026-11-24T08:24:01.651538+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -2317,6 +2317,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOQpLumc8AAAABRXvA9Q",
+      "title": "Correcting nits from ARTART review of -10",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/46",
+      "state": "OPEN",
+      "author": "cabo",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-23T20:30:31Z",
+      "updatedAt": "2026-11-23T20:30:32Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "8944401d534343bacbffbe2ec4994ffd673258f3",
+      "headRepository": "cabo/draft-ietf-v6ops-ipv6-app-testing",
+      "headRefName": "nits-10",
+      "headRefOid": "b65bafe666622d2499dcf4d4a61d8ba07880479a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
