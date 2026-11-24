@@ -115,7 +115,7 @@ and explains common regressions to avoid when deploying IPv6 support.
 For the last 20 years, enabling applications for IPv6 has focused on coexistence with IPv4 and allowing traffic to shift towards IPv6 without breaking IPv4 operation.
 This target has changed in part due to a series of national regulations mandating state entities to proceed in the transition to IPv6, e.g., in
 China {{CN-CAC-2023}}, the United States of America {{US-OMB-M-21-07}}, Germany {{DE-BIT-2020-14}}, and the Czech Republic {{CZ-ENDv4}}.
-IPv6 support thus means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
+IPv6 support, thus, means being fully functional in the absence of IPv4 and transition technologies providing connectivity to the IPv4 Internet.
 Therefore, applications are expected to function regardless of whether they are used in an IPv4-only environment, a Dual-stack environment, or an IPv6-only environment, with or without connectivity to the IPv4 Internet. To achieve this, applications need to be verified against all these scenarios.
 
 The availability of IPv6 support in applications, from small command-line tools to huge cloud-based distributed applications such as Enterprise Resource Planning (ERP) systems, has a considerable impact on the success of IPv6 deployment.
@@ -190,14 +190,14 @@ Orthogonal to the base scenarios, this document defines lifecycle functions (i.e
 # Testing Objectives {#objectives}
 
 As a basic principle, IPv6 application testing should always be derived from functional and integration testing.
-Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios,
-i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings.
+Therefore, the goal is to verify that the expected behavior is consistent across all connectivity scenarios (i.e., the application functions correctly in IPv4-only, Dual-stack, IPv6-only with NAT64, and IPv6-only-strict settings).
 
 This section provides guidance on which connectivity scenarios and parts of the lifecycle of an application to include in a testing campaign
 for an ideal application that is supposed to run anywhere.
 It is RECOMMENDED to apply these scenarios to all existing functional, integration, and end-to-end test cases that the application's communication pattern may influence.
 The document also explains how to approach testing of complex cloud applications and how to exclude connectivity scenarios based on the deployment environment.
 Testing for application-specific or protocol-specific issues is out of scope.
+
 While this section assumes that the communication scenarios are under full control of the tester,
 {{strategies}} explains how to conduct tests in cases where control over the test environment is limited.
 
@@ -267,7 +267,7 @@ others will just map to different connectivity scenarios.
 
 This section lists name resolution issues to consider for testing.
 
-### Missing DNS Records
+### Missing DNS Resource Records
 
 While a server endpoint is intended to support Dual-stack connectivity,
 A or AAAA DNS resource records for the endpoint may be missing (e.g., due to misconfiguration or broken tooling)
@@ -281,8 +281,7 @@ and, therefore, already addressed by testing the base scenarios above.
 ### Incorrect DNS Resource Records
 
 Independent of the deployed server endpoint,
-there may be an A and AAAA resource record pointing somewhere else,
-e.g., to an old or planned deployment.
+there may be an A and AAAA resource record pointing somewhere else (e.g., to an old or planned deployment).
 
 For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.
 
@@ -292,7 +291,7 @@ Especially for the latter, it is advisable to verify whether the connection dela
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
 local NAT64 address (e.g., as when implementing Happy Eyeballs v2 {{RFC8305}}).
-IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA records prevents synthesis of DNS64 records.
+IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA resource records prevents synthesis of DNS64 records.
 
 Testing with IPv4-Mapped IPv6 addresses {{RFC4291}} in AAAA resource records is also RECOMMENDED.
 While this makes zero sense, it has been seen in the wild and should not confuse the client.
@@ -303,7 +302,7 @@ Integration testing for cloud applications MUST verify that the necessary domain
 {{?RFC10001}} describes common misconfigurations breaking IPv4-only or IPv6-only-strict in detail and provides guidance how to avoid these.
 Applications providing endpoints SHOULD test against these misconfigurations.
 
-### Testing with IP Literals
+### Testing with IP Address Literals
 
 Most name resolution libraries support IP literals, i.e., textual representations of IP addresses.
 Applications SHOULD be tested to determine whether they work as expected with IPv4 literals and all IPv6 address representations described in {{!RFC4291}}. Some applications (client or server) may not allow for IPv4 literals.
@@ -325,7 +324,7 @@ Applications SHOULD be tested to determine whether they work as expected with li
 
 Some applications can employ different transports or protocol variants for their communication flows.
 Typical examples include HTTP-based applications running over TCP or QUIC {{?RFC9114}} (over UDP) and SIP-based applications that can do signaling over UDP, TCP, and SCTP.
-While Transport Layer Security (TLS) or similar security layers are used for most application flows today, they may be optional from an application protocol's point of view.
+While Transport Layer Security (TLS) {{?RFC9846}} or similar security layers are used for most application flows today, they may be optional from an application protocol's point of view.
 IPv6-related issues that only arise with certain transports or protocol variants are usually hard to identify and debug in production. Because TCP transport is usually implemented in the OS, while UDP/QUIC transport is usually implemented in the application or a library shipped with it, diverging behaviors and failures in IP-family-specific corner cases are more likely.
 Therefore, an IP connectivity testing strategy MUST also exercise all transport and protocol variants supported by the application and that might be available at the endpoints.
 Testers have to assess whether these test cases use the expected transport protocol (or variant) or fall back to a less preferable transport under specific forwarding conditions.
@@ -387,7 +386,7 @@ In particular, the following MUST be considered:
   For testing web-based user interfaces, see {{web-app-considerations}}.
 
 - Management: Depending on the application, management functions may be provided via the user interface.
-  However, the application may have additional management functions (Network Configuration Protocol (NETCONF) {{?RFC6124}}, RESTCONF {{?RFC8040}}, SNMP {{?STD62}}, Open Telemetry {{?RFC9232}}, syslog {{?RFC5424}}, etc.) that should be tested.
+  However, the application may have additional management functions (Network Configuration Protocol (NETCONF) {{?RFC6241}}, RESTCONF {{?RFC8040}}, SNMP {{?STD62}}, Open Telemetry {{?RFC9232}}, syslog {{?RFC5424}}, etc.) that should be tested.
   As the source triggering application behavior is crucial for logging and auditing functionality,
   addresses recorded need to be verified to be represented correctly. See {{addr-as-data}} about representation of addresses.
 
