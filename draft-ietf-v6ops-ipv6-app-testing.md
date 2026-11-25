@@ -433,7 +433,7 @@ e.g., using {{Selenium}}.
 
 When applications process IP addresses as data (e.g., as part of logging or management functionality),
 this functionality MUST work for all possible address families and representations.
-Ignoring IP addresses as data in the testing may result in malfunctions, such as always denying access over IPv6, or security issues, such as not logging access from IPv6 clients.
+Ignoring IP addresses as data in the testing may result in malfunctions (e.g., always denying access over IPv6) or security issues (e.g., not logging access from IPv6 clients).
 
 One challenge to consider is that the textual representation of IPv4 and IPv6 addresses are not canonical. Although {{!RFC5952}} recommends a canonical format, all implementations MUST accept and be able to handle any legitimate {{!RFC4291}} address format.
 It allows several valid textual representations for the same address, which makes direct string comparison and arithmetic operations on addresses error-prone and slow.
@@ -447,7 +447,7 @@ Applications MUST be tested whether they follow {{!RFC5952}} when rendering IPv6
 as required by national regulations such as {{US-NIST.SP.500-267Ar1}},
 while accepting all valid representations defined in {{!RFC4291}}.
 
-## IPv4 addresses represented or embedded into IPv6 addresses {#ipv4-mapped}
+## IPv4 Addresses Represented or Embedded in IPv6 Addresses {#ipv4-mapped}
 
 IPv4 addresses can also be represented as *IPv4-Mapped IPv6 Addresses* (see {{?RFC4291}} Section 2.5.5.2) or as a part of a NAT64 prefix (see {{?RFC6052}}).
 Depending on the environment an application is running in, logic treating IPv4 addresses (e.g., allow/deny lists) MUST be tested again all representations that are expected to occur in the particular environment and SHOULD behave consistent with IPv4 addresses (e.g., deny access from IPv4 addresses listed in a deny list even when received as IPv4-Mapped IPv6 Address or as NAT64 address when a server is expected to be deployed in an IPv6-only with NAT64 scenario).
@@ -535,7 +535,7 @@ As already discussed in {{lifecycle-considerations}}, special care should be tak
 ## Destination Address Selection Preference and Address Filtering
 
 The destination address selection algorithm in {{!RFC6724}} filters unavailable address families (Rule 1),
-de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 Global Unicast Addresses (GUAs, see {{?RFC4291}} Section 2.5.4) over IPv4 addresses.
+de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 Global Unicast Addresses (GUAs) ({{Section 2.5.4 of !RFC4291}}) over IPv4 addresses.
 Some OSes and alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
 
 Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing unexpected behavior and other hard-to-debug errors:
