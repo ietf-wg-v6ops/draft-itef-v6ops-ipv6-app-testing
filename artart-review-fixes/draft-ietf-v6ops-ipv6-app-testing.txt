@@ -91,7 +91,7 @@ Table of Contents
      3.8.  Testing Complex Cloud Applications and Applying Test Cases
      3.9.  Special Considerations for Web-based Applications
      3.10. Considerations for Addresses as Data
-     3.11. IPv4 addresses represented or embedded into IPv6 addresses
+     3.11. IPv4 Addresses Represented or Embedded in IPv6 Addresses
    4.  Testing Strategies
      4.1.  IPv6-only-strict Clients
      4.2.  IPv6-only Servers
@@ -711,9 +711,9 @@ Table of Contents
    When applications process IP addresses as data (e.g., as part of
    logging or management functionality), this functionality MUST work
    for all possible address families and representations.  Ignoring IP
-   addresses as data in the testing may result in malfunctions, such as
-   always denying access over IPv6, or security issues, such as not
-   logging access from IPv6 clients.
+   addresses as data in the testing may result in malfunctions (e.g.,
+   always denying access over IPv6) or security issues (e.g., not
+   logging access from IPv6 clients).
 
    One challenge to consider is that the textual representation of IPv4
    and IPv6 addresses are not canonical.  Although [RFC5952] recommends
@@ -741,7 +741,7 @@ Table of Contents
    national regulations such as [US-NIST.SP.500-267Ar1], while accepting
    all valid representations defined in [RFC4291].
 
-3.11.  IPv4 addresses represented or embedded into IPv6 addresses
+3.11.  IPv4 Addresses Represented or Embedded in IPv6 Addresses
 
    IPv4 addresses can also be represented as _IPv4-Mapped IPv6
    Addresses_ (see [RFC4291] Section 2.5.5.2) or as a part of a NAT64
@@ -882,7 +882,7 @@ Table of Contents
    The destination address selection algorithm in [RFC6724] filters
    unavailable address families (Rule 1), de-prioritizes non-matching
    address families (Rule 2), and clearly prioritizes IPv6 Global
-   Unicast Addresses (GUAs, see [RFC4291] Section 2.5.4) over IPv4
+   Unicast Addresses (GUAs) (Section 2.5.4 of [RFC4291]) over IPv4
    addresses.  Some OSes and alternative resolver libraries, such as
    [C-ARES], implement [RFC6724] correctly.  However, at the time of
    writing this document, major operating systems are still implementing
