@@ -450,7 +450,7 @@ while accepting all valid representations defined in {{!RFC4291}}.
 ## IPv4 Addresses Represented or Embedded in IPv6 Addresses {#ipv4-mapped}
 
 IPv4 addresses can also be represented as IPv4-mapped IPv6 addresses (see {{Section 2.5.5.2 of !RFC4291}}) or as IPv4-converted IPv6 addresses (see {{Section 1.3 of !RFC6052}}).
-Depending on the environment an application is running in, logic treating IPv4 addresses (e.g., allow/deny lists) MUST be tested again all representations that are expected to occur in the particular environment and SHOULD behave consistent with IPv4 addresses (e.g., deny access from IPv4 addresses listed in a deny list even when received as IPv4-Mapped IPv6 Address or as NAT64 address when a server is expected to be deployed in an IPv6-only with NAT64 scenario).
+Depending on the environment an application is running in, functionality concerned with IPv4 addresses (e.g., allow/deny lists or logging) MUST be tested again all representations that are expected to occur in the particular environment and SHOULD behave consistent with IPv4 addresses (e.g., deny access from IPv4 addresses listed in a deny list even when received as IPv4-mapped IPv6 address or as an IPv4-converted address when a server is expected to be deployed in an IPv6-only with NAT64 scenario).
 
 
 # Testing Strategies {#strategies}
