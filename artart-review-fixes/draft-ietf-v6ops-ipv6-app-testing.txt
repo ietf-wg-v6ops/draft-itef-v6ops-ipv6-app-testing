@@ -5,9 +5,9 @@
 v6ops                                                       P. S. Tiesel
 Internet-Draft                                                    SAP SE
 Intended status: Best Current Practice                      K. Ouellette
-Expires: 28 May 2027                                           B. Patton
+Expires: 29 May 2027                                           B. Patton
                                                                  UNH-IOL
-                                                        24 November 2026
+                                                        25 November 2026
 
 
             Recommendations for IPv6 Testing of Applications
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 May 2027.
+   This Internet-Draft will expire on 29 May 2027.
 
 Copyright Notice
 
@@ -219,19 +219,19 @@ Table of Contents
    // *Note to the RFC-Editor:* The capitalization of the following
    // terms should be consistent with [IPv6-ONLY].
 
-   IPv4-only:  A node or application that has native connectivity
-      towards all endpoints relevant for the test scenario using IPv4
-      and no connectivity towards any relevant IPv6 endpoints.
+   IPv4-only:  A node or application that has native IPv4 connectivity
+      towards all endpoints relevant for the test scenario and no
+      connectivity towards any relevant IPv6 endpoints.
 
-      While this definition is narrower than the one from [IPv6-ONLY],
-      and mirrors the _IPv6-only-strict_ scenario.
+      The definition is narrower than the one from [IPv6-ONLY] and
+      mirrors the _IPv6-only-strict_ scenario.
 
-      This document refrains from calling the scenario IIPv4-only-
-      strict* for the sake of simplicity as transition technologies
+      This document refrains from calling the scenario _IPv4-only-
+      strict_ for the sake of simplicity, as transition technologies
       allowing IPv4-only endpoints to talk to arbitrary IPv6-only
-      endpoints are not widely deployed and encapsulation cases
-      mentioned in [IPv6-ONLY] are covered by either the _Dual-stack_ or
-      _IPv6-only with NAT64_ case.
+      endpoints are not widely deployed.  Transition technologies using
+      encapsulation are covered by either the _Dual-stack_ or _IPv6-only
+      with NAT64_ case.
 
    Dual-stack:  A node or application that has native connectivity
       towards all endpoints relevant for the test scenario using IPv4 as
