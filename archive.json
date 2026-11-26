@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-24T08:24:01.651538+00:00",
+  "timestamp": "2026-11-26T06:51:45.529480+00:00",
   "repo": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
   "labels": [
     {
@@ -2323,26 +2323,333 @@
       "id": "PR_kwDOQpLumc8AAAABRXvA9Q",
       "title": "Correcting nits from ARTART review of -10",
       "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/46",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "cabo",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-11-23T20:30:31Z",
-      "updatedAt": "2026-11-23T20:30:32Z",
+      "updatedAt": "2026-11-24T13:41:12Z",
       "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
       "baseRefName": "main",
       "baseRefOid": "8944401d534343bacbffbe2ec4994ffd673258f3",
       "headRepository": "cabo/draft-ietf-v6ops-ipv6-app-testing",
       "headRefName": "nits-10",
       "headRefOid": "b65bafe666622d2499dcf4d4a61d8ba07880479a",
+      "closedAt": "2026-11-24T13:41:12Z",
+      "mergedAt": "2026-11-24T13:41:12Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "d2d7a5d9e3834f77f8e1a1e808c57611da1fe201"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaASbpQ",
+          "commit": {
+            "abbreviatedOid": "b65bafe"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-11-24T13:32:55Z",
+          "updatedAt": "2026-11-24T13:32:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaAZFDA",
+          "commit": {
+            "abbreviatedOid": "b65bafe"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks @cabo for the comments and corrections ans @boucadair for the review",
+          "createdAt": "2026-11-24T13:40:15Z",
+          "updatedAt": "2026-11-24T13:40:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOQpLumc8AAAABRjjvWg",
+      "title": "few reference fixes",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/47",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Corrected minor grammatical issues and improved clarity in the document.",
+      "createdAt": "2026-11-24T13:31:15Z",
+      "updatedAt": "2026-11-24T14:01:36Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "8944401d534343bacbffbe2ec4994ffd673258f3",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "boucadair-patch-3",
+      "headRefOid": "faad0b5437b650c48b1f8143306d681c5418c4d8",
+      "closedAt": "2026-11-24T14:01:36Z",
+      "mergedAt": "2026-11-24T14:01:36Z",
+      "mergedBy": "philsbln",
+      "mergeCommit": {
+        "oid": "cdfd1c03b7035ba121d4ca45522d8e0bdfa22b4a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaAvpUg",
+          "commit": {
+            "abbreviatedOid": "faad0b5"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2026-11-24T14:01:22Z",
+          "updatedAt": "2026-11-24T14:01:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOQpLumc8AAAABRqFU_A",
+      "title": "Address issues raised in Carsten Bormann's ARTART review",
+      "url": "https://github.com/ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing/pull/48",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-11-24T20:38:42Z",
+      "updatedAt": "2026-11-25T12:44:04Z",
+      "baseRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "baseRefName": "main",
+      "baseRefOid": "cdfd1c03b7035ba121d4ca45522d8e0bdfa22b4a",
+      "headRepository": "ietf-wg-v6ops/draft-itef-v6ops-ipv6-app-testing",
+      "headRefName": "artart-review-fixes",
+      "headRefOid": "e59a51d17908d6c3224a58ff83b4b2ae02b7c803",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaMJhDA",
+          "commit": {
+            "abbreviatedOid": "a6c2312"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-11-25T05:55:03Z",
+          "updatedAt": "2026-11-25T06:06:04Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "I don't parse this one. Please double check.",
+              "createdAt": "2026-11-25T05:55:03Z",
+              "updatedAt": "2026-11-25T06:06:04Z"
+            },
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\n: This document refrains from calling the scenario *IPv4-only-strict* for the sake of simplicity as transition technologies allowing IPv4-only endpoints to talk to arbitrary IPv6-only endpoints are not widely deployed and encapsulation cases mentioned in {{IPv6-ONLY}} are covered by either the *Dual-stack* or *IPv6-only with NAT64* case.\n```",
+              "createdAt": "2026-11-25T05:55:43Z",
+              "updatedAt": "2026-11-25T06:06:04Z"
+            },
+            {
+              "originalPosition": 75,
+              "body": "```suggestion\nIgnoring IP addresses as data in the testing may result in malfunctions (e.g., always denying access over IPv6) or security issues (e.g., not logging access from IPv6 clients).\n```",
+              "createdAt": "2026-11-25T05:58:24Z",
+              "updatedAt": "2026-11-25T06:06:04Z"
+            },
+            {
+              "originalPosition": 83,
+              "body": "```suggestion\n## IPv4 Addresses Represented or Embedded in IPv6 Addresses {#ipv4-mapped}\n```",
+              "createdAt": "2026-11-25T05:59:02Z",
+              "updatedAt": "2026-11-25T06:06:04Z"
+            },
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\nIPv4 addresses can also be represented as IPv4-mapped IPv6 addresses (see {{Section 2.5.5.2 of !RFC4291}}) or as IPv4-embedded IPv6 addresses (see {{Section 1.3 of !RFC6052}}).\n```",
+              "createdAt": "2026-11-25T06:01:57Z",
+              "updatedAt": "2026-11-25T06:06:04Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\r\nDepending on the environment an application is running in, functionality concerned with IPv4 addresses (e.g., allow/deny lists or logging) MUST be tested again all representations that are expected to occur in the particular environment and SHOULD behave consistent with IPv4 addresses (e.g., deny access from IPv4 addresses listed in a deny list even when received as IPv4-mapped IPv6 address or as an IPv4-converted address when a server is expected to be deployed in an IPv6-only with NAT64 scenario).\r\n```",
+              "createdAt": "2026-11-25T06:03:39Z",
+              "updatedAt": "2026-11-25T12:43:27Z"
+            },
+            {
+              "originalPosition": 116,
+              "body": "```suggestion\nde-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 Global Unicast Addresses (GUAs) ({{Section 2.5.4 of !RFC4291}}) over IPv4 addresses.\n```",
+              "createdAt": "2026-11-25T06:05:13Z",
+              "updatedAt": "2026-11-25T06:06:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaNOyFg",
+          "commit": {
+            "abbreviatedOid": "0d71aee"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T07:47:40Z",
+          "updatedAt": "2026-11-25T07:47:41Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "Shouldn't we also all it *IPv4-converted IPv6 addresses* here too?\r\n```suggestion\r\nIPv4 addresses can also be represented as IPv4-mapped IPv6 addresses (see {{Section 2.5.5.2 of !RFC4291}}) or as IPv4-converted IPv6 addresses (see {{Section 1.3 of !RFC6052}}).\r\n```",
+              "createdAt": "2026-11-25T07:47:40Z",
+              "updatedAt": "2026-11-25T07:47:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaNTgEg",
+          "commit": {
+            "abbreviatedOid": "0d71aee"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T07:54:54Z",
+          "updatedAt": "2026-11-25T07:54:54Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "I don't get what is meant by \"logic treating IPv4 addresses\", btw.",
+              "createdAt": "2026-11-25T07:54:54Z",
+              "updatedAt": "2026-11-25T07:54:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaNTrUg",
+          "commit": {
+            "abbreviatedOid": "0d71aee"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T07:55:11Z",
+          "updatedAt": "2026-11-25T07:55:11Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "> Shouldn't we also all it _IPv4-converted IPv6 addresses_ here too?\n\nNot sure to get the question. \n\n",
+              "createdAt": "2026-11-25T07:55:11Z",
+              "updatedAt": "2026-11-25T07:55:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaNZ30g",
+          "commit": {
+            "abbreviatedOid": "1c55721"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T08:04:32Z",
+          "updatedAt": "2026-11-25T08:04:33Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "Later in the text, you suggest to use *IPv4-converted address* instead of NAT64 address, which makes sense.\r\n\r\nAs IPv4-translatable IPv6 addresses are not of much interest here \u2026 shouldn't we just always use *IPv4-converted IPv6 address* in this paragraph to ease reading for those not having the details of RFC6052 in mind?",
+              "createdAt": "2026-11-25T08:04:33Z",
+              "updatedAt": "2026-11-25T08:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaOvAWA",
+          "commit": {
+            "abbreviatedOid": "1c55721"
+          },
+          "author": "philsbln",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T09:48:13Z",
+          "updatedAt": "2026-11-25T09:48:16Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "How about \"functionality concerned with IPv4 addresses\"? In the end, this will be some sort of allow/deny list or policy thing in at least 80% of the cases, the other 20% are most probably logging related\u2026",
+              "createdAt": "2026-11-25T09:48:14Z",
+              "updatedAt": "2026-11-25T09:48:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaPJ8kQ",
+          "commit": {
+            "abbreviatedOid": "1c55721"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T10:17:33Z",
+          "updatedAt": "2026-11-25T10:17:33Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "aah, I see. I think so.",
+              "createdAt": "2026-11-25T10:17:33Z",
+              "updatedAt": "2026-11-25T10:17:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaPLGWA",
+          "commit": {
+            "abbreviatedOid": "1c55721"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-11-25T10:18:53Z",
+          "updatedAt": "2026-11-25T10:18:53Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "That's better. You may consider citing both acl and logging as examples.",
+              "createdAt": "2026-11-25T10:18:53Z",
+              "updatedAt": "2026-11-25T10:18:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOQpLumc8AAAABaRMRJQ",
+          "commit": {
+            "abbreviatedOid": "e59a51d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-11-25T12:44:04Z",
+          "updatedAt": "2026-11-25T12:44:04Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
