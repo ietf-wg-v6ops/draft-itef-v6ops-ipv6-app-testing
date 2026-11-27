@@ -254,8 +254,8 @@ Table of Contents
       narrows them down by defining the scope as test-relevant
       endpoints.
 
-      The symmetric case for servers (e.g., described in [RFC7755]) this
-      is called _IPv6-only with NAT46_ throughout this document.
+      The symmetric case for servers (e.g., described in [RFC7755]) is
+      called _IPv6-only with NAT46_ throughout this document.
 
    IPv6-only-strict:  A node or application that has native IPv6
       connectivity towards all endpoints relevant for the test scenario
