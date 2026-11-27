@@ -1682,14 +1682,14 @@ Also, HTTPS and SVCB resource records <span>[<a href="#RFC9460" class="cite xref
 <p id="section-3.3.2-3">For Dual-stack clients, it <span class="bcp14">MUST</span> be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario,
 either by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.
-Note that Happy Eyeballs v3 <span>[<a href="#HEv3" class="cite xref">HEv3</a>]</span> also includes support for for SVCB/HTTPS resource records. Tests might be considered with HEv3 to assess whether false/stale ipv4hint and ipv6hint values in HTTPS and SVCB records are gracefully handled.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+Note that Happy Eyeballs v3 <span>[<a href="#HEv3" class="cite xref">HEv3</a>]</span> also includes support for SVCB/HTTPS resource records. Tests might be considered with HEv3 to assess whether false/stale ipv4hint and ipv6hint values in HTTPS and SVCB records are gracefully handled.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-4">IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in <a href="#scenarios" class="auto internal xref">Section 3.1</a>) or
 local IPv6 address synthesis (e.g., as part of a Happy Eyeballs v2 <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> implementation).
 IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail, as the presence of AAAA resource records prevents synthesis of DNS64 records.<a href="#section-3.3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-5">Testing with IPv4-Mapped IPv6 addresses <span>[<a href="#RFC4291" class="cite xref">RFC4291</a>]</span> in AAAA resource records is also <span class="bcp14">RECOMMENDED</span>.
 While putting something that is technically an IPv4 address into an AAAA resource record makes no sense
-and is considered a misconfiguration, it has been seen in the wild. It <span class="bcp14">SHOULD</span> not confuse the client
+and is considered a misconfiguration, it has been seen in the wild. It <span class="bcp14">SHOULD NOT</span> confuse the client
 and <span class="bcp14">MUST NOT</span> circumvent security measures like allow/deny lists.<a href="#section-3.3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2147,7 +2147,7 @@ Operators have to be prepared for this and plan extra time or budget for updatin
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-7-1">The testing procedures described in this document do not create any new security implications.
-Some security-related issues that should be considered and ruled out by appropriate testing are discussed in <a href="#dns-broken-rr" class="auto internal xref">Section 3.3.2</a>, <a href="#addr-as-data" class="auto internal xref">Section 3.10</a>, <a href="#ipv4-mapped" class="auto internal xref">Section 3.11</a>, <a href="#failures" class="auto internal xref">Section 5</a>, and, <a href="#ops-acl" class="auto internal xref">Section 6.2</a>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+Some security-related issues that should be considered and ruled out by appropriate testing are discussed in Sections <a href="#dns-broken-rr" class="auto internal xref">3.3.2</a>, <a href="#addr-as-data" class="auto internal xref">3.10</a>, <a href="#ipv4-mapped" class="auto internal xref">3.11</a>, <a href="#failures" class="auto internal xref">5</a>, and, <a href="#ops-acl" class="auto internal xref">6.2</a>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">

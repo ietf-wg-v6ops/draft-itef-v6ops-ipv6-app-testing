@@ -465,9 +465,9 @@ Table of Contents
    candidate after timeout.  Especially for the latter, it is advisable
    to verify whether the connection delay is acceptable for the desired
    use case.  Note that Happy Eyeballs v3 [HEv3] also includes support
-   for for SVCB/HTTPS resource records.  Tests might be considered with
-   HEv3 to assess whether false/stale ipv4hint and ipv6hint values in
-   HTTPS and SVCB records are gracefully handled.
+   for SVCB/HTTPS resource records.  Tests might be considered with HEv3
+   to assess whether false/stale ipv4hint and ipv6hint values in HTTPS
+   and SVCB records are gracefully handled.
 
    IPv6-only clients with NAT64 are only expected to work with broken
    AAAA records when deployed with CLAT (should behave like Dual-stack
@@ -481,7 +481,7 @@ Table of Contents
    records is also RECOMMENDED.  While putting something that is
    technically an IPv4 address into an AAAA resource record makes no
    sense and is considered a misconfiguration, it has been seen in the
-   wild.  It SHOULD not confuse the client and MUST NOT circumvent
+   wild.  It SHOULD NOT confuse the client and MUST NOT circumvent
    security measures like allow/deny lists.
 
 3.3.3.  DNS Delegation Issues
@@ -1052,8 +1052,7 @@ Table of Contents
    The testing procedures described in this document do not create any
    new security implications.  Some security-related issues that should
    be considered and ruled out by appropriate testing are discussed in
-   Section 3.3.2, Section 3.10, Section 3.11, Section 5, and,
-   Section 6.2.
+   Sections 3.3.2, 3.10, 3.11, 5, and, 6.2.
 
 8.  IANA Considerations
 
