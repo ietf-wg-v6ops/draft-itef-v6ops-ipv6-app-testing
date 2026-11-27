@@ -45,7 +45,6 @@ author:
 normative:
   IPv6-ONLY: I-D.ietf-v6ops-ipv6-only
   CLAT: I-D.ietf-v6ops-claton
-  HEv3: I-D.ietf-happy-happyeyeballs-v3
 
 informative:
   RFC7084bis: I-D.ietf-v6ops-rfc7084bis
@@ -53,6 +52,7 @@ informative:
   RFC6146-bis: I-D.ietf-v6ops-rfc6146-bis
   RFC6724-update: I-D.ietf-6man-rfc6724-update
   MASQUE: I-D.draft-schinazi-masque-proxy
+  HEv3: I-D.ietf-happy-happyeyeballs-v3
   CN-CAC-2023:
     target: http://www.cac.gov.cn/2023-04/27/c_1684239012351367.htm
     title: 2023 Work Arrangement for Further Promoting Large-scale IPv6 Deployment and Application
@@ -290,7 +290,7 @@ Testing with IPv4-only and IPv6-only-strict clients SHOULD be conducted to revea
 For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario,
 either by using Happy Eyeballs {{!RFC8305}} or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.
-In addition, Happy Eyeballs v3 {{!HEv3}} implementations SHOULD be tested to gracefully handle false/outdated `ipv4hint` and `ipv6hint` values in HTTPS and SVCB records.
+In addition, for applications using Happy Eyeballs v3 ({{HEv3}}, still under development at the time of writing this document) testing graceful handling of false/stale `ipv4hint` and `ipv6hint` values in HTTPS and SVCB records should be considered.
 
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
