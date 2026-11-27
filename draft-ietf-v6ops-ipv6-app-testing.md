@@ -45,6 +45,7 @@ author:
 normative:
   IPv6-ONLY: I-D.ietf-v6ops-ipv6-only
   CLAT: I-D.ietf-v6ops-claton
+  HEv3: I-D.ietf-happy-happyeyeballs-v3
 
 informative:
   RFC7084bis: I-D.ietf-v6ops-rfc7084bis
@@ -102,7 +103,7 @@ informative:
 
 --- abstract
 
-This document provides guidance for application developers and Software-as-a-Service (SaaS) providers on how to approach IPv6 testing in Dual-stack (IPv4+IPv6) and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
+This document provides guidance for application developers and Software-as-a-Service (SaaS) providers on how to approach testing for IPv4-only, Dual-stack (IPv4+IPv6) and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
 
 The document also discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support.
@@ -132,7 +133,7 @@ Enabling these applications to communicate over IPv6 requires careful analysis o
 As the scope of applications to be guided by this document ranges from small command-line tools to huge cloud-based systems,
 not all details discussed here are relevant for all applications.
 However, the underlying idea of how to approach IPv6 application testing is the same for all of these:
-Do not invent new tests for IPv6, but instead test whether the functional correctness is given irrespective of the address family used for communication. In cases where IP addresses are processed as data, make sure to update the tests to support IPv4 and IPv6 addressees.
+Do not invent new tests for IPv6, but instead test whether the functional correctness is given irrespective of the address family used for communication. In cases where IP addresses are processed as data, make sure to update the tests to support IPv4 and IPv6 addresses.
 
 The remainder of this document is organized as follows:
 {{definitions}} contains the base definitions and scenarios used throughout the document.
@@ -163,17 +164,17 @@ IPv4-only:
 
 Dual-stack:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv4 as well as using IPv6.
-: This case covers the *Dual-Stack* and *IPv6-Mostly (for clients not supporting Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
+: This case covers the *Dual-stack* and *IPv6-mostly (for clients not supporting DHCP Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
 narrows it down by defining the scope as test-relevant endpoints.
 
 IPv6-only with NAT64:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology such as NAT64, e.g., NAT64 in combination with CLAT {{?RFC6877}}, DNS64 {{?RFC6147}}, or local address synthesis. This document does not differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
-: This case covers the *IPv6-Only* as well as *IPv6-Mostly (for clients supporting Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
+: This case covers the *IPv6-only* as well as *IPv6-mostly (for clients supporting DHCP Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
 narrows them down by defining the scope as test-relevant endpoints.
 
 IPv6-only-strict:
 : A node or application that has native IPv6 connectivity towards all endpoints relevant for the test scenario and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
-: This definition narrows down the *IPv6-Only-Strict* definition from {{IPv6-ONLY}} by defining the scope as test-relevant endpoints.
+: This definition narrows down the *IPv6-only-strict* definition from {{IPv6-ONLY}} by defining the scope as test-relevant endpoints.
 
 ## Lifecycle Functions {#lifecycle-functions}
 
@@ -210,18 +211,18 @@ While the involved parties are listed here as "client" and "server" to reflect t
 
 The first five scenarios marked as *base* should cover all major code paths and fallback conditions and MUST be validated to work as expected unless the application's architecture or deployment makes them irrelevant (see {{complex-apps}} for further discussion).
 These include Dual-stack clients combined with IPv4-only and IPv6-only-strict servers, to test whether the additional address family confuses the client.
-The document also includes the cases with Dual-stack server and both IPv4-only and IPv6-only clients, to test whether a single address family at client side works as anticipated and to look at the transition case using NAT64.
+The document also includes the cases with Dual-stack server and both IPv4-only and IPv6-only-strict clients, to test whether a single address family at client side works as anticipated and to look at the transition case using NAT64.
 
-This document does not include any special scenarios for 464XLAT {{?RFC6877}} and IPv6-Mostly {{V6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack or IPv6-only with NAT64 (IPv6-Mostly without CLAT).
+This document does not include any special scenarios for 464XLAT {{?RFC6877}} and IPv6-mostly {{V6MOPS}}, as these architectures are from the client side indistinguishable from the Dual-stack or IPv6-only with NAT64.
 
 MTU issues, as described in {{Section 7.4.5 of V6MOPS}}, that may arise from these scenarios are covered in {{partially-broken}}.
 
 This document also does not separate IPv4-only cases with and without NAT. While applications exist that assume NAT for IPv4 and do not work without, these issues are usually also revealed by the IPv6 scenarios.
 
-For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT46, the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered. This case MAY be omitted for deployments targeting IPv6-only clients.
+For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT46 {{?RFC7755}}, the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered. This case MAY be omitted for deployments targeting IPv6-only clients.
 
 The other combinations are unlikely to exhibit additional problems for 'client/server'-based applications and, therefore, are marked as *extended* in {{scn_combinations}}.
-For P2P applications and applications with complex connection handling such as using Session Traversal Utilities for NAT (STUN) {{?RFC8489}} or Traversal Using Relays around NAT (TURN) {{?RFC8656}}, skipping scenarios classified as *extended* is strongly discouraged.
+For P2P applications and applications with complex connection handling such as using Session Traversal Utilities for NAT (STUN) {{?RFC8489}} or Traversal Using Relays around NAT (TURN) {{?RFC8656}}, scenarios classified as *extended* SHOULD NOT be skipped.
 
 | Client               | Server               | Classification |
 | :---                 | :---                 | :---:          |
@@ -278,23 +279,28 @@ While deployment and integration testing should try to test for this kind of bro
 this scenario is usually indistinguishable from an IPv4-only or an IPv6-only server endpoint,
 and, therefore, already addressed by testing the base scenarios above.
 
-### Incorrect DNS Resource Records
+### Incorrect DNS Resource Records {#dns-broken-rr}
 
-Independent of the deployed server endpoint,
-there may be an A and AAAA resource record pointing somewhere else (e.g., to an old or planned deployment).
+In Dual-stack deployments, it can happen that either A or AAAA resource records are pointing somewhere else (e.g., to an old or planned deployment),
+without being noticed by Dual-stack clients and monitoring tools.
+Also, HTTPS and SVCB records {{?RFC9460}} may contain false or outdated `ipv4hint` and `ipv6hint` values.
 
-For either IPv4-only or IPv6-only-strict clients, this scenario should always fail.
+Testing with IPv4-only and IPv6-only-strict clients SHOULD be done to reveal this failure mode in deployments.
 
-For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario, either by using Happy Eyeballs {{!RFC8305}} or trying the next resolved address candidate after timeout.
+For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario,
+either by using Happy Eyeballs {{!RFC8305}} or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.
+In addition, Happy Eyeballs v3 {{!HEv3}} implementations SHOULD be tested to gracefully handle false/outdated `ipv4hint` and `ipv6hint` values in HTTPS and SVCB records.
 
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
-local NAT64 address (e.g., as when implementing Happy Eyeballs v2 {{RFC8305}}).
-IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail as the presence of AAAA resource records prevents synthesis of DNS64 records.
+local NAT64 address synthesis (e.g., as part of a Happy Eyeballs v2 {{RFC8305}} implementation).
+IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail, as the presence of AAAA resource records prevents synthesis of DNS64 records.
 
 Testing with IPv4-Mapped IPv6 addresses {{RFC4291}} in AAAA resource records is also RECOMMENDED.
-While this makes zero sense, it has been seen in the wild and should not confuse the client.
+While putting something that is technically an IPv4 address into an AAAA resource record makes no sense
+and is considered a misconfiguration, it has been seen in the wild. It SHOULD not confuse the client
+and MUST NOT circumvent security measures like allow/deny lists.
 
 ### DNS Delegation Issues
 
@@ -315,7 +321,7 @@ Applications SHOULD be tested whether they correctly resolve and display reverse
 
 ### Testing with Link-local Names
 
-A name such as `example.local` can resolve, e.g., through DNS-Based Service Discovery {{?RFC6763}},
+A name such as `example.local` can resolve, e.g., through DNS-Based Service Discovery {{?RFC6762}},
 to one or both of a link-local IPv4 address {{?RFC3927}} and a link-local IPv6 address.
 The latter is incomplete and possibly ambiguous unless associated with the relevant zone identifier or zone index {{!RFC4007}}.
 Applications SHOULD be tested to determine whether they work as expected with link-local names, particularly on a host with multiple network interfaces.
@@ -358,11 +364,14 @@ Because these issues can occur outside the testers' control, it is advisable to 
 
 Some applications and services may assume the existence and reachability of the IPv4 loopback addresses (127.0.0.0/8) when binding to a socket or for communicating with other services on the same host.
 For example, a web server may explicitly listen on a 127.0.0.0/8 address by default.
+In some cases, 'localhost' may resolve to ::1 only.
 For IPv6-only-strict scenarios, system administrators may choose to disable IPv4, including loopback.
 In such cases, applications may fail to operate correctly. Applications expecting to bind to an IPv4 loopback address may fail to start when these addresses are unavailable due to a bind failure.
 Applications expecting these addresses to be available for inter-service communication will result in these services being unable to communicate properly.
 
 Because of this, when testing applications for the IPv6-only-strict scenario, it is RECOMMENDED to test the application in an environment without IPv4 on the loopback interface.
+
+If applications are also expected to run on hosts with IPv6 disabled, the symmetric case where ::1 does not work as a loopback SHOULD also be tested.
 
 ## Testing Lifecycle Function Considerations {#lifecycle-considerations}
 
@@ -538,25 +547,9 @@ The destination address selection algorithm in {{!RFC6724}} filters unavailable 
 de-prioritizes non-matching address families (Rule 2), and clearly prioritizes IPv6 Global Unicast Addresses (GUAs) ({{Section 2.5.4 of !RFC4291}}) over IPv4 addresses.
 Some OSes and alternative resolver libraries, such as {{C-ARES}}, implement {{RFC6724}} correctly. However, at the time of writing this document, major operating systems are still implementing the old behavior from {{?RFC3484}} -- if an application relies on behavior updated through {{RFC6724}} or {{RFC6724-update}}, especially preference of ULA, integration testing against this behavior SHOULD be performed.
 
-Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing unexpected behavior and other hard-to-debug errors:
+Beyond that, there are several notable and widely used implementations that implement an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}}, causing unexpected behavior and other hard-to-debug errors. {{rfc6424-ign-examples}} contains some prominent contemporary examples.
 
-- Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
-  To prefer IPv6 addresses over IPv4, one needs to set the system property ```java.net.preferIPv6Addresses=true```.
-
-- Some applications only use the first address candidate from the ```getaddrinfo()``` and fail if the connection attempt to that one fails.
-
-- Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.
-
-- NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a _AAAA_ resource record to a backend can render that backend unusable.
-  After having resolved a _AAAA_ resource record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
-  As socket creation failure is not expected, an internal server error is sent back to the client {{NGINX.trac-552}}.
-  While the developers marked the bug as invalid because it can be considered being a misconfiguration,
-  this configuration can occur during IPv6 enablement of complex applications maintained by multiple teams.
-
-- Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
-  This becomes cumbersome especially in split-VPN use cases (e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity).
-
-## Listening on IPv4 Only
+## Listening on IPv4-Only
 
 Many tutorials and programmer facing documentations have still not been updated to cover listening on multiple address families to accept connections from both IPv6 and IPv4.
 Listening code should be checked whether it supports distinct listening sockets for IPv6 and IPv4, or configures IPv6 sockets to also bind to IPv4.
@@ -609,7 +602,7 @@ Based on this setup, certain combinations of IPv6-enabled clients, servers, and 
 Therefore, it may be necessary to add test cases for old software versions with known and already fixed bugs against newly IPv6-enabled servers.
 If regressions and service disruptions cannot be ruled out by the tests, a per-user or per-customer tenant opt-in/opt-out/roll-back scheme for the IPv6 enablement SHOULD be considered.
 
-## Allow & Deny Lists
+## Allow & Deny Lists {#ops-acl}
 
 Application-level IP allow and deny lists pose a special challenge for deploying IPv6 in a cloud application.
 As users may already have IPv6 connectivity, adding IPv6 support to the server may cause clients to use IPv6 immediately.
@@ -637,7 +630,7 @@ Operators have to be prepared for this and plan extra time or budget for updatin
 # Security Considerations
 
 The testing procedures described in this document do not create any new security implications.
-Some security-related issues that should be considered and ruled out by appropriate testing are discussed in {{failures}}.
+Some security-related issues that should be considered and ruled out by appropriate testing are discussed in {{dns-broken-rr}}, {{addr-as-data}}, {{ipv4-mapped}}, {{failures}}, and, {{ops-acl}}.
 
 # IANA Considerations
 
@@ -792,7 +785,7 @@ F2:
 : Whether the loss of analytics capabilities is critical is a business decision.
 
 F5:
-: The BMS is an IPv6-only-with-NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.
+: The BMS is an IPv6-only with NAT64 client, so present the server as IPv4-only (exercising NAT64), Dual-stack, and IPv6-only-strict.
 
 The data tests for F3 and F6 do not need their own connectivity setup; they are driven by the client addresses that the F1 scenarios above produce.
 The IPv4-only browser scenario yields an IPv4 client address and the IPv6 browser scenarios yield an IPv6 GUA, and each must be carried unchanged into the `Forwarded` header on F3 and into the audit record on F6.
@@ -800,6 +793,28 @@ For every input, verify that the BMS parses the header correctly (F3) and that t
 
 In case the Logistics backend (F5) is dual stack, a trick from {{strategies}} can be applied to avoid testing against a mocked endpoint:
 Point the BMS at a controlled DNS recursor that can filter A or AAAA resource records to simulate IPv4-only and IPv6-only servers.
+
+
+# Examples of RFC6724 Ignorant Behaviors {#rfc6424-ign-examples}
+
+At the time of writing, the following notable and widely used implementations implemented an address selection algorithm different from {{RFC6724}} or its predecessor {{?RFC3484}} causing unexpected behavior and other hard-to-debug errors:
+
+- Most JAVA runtimes do the opposite and prefer IPv4 destinations over IPv6.
+  To prefer IPv6 addresses over IPv4, one needs to set the system property ```java.net.preferIPv6Addresses=true```.
+
+- Some applications only use the first address candidate from the ```getaddrinfo()``` and fail if the connection attempt to that one fails.
+
+- Applications composed of services built on different programming languages or runtimes may behave inconsistently with regard to choosing destination addresses.
+
+- NGINX (at the time of writing, since at least version 1.6 and unchanged in 1.31) has its own user DNS resolver without address filtering; thus, adding a _AAAA_ resource record to a backend can render that backend unusable.
+  After having resolved a _AAAA_ resource record, it is trying to open an IPv6 socket, even when the IPv6 stack is disabled.
+  As socket creation failure is not expected, an internal server error is sent back to the client {{NGINX.trac-552}}.
+  While the developers marked the bug as invalid because it can be considered being a misconfiguration,
+  this configuration can occur during IPv6 enablement of complex applications maintained by multiple teams.
+
+- Some resolvers ignore address families for which no default route exists or where the default-route is pointing to an unsupported/ignored device.
+  This becomes cumbersome especially in split-VPN use cases (e.g. when trying to contact IPv6-only endpoints via the VPN while having IPv4-only Internet connectivity).
+
 
 # Acknowledgments
 {:unnumbered}
