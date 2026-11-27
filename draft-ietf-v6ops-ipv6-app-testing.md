@@ -171,6 +171,7 @@ IPv6-only with NAT64:
 : A node or application that has native connectivity towards all endpoints relevant for the test scenario using IPv6 and connectivity towards IPv4 endpoints using a transition technology such as NAT64, e.g., NAT64 in combination with CLAT {{?RFC6877}}, DNS64 {{?RFC6147}}, or local address synthesis. This document does not differentiate between stateful {{RFC6146-bis}} and stateless {{?RFC7915}} NAT64 variants.
 : This case covers the *IPv6-only* as well as *IPv6-mostly (for clients supporting DHCP Option 108 {{?RFC8925}})* cases in {{IPv6-ONLY}} and
 narrows them down by defining the scope as test-relevant endpoints.
+: The symmetric case for servers (e.g., described in {{?RFC7755}}) is called *IPv6-only with NAT46* throughout this document.
 
 IPv6-only-strict:
 : A node or application that has native IPv6 connectivity towards all endpoints relevant for the test scenario and no connectivity towards any relevant IPv4 endpoints, neither encapsulated nor translated.
@@ -231,7 +232,7 @@ For P2P applications and applications with complex connection handling such as u
 | IPv4-only            | Dual-stack           | base           |
 | IPv6-only with NAT64 | IPv4-only            | base           |
 | IPv6-only-strict     | Dual-stack           | base           |
-| IPv4-only            | IPv6-only with NAT64 | IPv6-only-DC   |
+| IPv4-only            | IPv6-only with NAT46 | IPv6-only-DC   |
 | Dual-stack           | Dual-stack           | extended       |
 | IPv4-only            | IPv4-only            | extended       |
 | IPv6-only with NAT64 | IPv6-only-strict     | extended       |
