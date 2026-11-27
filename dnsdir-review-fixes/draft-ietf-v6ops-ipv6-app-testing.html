@@ -1677,7 +1677,7 @@ Also, HTTPS and SVCB resource records <span>[<a href="#RFC9460" class="cite xref
 <p id="section-3.3.2-3">For Dual-stack clients, it <span class="bcp14">MUST</span> be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario,
 either by using Happy Eyeballs <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.
-In addition, for applications using Happy Eyeballs v3 (<span>[<a href="#HEv3" class="cite xref">HEv3</a>]</span>, still under development at the time of writing this document) testing graceful handling of false/stale <code>ipv4hint</code> and <code>ipv6hint</code> values in HTTPS and SVCB records should be considered.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+Note that Happy Eyeballs v3 <span>[<a href="#HEv3" class="cite xref">HEv3</a>]</span> also includes support for for SVCB/HTTPS resource records. Tests might be considered with HEv3 to assess whether false/stale ipv4hint and ipv6hint values in HTTPS and SVCB records are gracefully handled.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-4">IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in <a href="#scenarios" class="auto internal xref">Section 3.1</a>) or
 local IPv6 address synthesis (e.g., as part of a Happy Eyeballs v2 <span>[<a href="#RFC8305" class="cite xref">RFC8305</a>]</span> implementation).
