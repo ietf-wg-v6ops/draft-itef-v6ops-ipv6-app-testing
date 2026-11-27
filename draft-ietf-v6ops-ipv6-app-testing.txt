@@ -256,6 +256,9 @@ Table of Contents
       [IPv6-ONLY] and narrows them down by defining the scope as test-
       relevant endpoints.
 
+      The symmetric case for servers (e.g., described in [RFC7755]) is
+      called _IPv6-only with NAT46_ throughout this document.
+
    IPv6-only-strict:  A node or application that has native IPv6
       connectivity towards all endpoints relevant for the test scenario
       and no connectivity towards any relevant IPv4 endpoints, neither
@@ -367,7 +370,7 @@ Table of Contents
      +----------------------+----------------------+----------------+
      | IPv6-only-strict     | Dual-stack           |      base      |
      +----------------------+----------------------+----------------+
-     | IPv4-only            | IPv6-only with NAT64 |  IPv6-only-DC  |
+     | IPv4-only            | IPv6-only with NAT46 |  IPv6-only-DC  |
      +----------------------+----------------------+----------------+
      | Dual-stack           | Dual-stack           |    extended    |
      +----------------------+----------------------+----------------+
