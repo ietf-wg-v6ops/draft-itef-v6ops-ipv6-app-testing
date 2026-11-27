@@ -290,7 +290,7 @@ Testing with IPv4-only and IPv6-only-strict clients SHOULD be conducted to revea
 For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario,
 either by using Happy Eyeballs {{!RFC8305}} or trying the next resolved address candidate after timeout.
 Especially for the latter, it is advisable to verify whether the connection delay is acceptable for the desired use case.
-In addition, for applications using Happy Eyeballs v3 ({{HEv3}}, still under development at the time of writing this document) testing graceful handling of false/stale `ipv4hint` and `ipv6hint` values in HTTPS and SVCB records should be considered.
+Note that Happy Eyeballs v3 {{?HEv3}} also includes support for for SVCB/HTTPS resource records. Tests might be considered with HEv3 to assess whether false/stale ipv4hint and ipv6hint values in HTTPS and SVCB records are gracefully handled.
 
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
