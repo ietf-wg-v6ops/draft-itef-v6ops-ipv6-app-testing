@@ -103,7 +103,7 @@ informative:
 
 --- abstract
 
-This document provides guidance for application developers and Software-as-a-Service (SaaS) providers on how to approach testing for IPv4-only, Dual-stack (IPv4+IPv6) and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
+This document provides guidance for application developers and Software-as-a-Service (SaaS) providers on how to approach testing for IPv4-only, Dual-stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-only-strict" scenarios without any connectivity towards any relevant IPv4 endpoint.
 
 The document also discusses common misconceptions about the degree to which Operating Systems and libraries can abstract IPv6 issues away
 and explains common regressions to avoid when deploying IPv6 support.
@@ -219,7 +219,7 @@ MTU issues, as described in {{Section 7.4.5 of V6MOPS}}, that may arise from the
 
 This document also does not separate IPv4-only cases with and without NAT. While applications exist that assume NAT for IPv4 and do not work without, these issues are usually also revealed by the IPv6 scenarios.
 
-For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT46 {{?RFC7755}}, the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered. This case MAY be omitted for deployments targeting IPv6-only clients.
+For the IPv6-only data center case, where servers may be exposed to the IPv4-only Internet using NAT46 (e.g., {{?RFC7755}}), the case marked as IPv6-only-DC in {{scn_combinations}} SHOULD also be considered. This case MAY be omitted for deployments targeting IPv6-only clients.
 
 The other combinations are unlikely to exhibit additional problems for 'client/server'-based applications and, therefore, are marked as *extended* in {{scn_combinations}}.
 For P2P applications and applications with complex connection handling such as using Session Traversal Utilities for NAT (STUN) {{?RFC8489}} or Traversal Using Relays around NAT (TURN) {{?RFC8656}}, scenarios classified as *extended* SHOULD NOT be skipped.
@@ -283,9 +283,9 @@ and, therefore, already addressed by testing the base scenarios above.
 
 In Dual-stack deployments, it can happen that either A or AAAA resource records are pointing somewhere else (e.g., to an old or planned deployment),
 without being noticed by Dual-stack clients and monitoring tools.
-Also, HTTPS and SVCB records {{?RFC9460}} may contain false or outdated `ipv4hint` and `ipv6hint` values.
+Also, HTTPS and SVCB resource records {{?RFC9460}} may contain false or stale `ipv4hint` and `ipv6hint` values.
 
-Testing with IPv4-only and IPv6-only-strict clients SHOULD be done to reveal this failure mode in deployments.
+Testing with IPv4-only and IPv6-only-strict clients SHOULD be conducted to reveal this failure mode in deployments. If no such tests were conducted, failures may be observed during operations; troubleshooting and root cause analysis may be complicated.
 
 For Dual-stack clients, it MUST be tested whether they can use the working IPv4-only or IPv6-only connectivity scenario,
 either by using Happy Eyeballs {{!RFC8305}} or trying the next resolved address candidate after timeout.
@@ -294,7 +294,7 @@ In addition, Happy Eyeballs v3 {{!HEv3}} implementations SHOULD be tested to gra
 
 IPv6-only clients with NAT64 are only expected to work with broken AAAA records when deployed with
 CLAT (should behave like Dual-stack as discussed in {{scenarios}}) or
-local NAT64 address synthesis (e.g., as part of a Happy Eyeballs v2 {{RFC8305}} implementation).
+local IPv6 address synthesis (e.g., as part of a Happy Eyeballs v2 {{RFC8305}} implementation).
 IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail, as the presence of AAAA resource records prevents synthesis of DNS64 records.
 
 Testing with IPv4-Mapped IPv6 addresses {{RFC4291}} in AAAA resource records is also RECOMMENDED.
