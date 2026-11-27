@@ -230,7 +230,7 @@ For P2P applications and applications with complex connection handling such as u
 | IPv4-only            | Dual-stack           | base           |
 | IPv6-only with NAT64 | IPv4-only            | base           |
 | IPv6-only-strict     | Dual-stack           | base           |
-| IPv4-only            | IPv6-only with NAT64 | IPv6-only-DC   |
+| IPv4-only            | IPv6-only with NAT46 | IPv6-only-DC   |
 | Dual-stack           | Dual-stack           | extended       |
 | IPv4-only            | IPv4-only            | extended       |
 | IPv6-only with NAT64 | IPv6-only-strict     | extended       |
