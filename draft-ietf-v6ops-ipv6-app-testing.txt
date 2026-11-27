@@ -1100,6 +1100,14 @@ Table of Contents
               DOI 10.17487/RFC6052, October 2010,
               <https://www.rfc-editor.org/rfc/rfc6052>.
 
+   [RFC6146-bis]
+              Bagnulo, M., Matthews, P., and J. P. Martinez, "Stateful
+              NAT64: Network Address and Protocol Translation from IPv6
+              Clients to IPv4 Servers", Work in Progress, Internet-
+              Draft, draft-ietf-v6ops-rfc6146-bis-16, 4 September 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
+              rfc6146-bis-16>.
+
    [RFC6147]  Bagnulo, M., Sullivan, A., Matthews, P., and I. van
               Beijnum, "DNS64: DNS Extensions for Network Address
               Translation from IPv6 Clients to IPv4 Servers", RFC 6147,
@@ -1199,14 +1207,6 @@ Table of Contents
    [RFC5424]  Gerhards, R., "The Syslog Protocol", RFC 5424,
               DOI 10.17487/RFC5424, March 2009,
               <https://www.rfc-editor.org/rfc/rfc5424>.
-
-   [RFC6146-bis]
-              Bagnulo, M., Matthews, P., and J. P. Martinez, "Stateful
-              NAT64: Network Address and Protocol Translation from IPv6
-              Clients to IPv4 Servers", Work in Progress, Internet-
-              Draft, draft-ietf-v6ops-rfc6146-bis-16, 4 September 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-
-              rfc6146-bis-16>.
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
