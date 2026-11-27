@@ -300,7 +300,7 @@ IPv6-only clients with NAT64 that rely on DNS64 only are expected to fail, as th
 
 Testing with IPv4-Mapped IPv6 addresses {{RFC4291}} in AAAA resource records is also RECOMMENDED.
 While putting something that is technically an IPv4 address into an AAAA resource record makes no sense
-and is considered a misconfiguration, it has been seen in the wild. It SHOULD not confuse the client
+and is considered a misconfiguration, it has been seen in the wild. It SHOULD NOT confuse the client
 and MUST NOT circumvent security measures like allow/deny lists.
 
 ### DNS Delegation Issues
